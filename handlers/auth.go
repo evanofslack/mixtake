@@ -7,16 +7,20 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
+	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
 	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 )
 
 const redirectURI = "http://localhost:8080/callback"
+const session_name = "auth_session"
 
 var auth = &spotifyauth.Authenticator{}
+var Store = &sessions.CookieStore{}
 
 
 func InitAuth()  {
@@ -25,10 +29,12 @@ func InitAuth()  {
 		log.Fatal("Error loading .env file")
 	}
 	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURI), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
+	Store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
 
 }
 
 func CompleteAuth(w http.ResponseWriter, r *http.Request) {
+	session, _ := Store.Get(r, session_name)
 	state, _ := r.Cookie("oauthstate")
 	tok, err := auth.Token(r.Context(), state.Value, r)
 	if err != nil {
@@ -49,10 +55,23 @@ func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	fmt.Println("You are logged in as:", user.ID)
-	fmt.Println(tok.AccessToken)
-	fmt.Println(tok.RefreshToken)
-	fmt.Println(tok.Expiry)
-	fmt.Println(tok.TokenType)
+
+	session.Values["access-token"] = tok.AccessToken
+	session.Values["refresh-token"] = tok.RefreshToken
+	session.Values["expiry-token"] = tok.Expiry
+	session.Values["type-token"] = tok.TokenType
+	e := session.Save(r, w)
+	if e != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	
+	
+
+	// fmt.Println(tok.AccessToken)
+	// fmt.Println(tok.RefreshToken)
+	// fmt.Println(tok.Expiry)
+	// fmt.Println(tok.TokenType)
 	fmt.Fprintf(w, "Login Completed!")
 
 }

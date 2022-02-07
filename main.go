@@ -25,11 +25,8 @@ func main() {
 	r.Route("/callback", func(r chi.Router) {
 		r.Get("/", handlers.CompleteAuth)
 	})
-	r.Route("/read", func(r chi.Router) {
-		r.Get("/", handlers.TestSessionRead)
-	})
-	r.Route("/write", func(r chi.Router) {
-		r.Get("/", handlers.TestSessionWrite)
+	r.Route("/token", func(r chi.Router) {
+		r.Get("/", handlers.GetID)
 	})
 
 	fmt.Println("listening...")

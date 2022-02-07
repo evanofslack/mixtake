@@ -1,32 +1,23 @@
 package middleware
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/sessions"
 )
 
-// var store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
-var store = sessions.NewCookieStore([]byte("test-session-key"))
 
-func TestSessionWrite(w http.ResponseWriter, r *http.Request) {
-	session, _ := store.Get(r, "test-session")
-	session.Values["authenticated"] = true
-	err := session.Save(r, w)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-}
+var Store = sessions.NewCookieStore([]byte("test-session-key"))
+const session_name = "auth_session"
 
-func TestSessionRead(w http.ResponseWriter, r *http.Request) {
-	session, _ := store.Get(r, "test-session")
-	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
-		fmt.Println("Not authenticated")
-        http.Error(w, "Forbidden", http.StatusForbidden)
-        return
-	}
-	fmt.Println("Authenticated")
+func Authenticated(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
+		session, _ := Store.Get(r, session_name)
+		if auth, ok := session.Values["authenticated"].(bool); !auth || !ok {
+			http.Error(w, "Forbidden", http.StatusForbidden)
 
+		} else {
+			next.ServeHTTP(w, r)
+		}
+	})
 }
