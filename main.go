@@ -1,82 +1,47 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"log"
 	"net/http"
+	"os"
 
-	"github.com/joho/godotenv"
+	"mixtake/handlers"
 
-	spotifyauth "github.com/zmb3/spotify/v2/auth"
-
-	"github.com/zmb3/spotify/v2"
+	"github.com/go-chi/chi/v5"
 )
 
-// redirectURI is the OAuth redirect URI for the application.
-// You must register an application at Spotify's developer portal
-// and enter this value.
-const redirectURI = "http://localhost:8080/callback"
-
-var (
-	auth = &spotifyauth.Authenticator{}
-	ch    = make(chan *spotify.Client)
-	state = "abc123"
-)
-
-func getAuth()  {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURI), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
-
-}
 
 func main() {
-	getAuth()
-	// first start an HTTP server
-	http.HandleFunc("/callback", completeAuth)
-	http.HandleFunc("/login", login)
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Got request for:", r.URL.String())
+
+	handlers.InitAuth()
+
+	r := chi.NewRouter()
+	r.Route("/ping", func(r chi.Router) {
+		r.Get("/", handlers.Ping)
 	})
-	go func() {
-		err := http.ListenAndServe(":8080", nil)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
+	r.Route("/login", func(r chi.Router) {
+		r.Get("/", handlers.Login)
+	})
+	r.Route("/callback", func(r chi.Router) {
+		r.Get("/", handlers.CompleteAuth)
+	})
+	r.Route("/read", func(r chi.Router) {
+		r.Get("/", handlers.TestSessionRead)
+	})
+	r.Route("/write", func(r chi.Router) {
+		r.Get("/", handlers.TestSessionWrite)
+	})
 
-	// wait for auth to complete
-	client := <-ch
+	fmt.Println("listening...")
+	http.ListenAndServe(getPort(), r)
 
-	// use the client to make calls that require authorization
-	user, err := client.CurrentUser(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("You are logged in as:", user.ID)
 }
 
-func completeAuth(w http.ResponseWriter, r *http.Request) {
-	tok, err := auth.Token(r.Context(), state, r)
-	if err != nil {
-		http.Error(w, "Couldn't get token", http.StatusForbidden)
-		log.Fatal(err)
+func getPort() string {
+	var port = os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		fmt.Println("No PORT env variable found, defaulting to: " + port)
 	}
-	if st := r.FormValue("state"); st != state {
-		http.NotFound(w, r)
-		log.Fatalf("State mismatch: %s != %s\n", st, state)
-	}
-
-	// use the token to get an authenticated client
-	client := spotify.New(auth.Client(r.Context(), tok))
-	fmt.Fprintf(w, "Login Completed!")
-	ch <- client
-}
-
-func login(w http.ResponseWriter, r *http.Request) {
-	url := auth.AuthURL(state)
-	http.Redirect(w, r, url, http.StatusSeeOther)
+	return ":" + port
 }
