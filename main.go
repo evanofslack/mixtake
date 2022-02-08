@@ -2,19 +2,28 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
 	"mixtake/handlers"
 	mw "mixtake/middleware"
+	"mixtake/session"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/joho/godotenv"
 )
 
 
 func main() {
 
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	handlers.InitAuth()
+	session.InitSession()
 
 	r := chi.NewRouter()
 	r.Route("/ping", func(r chi.Router) {
