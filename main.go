@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"mixtake/handlers"
+	mw "mixtake/middleware"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -25,7 +26,8 @@ func main() {
 	r.Route("/callback", func(r chi.Router) {
 		r.Get("/", handlers.CompleteAuth)
 	})
-	r.Route("/token", func(r chi.Router) {
+	r.Route("/current_user", func(r chi.Router) {
+		r.Use(mw.Authenticated)
 		r.Get("/", handlers.GetID)
 	})
 

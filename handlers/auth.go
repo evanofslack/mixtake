@@ -23,6 +23,7 @@ var auth = &spotifyauth.Authenticator{}
 var Store = &sessions.CookieStore{}
 
 
+
 func InitAuth()  {
 	err := godotenv.Load()
 	if err != nil {
@@ -30,6 +31,12 @@ func InitAuth()  {
 	}
 	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURI), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
 	Store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
+	Store.Options = &sessions.Options{
+		Domain:   "localhost",
+		Path:     "/",
+		MaxAge:   3600 * 24, 
+		HttpOnly: true,
+	}
 
 }
 
@@ -56,23 +63,17 @@ func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("You are logged in as:", user.ID)
 
+	session.Values["authenticated"] = true
 	session.Values["access-token"] = tok.AccessToken
 	session.Values["refresh-token"] = tok.RefreshToken
-	session.Values["expiry-token"] = tok.Expiry
+	session.Values["expiry-token"] = tok.Expiry.Format(time.RFC3339)
 	session.Values["type-token"] = tok.TokenType
 	e := session.Save(r, w)
 	if e != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	
-	
-
-	// fmt.Println(tok.AccessToken)
-	// fmt.Println(tok.RefreshToken)
-	// fmt.Println(tok.Expiry)
-	// fmt.Println(tok.TokenType)
-	fmt.Fprintf(w, "Login Completed!")
+	fmt.Fprintf(w, user.ID)
 
 }
 
