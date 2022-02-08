@@ -2,18 +2,28 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
 	"mixtake/handlers"
+	mw "mixtake/middleware"
+	"mixtake/session"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/joho/godotenv"
 )
 
 
 func main() {
 
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	handlers.InitAuth()
+	session.InitSession()
 
 	r := chi.NewRouter()
 	r.Route("/ping", func(r chi.Router) {
@@ -25,8 +35,13 @@ func main() {
 	r.Route("/callback", func(r chi.Router) {
 		r.Get("/", handlers.CompleteAuth)
 	})
-	r.Route("/token", func(r chi.Router) {
+	r.Route("/current_user", func(r chi.Router) {
+		r.Use(mw.Authenticated)
 		r.Get("/", handlers.GetID)
+	})
+	r.Route("/playlists", func(r chi.Router) {
+		r.Use(mw.Authenticated)
+		r.Get("/", handlers.GetPlaylists)
 	})
 
 	fmt.Println("listening...")
