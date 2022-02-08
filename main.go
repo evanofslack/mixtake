@@ -39,6 +39,10 @@ func main() {
 		r.Use(mw.Authenticated)
 		r.Get("/", handlers.GetID)
 	})
+	r.Route("/playlists", func(r chi.Router) {
+		r.Use(mw.Authenticated)
+		r.Get("/", handlers.GetPlaylists)
+	})
 
 	fmt.Println("listening...")
 	http.ListenAndServe(getPort(), r)

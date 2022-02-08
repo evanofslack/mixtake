@@ -38,7 +38,8 @@ func GetToken(s *sessions.Session) *oauth2.Token {
 	token.RefreshToken = refresh
 	token.Expiry = t
 	token.TokenType = tokenType
-return token
+
+	return token
 }
 
 func SetToken(t *oauth2.Token, s *sessions.Session) {
