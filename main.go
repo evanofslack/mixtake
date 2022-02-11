@@ -50,17 +50,14 @@ func main() {
 	r.Route("/callback", func(r chi.Router) {
 		r.Get("/", handlers.CompleteAuth)
 	})
-	r.Route("/current_user", func(r chi.Router) {
+
+	r.Group(func(r chi.Router) {
 		r.Use(mw.Authenticated)
-		r.Get("/", handlers.GetID)
-	})
-	r.Route("/playlists", func(r chi.Router) {
-		r.Use(mw.Authenticated)
-		r.Get("/", handlers.GetPlaylists)
-	})
-	r.Route("/playlist_songs/{id}", func(r chi.Router) {
-		// r.Use(mw.Authenticated)
-		r.Get("/", handlers.GetPlaylistSongs)
+		r.Get("/current-user", handlers.GetUser)
+		r.Get("/playlists", handlers.GetPlaylists)
+		r.Get("/playlist-songs/{id}", handlers.GetPlaylistSongs)
+		r.Get("/song-features/{id}", handlers.GetSongFeatures)
+		r.Get("/song-analysis/{id}", handlers.GetSongAnalysis)
 	})
 
 	fmt.Println("listening...")

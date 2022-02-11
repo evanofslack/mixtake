@@ -42,7 +42,7 @@ func getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error){
 	return client, nil
 }
 
-func GetID(w http.ResponseWriter, r *http.Request) {
+func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	client, err := getClient(w, r)
 	if err != nil {
@@ -71,9 +71,9 @@ func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	for _, p := range(playlists.Playlists) {
-		fmt.Println(p.ID)
-	}
+	// for _, p := range(playlists.Playlists) {
+	// 	fmt.Println(p.ID)
+	// }
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -88,8 +88,8 @@ func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
 	if id := chi.URLParam(r, "id"); id != "" {
 		_id = spotify.ID(id)
 	} else {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
-		fmt.Println("no id")
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		fmt.Println("No playlist ID provided")
 		return
 	}
 
@@ -110,4 +110,58 @@ func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
 } 
 
 
+func GetSongFeatures(w http.ResponseWriter, r *http.Request) {
+	
+	var _id spotify.ID
+	if id := chi.URLParam(r, "id"); id != "" {
+		_id = spotify.ID(id)
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		fmt.Println("No song ID provided")
+		return
+	}
 
+	client, err := getClient(w, r)
+	if err != nil {
+		fmt.Println(err)
+	}
+	features, err := client.GetAudioFeatures(context.Background(), _id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(features[0]); err != nil {
+		log.Fatal(err)
+	}
+} 
+
+
+
+func GetSongAnalysis(w http.ResponseWriter, r *http.Request) {
+	
+	var _id spotify.ID
+	if id := chi.URLParam(r, "id"); id != "" {
+		_id = spotify.ID(id)
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		fmt.Println("No song ID provided")
+		return
+	}
+
+	client, err := getClient(w, r)
+	if err != nil {
+		fmt.Println(err)
+	}
+	analysis, err := client.GetAudioAnalysis(context.Background(), _id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(analysis); err != nil {
+		log.Fatal(err)
+	}
+} 
