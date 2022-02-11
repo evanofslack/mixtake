@@ -6,8 +6,6 @@ import (
 	"mixtake/session"
 )
 
-
-
 const session_name = "auth_session"
 
 func Authenticated(next http.Handler) http.Handler {

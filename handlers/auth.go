@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"mixtake/session"
@@ -15,14 +16,15 @@ import (
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 )
 
-const redirectURI = "http://localhost:8080/callback"
+
 const session_name = "auth_session"
 
 var auth = &spotifyauth.Authenticator{}
 
 
 func InitAuth()  {
-	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURI), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
+	redirectURL := os.Getenv("REDIRECT_URL")
+	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
 }
 
 func CompleteAuth(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +45,6 @@ func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("You are logged in as:", user.ID)
 
 	s.Values["authenticated"] = true
 	session.SetToken(token, s)
