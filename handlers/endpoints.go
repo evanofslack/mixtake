@@ -9,6 +9,7 @@ import (
 
 	"mixtake/session"
 
+	"github.com/go-chi/chi"
 	"github.com/gorilla/sessions"
 	"github.com/zmb3/spotify/v2"
 	"golang.org/x/oauth2"
@@ -70,10 +71,44 @@ func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
+	for _, p := range(playlists.Playlists) {
+		fmt.Println(p.ID)
+	}
+
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(playlists); err != nil {
 		log.Fatal(err)
 	}
 } 
+
+func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
+	
+	var _id spotify.ID
+	if id := chi.URLParam(r, "id"); id != "" {
+		_id = spotify.ID(id)
+	} else {
+		fmt.Println("no id")
+		return
+	}
+	
+	fmt.Println(_id)
+
+	client, err := getClient(w, r)
+	if err != nil {
+		fmt.Println(err)
+	}
+	songs, err := client.GetPlaylistTracks(context.Background(), _id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(songs); err != nil {
+		log.Fatal(err)
+	}
+} 
+
+
 

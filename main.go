@@ -11,6 +11,9 @@ import (
 	"mixtake/session"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
+
 	"github.com/joho/godotenv"
 )
 
@@ -26,6 +29,18 @@ func main() {
 	session.InitSession()
 
 	r := chi.NewRouter()
+
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"https://*", "http://*"},
+		AllowedMethods:   []string{"GET"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: false,
+		MaxAge:           500,
+	}))
+
 	r.Route("/ping", func(r chi.Router) {
 		r.Get("/", handlers.Ping)
 	})
@@ -42,6 +57,10 @@ func main() {
 	r.Route("/playlists", func(r chi.Router) {
 		r.Use(mw.Authenticated)
 		r.Get("/", handlers.GetPlaylists)
+	})
+	r.Route("/playlist_songs/{id}", func(r chi.Router) {
+		// r.Use(mw.Authenticated)
+		r.Get("/", handlers.GetPlaylistSongs)
 	})
 
 	fmt.Println("listening...")
