@@ -9,7 +9,7 @@ import (
 
 	"mixtake/session"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/sessions"
 	"github.com/zmb3/spotify/v2"
 	"golang.org/x/oauth2"
@@ -88,11 +88,10 @@ func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
 	if id := chi.URLParam(r, "id"); id != "" {
 		_id = spotify.ID(id)
 	} else {
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 		fmt.Println("no id")
 		return
 	}
-	
-	fmt.Println(_id)
 
 	client, err := getClient(w, r)
 	if err != nil {
