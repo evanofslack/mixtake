@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -18,63 +19,61 @@ func checkAccess(current_token, new_token *oauth2.Token, s *sessions.Session) {
 		session.SetToken(new_token, s)
 		fmt.Println("New access toking, saving to db")
 	}
-
 }
 
-func GetID(w http.ResponseWriter, r *http.Request) {
+func getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error){
 	s, err := session.Store.Get(r, session_name)
 	if err != nil {
-		fmt.Print(err)
+		return &spotify.Client{}, err
 	}
 	token := session.GetToken(s)
 	client := spotify.New(auth.Client(r.Context(), token))
 	new_token, err := client.Token()
 	if err != nil {
-		fmt.Println(err)
+		return &spotify.Client{}, err
 	}
 
 	checkAccess(token, new_token, s)
 	e := s.Save(r, w)
 	if e != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return &spotify.Client{}, err
 	}
+	return client, nil
+}
 
+func GetID(w http.ResponseWriter, r *http.Request) {
+
+	client, err := getClient(w, r)
+	if err != nil {
+		fmt.Println(err)
+	}
 	user, err := client.CurrentUser(context.Background())
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Fprintf(w, user.ID)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(user); err != nil {
+		log.Fatal(err)
+	}
 }
 
 
 func GetPlaylists(w http.ResponseWriter, r *http.Request) {
-	s, err := session.Store.Get(r, session_name)
-	if err != nil {
-		fmt.Print(err)
-	}
-	token := session.GetToken(s)
-	client := spotify.New(auth.Client(r.Context(), token))
-	new_token, err := client.Token()
+	client, err := getClient(w, r)
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	checkAccess(token, new_token, s)
-	e := s.Save(r, w)
-	if e != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 	playlists, err := client.CurrentUsersPlaylists(context.Background())
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _,p := range(playlists.Playlists) {
-		fmt.Println(p.Name)
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(playlists); err != nil {
+		log.Fatal(err)
 	}
- 
-	fmt.Fprintf(w, playlists.Playlists[0].Name)
-}
+} 
+
