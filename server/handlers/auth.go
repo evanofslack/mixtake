@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -16,20 +17,21 @@ import (
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 )
 
-
 const session_name = "auth_session"
 
 var auth = &spotifyauth.Authenticator{}
 
-
-func InitAuth()  {
+func InitAuth() {
 	redirectURL := os.Getenv("REDIRECT_URL")
 	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
 }
 
 func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 	s, _ := session.Store.Get(r, session_name)
-	state, _ := r.Cookie("oauthstate")
+	state, err := r.Cookie("oauthstate")
+	if err != nil {
+		log.Fatal(err)
+	}
 	token, err := auth.Token(r.Context(), state.Value, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
@@ -48,23 +50,39 @@ func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 
 	s.Values["authenticated"] = true
 	session.SetToken(token, s)
-	
+
 	e := s.Save(r, w)
 	if e != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Fprintf(w, user.ID)
+
+	http.Redirect(w, r, "http://localhost:3000/", http.StatusTemporaryRedirect)
+	fmt.Println(user.ID)
 
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	expiration := time.Now().Add(10 * time.Minute)
 	state := generateState(16)
-	http.SetCookie(w, &http.Cookie{Name:"oauthstate", Value: state, Expires: expiration, Secure: true, HttpOnly: true})
+	http.SetCookie(w, &http.Cookie{Name: "oauthstate", Value: state, Path: "/", Expires: expiration, Secure: true, HttpOnly: true})
 
-	url := auth.AuthURL(state)
-	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+	type response struct {
+		Url string `json:"url"`
+	}
+	resp := response{Url: auth.AuthURL(state)}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(resp); err != nil {
+		log.Fatal(err)
+	}
+
+	// url := auth.AuthURL(state)
+	// http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+
 }
 
 func generateState(length int) string {
@@ -73,4 +91,3 @@ func generateState(length int) string {
 	state := base64.URLEncoding.EncodeToString(b)
 	return state
 }
-
