@@ -1,6 +1,6 @@
 import React from "react";
 
-function LoginButton() {
+export default function LoginButton() {
     async function getRedirect() {
         await fetch("/api/login").then((response) =>
             response.json().then((data) => {
@@ -17,5 +17,3 @@ function LoginButton() {
         </button>
     );
 }
-
-export default LoginButton;
