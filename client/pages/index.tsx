@@ -8,8 +8,8 @@ const Home: NextPage = () => {
   const {isLoading, isAuth} = useAuth()
 
   return (
-    <div>
-      <div>Welcome to Mixtake</div>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="text-5xl py-16" >Welcome to Mixtake</h1>
 
       {isLoading && !isAuth && (
         <div>Loading</div>
