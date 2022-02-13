@@ -11,28 +11,13 @@ function PlaylistGallery(): JSX.Element {
     if (isError) return <div>An error has occurred</div>;
 
     return (
-        <div>
+        <div >
             {playlistPage.items && playlistPage.items.map((playlist, index) => {
                 return <PlaylistCard playlist={playlist} key={index} />
             })}
         </div>
     )
 
-    
-    
-
-    // return <div>Test</div>
-
-    // if (playlistPage) 
-
-    // {
-    //     playlistPage.items && playlistPage.items.map((p, index) => {
-    //         return (
-    //             <PlaylistCard key={index} playlist={p} />
-    //         )
-    //     })
-    // }
-    
 }
 
 export default PlaylistGallery;
