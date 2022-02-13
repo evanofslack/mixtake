@@ -22,7 +22,7 @@ func checkAccess(current_token, new_token *oauth2.Token, s *sessions.Session) {
 	}
 }
 
-func getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error){
+func getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error) {
 	s, err := session.Store.Get(r, session_name)
 	if err != nil {
 		return &spotify.Client{}, err
@@ -55,11 +55,12 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(user); err != nil {
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(user); err != nil {
 		log.Fatal(err)
 	}
 }
-
 
 func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 	client, err := getClient(w, r)
@@ -77,13 +78,15 @@ func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(playlists); err != nil {
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(playlists); err != nil {
 		log.Fatal(err)
 	}
-} 
+}
 
 func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
-	
+
 	var _id spotify.ID
 	if id := chi.URLParam(r, "id"); id != "" {
 		_id = spotify.ID(id)
@@ -104,14 +107,15 @@ func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(songs); err != nil {
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(songs); err != nil {
 		log.Fatal(err)
 	}
-} 
-
+}
 
 func GetSongFeatures(w http.ResponseWriter, r *http.Request) {
-	
+
 	var _id spotify.ID
 	if id := chi.URLParam(r, "id"); id != "" {
 		_id = spotify.ID(id)
@@ -132,15 +136,15 @@ func GetSongFeatures(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(features[0]); err != nil {
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(features[0]); err != nil {
 		log.Fatal(err)
 	}
-} 
-
-
+}
 
 func GetSongAnalysis(w http.ResponseWriter, r *http.Request) {
-	
+
 	var _id spotify.ID
 	if id := chi.URLParam(r, "id"); id != "" {
 		_id = spotify.ID(id)
@@ -161,7 +165,9 @@ func GetSongAnalysis(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(analysis); err != nil {
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(analysis); err != nil {
 		log.Fatal(err)
 	}
-} 
+}
