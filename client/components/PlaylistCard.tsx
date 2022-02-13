@@ -1,12 +1,17 @@
 import React from "react";
 import Image from "next/image"
-import { Playlist } from "../interfaces/spotify"
+import { Playlist } from "../interfaces/playlist"
 
-export default function PlaylistCard(props: Playlist) {
+type cardProps = {
+    playlist: Playlist
+}
+
+export default function PlaylistCard({ playlist }: cardProps): JSX.Element {
+
     return (
         <div>
-            <Image src={props.image_url}></Image>
-            <p>{props.name}</p>
+            {playlist.images && <Image src={playlist.images[0].url} width={playlist.images[0].width} height={playlist.images[0].height} />}
+            <p>{playlist.name}</p>
         </div>
     );
 }

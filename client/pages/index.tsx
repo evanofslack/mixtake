@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import LoginButton from '../components/LoginButton'
 import useAuth from '../hooks/useAuth'
+import PlaylistGallery from '../components/PlaylistGallery'
 
 const Home: NextPage = () => {
 
@@ -20,7 +21,11 @@ const Home: NextPage = () => {
       )}
 
       {!isLoading && isAuth && (
-        <div>You are logged in </div>
+        <div>
+          <div>You are logged in </div>
+          <PlaylistGallery/>
+        </div>
+       
       )}
       
     </div>
