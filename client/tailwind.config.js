@@ -6,7 +6,7 @@ module.exports = {
                 "spotify-green": "#1db954",
                 "light-bg": "#ebebeb",
                 "light-primary": "#072652",
-                "light-secondary": "#105e61",
+                "light-secondary": "#0d4f52",
             },
         },
     },

@@ -10,7 +10,7 @@ export default function LoginButton() {
         );
     }
     return (
-        <button className="bg-spotify-green rounded-md p-2 text-white"
+        <button className="bg-spotify-green rounded-md p-2 px-8 text-white font-medium"
             onClick={() => getRedirect()}
         >
             CONNECT WITH SPOTIFY
