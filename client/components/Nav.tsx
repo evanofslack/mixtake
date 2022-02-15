@@ -20,9 +20,6 @@ export default function Nav() {
             })
         );
     }
-    
-
-
 
     return (
         <nav className="flex flex-row text-light-primary p-2 text-lg font-medium justify-between">
