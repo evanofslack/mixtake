@@ -10,7 +10,7 @@ function PlaylistGallery(): JSX.Element {
     if (isError) return <div>An error has occurred</div>;
 
     return (
-        <div >
+        <div className="flex flex-row items-center justify-center flex-wrap px-2">
             {playlistPage.items && playlistPage.items.map((playlist, index) => {
                 return <PlaylistCard playlist={playlist} key={index} />
             })}

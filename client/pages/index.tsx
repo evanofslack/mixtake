@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Layout from "../components/Layout"
 import useUser from '../hooks/useUser'
-import PlaylistGallery from '../components/PlaylistGallery'
+import Overview from '../components/Overview'
 import Landing from '../components/Landing'
 
 const Home: NextPage = () => {
@@ -20,9 +20,7 @@ const Home: NextPage = () => {
           )}
 
           {!isLoading && user && (
-            <div>
-              <PlaylistGallery/>
-            </div>
+            <Overview/>
           )}
     </Layout>
 

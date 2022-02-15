@@ -37,14 +37,14 @@ export default function Nav() {
             )}
 
             {!isLoading && user && (
-                <div className="flex flex-row items-center hover:stroke-1 hover:text-blue-500">
+                <div className="flex flex-row items-center">
                     Hi {user.display_name.split(" ")[0]}
                     {/* <div className="w-16 h-16">
                         {user.images &&
                             <Image src={user.images[0].url} width={user.images[0].width} height={user.images[0].height} layout="responsive"/>
                         }
                     </div> */}
-                    &nbsp;<BiLogOut size="1.4rem" onClick={logout} className="hover:stroke-2"/>
+                    &nbsp;<BiLogOut size="1.4rem" onClick={logout}/>
                 </div>
             )}
         </nav>
