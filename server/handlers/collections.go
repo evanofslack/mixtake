@@ -7,40 +7,9 @@ import (
 	"log"
 	"net/http"
 
-	"mixtake/session"
-
 	"github.com/go-chi/chi/v5"
-	"github.com/gorilla/sessions"
 	"github.com/zmb3/spotify/v2"
-	"golang.org/x/oauth2"
 )
-
-func checkAccess(current_token, new_token *oauth2.Token, s *sessions.Session) {
-	if new_token.AccessToken != current_token.AccessToken {
-		session.SetToken(new_token, s)
-		fmt.Println("New access toking, saving to db")
-	}
-}
-
-func getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error) {
-	s, err := session.Store.Get(r, session_name)
-	if err != nil {
-		return &spotify.Client{}, err
-	}
-	token := session.GetToken(s)
-	client := spotify.New(auth.Client(r.Context(), token))
-	new_token, err := client.Token()
-	if err != nil {
-		return &spotify.Client{}, err
-	}
-
-	checkAccess(token, new_token, s)
-	e := s.Save(r, w)
-	if e != nil {
-		return &spotify.Client{}, err
-	}
-	return client, nil
-}
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
 
