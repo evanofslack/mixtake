@@ -1,7 +1,6 @@
 import React from "react";
 import usePlaylist from "../hooks/usePlaylist"
 import PlaylistCard from "./PlaylistCard";
-// import { Playlist } from "../interfaces/playlist"
 
 function PlaylistGallery(): JSX.Element {
     const { playlistPage, isLoading, isError } = usePlaylist()
