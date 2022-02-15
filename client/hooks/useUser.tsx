@@ -1,32 +1,19 @@
-import { useState, useEffect } from 'react'
 import { User } from "../interfaces/user"
+import useSWR from 'swr'
 
-
-async function getUser(): Promise<User | null> {
-
-    let user = null
-    const response = await fetch("/api/current-user")
-    if (response.status != 200) {
-        user = null
-    } else {
-        user = response.json()
-    }
-    return user
-}
-
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export default function useUser() {
 
-    const [isLoading, setLoading] = useState(true)
-    const [user, setUser] = useState<User | null>(null)
+    let user: User | null = null
 
-    useEffect(() => {
-
-        getUser().then((user) => {
-            setUser(user)
-            setLoading(false)
-        })
-    }, [])
-
-    return {isLoading, user}
+    const { data, error } = useSWR('/api/current-user', fetcher)
+    if (!error) {
+        user = data
+    }
+    return {
+        user: user,
+        isLoading: !error && !data,
+        error: error
+    }
 }

@@ -6,7 +6,7 @@ import Landing from '../components/Landing'
 
 const Home: NextPage = () => {
 
-  const {isLoading, user} = useUser()
+  const {user, isLoading, error} = useUser()
 
   return (
 
