@@ -17,7 +17,7 @@ func InitSession() {
 	Store.Options = &sessions.Options{
 		Domain:   "localhost",
 		Path:     "/",
-		MaxAge:   0, 
+		MaxAge:   0,
 		HttpOnly: true,
 	}
 }
@@ -47,4 +47,11 @@ func SetToken(t *oauth2.Token, s *sessions.Session) {
 	s.Values["refresh-token"] = t.RefreshToken
 	s.Values["expiry-token"] = t.Expiry.Format(time.RFC3339)
 	s.Values["type-token"] = t.TokenType
+}
+
+func ClearToken(s *sessions.Session) {
+	s.Values["access-token"] = ""
+	s.Values["refresh-token"] = ""
+	s.Values["expiry-token"] = ""
+	s.Values["type-token"] = ""
 }

@@ -53,7 +53,7 @@ func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 
 	e := s.Save(r, w)
 	if e != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, e.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -79,10 +79,28 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if err := enc.Encode(resp); err != nil {
 		log.Fatal(err)
 	}
+}
 
-	// url := auth.AuthURL(state)
-	// http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+func Logout(w http.ResponseWriter, r *http.Request) {
+	s, _ := session.Store.Get(r, session_name)
+	s.Values["authenticated"] = false
+	err := s.Save(r, w)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
+	type response struct {
+		Message string `json:"message"`
+	}
+	resp := response{Message: "session ended"}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func generateState(length int) string {

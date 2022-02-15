@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ["i.scdn.co", "mosaic.scdn.co"],
+        domains: ["i.scdn.co", "mosaic.scdn.co", "platform-lookaside.fbsbx.com"],
     },
     async rewrites() {
         return [

@@ -46,6 +46,9 @@ func main() {
 	r.Route("/login", func(r chi.Router) {
 		r.Get("/", handlers.Login)
 	})
+	r.Route("/logout", func(r chi.Router) {
+		r.Get("/", handlers.Logout)
+	})
 	r.Route("/callback", func(r chi.Router) {
 		r.Get("/", handlers.CompleteAuth)
 	})
