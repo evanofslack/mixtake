@@ -25,7 +25,7 @@ var auth = &spotifyauth.Authenticator{}
 
 func InitAuth() {
 	redirectURL := os.Getenv("REDIRECT_URL")
-	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate, spotifyauth.ScopeUserReadPlaybackState))
+	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState, spotifyauth.ScopeUserReadRecentlyPlayed, spotifyauth.ScopeUserReadCurrentlyPlaying))
 }
 
 func CompleteAuth(w http.ResponseWriter, r *http.Request) {

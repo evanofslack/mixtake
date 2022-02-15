@@ -62,6 +62,16 @@ func main() {
 		r.Get("/song-analysis/{id}", handlers.GetSongAnalysis)
 	})
 
+	r.Group(func(r chi.Router) {
+		r.Use(mw.Authenticated)
+		r.Get("/play", handlers.StartPlayback)
+		r.Get("/pause", handlers.PausePlayback)
+		r.Get("/current-track", handlers.GetCurrentPlayback)
+		r.Get("/recent-track", handlers.GetRecentlyPlayed)
+		r.Get("/playback-state", handlers.GetPlaybackState)
+
+	})
+
 	fmt.Println("listening...")
 	http.ListenAndServe(getPort(), r)
 
