@@ -1,26 +1,25 @@
 import type { NextPage } from 'next'
 import Layout from "../components/Layout"
-import LoginButton from '../components/LoginButton'
-import useAuth from '../hooks/useAuth'
+import useUser from '../hooks/useUser'
 import PlaylistGallery from '../components/PlaylistGallery'
 import Landing from '../components/Landing'
 
 const Home: NextPage = () => {
 
-  const {isLoading, isAuth} = useAuth()
+  const {user, isLoading, error} = useUser()
 
   return (
 
     <Layout title="Mixtake">
-          {isLoading && !isAuth && (
+          {isLoading && !user && (
             <div>Loading</div>
           )}
 
-          {!isLoading && !isAuth && (
+          {!isLoading && !user && (
             <Landing />
           )}
 
-          {!isLoading && isAuth && (
+          {!isLoading && user && (
             <div>
               <PlaylistGallery/>
             </div>
