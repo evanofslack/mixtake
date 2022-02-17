@@ -57,7 +57,7 @@ func main() {
 		r.Use(mw.Authenticated)
 		r.Get("/current-user", handlers.GetUser)
 		r.Get("/playlists", handlers.GetPlaylists)
-		r.Get("/playlist-songs/{id}", handlers.GetPlaylistSongs)
+		r.Get("/playlist/{id}", handlers.GetPlaylist)
 		r.Get("/song-features/{id}", handlers.GetSongFeatures)
 		r.Get("/song-analysis/{id}", handlers.GetSongAnalysis)
 	})

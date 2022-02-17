@@ -32,25 +32,39 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetPlaylists(w http.ResponseWriter, r *http.Request) {
+
+	type response struct {
+		Items []spotify.FullPlaylist `json:"items"`
+	}
+
+	resp := response{}
+
 	client, err := getClient(w, r)
 	if err != nil {
 		fmt.Println(err)
 	}
-	playlists, err := client.CurrentUsersPlaylists(context.Background())
+	playlistPage, err := client.CurrentUsersPlaylists(context.Background())
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+	}
+	for _, playlist := range playlistPage.Playlists {
+		p, err := client.GetPlaylist(context.Background(), playlist.ID)
+		if err != nil {
+			fmt.Println(err)
+		}
+		resp.Items = append(resp.Items, *p)
 	}
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 	enc := json.NewEncoder(w)
 	enc.SetEscapeHTML(false)
-	if err := enc.Encode(playlists); err != nil {
-		log.Fatal(err)
+	if err := enc.Encode(resp); err != nil {
+		fmt.Println(err)
 	}
 }
 
-func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
+func GetPlaylist(w http.ResponseWriter, r *http.Request) {
 
 	var _id spotify.ID
 	if id := chi.URLParam(r, "id"); id != "" {
@@ -65,7 +79,7 @@ func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	songs, err := client.GetPlaylistTracks(context.Background(), _id)
+	playlist, err := client.GetPlaylist(context.Background(), _id)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -74,7 +88,7 @@ func GetPlaylistSongs(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	enc := json.NewEncoder(w)
 	enc.SetEscapeHTML(false)
-	if err := enc.Encode(songs); err != nil {
+	if err := enc.Encode(playlist); err != nil {
 		log.Fatal(err)
 	}
 }
