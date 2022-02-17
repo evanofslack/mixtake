@@ -58,8 +58,7 @@ func main() {
 		r.Get("/current-user", handlers.GetUser)
 		r.Get("/playlists", handlers.GetPlaylists)
 		r.Get("/playlist/{id}", handlers.GetPlaylist)
-		r.Get("/song-features/{id}", handlers.GetSongFeatures)
-		r.Get("/song-analysis/{id}", handlers.GetSongAnalysis)
+		r.Get("/playlist-features/{id}", handlers.GetPlaylistFeatures)
 	})
 
 	r.Group(func(r chi.Router) {
