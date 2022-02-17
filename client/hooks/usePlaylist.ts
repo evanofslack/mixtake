@@ -1,15 +1,16 @@
 import useSWR from 'swr'
-import {PlaylistPage} from '../interfaces/playlist'
+import {Playlist} from '../interfaces/playlist'
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
-export default function usePlaylist() {
-    const { data, error } = useSWR(`/api/playlists`, fetcher)
-    let pp: PlaylistPage = data
+export default function usePlaylistPage(id: string) {
+  
+    const { data, error } = useSWR(`/api/playlist/`+id, fetcher, { loadingTimeout: 50000 })
+  let p: Playlist = data
 
   return {
-    playlistPage: pp,
-    isLoading: !error && !data,
-    isError: error
+    playlist: p,
+    loading: !error && !data,
+    error: error
   }
 }
