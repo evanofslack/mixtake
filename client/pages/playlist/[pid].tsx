@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import usePlaylist from '../../hooks/usePlaylist'
 import PlaylistCard from '../../components/PlaylistCard'
+import FeatureBurst from '../../components/FeatureBurst'
 
 function Playlist() {
   const router = useRouter()
@@ -17,7 +18,10 @@ function Playlist() {
   if (error) return <div>An error has occurred</div>;
 
   return (
-    <PlaylistCard playlist={playlist}/>
+    <div>
+      <PlaylistCard playlist={playlist}/>
+      <FeatureBurst id={pid}/>
+    </div>
   )
 
 }
