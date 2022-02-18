@@ -18,8 +18,8 @@ const Layout = ({ children, title }: Props) => (
             <Nav />
         </header>
         {children}
+        <div className="h-screen w-screen" />
         <footer>
-            <hr />
             <span>Footer</span>
         </footer>
     </div>
