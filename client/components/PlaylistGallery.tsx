@@ -1,13 +1,13 @@
 import React from "react";
-import usePlaylist from "../hooks/usePlaylist"
+import usePlaylistPage from "../hooks/usePlaylistPage"
 import PlaylistCard from "./PlaylistCard";
 
 function PlaylistGallery(): JSX.Element {
-    const { playlistPage, isLoading, isError } = usePlaylist()
+    const { playlistPage, loading, error } = usePlaylistPage()
 
-    if (isLoading) return <div>Is loading</div>;
+    if (loading) return <div>Loading</div>;
 
-    if (isError) return <div>An error has occurred</div>;
+    if (error) return <div>An error has occurred</div>;
 
     return (
         <div className="flex flex-row items-center justify-center flex-wrap px-2">
