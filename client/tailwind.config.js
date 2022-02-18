@@ -4,8 +4,8 @@ module.exports = {
         extend: {
             colors: {
                 "spotify-green": "#1db954",
-                "light-bg": "#ebebeb",
-                "light-primary": "#072652",
+                "light-bg": "#FAFAFA",
+                "light-primary": "#344459",
                 "light-secondary": "#0d4f52",
             },
         },

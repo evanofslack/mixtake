@@ -29,7 +29,7 @@ export default function FeatureRadar({ id }: radarProps): JSX.Element {
                 <p>Time Signature: {features.time_signature}</p>
                 <p>Tempo: {features.tempo}</p>
             </div> */}
-            <div className=" h-96 w-96">
+            <div className=" h-[29rem] w-[29rem] rounded-[2rem]">
                 <ResponsiveRadar
                     data={[
                         {
@@ -49,43 +49,27 @@ export default function FeatureRadar({ id }: radarProps): JSX.Element {
                             playlist: features.valence,
                         },
                         {
-                            features: "Instrumental",
-                            playlist: features.instrumentalness,
+                            features: "Speechiness",
+                            playlist: features.speechiness,
                         },
                     ]}
                     keys={["playlist"]}
                     indexBy="features"
                     valueFormat=">-.2f"
-                    margin={{ top: 70, right: 100, bottom: 40, left: 100 }}
+                    margin={{ top: 0, right: 120, bottom: 0, left: 120 }}
                     borderColor={{ from: "color" }}
                     gridLabelOffset={36}
                     dotSize={10}
                     dotColor={{ theme: "background" }}
                     dotBorderWidth={2}
-                    colors={{ scheme: "nivo" }}
+                    colors={{ scheme: "dark2" }}
                     blendMode="multiply"
                     motionConfig="wobbly"
-                    // legends={[
-                    //     {
-                    //         anchor: "top-left",
-                    //         direction: "column",
-                    //         translateX: -50,
-                    //         translateY: -40,
-                    //         itemWidth: 80,
-                    //         itemHeight: 20,
-                    //         itemTextColor: "#999",
-                    //         symbolSize: 12,
-                    //         symbolShape: "circle",
-                    //         effects: [
-                    //             {
-                    //                 on: "hover",
-                    //                 style: {
-                    //                     itemTextColor: "#000",
-                    //                 },
-                    //             },
-                    //         ],
-                    //     },
-                    // ]}
+                    borderWidth={3}
+                    fillOpacity={0.4}
+                    gridShape="linear"
+                    gridLevels={3}
+                    theme={{ textColor: "#344459", fontSize: 14 }}
                 />
             </div>
         </div>
