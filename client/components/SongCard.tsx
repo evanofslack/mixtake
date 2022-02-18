@@ -1,19 +1,23 @@
 import React from "react";
-import Image from "next/image"
-import { Playlist } from "../interfaces/playlist"
+import Image from "next/image";
+import { Track } from "../interfaces/playlist";
 
 type props = {
-    song: Playlist
-}
+    track: Track;
+};
 
-export default function PlaylistCard({ song }: props): JSX.Element {
-
+export default function PlaylistCard({ track }: props): JSX.Element {
     return (
-        <div className="w-80 h-max bg-white p-4 pb-2 m-4 rounded-sm flex flex-col drop-shadow-sm hover:drop-shadow-md">
-            {playlist.images &&
-                    <Image src={playlist.images[0].url} width={playlist.images[0].width} height={playlist.images[0].height} />}
-            <p className="pt-2">{playlist.name}</p>
-
+        <div className="m-4 flex h-max w-80 flex-col rounded-sm bg-white p-4 pb-2 drop-shadow-sm hover:drop-shadow-md">
+            {track.album.images && (
+                <Image
+                    src={track.album.images[0].url}
+                    width={track.album.images[0].width}
+                    height={track.album.images[0].height}
+                    alt={"playlist cover"}
+                />
+            )}
+            <p className="pt-2">{track.name}</p>
         </div>
     );
 }
