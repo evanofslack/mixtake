@@ -50,7 +50,7 @@ func main() {
 		r.Get("/", handlers.Logout)
 	})
 	r.Route("/callback", func(r chi.Router) {
-		r.Get("/", handlers.CompleteAuth)
+		r.Get("/", handlers.Callback)
 	})
 
 	r.Group(func(r chi.Router) {
