@@ -1,4 +1,4 @@
-package handlers
+package main
 
 import (
 	"context"
@@ -10,8 +10,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-
-	"mixtake/session"
 
 	"github.com/gorilla/sessions"
 	"github.com/zmb3/spotify/v2"
@@ -48,7 +46,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Callback(w http.ResponseWriter, r *http.Request) {
-	s, _ := session.Store.Get(r, session_name)
+	s, _ := Store.Get(r, session_name)
 	state, err := r.Cookie("oauthstate")
 	if err != nil {
 		fmt.Println("here")
@@ -72,7 +70,7 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(user.ID)
 
 	s.Values["authenticated"] = true
-	session.SetToken(token, s)
+	SetToken(token, s)
 
 	e := s.Save(r, w)
 	if e != nil {
@@ -84,7 +82,7 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
-	s, _ := session.Store.Get(r, session_name)
+	s, _ := Store.Get(r, session_name)
 	s.Values["authenticated"] = false
 	err := s.Save(r, w)
 	if err != nil {
@@ -107,17 +105,17 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 
 func checkAccess(current_token, new_token *oauth2.Token, s *sessions.Session) {
 	if new_token.AccessToken != current_token.AccessToken {
-		session.SetToken(new_token, s)
+		SetToken(new_token, s)
 		fmt.Println("New access toking, saving to db")
 	}
 }
 
 func getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error) {
-	s, err := session.Store.Get(r, session_name)
+	s, err := Store.Get(r, session_name)
 	if err != nil {
 		return &spotify.Client{}, err
 	}
-	token := session.GetToken(s)
+	token := GetToken(s)
 	client := spotify.New(auth.Client(r.Context(), token))
 	new_token, err := client.Token()
 	if err != nil {

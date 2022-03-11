@@ -6,10 +6,6 @@ import (
 	"net/http"
 	"os"
 
-	"mixtake/handlers"
-	mw "mixtake/middleware"
-	"mixtake/session"
-
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -24,8 +20,8 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	handlers.InitAuth()
-	session.InitSession()
+	InitAuth()
+	InitSession()
 
 	r := chi.NewRouter()
 
@@ -41,33 +37,33 @@ func main() {
 	}))
 
 	r.Route("/ping", func(r chi.Router) {
-		r.Get("/", handlers.Ping)
+		r.Get("/", Ping)
 	})
 	r.Route("/login", func(r chi.Router) {
-		r.Get("/", handlers.Login)
+		r.Get("/", Login)
 	})
 	r.Route("/logout", func(r chi.Router) {
-		r.Get("/", handlers.Logout)
+		r.Get("/", Logout)
 	})
 	r.Route("/callback", func(r chi.Router) {
-		r.Get("/", handlers.Callback)
+		r.Get("/", Callback)
 	})
 
 	r.Group(func(r chi.Router) {
-		r.Use(mw.Authenticated)
-		r.Get("/current-user", handlers.GetUser)
-		r.Get("/playlists", handlers.GetPlaylists)
-		r.Get("/playlist/{id}", handlers.GetPlaylist)
-		r.Get("/playlist-features/{id}", handlers.GetPlaylistFeatures)
+		r.Use(Authenticated)
+		r.Get("/current-user", GetUser)
+		r.Get("/playlists", GetPlaylists)
+		r.Get("/playlist/{id}", GetPlaylist)
+		r.Get("/playlist-features/{id}", GetPlaylistFeatures)
 	})
 
 	r.Group(func(r chi.Router) {
-		r.Use(mw.Authenticated)
-		r.Get("/play", handlers.StartPlayback)
-		r.Get("/pause", handlers.PausePlayback)
-		r.Get("/current-track", handlers.GetCurrentPlayback)
-		r.Get("/recent-track", handlers.GetRecentlyPlayed)
-		r.Get("/playback-state", handlers.GetPlaybackState)
+		r.Use(Authenticated)
+		r.Get("/play", StartPlayback)
+		r.Get("/pause", PausePlayback)
+		r.Get("/current-track", GetCurrentPlayback)
+		r.Get("/recent-track", GetRecentlyPlayed)
+		r.Get("/playback-state", GetPlaybackState)
 
 	})
 
