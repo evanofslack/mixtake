@@ -28,10 +28,30 @@ func InitAuth() {
 	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState, spotifyauth.ScopeUserReadRecentlyPlayed, spotifyauth.ScopeUserReadCurrentlyPlaying))
 }
 
-func CompleteAuth(w http.ResponseWriter, r *http.Request) {
+func Login(w http.ResponseWriter, r *http.Request) {
+	expiration := time.Now().Add(10 * time.Minute)
+	state := generateState(16)
+	http.SetCookie(w, &http.Cookie{Name: "oauthstate", Value: state, Path: "/", Expires: expiration, Secure: false, HttpOnly: true})
+
+	type response struct {
+		Url string `json:"url"`
+	}
+	resp := response{Url: auth.AuthURL(state)}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	if err := enc.Encode(resp); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func Callback(w http.ResponseWriter, r *http.Request) {
 	s, _ := session.Store.Get(r, session_name)
 	state, err := r.Cookie("oauthstate")
 	if err != nil {
+		fmt.Println("here")
 		log.Fatal(err)
 	}
 	token, err := auth.Token(r.Context(), state.Value, r)
@@ -49,6 +69,7 @@ func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(user.ID)
 
 	s.Values["authenticated"] = true
 	session.SetToken(token, s)
@@ -60,26 +81,6 @@ func CompleteAuth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, "http://localhost:3000/", http.StatusTemporaryRedirect)
-	fmt.Println(user.ID)
-}
-
-func Login(w http.ResponseWriter, r *http.Request) {
-	expiration := time.Now().Add(10 * time.Minute)
-	state := generateState(16)
-	http.SetCookie(w, &http.Cookie{Name: "oauthstate", Value: state, Path: "/", Expires: expiration, Secure: true, HttpOnly: true})
-
-	type response struct {
-		Url string `json:"url"`
-	}
-	resp := response{Url: auth.AuthURL(state)}
-
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	enc := json.NewEncoder(w)
-	enc.SetEscapeHTML(false)
-	if err := enc.Encode(resp); err != nil {
-		log.Fatal(err)
-	}
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
