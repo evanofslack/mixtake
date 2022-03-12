@@ -9,7 +9,7 @@ import (
 	"golang.org/x/oauth2"
 )
 
-func NewStore() *sessions.CookieStore {
+func newStore() *sessions.CookieStore {
 
 	store := sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
 	store.Options = &sessions.Options{
@@ -21,7 +21,7 @@ func NewStore() *sessions.CookieStore {
 	return store
 }
 
-func GetToken(s *sessions.Session) *oauth2.Token {
+func getToken(s *sessions.Session) *oauth2.Token {
 	access := s.Values["access-token"].(string)
 	refresh := s.Values["refresh-token"].(string)
 	expiry := s.Values["expiry-token"].(string)
@@ -41,7 +41,7 @@ func GetToken(s *sessions.Session) *oauth2.Token {
 	return token
 }
 
-func SetToken(t *oauth2.Token, s *sessions.Session) {
+func setToken(t *oauth2.Token, s *sessions.Session) {
 	s.Values["access-token"] = t.AccessToken
 	s.Values["refresh-token"] = t.RefreshToken
 	s.Values["expiry-token"] = t.Expiry.Format(time.RFC3339)

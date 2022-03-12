@@ -10,6 +10,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/sessions"
 	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
@@ -18,15 +19,24 @@ import (
 
 const session_name = "auth_session"
 
-func NewAuth() *spotifyauth.Authenticator {
+func newAuth() *spotifyauth.Authenticator {
 	redirectURL := os.Getenv("REDIRECT_URL")
 	auth := spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState, spotifyauth.ScopeUserReadRecentlyPlayed, spotifyauth.ScopeUserReadCurrentlyPlaying))
 	return auth
 }
 
+func (s *server) mountAuth() {
+	s.router.Route("/login", func(r chi.Router) { r.Get("/", s.login) })
+	s.router.Route("/logout", func(r chi.Router) { r.Get("/", s.logout) })
+	s.router.Route("/callback", func(r chi.Router) {
+		r.Get("/", s.callback)
+	})
+}
+
 func (s *server) login(w http.ResponseWriter, r *http.Request) {
 	expiration := time.Now().Add(10 * time.Minute)
 	state := generateState(16)
+
 	http.SetCookie(w, &http.Cookie{Name: "oauthstate", Value: state, Path: "/", Expires: expiration, Secure: false, HttpOnly: true})
 
 	type response struct {
@@ -67,7 +77,7 @@ func (s *server) callback(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(user.ID)
 
 	session.Values["authenticated"] = true
-	SetToken(token, session)
+	setToken(token, session)
 
 	e := session.Save(r, w)
 	if e != nil {
@@ -102,7 +112,7 @@ func (s *server) logout(w http.ResponseWriter, r *http.Request) {
 
 func checkAccess(current_token, new_token *oauth2.Token, s *sessions.Session) {
 	if new_token.AccessToken != current_token.AccessToken {
-		SetToken(new_token, s)
+		setToken(new_token, s)
 		fmt.Println("New access toking, saving to db")
 	}
 }
@@ -112,7 +122,7 @@ func (s *server) getClient(w http.ResponseWriter, r *http.Request) (*spotify.Cli
 	if err != nil {
 		return &spotify.Client{}, err
 	}
-	token := GetToken(session)
+	token := getToken(session)
 	client := spotify.New(s.auth.Client(r.Context(), token))
 	new_token, err := client.Token()
 	if err != nil {
