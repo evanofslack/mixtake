@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
@@ -19,14 +18,13 @@ import (
 
 const session_name = "auth_session"
 
-var auth = &spotifyauth.Authenticator{}
-
-func InitAuth() {
+func NewAuth() *spotifyauth.Authenticator {
 	redirectURL := os.Getenv("REDIRECT_URL")
-	auth = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState, spotifyauth.ScopeUserReadRecentlyPlayed, spotifyauth.ScopeUserReadCurrentlyPlaying))
+	auth := spotifyauth.New(spotifyauth.WithRedirectURL(redirectURL), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState, spotifyauth.ScopeUserReadRecentlyPlayed, spotifyauth.ScopeUserReadCurrentlyPlaying))
+	return auth
 }
 
-func Login(w http.ResponseWriter, r *http.Request) {
+func (s *server) login(w http.ResponseWriter, r *http.Request) {
 	expiration := time.Now().Add(10 * time.Minute)
 	state := generateState(16)
 	http.SetCookie(w, &http.Cookie{Name: "oauthstate", Value: state, Path: "/", Expires: expiration, Secure: false, HttpOnly: true})
@@ -34,7 +32,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	type response struct {
 		Url string `json:"url"`
 	}
-	resp := response{Url: auth.AuthURL(state)}
+	resp := response{Url: s.auth.AuthURL(state)}
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -45,14 +43,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Callback(w http.ResponseWriter, r *http.Request) {
-	s, _ := Store.Get(r, session_name)
+func (s *server) callback(w http.ResponseWriter, r *http.Request) {
+	session, _ := s.store.Get(r, session_name)
 	state, err := r.Cookie("oauthstate")
 	if err != nil {
-		fmt.Println("here")
 		log.Fatal(err)
 	}
-	token, err := auth.Token(r.Context(), state.Value, r)
+	token, err := s.auth.Token(r.Context(), state.Value, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
 		log.Fatal(err)
@@ -62,17 +59,17 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state.Value)
 	}
 
-	client := spotify.New(auth.Client(r.Context(), token))
-	user, err := client.CurrentUser(context.Background())
+	client := spotify.New(s.auth.Client(r.Context(), token))
+	user, err := client.CurrentUser(r.Context())
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(user.ID)
 
-	s.Values["authenticated"] = true
-	SetToken(token, s)
+	session.Values["authenticated"] = true
+	SetToken(token, session)
 
-	e := s.Save(r, w)
+	e := session.Save(r, w)
 	if e != nil {
 		http.Error(w, e.Error(), http.StatusInternalServerError)
 		return
@@ -81,10 +78,10 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "http://localhost:3000/", http.StatusTemporaryRedirect)
 }
 
-func Logout(w http.ResponseWriter, r *http.Request) {
-	s, _ := Store.Get(r, session_name)
-	s.Values["authenticated"] = false
-	err := s.Save(r, w)
+func (s *server) logout(w http.ResponseWriter, r *http.Request) {
+	session, _ := s.store.Get(r, session_name)
+	session.Values["authenticated"] = false
+	err := session.Save(r, w)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -110,20 +107,20 @@ func checkAccess(current_token, new_token *oauth2.Token, s *sessions.Session) {
 	}
 }
 
-func getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error) {
-	s, err := Store.Get(r, session_name)
+func (s *server) getClient(w http.ResponseWriter, r *http.Request) (*spotify.Client, error) {
+	session, err := s.store.Get(r, session_name)
 	if err != nil {
 		return &spotify.Client{}, err
 	}
-	token := GetToken(s)
-	client := spotify.New(auth.Client(r.Context(), token))
+	token := GetToken(session)
+	client := spotify.New(s.auth.Client(r.Context(), token))
 	new_token, err := client.Token()
 	if err != nil {
 		return &spotify.Client{}, err
 	}
 
-	checkAccess(token, new_token, s)
-	e := s.Save(r, w)
+	checkAccess(token, new_token, session)
+	e := session.Save(r, w)
 	if e != nil {
 		return &spotify.Client{}, err
 	}

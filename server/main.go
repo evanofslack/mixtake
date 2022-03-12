@@ -20,8 +20,7 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	InitAuth()
-	InitSession()
+	s := newServer()
 
 	r := chi.NewRouter()
 
@@ -40,30 +39,30 @@ func main() {
 		r.Get("/", Ping)
 	})
 	r.Route("/login", func(r chi.Router) {
-		r.Get("/", Login)
+		r.Get("/", s.login)
 	})
 	r.Route("/logout", func(r chi.Router) {
-		r.Get("/", Logout)
+		r.Get("/", s.logout)
 	})
 	r.Route("/callback", func(r chi.Router) {
-		r.Get("/", Callback)
+		r.Get("/", s.callback)
 	})
 
 	r.Group(func(r chi.Router) {
-		r.Use(Authenticated)
-		r.Get("/current-user", GetUser)
-		r.Get("/playlists", GetPlaylists)
-		r.Get("/playlist/{id}", GetPlaylist)
-		r.Get("/playlist-features/{id}", GetPlaylistFeatures)
+		r.Use(s.Authenticated)
+		r.Get("/current-user", s.GetUser)
+		r.Get("/playlists", s.GetPlaylists)
+		r.Get("/playlist/{id}", s.GetPlaylist)
+		r.Get("/playlist-features/{id}", s.GetPlaylistFeatures)
 	})
 
 	r.Group(func(r chi.Router) {
-		r.Use(Authenticated)
-		r.Get("/play", StartPlayback)
-		r.Get("/pause", PausePlayback)
-		r.Get("/current-track", GetCurrentPlayback)
-		r.Get("/recent-track", GetRecentlyPlayed)
-		r.Get("/playback-state", GetPlaybackState)
+		r.Use(s.Authenticated)
+		// r.Get("/play", StartPlayback)
+		// r.Get("/pause", PausePlayback)
+		// r.Get("/current-track", GetCurrentPlayback)
+		// r.Get("/recent-track", GetRecentlyPlayed)
+		// r.Get("/playback-state", GetPlaybackState)
 
 	})
 

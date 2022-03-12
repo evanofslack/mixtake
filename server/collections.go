@@ -11,9 +11,9 @@ import (
 	"github.com/zmb3/spotify/v2"
 )
 
-func GetUser(w http.ResponseWriter, r *http.Request) {
+func (s *server) GetUser(w http.ResponseWriter, r *http.Request) {
 
-	client, err := getClient(w, r)
+	client, err := s.getClient(w, r)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -31,7 +31,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func GetPlaylists(w http.ResponseWriter, r *http.Request) {
+func (s *server) GetPlaylists(w http.ResponseWriter, r *http.Request) {
 
 	type response struct {
 		Items []spotify.FullPlaylist `json:"items"`
@@ -39,7 +39,7 @@ func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 
 	resp := response{}
 
-	client, err := getClient(w, r)
+	client, err := s.getClient(w, r)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -64,7 +64,7 @@ func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func GetPlaylist(w http.ResponseWriter, r *http.Request) {
+func (s *server) GetPlaylist(w http.ResponseWriter, r *http.Request) {
 
 	var _id spotify.ID
 	if id := chi.URLParam(r, "id"); id != "" {
@@ -75,7 +75,7 @@ func GetPlaylist(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := getClient(w, r)
+	client, err := s.getClient(w, r)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -93,7 +93,7 @@ func GetPlaylist(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func GetPlaylistFeatures(w http.ResponseWriter, r *http.Request) {
+func (s *server) GetPlaylistFeatures(w http.ResponseWriter, r *http.Request) {
 
 	type playlistFeatures struct {
 		Acousticness     float32 `json:"acousticness"`
@@ -120,7 +120,7 @@ func GetPlaylistFeatures(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := getClient(w, r)
+	client, err := s.getClient(w, r)
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -9,17 +9,16 @@ import (
 	"golang.org/x/oauth2"
 )
 
-var Store = &sessions.CookieStore{}
+func NewStore() *sessions.CookieStore {
 
-func InitSession() {
-
-	Store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
-	Store.Options = &sessions.Options{
+	store := sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
+	store.Options = &sessions.Options{
 		Domain:   "localhost",
 		Path:     "/",
 		MaxAge:   0,
 		HttpOnly: true,
 	}
+	return store
 }
 
 func GetToken(s *sessions.Session) *oauth2.Token {
