@@ -13,12 +13,12 @@ import (
 func (s *server) mountPlayback() {
 
 	s.router.Group(func(r chi.Router) {
-		s.router.Use(s.authenticated)
-		s.router.Get("/play", s.startPlayback)
-		s.router.Get("/pause", s.pausePlayback)
-		s.router.Get("/current-track", s.getCurrentPlayback)
-		s.router.Get("/recent-track", s.getRecentlyPlayed)
-		s.router.Get("/playback-state", s.getPlaybackState)
+		r.Use(s.authenticated)
+		r.Get("/play", s.startPlayback)
+		r.Get("/pause", s.pausePlayback)
+		r.Get("/current-track", s.getCurrentPlayback)
+		r.Get("/recent-track", s.getRecentlyPlayed)
+		r.Get("/playback-state", s.getPlaybackState)
 	})
 }
 

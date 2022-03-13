@@ -14,11 +14,11 @@ import (
 func (s *server) mountCollections() {
 
 	s.router.Group(func(r chi.Router) {
-		s.router.Use(s.authenticated)
-		s.router.Get("/current-user", s.GetUser)
-		s.router.Get("/playlists", s.GetPlaylists)
-		s.router.Get("/playlist/{id}", s.GetPlaylist)
-		s.router.Get("/playlist-features/{id}", s.GetPlaylistFeatures)
+		r.Use(s.authenticated)
+		r.Get("/current-user", s.GetUser)
+		r.Get("/playlists", s.GetPlaylists)
+		r.Get("/playlist/{id}", s.GetPlaylist)
+		r.Get("/playlist-features/{id}", s.GetPlaylistFeatures)
 	})
 }
 
