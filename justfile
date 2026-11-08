@@ -16,11 +16,23 @@ api:
 web: install
     cd web && npm run dev
 
-# api and web together; ctrl-c stops both
-start:
+# fetch the essentia models into analyzer/models; a no-op when they are already there
+models:
+    analyzer/scripts/fetch_models.sh
+
+# essentia sidecar on :8000, natively (macOS or linux x86_64)
+analyzer:
+    cd analyzer && uv run uvicorn app.main:app --reload --port 8000
+
+# analyzer tests; the model-dependent ones skip without `just models`
+analyzer-test:
+    cd analyzer && uv run pytest -q
+
+# api, analyzer and web together; ctrl-c stops them all
+start: models
     #!/usr/bin/env bash
     trap 'kill 0' EXIT
-    just api & just web & wait
+    just analyzer & ANALYZER_URL=http://localhost:8000 just api & just web & wait
 
 # production-like: build the static export and serve it from one go binary on :8080
 serve: install
@@ -35,6 +47,7 @@ test:
 fmt: install
     gofmt -w .
     cd web && npm run format
+    cd analyzer && uv run ruff format . && uv run ruff check --fix .
 
 # same checks as ci
 check: install
@@ -45,3 +58,4 @@ check: install
     cd web && npm run type-check
     cd web && npm run build
     go build -tags embedweb -o /dev/null ./cmd/mixtake
+    cd analyzer && uv run ruff format --check . && uv run ruff check . && uv run pytest -q

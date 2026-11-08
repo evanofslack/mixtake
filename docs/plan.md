@@ -19,7 +19,8 @@ live (mood map, energy arc, genres, tempo and key), get a film-photo cover from
   - Models are about 29 MB; the Python environment is about 500 MB.
   - Wheels exist for linux x86_64 and macOS only, so the analyzer container is amd64 and macOS dev
     runs it natively with uv.
-  - essentia.upf.edu is unreliable, so the models are mirrored to the GitHub release `models-v1`.
+  - essentia.upf.edu is unreliable, so the fetch script retries, and can switch to a mirror such
+    as a GitHub release `models-v1` (not published yet).
   - DEAM valence and arousal are compressed (roughly 0.36–0.64), so the mood and energy axes are
     derived from the mood heads.
 - **analogdb** (`https://api.analogdb.com/v1`): caption-style scene queries work very well with
@@ -159,9 +160,11 @@ restart.
 - `POST /analyze` (multipart audio) returns `{model_version, features}`. `GET /health`.
 - Models load once from `MODELS_DIR`. Each head's positive-class index is read from its model
   JSON; the class order differs between heads.
-- Concurrency is bounded by a thread pool sized to the CPU count.
-- `scripts/fetch_models.sh` downloads the models from the `models-v1` release and checks them
-  against `models.lock`.
+- One analysis at a time per process, behind a lock, in a worker thread so `/health` stays
+  responsive. Scale with `ANALYZER_WORKERS` uvicorn processes; each needs about 1.7 GB.
+- `scripts/fetch_models.sh` downloads the models from essentia.upf.edu (or, with
+  `MODELS_LAYOUT=flat`, a mirror such as a `models-v1` release) and checks them against
+  `models.lock`.
 - Tests use synthetic numpy audio.
 
 ## Web
