@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <!-- a film frame with sprocket holes, around a record -->
+    <rect width="32" height="32" rx="4" fill="#16181d"/>
+    <g fill="#f6f5f2">
+        <rect x="4" y="3" width="3" height="2.5" rx="0.6"/>
+        <rect x="10.5" y="3" width="3" height="2.5" rx="0.6"/>
+        <rect x="18.5" y="3" width="3" height="2.5" rx="0.6"/>
+        <rect x="25" y="3" width="3" height="2.5" rx="0.6"/>
+        <rect x="4" y="26.5" width="3" height="2.5" rx="0.6"/>
+        <rect x="10.5" y="26.5" width="3" height="2.5" rx="0.6"/>
+        <rect x="18.5" y="26.5" width="3" height="2.5" rx="0.6"/>
+        <rect x="25" y="26.5" width="3" height="2.5" rx="0.6"/>
+    </g>
+    <circle cx="16" cy="16" r="8" fill="#e0a458"/>
+    <circle cx="16" cy="16" r="5.2" fill="none" stroke="#16181d" stroke-width="0.8" opacity="0.5"/>
+    <circle cx="16" cy="16" r="1.6" fill="#16181d"/>
+</svg>
