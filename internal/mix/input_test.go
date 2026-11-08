@@ -41,6 +41,7 @@ func TestParseInput(t *testing.T) {
 		{"junk", "hello world", Input{}, ErrUnsupported},
 		{"artist link", "https://open.spotify.com/artist/" + al, Input{}, ErrUnsupported},
 		{"episode uri", "spotify:episode:" + al, Input{}, ErrUnsupported},
+		{"empty kind", "spotify::" + t1, Input{}, ErrUnsupported},
 		{"short link", "https://spotify.link/abcdef", Input{}, ErrUnsupported},
 		{"other host", "https://evil.spotify.com.example/track/" + t1, Input{}, ErrUnsupported},
 		{"bad id", "https://open.spotify.com/track/short", Input{}, ErrUnsupported},

@@ -119,6 +119,8 @@ func parseRef(tok string) (r ref, ok bool, err error) {
 	}
 	switch kind {
 	case "playlist", "album", "track":
+	case "":
+		return ref{}, false, unsupported(tok)
 	default:
 		return ref{}, false, inputErr(ErrUnsupported,
 			"%s links aren't supported; paste a playlist, album or track link.", capitalize(kind))
@@ -151,7 +153,7 @@ func validID(id string) bool {
 
 func capitalize(s string) string {
 	if s == "" {
-		return "These"
+		return s
 	}
 	return strings.ToUpper(s[:1]) + s[1:]
 }
