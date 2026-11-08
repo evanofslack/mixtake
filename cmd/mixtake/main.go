@@ -14,9 +14,11 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/evanofslack/mixtake/internal/analyzer"
 	"github.com/evanofslack/mixtake/internal/config"
 	"github.com/evanofslack/mixtake/internal/logging"
 	"github.com/evanofslack/mixtake/internal/metrics"
+	"github.com/evanofslack/mixtake/internal/mix"
 	"github.com/evanofslack/mixtake/internal/server"
 	"github.com/evanofslack/mixtake/web"
 )
@@ -40,6 +42,12 @@ func run() error {
 	defer stop()
 
 	m := metrics.New()
+
+	an, err := newAnalyzer(ctx, cfg.AnalyzerURL)
+	if err != nil {
+		return fmt.Errorf("analyzer: %w", err)
+	}
+	_ = an // TODO: hand to the job runner once it exists
 
 	static := web.FS()
 	srv := server.New(server.Deps{Log: log, Static: static})
@@ -84,6 +92,20 @@ func run() error {
 		shutdownErr = errors.Join(shutdownErr, s.Shutdown(shutdownCtx))
 	}
 	return shutdownErr
+}
+
+// newAnalyzer returns the Essentia sidecar client when url is set, waiting for it to be ready.
+func newAnalyzer(ctx context.Context, url string) (mix.Analyzer, error) {
+	if url == "" {
+		// TODO: return the fake analyzer (internal/analyzer/fake.go) once it lands on main.
+		return nil, nil
+	}
+	c, err := analyzer.NewClient(ctx, url, nil)
+	if err != nil {
+		return nil, err
+	}
+	slog.InfoContext(ctx, "analyzer ready", "url", url, "model_version", c.ModelVersion())
+	return c, nil
 }
 
 func orDefault(v, fallback string) string {
