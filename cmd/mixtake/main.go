@@ -18,6 +18,7 @@ import (
 	"github.com/evanofslack/mixtake/internal/logging"
 	"github.com/evanofslack/mixtake/internal/metrics"
 	"github.com/evanofslack/mixtake/internal/server"
+	"github.com/evanofslack/mixtake/internal/store"
 	"github.com/evanofslack/mixtake/web"
 )
 
@@ -41,6 +42,16 @@ func run() error {
 
 	m := metrics.New()
 
+	st, err := store.Open(cfg.DBPath)
+	if err != nil {
+		return fmt.Errorf("store: %w", err)
+	}
+	defer func() {
+		if err := st.Close(); err != nil {
+			log.Error("closing store", "error", err)
+		}
+	}()
+
 	static := web.FS()
 	srv := server.New(server.Deps{Log: log, Static: static})
 
@@ -59,7 +70,7 @@ func run() error {
 		})
 	}
 
-	log.Info("starting", "port", cfg.Port, "metrics_port", cfg.MetricsPort,
+	log.Info("starting", "port", cfg.Port, "metrics_port", cfg.MetricsPort, "db", cfg.DBPath,
 		"web", static != nil, "analyzer", orDefault(cfg.AnalyzerURL, "fake"))
 
 	errs := make(chan error, len(servers))
