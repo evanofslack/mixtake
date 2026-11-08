@@ -63,8 +63,8 @@ Only at IO boundaries, defined in `internal/mix` where they are consumed.
 
 ```go
 type Catalog interface { // Spotify embed pages and preview CDN
-    Playlist(ctx context.Context, id string) (Source, error)
-    Album(ctx context.Context, id string) (Source, error)
+    Playlist(ctx context.Context, id string) (Source, []Track, error)
+    Album(ctx context.Context, id string) (Source, []Track, error)
     Track(ctx context.Context, id string) (Track, error)
     Preview(ctx context.Context, url string) (io.ReadCloser, error)
 }

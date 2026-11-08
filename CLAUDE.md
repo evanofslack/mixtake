@@ -34,8 +34,9 @@ Everything runs through `just`:
   there is a strong reason.
 - Interfaces exist **only at IO boundaries**: `Catalog`, `Analyzer`, `Photos` and `Store`, defined
   in `internal/mix` where they are consumed. Don't add interfaces for pure code; test it directly.
-- Pass `context.Context` through everything that does IO, and log with `slog` from the context's
-  logger.
+- Pass `context.Context` through everything that does IO. Log with `slog.InfoContext(ctx, …)` and
+  the other `*Context` functions, so the request id that `internal/logging` stores in the context is
+  attached to every line.
 - Only add metrics for things worth alerting on. The list is in `docs/plan.md`.
 - Tests:
   - table-driven, using `httptest`
