@@ -1,0 +1,57 @@
+/* mantine sits between tailwind's base and utilities: its components beat the
+   preflight, and utility classes beat its components */
+@layer theme, base, mantine, components, utilities;
+@import "tailwindcss";
+@import "@mantine/core/styles.layer.css";
+@import "@mantine/notifications/styles.layer.css";
+@import "@mantine/charts/styles.layer.css";
+
+/* dark: follows mantine's colour scheme attribute, not the media query */
+@custom-variant dark (&:where([data-mantine-color-scheme="dark"], [data-mantine-color-scheme="dark"] *));
+
+/* warm paper and ink, like a print; dark is a darkroom. the accent is a film-amber */
+:root {
+    --mix-bg: #f6f5f2;
+    --mix-surface: #ffffff;
+    --mix-ink: #16181d;
+    --mix-muted: #6b6f76;
+    --mix-line: #e3e1dc;
+    --mix-line-strong: #c9c6bf;
+    --mix-accent: #b86e1f;
+}
+
+[data-mantine-color-scheme="dark"] {
+    --mix-bg: #0e0d0c;
+    --mix-surface: #181614;
+    --mix-ink: #ece8e1;
+    --mix-muted: #948d84;
+    --mix-line: #2a2724;
+    --mix-line-strong: #3d3934;
+    --mix-accent: #e0a458;
+}
+
+@theme inline {
+    --color-bg: var(--mix-bg);
+    --color-surface: var(--mix-surface);
+    --color-ink: var(--mix-ink);
+    --color-muted: var(--mix-muted);
+    --color-line: var(--mix-line);
+    --color-line-strong: var(--mix-line-strong);
+    --color-accent: var(--mix-accent);
+    --font-mono:
+        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@layer base {
+    body {
+        background-color: var(--mix-bg);
+        color: var(--mix-ink);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* a visible keyboard focus ring everywhere */
+    :focus-visible {
+        outline: 2px solid var(--mix-ink);
+        outline-offset: 2px;
+    }
+}

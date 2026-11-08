@@ -10,8 +10,10 @@ starting work, and update it when a decision changes.
 - `internal/mix`: domain types, the IO interfaces and all pure logic (input parsing, profile,
   scenes, ranking, job runner).
 - `internal/{spotify,analyzer,analogdb,store}`: implementations of the IO interfaces.
-- `internal/server`, `internal/config`, `internal/metrics`.
-- `web/`: Next.js static export (pages router), Mantine 9, Tailwind 4.
+- `internal/server` (routes, middleware, static files), `internal/config` (env), `internal/logging`
+  (slog setup, request ids), `internal/metrics`.
+- `web/`: Next.js static export (pages router), Mantine 9, Tailwind 4. `web/embed.go` embeds
+  `web/out` into the Go binary when it's built with `-tags embedweb`.
 - `analyzer/`: Python Essentia sidecar (FastAPI, uv).
 
 ## Commands
