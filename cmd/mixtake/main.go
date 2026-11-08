@@ -14,10 +14,13 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/evanofslack/mixtake/internal/analyzer"
 	"github.com/evanofslack/mixtake/internal/config"
 	"github.com/evanofslack/mixtake/internal/logging"
 	"github.com/evanofslack/mixtake/internal/metrics"
+	"github.com/evanofslack/mixtake/internal/mix"
 	"github.com/evanofslack/mixtake/internal/server"
+	"github.com/evanofslack/mixtake/internal/spotify"
 	"github.com/evanofslack/mixtake/internal/store"
 	"github.com/evanofslack/mixtake/web"
 )
@@ -52,8 +55,33 @@ func run() error {
 		}
 	}()
 
+	// The analyzer is chosen here. Without ANALYZER_URL the fake gives deterministic features, with
+	// a small delay so the UI can watch results stream in.
+	var an mix.Analyzer = analyzer.Fake{Delay: 150 * time.Millisecond}
+
+	// Jobs run under their own context: cancelling it on shutdown stops them and closes every SSE
+	// stream, so the HTTP servers can drain. Defers run in reverse: cancel, wait, then close the store.
+	jobsCtx, cancelJobs := context.WithCancel(context.Background())
+	runner := mix.NewRunner(jobsCtx, spotify.New(m), an, st, m, mix.RunnerConfig{
+		MaxPasteTracks:     cfg.MaxPasteTracks,
+		SpotifyConcurrency: cfg.SpotifyConcurrency,
+		AnalyzeConcurrency: cfg.AnalyzeConcurrency,
+	})
+	defer runner.Wait()
+	defer cancelJobs()
+
 	static := web.FS()
-	srv := server.New(server.Deps{Log: log, Static: static})
+	srv := server.New(server.Deps{
+		Log:    log,
+		Static: static,
+		Runner: runner,
+		Limits: server.Limits{
+			RateLimit:       cfg.RateLimit,
+			GlobalRateLimit: cfg.GlobalRateLimit,
+			TrustProxy:      cfg.TrustProxy,
+			ClientIPHeader:  cfg.ClientIPHeader,
+		},
+	})
 
 	servers := []*http.Server{{
 		Addr:    net.JoinHostPort("", strconv.Itoa(cfg.Port)),
@@ -88,6 +116,7 @@ func run() error {
 	case <-ctx.Done():
 	}
 	log.Info("shutting down")
+	cancelJobs()
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	var shutdownErr error
