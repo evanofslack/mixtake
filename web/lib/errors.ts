@@ -8,8 +8,9 @@ export class RequestError extends Error {
         super(message);
     }
 
-    // private playlists can't be read through the embed, whatever status the server picks for it
+    // spotify serves the same page for private and missing playlists, so the server answers 404
+    // for both (its message already explains pasting tracks); 403 is only an explicit refusal
     get isPrivate(): boolean {
-        return this.status === 403 || /private/i.test(this.message);
+        return this.status === 403;
     }
 }
