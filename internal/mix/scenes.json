@@ -1,0 +1,186 @@
+{
+  "quadrants": {
+    "happy_energetic": [
+      "sunny summer beach friends",
+      "crowd dancing at a summer festival",
+      "convertible driving along the coast in summer",
+      "two women jump into a lake from a wooden dock",
+      "busy city street at golden hour",
+      "surfers in the ocean at sunset",
+      "bright colorful market street",
+      "friends on a rooftop at sunset",
+      "confetti falls over a crowd at a concert"
+    ],
+    "happy_calm": [
+      "sunlight streams through a window in the morning",
+      "picnic in a sunny meadow",
+      "sailboat on calm blue water",
+      "field of wildflowers at golden hour",
+      "sunlight streams into a cafe with tables and chairs",
+      "sunlight through an open door onto a back porch",
+      "pastel houses by the sea under a clear sky",
+      "kitchen table with morning coffee in sunlight"
+    ],
+    "sad_energetic": [
+      "neon city lights at night",
+      "storm clouds over a highway",
+      "car headlights on a dark foggy road",
+      "lightning over the city at night",
+      "crowd at a concert under red stage lights",
+      "tunnel lit by red neon lights at night",
+      "light trails from cars in the city at night",
+      "empty subway platform at night"
+    ],
+    "sad_calm": [
+      "rain on window at night, alone",
+      "empty street at night under streetlights",
+      "lone figure on a foggy beach",
+      "quiet morning fog forest",
+      "empty road through a snowy landscape",
+      "misty lake under a grey sky",
+      "train station platform on a foggy night",
+      "bedroom with an unmade bed and a window"
+    ]
+  },
+  "modifiers": [
+    {
+      "name": "acoustic",
+      "field": "acoustic",
+      "min": 0.6,
+      "scenes": [
+        "sunlight through lace curtains",
+        "guitar in a sunlit room",
+        "wooden cabin in the woods",
+        "a person reads a book by the window"
+      ]
+    },
+    {
+      "name": "instrumental",
+      "field": "instrumental",
+      "min": 0.7,
+      "scenes": [
+        "foggy mountain landscape at dawn",
+        "calm sea at dusk",
+        "empty field under a big sky",
+        "light through trees in a quiet forest"
+      ]
+    },
+    {
+      "name": "party",
+      "field": "party",
+      "min": 0.6,
+      "scenes": [
+        "crowd dancing at a party with lights",
+        "friends dancing at a house party",
+        "crowd with hands raised at a concert",
+        "people dancing in a dark club"
+      ]
+    }
+  ],
+  "families": [
+    {
+      "name": "ambient",
+      "styles": ["Ambient", "Dark Ambient", "Modern Classical", "Neo-Classical", "New Age",
+        "Drone", "Score", "Soundtrack", "Minimal"],
+      "scenes": [
+        "foggy mountain landscape at dawn",
+        "soft light through sheer curtains",
+        "mist over a calm lake at dawn",
+        "piano in a room with window light"
+      ]
+    },
+    {
+      "name": "lofi",
+      "styles": ["Lo-Fi", "Jazzy Hip-Hop", "Trip Hop", "Downtempo", "Instrumental"],
+      "scenes": [
+        "desk by a window on a rainy evening",
+        "bedroom at night lit by a lamp",
+        "city rooftops at dusk",
+        "record player spinning a vinyl record"
+      ]
+    },
+    {
+      "name": "latin",
+      "parents": ["Latin"],
+      "styles": ["Reggaeton", "Dancehall"],
+      "scenes": [
+        "sunny street with colorful houses and palm trees",
+        "people dancing in the street",
+        "palm trees on a beach at sunset",
+        "colorful old car on a sunny street"
+      ]
+    },
+    {
+      "name": "hiphop",
+      "parents": ["Hip Hop"],
+      "styles": ["Contemporary R&B", "RnB/Swing", "Grime"],
+      "scenes": [
+        "city street at night with a parked car",
+        "car driving through the city at night",
+        "basketball court in the city",
+        "graffiti wall on a city street"
+      ]
+    },
+    {
+      "name": "electronic",
+      "parents": ["Electronic"],
+      "scenes": [
+        "neon city lights at night",
+        "people dancing in a dark club with lights",
+        "laser lights over a crowd",
+        "light trails on a highway at night"
+      ]
+    },
+    {
+      "name": "jazz",
+      "parents": ["Jazz", "Blues"],
+      "styles": ["Soul", "Neo Soul", "Lounge"],
+      "scenes": [
+        "smoky jazz bar at night",
+        "saxophone player on a dim stage",
+        "wet city street at night with warm lights",
+        "diner at night with a neon sign"
+      ]
+    },
+    {
+      "name": "classical",
+      "parents": ["Classical", "Stage & Screen"],
+      "scenes": [
+        "grand piano on a stage",
+        "foggy mountain landscape at dawn",
+        "sunlight through tall windows in an old hall",
+        "quiet garden in the morning fog"
+      ]
+    },
+    {
+      "name": "folk",
+      "parents": ["Folk, World, & Country"],
+      "styles": ["Folk Rock", "Americana", "Acoustic", "Bluegrass", "Country"],
+      "scenes": [
+        "countryside farmhouse at sunset",
+        "wooden porch with a rocking chair",
+        "field of wheat at golden hour",
+        "dirt road through the countryside"
+      ]
+    },
+    {
+      "name": "rock",
+      "parents": ["Rock"],
+      "scenes": [
+        "desert highway under a big sky",
+        "rock concert crowd with stage lights",
+        "vintage car on an open road",
+        "guitar amplifier on a stage"
+      ]
+    },
+    {
+      "name": "pop",
+      "parents": ["Pop", "Funk / Soul", "Reggae"],
+      "scenes": []
+    }
+  ],
+  "stopwords": ["the", "and", "for", "with", "from", "this", "that", "your", "you", "all", "out",
+    "best", "top", "hits", "mix", "mixtape", "playlist", "songs", "song", "music", "radio",
+    "vibes", "vibe", "beats", "classics", "essentials", "mode", "edition", "deluxe", "remastered",
+    "version", "vol", "feat", "new", "now", "today", "this", "is", "of", "official", "album"]
+}
