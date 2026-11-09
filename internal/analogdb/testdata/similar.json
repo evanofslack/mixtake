@@ -1,0 +1,254 @@
+{
+ "posts": [
+  {
+   "id": 53472,
+   "title": "Dawn. | Kiev 4 | Expired Fuji Color C100",
+   "author": "t__dz",
+   "permalink": "https://www.reddit.com/r/analog/comments/jwy70z/dawn_kiev_4_expired_fuji_color_c100/",
+   "caption": "A car's rear view mirror is visible against a dark blue sky with blurred lights in the distance.",
+   "score": 325,
+   "nsfw": false,
+   "grayscale": false,
+   "timestamp": 1605769863,
+   "created": "2026-10-20T06:38:21.187003Z",
+   "updated": "2026-10-20T06:38:21.187003Z",
+   "sprocket": false,
+   "camera_make": "kiev",
+   "camera_model": "4",
+   "film_make": "fujifilm",
+   "film_speed": 100,
+   "images": [
+    {
+     "resolution": "low",
+     "url": "https://i.analogdb.com/de2cfabc5e2e35b80c613da4-low.jpeg",
+     "width": 720,
+     "height": 480
+    },
+    {
+     "resolution": "medium",
+     "url": "https://i.analogdb.com/de2cfabc5e2e35b80c613da4-medium.jpeg",
+     "width": 1080,
+     "height": 720
+    },
+    {
+     "resolution": "high",
+     "url": "https://i.analogdb.com/de2cfabc5e2e35b80c613da4-high.jpeg",
+     "width": 1440,
+     "height": 960
+    },
+    {
+     "resolution": "raw",
+     "url": "https://i.analogdb.com/de2cfabc5e2e35b80c613da4-raw.jpeg",
+     "width": 3001,
+     "height": 2001
+    }
+   ],
+   "colors": [
+    {
+     "hex": "#18221d",
+     "css": "midnightblue",
+     "html": "black",
+     "percent": 0.35119267
+    },
+    {
+     "hex": "#3a6379",
+     "css": "dimgray",
+     "html": "teal",
+     "percent": 0.19258183
+    },
+    {
+     "hex": "#325164",
+     "css": "darkslategray",
+     "html": "gray",
+     "percent": 0.174501
+    }
+   ],
+   "keywords": [
+    {
+     "word": "car",
+     "weight": 1
+    },
+    {
+     "word": "rearview mirror",
+     "weight": 0.9167
+    },
+    {
+     "word": "night",
+     "weight": 0.8333
+    },
+    {
+     "word": "light",
+     "weight": 0.75
+    }
+   ]
+  },
+  {
+   "id": 7057,
+   "title": "Waiting / Pentax 645 / Cinestill400D",
+   "author": "wifihurts",
+   "permalink": "https://www.reddit.com/r/analog/comments/1354frz/waiting_pentax_645_cinestill400d/",
+   "caption": "The interior of a car is visible at night, with blurred lights visible through the windshield.",
+   "score": 88,
+   "nsfw": false,
+   "grayscale": false,
+   "timestamp": 1682982669,
+   "created": "2023-05-01T23:11:09Z",
+   "updated": "2026-10-15T18:47:47.721529Z",
+   "sprocket": false,
+   "camera_make": "pentax",
+   "camera_model": "645",
+   "film_make": "cinestill",
+   "film_type": "400d",
+   "film_speed": 400,
+   "aperture": "f/28",
+   "images": [
+    {
+     "resolution": "low",
+     "url": "https://i.analogdb.com/2b6e53e0-9132-4747-a25f-44534d8e7f9f.jpeg",
+     "width": 720,
+     "height": 586
+    },
+    {
+     "resolution": "medium",
+     "url": "https://i.analogdb.com/9e7da927-9fdc-4425-919e-b8c7b46e31d5.jpeg",
+     "width": 1080,
+     "height": 879
+    },
+    {
+     "resolution": "high",
+     "url": "https://i.analogdb.com/9e2be093-8564-4543-998e-0840cbd941b2.jpeg",
+     "width": 1440,
+     "height": 1172
+    },
+    {
+     "resolution": "raw",
+     "url": "https://i.analogdb.com/b93d9c40-2025-4ffa-9b6d-f0c97f416f07.jpeg",
+     "width": 5159,
+     "height": 4200
+    }
+   ],
+   "colors": [
+    {
+     "hex": "#00030d",
+     "css": "black",
+     "html": "black",
+     "percent": 0.65431361
+    },
+    {
+     "hex": "#021219",
+     "css": "midnightblue",
+     "html": "black",
+     "percent": 0.09515311
+    },
+    {
+     "hex": "#0e2a26",
+     "css": "darkslategray",
+     "html": "black",
+     "percent": 0.07255167
+    }
+   ],
+   "keywords": [
+    {
+     "word": "car",
+     "weight": 1
+    },
+    {
+     "word": "vehicle",
+     "weight": 0.8333
+    },
+    {
+     "word": "night",
+     "weight": 0.6667
+    },
+    {
+     "word": "light",
+     "weight": 0.5
+    }
+   ]
+  },
+  {
+   "id": 40884,
+   "title": "New York but make it rain // Pentax 17 + Fuji 400",
+   "author": "Taarushv",
+   "permalink": "https://www.reddit.com/r/analog/comments/1q43133/new_york_but_make_it_rain_pentax_17_fuji_400/",
+   "description": "From one of my earliest rolls, thought they were mid so never shared them but coming back to them months later, they\u2019re not so bad. ",
+   "caption": "A street in New York is wet from rain, with cars driving under an overpass.",
+   "score": 188,
+   "nsfw": false,
+   "grayscale": false,
+   "timestamp": 1767564198,
+   "created": "2026-10-15T14:54:22.641595Z",
+   "updated": "2026-10-15T20:52:41.715541Z",
+   "sprocket": false,
+   "camera_make": "pentax",
+   "camera_model": "17",
+   "film_make": "fujifilm",
+   "film_type": "400",
+   "film_speed": 400,
+   "images": [
+    {
+     "resolution": "low",
+     "url": "https://i.analogdb.com/ed1a809ae0f42dccc65a96c0-low.jpeg",
+     "width": 720,
+     "height": 576
+    },
+    {
+     "resolution": "medium",
+     "url": "https://i.analogdb.com/ed1a809ae0f42dccc65a96c0-medium.jpeg",
+     "width": 1080,
+     "height": 864
+    },
+    {
+     "resolution": "high",
+     "url": "https://i.analogdb.com/ed1a809ae0f42dccc65a96c0-high.jpeg",
+     "width": 1440,
+     "height": 1152
+    },
+    {
+     "resolution": "raw",
+     "url": "https://i.analogdb.com/ed1a809ae0f42dccc65a96c0-raw.jpeg",
+     "width": 2028,
+     "height": 1622
+    }
+   ],
+   "colors": [
+    {
+     "hex": "#384140",
+     "css": "darkslategray",
+     "html": "gray",
+     "percent": 0.17214265
+    },
+    {
+     "hex": "#232a2a",
+     "css": "darkslategray",
+     "html": "black",
+     "percent": 0.1718099
+    },
+    {
+     "hex": "#768a91",
+     "css": "lightslategray",
+     "html": "gray",
+     "percent": 0.15757378
+    }
+   ],
+   "keywords": [
+    {
+     "word": "street",
+     "weight": 1
+    },
+    {
+     "word": "new york",
+     "weight": 0.9286
+    },
+    {
+     "word": "rain",
+     "weight": 0.8571
+    },
+    {
+     "word": "car",
+     "weight": 0.7857
+    }
+   ]
+  }
+ ]
+}

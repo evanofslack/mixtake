@@ -249,6 +249,7 @@ type Photo struct {
 	Caption   string       `json:"caption"`
 	Score     int          `json:"score"` // upvotes
 	Grayscale bool         `json:"grayscale"`
+	NSFW      bool         `json:"-"`
 	Images    []PhotoImage `json:"images"`
 	Colors    []PhotoColor `json:"colors"`
 	Keywords  []string     `json:"keywords"`
