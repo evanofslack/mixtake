@@ -18,6 +18,10 @@
     --mix-line: #e3e1dc;
     --mix-line-strong: #c9c6bf;
     --mix-accent: #b86e1f;
+    /* data marks: dots, bars and lines that aren't the highlight */
+    --mix-mark: #4b4741;
+    --mix-mark-soft: #b8b2a9;
+    --mix-accent-soft: #f7e3c4;
 }
 
 [data-mantine-color-scheme="dark"] {
@@ -28,6 +32,9 @@
     --mix-line: #2a2724;
     --mix-line-strong: #3d3934;
     --mix-accent: #e0a458;
+    --mix-mark: #c9c3ba;
+    --mix-mark-soft: #4b4741;
+    --mix-accent-soft: #3a2a17;
 }
 
 @theme inline {
@@ -38,6 +45,10 @@
     --color-line: var(--mix-line);
     --color-line-strong: var(--mix-line-strong);
     --color-accent: var(--mix-accent);
+    --color-accent-soft: var(--mix-accent-soft);
+    --color-mark: var(--mix-mark);
+    --color-mark-soft: var(--mix-mark-soft);
+    --font-serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
     --font-mono:
         ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
@@ -53,5 +64,36 @@
     :focus-visible {
         outline: 2px solid var(--mix-ink);
         outline-offset: 2px;
+    }
+}
+
+/* a dot on the mood map develops in, like a print in the tray */
+@keyframes develop {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+}
+
+.develop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: develop 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes breathe {
+    50% {
+        opacity: 0.35;
+    }
+}
+
+.breathe {
+    animation: breathe 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .develop,
+    .breathe {
+        animation: none;
     }
 }

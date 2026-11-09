@@ -6,6 +6,9 @@ import (
 	"io/fs"
 	"log/slog"
 	"net/http"
+	"time"
+
+	"github.com/evanofslack/mixtake/internal/mix"
 )
 
 // Deps is everything the handlers need.
@@ -13,18 +16,36 @@ type Deps struct {
 	Log *slog.Logger
 	// Static is the exported web app, or nil when the binary was built without -tags embedweb.
 	Static fs.FS
+	Runner *mix.Runner
+	Limits Limits
+}
+
+// Limits configures rate limiting of POST /api/mixes. A zero RateLimit disables it.
+type Limits struct {
+	RateLimit       int    // per client ip, per minute
+	GlobalRateLimit int    // across all clients, per minute
+	TrustProxy      bool   // take the client ip from ClientIPHeader
+	ClientIPHeader  string // for X-Forwarded-For, the rightmost entry is used
 }
 
 // Server routes API requests and serves the web app.
 type Server struct {
-	deps Deps
-	mux  *http.ServeMux
+	deps    Deps
+	mux     *http.ServeMux
+	limiter *rateLimiter  // nil when rate limiting is off
+	ping    time.Duration // SSE heartbeat interval
 }
 
 // New builds the server and registers every route.
 func New(deps Deps) *Server {
-	s := &Server{deps: deps, mux: http.NewServeMux()}
+	s := &Server{deps: deps, mux: http.NewServeMux(), ping: pingInterval}
+	if l := deps.Limits; l.RateLimit > 0 {
+		s.limiter = newRateLimiter(l.RateLimit, max(l.GlobalRateLimit, l.RateLimit))
+	}
 	s.mux.HandleFunc("GET /api/health", s.health)
+	s.mux.HandleFunc("POST /api/mixes", s.createMix)
+	s.mux.HandleFunc("GET /api/mixes/{id}", s.getMix)
+	s.mux.HandleFunc("GET /api/mixes/{id}/events", s.mixEvents)
 	s.mux.Handle("/api/", http.HandlerFunc(s.apiNotFound))
 	s.mux.Handle("/", staticHandler(deps.Static))
 	return s

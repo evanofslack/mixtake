@@ -19,9 +19,10 @@ type Config struct {
 	AnalyzerURL string // ANALYZER_URL
 	AnalogdbURL string // ANALOGDB_URL
 
-	TrustProxy     bool   // TRUST_PROXY: take the client ip from ClientIPHeader
-	ClientIPHeader string // CLIENT_IP_HEADER
-	RateLimit      int    // RATE_LIMIT_PER_MINUTE: new mixes per client ip
+	TrustProxy      bool   // TRUST_PROXY: take the client ip from ClientIPHeader
+	ClientIPHeader  string // CLIENT_IP_HEADER
+	RateLimit       int    // RATE_LIMIT_PER_MINUTE: new mixes per client ip
+	GlobalRateLimit int    // GLOBAL_RATE_LIMIT_PER_MINUTE: new mixes across all clients
 
 	MaxPasteTracks     int // MAX_PASTE_TRACKS
 	AnalyzeConcurrency int // ANALYZE_CONCURRENCY: tracks analysed at once, across all jobs
@@ -46,6 +47,7 @@ func Parse(getenv func(string) string) (Config, error) {
 		TrustProxy:         p.bool("TRUST_PROXY", false),
 		ClientIPHeader:     p.str("CLIENT_IP_HEADER", "X-Forwarded-For"),
 		RateLimit:          p.int("RATE_LIMIT_PER_MINUTE", 10),
+		GlobalRateLimit:    p.int("GLOBAL_RATE_LIMIT_PER_MINUTE", 60),
 		MaxPasteTracks:     p.int("MAX_PASTE_TRACKS", 300),
 		AnalyzeConcurrency: p.int("ANALYZE_CONCURRENCY", 4),
 		SpotifyConcurrency: p.int("SPOTIFY_CONCURRENCY", 4),
@@ -58,7 +60,8 @@ func Parse(getenv func(string) string) (Config, error) {
 		p.errs = append(p.errs, fmt.Errorf("LOG_FORMAT: want text or json, got %q", c.LogFormat))
 	}
 	for name, v := range map[string]int{
-		"PORT": c.Port, "RATE_LIMIT_PER_MINUTE": c.RateLimit, "MAX_PASTE_TRACKS": c.MaxPasteTracks,
+		"PORT": c.Port, "RATE_LIMIT_PER_MINUTE": c.RateLimit,
+		"GLOBAL_RATE_LIMIT_PER_MINUTE": c.GlobalRateLimit, "MAX_PASTE_TRACKS": c.MaxPasteTracks,
 		"ANALYZE_CONCURRENCY": c.AnalyzeConcurrency, "SPOTIFY_CONCURRENCY": c.SpotifyConcurrency,
 	} {
 		if v <= 0 {

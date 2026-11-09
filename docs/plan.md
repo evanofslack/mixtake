@@ -122,6 +122,23 @@ with fakes of these four.
 | `GET /api/img/{uuid}` | Streams `i.analogdb.com/{uuid}.(jpeg\|png)` only, with long cache headers. |
 | `GET /api/health` | Health check. Metrics are served on `METRICS_PORT` at `/metrics`. |
 
+Errors are JSON `{"error": "<message to show the user>"}`. `POST /api/mixes` returns:
+
+| Status | When |
+|---|---|
+| 201 `{id}` | Created, or the same input already exists (the id is content-addressed). |
+| 400 | Not JSON; nothing recognisable; artist, show or `spotify.link` links; a playlist or album mixed with tracks; two playlists; more than `MAX_PASTE_TRACKS`; an empty playlist; a vibe over 200 characters. |
+| 403 | Spotify reports the link as private or unavailable (rare: see below). |
+| 404 | Spotify has no such playlist, album or track. Spotify serves the same not-found page for private playlists, so private playlists land here too; the message suggests copying the tracks. |
+| 429 | Over `RATE_LIMIT_PER_MINUTE` per client ip or `GLOBAL_RATE_LIMIT_PER_MINUTE` overall, with `Retry-After`. Fixed one-minute windows. With `TRUST_PROXY`, the ip comes from `CLIENT_IP_HEADER` (rightmost entry for `X-Forwarded-For`). |
+| 502 | Spotify failed or its embed page changed shape. |
+| 503 | 1000 or more tracks are already waiting for analysis, with `Retry-After: 30`. |
+
+`GET /api/mixes/{id}` and `/events` return 404 for unknown ids. The event stream sends a
+`: ping` comment every 15s and closes after `done` or `error`, so clients should close their
+`EventSource` on those events rather than let it reconnect. A client that falls 256 events behind
+is disconnected; reconnecting starts again from a fresh `snapshot`.
+
 ### Runner
 
 An in-process job registry fans events out to subscribers. For each job:
@@ -131,8 +148,16 @@ An in-process job registry fans events out to subscribers. For each job:
    by `ANALYZE_CONCURRENCY`, with in-flight dedupe per track id.
 3. `PutFeatures` and emit events.
 
-A job that times out finishes with partial results. Jobs are rebuilt from the database after a
-restart.
+A job that times out (5 minutes) finishes with partial results. Tracks without a preview are
+`no_audio`, ids Spotify doesn't know are `not_found`, and errors or timeouts are `failed`. A job
+that analyses nothing ends with an `error` event and status `failed`; otherwise it ends with
+`done`.
+
+Finished jobs stay in memory for 10 minutes; after that, or after a restart, a mix is rebuilt
+from the database and a job starts again if any track lacks features. Only features are stored
+per track, so `no_audio` and `failed` tracks are retried then. Preview URLs are short lived, so
+tracks that weren't just fetched with their playlist or album are looked up again with
+`Catalog.Track` before analysis.
 
 ### Photo pipeline
 
