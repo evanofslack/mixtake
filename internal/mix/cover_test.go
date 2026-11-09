@@ -207,3 +207,87 @@ func TestRankPhotos(t *testing.T) {
 		}
 	})
 }
+
+func TestDiversify(t *testing.T) {
+	queries := []SceneQuery{
+		{Text: "a", Lens: LensLiteral}, {Text: "b", Lens: LensAbstract}, {Text: "c", Lens: LensWords},
+	}
+	// cand builds a candidate from query q, by author, with one colour
+	cand := func(id, q int, score float64, author, colour string) Candidate {
+		p := photo(id, 1440, 1080, colour)
+		p.Author = author
+		return Candidate{Photo: p, Score: score, Query: q}
+	}
+	colours := []string{"#d9a05b", "#2a4d7a", "#3f7a2a", "#7a2a6b", "#e8e0d0", "#202020", "#c0392b",
+		"#16a085", "#f1c40f", "#8e44ad", "#7f8c8d", "#2c3e50", "#d35400", "#27ae60", "#e84393"}
+
+	tests := []struct {
+		name string
+		cs   []Candidate
+		n    int
+		want []int
+	}{
+		{"caps each query while others have photos", func() []Candidate {
+			var cs []Candidate
+			for i := range 6 { // query 0 has the six best photos, but gives two
+				cs = append(cs, cand(i+1, 0, 0.9-float64(i)*0.001, fmt.Sprint("a", i), colours[i]))
+			}
+			for i := range 4 {
+				cs = append(cs, cand(20+i, 1+i%2, 0.5-float64(i)*0.01, fmt.Sprint("b", i), colours[10+i]))
+			}
+			return cs
+		}(), 6, []int{1, 2, 20, 21, 22, 23}},
+		{"relaxes the cap when one query is left", func() []Candidate {
+			var cs []Candidate
+			for i := range 5 {
+				cs = append(cs, cand(i+1, 0, 0.9-float64(i)*0.01, fmt.Sprint("a", i), colours[i]))
+			}
+			return cs
+		}(), 12, []int{1, 2, 3, 4, 5}},
+		{"interleaves lenses", []Candidate{
+			cand(1, 0, 0.90, "a", colours[0]), cand(2, 0, 0.89, "b", colours[1]),
+			cand(3, 0, 0.88, "c", colours[2]), cand(4, 1, 0.86, "d", colours[3]),
+			cand(5, 2, 0.85, "e", colours[4]),
+		}, 3, []int{1, 4, 5}},
+		{"penalises the same author", []Candidate{
+			cand(1, 0, 0.90, "same", colours[0]), cand(2, 1, 0.89, "same", colours[1]),
+			cand(3, 2, 0.80, "other", colours[2]),
+		}, 2, []int{1, 3}},
+		{"penalises lookalike palettes", []Candidate{
+			cand(1, 0, 0.90, "a", "#2a4d7a"), cand(2, 1, 0.89, "b", "#2b4e7b"),
+			cand(3, 2, 0.82, "c", "#d9a05b"),
+		}, 2, []int{1, 3}},
+		{"penalises shared subjects", func() []Candidate {
+			church := []Candidate{cand(1, 0, 0.90, "a", colours[0]), cand(2, 1, 0.89, "b", colours[1]),
+				cand(3, 2, 0.82, "c", colours[2])}
+			church[0].Photo.Keywords = []string{"church", "pew", "window", "light"}
+			church[1].Photo.Keywords = []string{"church", "pew", "stained glass", "light"}
+			church[2].Photo.Keywords = []string{"beach", "wave", "light"}
+			return church
+		}(), 2, []int{1, 3}},
+		{"empty", nil, 12, nil},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := ids(Diversify(tt.cs, queries, tt.n))
+			if !slices.Equal(got, tt.want) {
+				t.Errorf("got %v, want %v", got, tt.want)
+			}
+		})
+	}
+	// a full set takes at most maxPerQuery from each query and spans every lens
+	var cs []Candidate
+	for q := range 3 {
+		for i := range 10 {
+			cs = append(cs, cand(q*100+i, q, 0.9-0.1*float64(q)-0.001*float64(i), fmt.Sprint(q, i),
+				colours[i]))
+		}
+	}
+	perQuery := map[int]int{}
+	for _, c := range Diversify(cs, queries, 9) {
+		perQuery[c.Query]++
+	}
+	if perQuery[0] != 3 || perQuery[1] != 3 || perQuery[2] != 3 {
+		t.Errorf("per query %v", perQuery)
+	}
+}

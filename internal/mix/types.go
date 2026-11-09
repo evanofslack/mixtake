@@ -219,6 +219,14 @@ type PhotoQuery struct {
 	PageSize int
 }
 
+// ColorQuery lists analogdb colour photos with a share of one colour, in a seeded random order.
+type ColorQuery struct {
+	Color    string // an analogdb colour name, such as "navy"
+	Keyword  string // optional: only posts with this keyword
+	Seed     int    // 1–500
+	PageSize int
+}
+
 // PhotoImage is one resolution of a photo.
 type PhotoImage struct {
 	Resolution string `json:"resolution"` // low, medium, high, raw

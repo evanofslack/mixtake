@@ -31,6 +31,8 @@ func (p *testPhotos) load() ([]mix.Photo, error) {
 
 func (p *testPhotos) Search(context.Context, mix.PhotoQuery) ([]mix.Photo, error) { return p.load() }
 
+func (p *testPhotos) ByColor(context.Context, mix.ColorQuery) ([]mix.Photo, error) { return p.load() }
+
 func (p *testPhotos) Similar(_ context.Context, id int) ([]mix.Photo, error) {
 	if id == 404 {
 		return nil, mix.ErrNotFound
@@ -102,6 +104,8 @@ func TestMixPhotos(t *testing.T) {
 		{"upstream", broken, "/api/mixes/" + brokenID + "/photos", 502, "analogdb"},
 		{"ok", s, "/api/mixes/" + ready + "/photos", 200, ""},
 		{"vibe", s, "/api/mixes/" + ready + "/photos?vibe=rain+on+a+tin+roof", 200, ""},
+		{"seed", s, "/api/mixes/" + ready + "/photos?seed=3", 200, ""},
+		{"bad seed", s, "/api/mixes/" + ready + "/photos?seed=-1", 400, "seed"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
