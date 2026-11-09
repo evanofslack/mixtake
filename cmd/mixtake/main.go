@@ -1,4 +1,5 @@
-// Command mixtake serves the mixtake API and web app.
+// Command mixtake serves the mixtake API and web app. `mixtake healthcheck` exits 0 when the
+// server on PORT answers /api/health, for the Docker HEALTHCHECK in an image without a shell.
 package main
 
 import (
@@ -26,7 +27,11 @@ import (
 )
 
 func main() {
-	if err := run(); err != nil {
+	cmd := run
+	if len(os.Args) > 1 && os.Args[1] == "healthcheck" {
+		cmd = healthcheck
+	}
+	if err := cmd(); err != nil {
 		fmt.Fprintln(os.Stderr, "mixtake:", err)
 		os.Exit(1)
 	}
@@ -125,6 +130,24 @@ func run() error {
 		shutdownErr = errors.Join(shutdownErr, s.Shutdown(shutdownCtx))
 	}
 	return shutdownErr
+}
+
+// healthcheck checks that the server on this host's PORT is up.
+func healthcheck() error {
+	cfg, err := config.Load()
+	if err != nil {
+		return fmt.Errorf("config: %w", err)
+	}
+	c := http.Client{Timeout: 3 * time.Second}
+	resp, err := c.Get("http://" + net.JoinHostPort("127.0.0.1", strconv.Itoa(cfg.Port)) + "/api/health")
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("health: %s", resp.Status)
+	}
+	return nil
 }
 
 // newAnalyzer returns the Essentia sidecar client when url is set, waiting for it to be ready.

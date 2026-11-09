@@ -1,10 +1,10 @@
-# models/ is deliberately not ignored: the image uses the local copies when present
+# models come from the release, or from --build-context models=analyzer/models
+models
 .venv
 **/__pycache__
 .pytest_cache
 .ruff_cache
 tests
-models/*.part
-models/*.reference
+*.md
 Dockerfile
 .dockerignore
