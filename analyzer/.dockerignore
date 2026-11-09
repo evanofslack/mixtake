@@ -1,0 +1,10 @@
+# models/ is deliberately not ignored: the image uses the local copies when present
+.venv
+**/__pycache__
+.pytest_cache
+.ruff_cache
+tests
+models/*.part
+models/*.reference
+Dockerfile
+.dockerignore

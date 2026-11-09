@@ -55,9 +55,10 @@ func run() error {
 		}
 	}()
 
-	// The analyzer is chosen here. Without ANALYZER_URL the fake gives deterministic features, with
-	// a small delay so the UI can watch results stream in.
-	var an mix.Analyzer = analyzer.Fake{Delay: 150 * time.Millisecond}
+	an, err := newAnalyzer(ctx, cfg.AnalyzerURL)
+	if err != nil {
+		return fmt.Errorf("analyzer: %w", err)
+	}
 
 	// Jobs run under their own context: cancelling it on shutdown stops them and closes every SSE
 	// stream, so the HTTP servers can drain. Defers run in reverse: cancel, wait, then close the store.
@@ -124,6 +125,20 @@ func run() error {
 		shutdownErr = errors.Join(shutdownErr, s.Shutdown(shutdownCtx))
 	}
 	return shutdownErr
+}
+
+// newAnalyzer returns the Essentia sidecar client when url is set, waiting for it to be ready.
+func newAnalyzer(ctx context.Context, url string) (mix.Analyzer, error) {
+	if url == "" {
+		// deterministic features, with a small delay so the UI can watch results stream in
+		return analyzer.Fake{Delay: 150 * time.Millisecond}, nil
+	}
+	c, err := analyzer.NewClient(ctx, url, nil)
+	if err != nil {
+		return nil, err
+	}
+	slog.InfoContext(ctx, "analyzer ready", "url", url, "model_version", c.ModelVersion())
+	return c, nil
 }
 
 func orDefault(v, fallback string) string {
