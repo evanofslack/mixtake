@@ -1,6 +1,6 @@
-import type { ApiError } from "./api";
+import type { ApiError, PhotoSet } from "./api";
 import { RequestError } from "./errors";
-import { mockCreateMix } from "./mock";
+import { mockCreateMix, mockPhotos, mockSimilar } from "./mock";
 
 // mock mode replaces the backend with a fake event stream: ?mock=1, or NEXT_PUBLIC_MOCK=1
 export function isMockMode(query?: Record<string, unknown>): boolean {
@@ -35,6 +35,42 @@ export async function createMix(input: string, vibe: string, mock: boolean): Pro
         return body.id;
     }
     throw await toError(res);
+}
+
+// cover candidates for a mix; a 409 means too few songs are analysed yet. `vibe` re-searches with
+// other words without making a new mix
+export async function fetchPhotos(id: string, vibe: string, mock: boolean): Promise<PhotoSet> {
+    if (mock) {
+        return mockPhotos(id, vibe);
+    }
+    const q = vibe ? `?vibe=${encodeURIComponent(vibe)}` : "";
+    return getJSON(`/api/mixes/${encodeURIComponent(id)}/photos${q}`);
+}
+
+// photos that look like this one; queries and palette are empty
+export async function fetchSimilar(photoId: number, mock: boolean): Promise<PhotoSet> {
+    if (mock) {
+        return mockSimilar(photoId);
+    }
+    return getJSON(`/api/photos/${photoId}/similar`);
+}
+
+async function getJSON<T>(url: string): Promise<T> {
+    let res: Response;
+    try {
+        res = await fetch(url);
+    } catch {
+        throw new RequestError("Couldn't reach mixtake. Check your connection and try again.", 0);
+    }
+    if (res.ok) {
+        return (await res.json()) as T;
+    }
+    const err = await toError(res);
+    // analogdb rate-limits bursts; the generic 429 text is about making mixes
+    if (res.status === 429 && err.message === "Too many mixes at once.") {
+        throw new RequestError("analogdb is busy. Try again in a moment.", 429, err.retryAfter);
+    }
+    throw err;
 }
 
 async function toError(res: Response): Promise<RequestError> {

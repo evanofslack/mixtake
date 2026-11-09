@@ -53,7 +53,10 @@ Everything runs through `just`:
 - `lib/api.ts` mirrors the Go JSON types; keep them in sync.
 - Next.js 16 differs from older versions: read the relevant guide in `web/node_modules/next/dist/docs/`
   before relying on a Next API.
-- `?mock=1` runs the whole flow against `lib/mock.ts` with no backend.
+- `?mock=1` runs the whole flow against `lib/mock.ts` with no backend, including the cover studio
+  (photos from `public/mock`).
+- `next dev` proxies `/api` to `API_URL` (default `http://localhost:8080`), e.g.
+  `API_URL=http://localhost:8081 npm run dev` when 8080 is taken.
 - Prettier with 4-space indents and a print width of 100.
 
 ## Python conventions

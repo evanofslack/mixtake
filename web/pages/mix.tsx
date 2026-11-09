@@ -11,7 +11,8 @@ import GenreBars from "../components/GenreBars";
 import TempoKey from "../components/TempoKey";
 import TopArtists from "../components/TopArtists";
 import TrackList from "../components/TrackList";
-import CoverPlaceholder from "../components/CoverPlaceholder";
+import CoverStudio from "../components/CoverStudio";
+import Listen from "../components/Listen";
 import { isMockMode } from "../lib/client";
 import { useMixEvents } from "../lib/useMixEvents";
 
@@ -87,17 +88,25 @@ export default function MixPage() {
                         vibe: <span className="text-ink">{mix.vibe}</span>
                     </p>
                 )}
+                <Listen source={mix.source} />
             </div>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
                 <MoodMap tracks={tracks} />
                 <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
                     <GenreBars genres={profile?.genres} />
-                    <TopArtists artists={profile?.artists} />
+                    <TopArtists artists={profile?.artists} tracks={tracks} />
                 </div>
                 <EnergyArc trackIds={mix.track_ids} tracks={tracks} />
                 <TempoKey profile={profile} />
+                <CoverStudio
+                    key={mix.id}
+                    mixId={mix.id}
+                    mock={mock}
+                    source={mix.source}
+                    analysed={coverage.done}
+                    finished={finished}
+                />
                 <TrackList trackIds={mix.track_ids} tracks={tracks} />
-                <CoverPlaceholder ready={finished || coverage.done >= 20} />
             </div>
         </Shell>
     );
