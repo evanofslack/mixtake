@@ -10,6 +10,7 @@ import (
 	"strings"
 	"sync/atomic"
 	"testing"
+	"time"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
 
@@ -69,15 +70,34 @@ func newServer(t *testing.T, keywordCalls *atomic.Int32) *httptest.Server {
 			http.Error(w, "<Error>AccessDenied</Error>", http.StatusForbidden)
 		}
 	})
+	mux.HandleFunc("GET /v1/posts", func(w http.ResponseWriter, r *http.Request) {
+		q := r.URL.Query()
+		if q.Get("color") != "navy" || q.Get("sort") != "random" || q.Get("seed") != "7" ||
+			q.Get("grayscale") != "false" || q.Get("nsfw") != "false" || q.Get("ratio_min") == "" {
+			t.Errorf("posts query %s", r.URL.RawQuery)
+		}
+		if q.Get("keyword") == "boom" {
+			http.Error(w, `{"error":"invalid"}`, http.StatusBadRequest)
+			return
+		}
+		fixture("search.json")(w, r)
+	})
 	srv := httptest.NewServer(mux)
 	t.Cleanup(srv.Close)
 	return srv
 }
 
+// newClient returns a client for srv that retries without waiting long.
+func newClient(srv *httptest.Server, m *metrics.Metrics) *Client {
+	c := New(srv.URL, srv.URL+"/img", srv.Client(), m)
+	c.retryBase = time.Millisecond
+	return c
+}
+
 func TestSearch(t *testing.T) {
 	srv := newServer(t, new(atomic.Int32))
 	m := metrics.New()
-	c := New(srv.URL, srv.URL+"/img", srv.Client(), m)
+	c := newClient(srv, m)
 	ctx := context.Background()
 
 	got, err := c.Search(ctx, mix.PhotoQuery{Text: "rain on window at night"})
@@ -107,7 +127,7 @@ func TestSearch(t *testing.T) {
 }
 
 func TestSimilar(t *testing.T) {
-	c := New(newServer(t, new(atomic.Int32)).URL, "", nil, nil)
+	c := newClient(newServer(t, new(atomic.Int32)), nil)
 	tests := []struct {
 		id   int
 		n    int
@@ -127,7 +147,7 @@ func TestSimilar(t *testing.T) {
 
 func TestKeywordCount(t *testing.T) {
 	var calls atomic.Int32
-	c := New(newServer(t, &calls).URL, "", nil, nil)
+	c := newClient(newServer(t, &calls), nil)
 	tests := []struct {
 		word  string
 		count int
@@ -138,8 +158,8 @@ func TestKeywordCount(t *testing.T) {
 		{"Beach", 2002, nil, 1}, // cached, case-insensitive
 		{"zzqqxx", 0, nil, 2},
 		{"zzqqxx", 0, nil, 2},
-		{"boom", 0, mix.ErrUpstream, 3},
-		{"boom", 0, mix.ErrUpstream, 4}, // failures aren't cached
+		{"boom", 0, mix.ErrUpstream, 5}, // retried
+		{"boom", 0, mix.ErrUpstream, 8}, // failures aren't cached
 	}
 	for _, tt := range tests {
 		n, err := c.KeywordCount(context.Background(), tt.word)
@@ -147,6 +167,105 @@ func TestKeywordCount(t *testing.T) {
 			t.Errorf("KeywordCount(%q) = %d, %v after %d calls; want %d, %v, %d", tt.word, n, err,
 				calls.Load(), tt.count, tt.err, tt.calls)
 		}
+	}
+}
+
+func TestByColor(t *testing.T) {
+	c := newClient(newServer(t, new(atomic.Int32)), nil)
+	got, err := c.ByColor(context.Background(), mix.ColorQuery{Color: "navy", Keyword: "Fog", Seed: 7})
+	if err != nil || len(got) != 3 || got[0].ID != 34825 {
+		t.Errorf("got %d photos, %v", len(got), err)
+	}
+	_, err = c.ByColor(context.Background(), mix.ColorQuery{Color: "navy", Keyword: "boom", Seed: 7})
+	if !errors.Is(err, mix.ErrUpstream) {
+		t.Errorf("bad request: err = %v", err)
+	}
+}
+
+// TestRetry serves each path's statuses in turn, then 200s.
+func TestRetry(t *testing.T) {
+	type step struct {
+		status     int
+		retryAfter string
+	}
+	tests := []struct {
+		name  string
+		steps []step
+		err   error
+		calls int32
+	}{
+		{"ok", nil, nil, 1},
+		{"429 then ok", []step{{429, ""}}, nil, 2},
+		{"429 with retry-after", []step{{429, "0"}, {429, "1"}}, nil, 3},
+		{"503 twice then ok", []step{{503, ""}, {502, ""}}, nil, 3},
+		{"gives up after three", []step{{500, ""}, {500, ""}, {500, ""}}, mix.ErrUpstream, 3},
+		{"retry-after too long", []step{{429, "60"}}, mix.ErrUpstream, 1},
+		{"400 isn't retried", []step{{400, ""}}, mix.ErrUpstream, 1},
+		{"404 isn't retried", []step{{404, ""}}, mix.ErrNotFound, 1},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var calls atomic.Int32
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				n := int(calls.Add(1))
+				if n <= len(tt.steps) {
+					if s := tt.steps[n-1]; s.retryAfter != "" {
+						w.Header().Set("Retry-After", s.retryAfter)
+					}
+					http.Error(w, `{"error":"Too many requests"}`, tt.steps[n-1].status)
+					return
+				}
+				w.Write([]byte(`{"posts":[{"id":1}]}`))
+			}))
+			defer srv.Close()
+			start := time.Now()
+			_, err := newClient(srv, nil).Search(context.Background(), mix.PhotoQuery{Text: "x"})
+			if !errors.Is(err, tt.err) || calls.Load() != tt.calls {
+				t.Errorf("err = %v after %d calls, want %v after %d", err, calls.Load(), tt.err, tt.calls)
+			}
+			if wait := time.Since(start); tt.name == "429 with retry-after" && wait < time.Second {
+				t.Errorf("waited %s, want Retry-After's 1s", wait)
+			}
+		})
+	}
+}
+
+func TestPageCache(t *testing.T) {
+	var calls atomic.Int32
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		calls.Add(1)
+		if r.URL.Query().Get("q") == "fail" {
+			http.Error(w, "nope", http.StatusBadRequest)
+			return
+		}
+		w.Write([]byte(`{"posts":[{"id":1},{"id":2}]}`))
+	}))
+	defer srv.Close()
+	c := newClient(srv, nil)
+	ctx := context.Background()
+	tests := []struct {
+		q     mix.PhotoQuery
+		calls int32
+	}{
+		{mix.PhotoQuery{Text: "Rain on a window"}, 1},
+		{mix.PhotoQuery{Text: "  rain on  a WINDOW "}, 1}, // normalised
+		{mix.PhotoQuery{Text: "rain on a window", PageSize: 20}, 2},
+		{mix.PhotoQuery{Text: "fog"}, 3},
+		{mix.PhotoQuery{Text: "fail"}, 4},
+		{mix.PhotoQuery{Text: "fail"}, 5}, // failures aren't cached
+	}
+	for _, tt := range tests {
+		ps, err := c.Search(ctx, tt.q)
+		if calls.Load() != tt.calls || (err == nil && len(ps) != 2) {
+			t.Errorf("Search(%q) = %d photos, %v after %d calls, want %d calls", tt.q.Text, len(ps), err,
+				calls.Load(), tt.calls)
+		}
+		if err == nil {
+			ps[0].ID = 99 // callers can't change the cache
+		}
+	}
+	if ps, _ := c.Search(ctx, mix.PhotoQuery{Text: "fog"}); ps[0].ID != 1 {
+		t.Errorf("cache was modified: %d", ps[0].ID)
 	}
 }
 
