@@ -218,7 +218,9 @@ function ErrorAlert({ error, onClose }: { error: RequestError; onClose: () => vo
               ? "Busy right now"
               : error.isPrivate
                 ? "That playlist is private"
-                : "Couldn't start that mix";
+                : error.status === 404
+                  ? "Couldn't open that playlist"
+                  : "Couldn't start that mix";
     return (
         <Alert
             mt="md"

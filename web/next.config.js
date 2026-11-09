@@ -3,6 +3,8 @@ const isDev = process.env.NODE_ENV === "development";
 /** @type {import('next').NextConfig} */
 module.exports = {
     reactStrictMode: true,
+    // don't write web/AGENTS.md on `next dev`; CLAUDE.md points agents at the bundled docs instead
+    agentRules: false,
     turbopack: {
         root: __dirname,
     },

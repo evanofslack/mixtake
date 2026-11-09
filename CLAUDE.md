@@ -51,6 +51,9 @@ Everything runs through `just`:
 - Mantine components with Tailwind utilities. Colours come from CSS variables so light and dark
   both work.
 - `lib/api.ts` mirrors the Go JSON types; keep them in sync.
+- Next.js 16 differs from older versions: read the relevant guide in `web/node_modules/next/dist/docs/`
+  before relying on a Next API.
+- `?mock=1` runs the whole flow against `lib/mock.ts` with no backend.
 - Prettier with 4-space indents and a print width of 100.
 
 ## Python conventions

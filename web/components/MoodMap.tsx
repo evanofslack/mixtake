@@ -1,7 +1,7 @@
 import { PointerEvent, useMemo, useState } from "react";
-import { useElementSize } from "@mantine/hooks";
 import { energy, Features, mood, TrackResult } from "../lib/api";
 import { artistNames } from "../lib/format";
+import { useWidth } from "../lib/useWidth";
 import Panel from "./Panel";
 
 type Props = {
@@ -17,7 +17,7 @@ const HIT = 22;
 
 // every analysed song on mood (x) × energy (y); dots develop in as results arrive
 export default function MoodMap({ tracks }: Props) {
-    const { ref, width } = useElementSize();
+    const [ref, width] = useWidth<HTMLDivElement>();
     const height = Math.round(Math.min(440, Math.max(260, width * 0.72)));
     const [hover, setHover] = useState<Dot | null>(null);
 
