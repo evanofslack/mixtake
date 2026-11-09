@@ -9,12 +9,14 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"image"
 	"io"
 	"log/slog"
 	"os"
 	"os/signal"
 	"strings"
 	"text/tabwriter"
+	"time"
 
 	"github.com/evanofslack/mixtake/internal/analogdb"
 	"github.com/evanofslack/mixtake/internal/analyzer"
@@ -29,18 +31,20 @@ func main() {
 	link := flag.String("link", "", "Spotify playlist, album or track link")
 	vibe := flag.String("vibe", "", "optional vibe text")
 	top := flag.Int("n", 5, "photos to print")
+	sheet := flag.String("sheet", "", "write a contact sheet JPEG of the picks to this path")
+	seed := flag.Int("seed", 0, "shuffle seed; 0 is the usual set")
 	flag.Parse()
 	if *link == "" {
-		fmt.Fprintln(os.Stderr, "usage: tune -link <spotify link> [-vibe text] [-n 5]")
+		fmt.Fprintln(os.Stderr, "usage: tune -link <spotify link> [-vibe text] [-n 5] [-seed 0] [-sheet out.jpg]")
 		os.Exit(2)
 	}
-	if err := run(*link, *vibe, *top, os.Stdout); err != nil {
+	if err := run(*link, *vibe, *seed, *top, *sheet, os.Stdout); err != nil {
 		fmt.Fprintln(os.Stderr, "tune:", err)
 		os.Exit(1)
 	}
 }
 
-func run(link, vibe string, top int, out io.Writer) error {
+func run(link, vibe string, seed, top int, sheet string, out io.Writer) error {
 	cfg, err := config.Load()
 	if err != nil {
 		return err
@@ -67,7 +71,8 @@ func run(link, vibe string, top int, out io.Writer) error {
 		AnalyzeConcurrency: cfg.AnalyzeConcurrency,
 	})
 	defer runner.Wait()
-	covers := mix.NewCovers(analogdb.New(cfg.AnalogdbURL, "", nil, m), 0)
+	photos := analogdb.New(cfg.AnalogdbURL, "", nil, m)
+	covers := mix.NewCovers(photos, 0)
 
 	created, err := runner.Create(ctx, link, vibe)
 	if err != nil {
@@ -91,12 +96,23 @@ func run(link, vibe string, top int, out io.Writer) error {
 	if snap.Profile == nil {
 		return fmt.Errorf("no tracks analysed (status %s)", snap.Status)
 	}
-	p, err := covers.Pick(ctx, snap, snap.Mix.Vibe)
+	p, err := covers.Pick(ctx, snap, snap.Mix.Vibe, seed)
 	if err != nil {
 		return err
 	}
 	print(out, snap, p, top, orDefault(cfg.AnalyzerURL, "fake"))
-	return nil
+	if sheet == "" {
+		return nil
+	}
+	return writeSheet(ctx, func(ctx context.Context, name string) (image.Image, error) {
+		body, _, err := photos.Image(ctx, name)
+		if err != nil {
+			return nil, err
+		}
+		defer body.Close()
+		img, _, err := image.Decode(body)
+		return img, err
+	}, p, sheet)
 }
 
 func print(out io.Writer, snap mix.Snapshot, p mix.Pick, top int, analyzerName string) {
@@ -113,10 +129,12 @@ func print(out io.Writer, snap mix.Snapshot, p mix.Pick, top int, analyzerName s
 	}
 	fmt.Fprintf(out, "  genres: %s\n", strings.Join(genres, ", "))
 	fmt.Fprintf(out, "  quadrant: %s\n", p.Quadrant)
-	for _, q := range p.Queries {
-		fmt.Fprintf(out, "  query %-8s %.1f  %q\n", q.Source, q.Weight, q.Text)
+	for i, q := range p.Queries {
+		fmt.Fprintf(out, "  query %d %-8s %-8s %.2f  %q\n", i, q.Lens, q.Source, q.Weight, q.Text)
 	}
 	fmt.Fprintf(out, "  palette: %s\n", strings.Join(p.Palette, " "))
+	fmt.Fprintf(out, "  %d analogdb requests (cached included) in %s\n", p.Requests,
+		p.Elapsed.Round(time.Millisecond))
 	tw := tabwriter.NewWriter(out, 0, 4, 2, ' ', 0)
 	for _, c := range p.Candidates[:min(top, len(p.Candidates))] {
 		var url string
@@ -125,7 +143,7 @@ func print(out io.Writer, snap mix.Snapshot, p mix.Pick, top int, analyzerName s
 				url = img.URL
 			}
 		}
-		fmt.Fprintf(tw, "  %d\t%.3f\t%s\t%s\n", c.Photo.ID, c.Score, c.Photo.Caption, url)
+		fmt.Fprintf(tw, "  %d\tq%d\t%.3f\t%s\t%s\n", c.Photo.ID, c.Query, c.Score, c.Photo.Caption, url)
 	}
 	tw.Flush()
 }
