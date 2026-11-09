@@ -55,17 +55,18 @@ func TestScenes(t *testing.T) {
 		contains string // one query must be this
 	}{
 		{"vibe first", Profile{Quadrant: QuadrantSadCalm, Genres: jazz}, "  rain on a tin roof ", nil,
-			[]string{SceneVibe, SceneGenre, SceneQuadrant}, "rain on a tin roof"},
-		{"genre and quadrant", Profile{Quadrant: QuadrantHappyEnergetic, Genres: jazz}, "", nil,
-			[]string{SceneGenre, SceneQuadrant, SceneQuadrant}, ""},
+			[]string{SceneVibe, SceneGenre, SceneGenre}, "rain on a tin roof"},
+		{"sad genre", Profile{Quadrant: QuadrantSadEnergetic, Genres: jazz, Averages: Averages{Mood: 0.3}},
+			"", nil, []string{SceneGenre, SceneGenre, SceneQuadrant}, "saxophone player on a dim stage"},
+		{"happy genre", Profile{Quadrant: QuadrantHappyCalm, Genres: jazz, Averages: Averages{Mood: 0.7}},
+			"", nil, []string{SceneGenre, SceneGenre, SceneQuadrant}, "saxophone player on a stage"},
+		{"genre and name", Profile{Quadrant: QuadrantSadCalm, Genres: jazz}, "", []string{"rain"},
+			[]string{SceneGenre, SceneName, SceneGenre}, "rain"},
 		{"name keywords", Profile{Quadrant: QuadrantHappyCalm, Genres: pop}, "", []string{"piano", "rain"},
 			[]string{SceneQuadrant, SceneName, SceneQuadrant}, "piano rain"},
 		{"modifier without a family", Profile{Quadrant: QuadrantHappyCalm, Genres: pop,
 			Averages: Averages{Acoustic: 0.9, Party: 0.65}}, "", nil,
 			[]string{SceneModifier, SceneQuadrant, SceneQuadrant}, ""},
-		{"genre and modifier", Profile{Quadrant: QuadrantSadEnergetic, Genres: jazz,
-			Averages: Averages{Party: 0.8}}, "", nil,
-			[]string{SceneGenre, SceneQuadrant, SceneModifier}, ""},
 		{"no profile", Profile{}, "", nil, nil, ""},
 	}
 	for _, tt := range tests {

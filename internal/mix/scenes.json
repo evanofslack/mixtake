@@ -82,73 +82,115 @@
       "name": "ambient",
       "styles": ["Ambient", "Dark Ambient", "Modern Classical", "Neo-Classical", "New Age",
         "Drone", "Score", "Soundtrack", "Minimal"],
-      "scenes": [
+      "happy": [
+        "sunlight through sheer white curtains",
+        "sailboat on calm water on a hazy day",
+        "golden light over a misty meadow",
+        "light through trees in a quiet forest"
+      ],
+      "sad": [
         "foggy mountain landscape at dawn",
-        "soft light through sheer curtains",
         "mist over a calm lake at dawn",
-        "piano in a room with window light"
+        "quiet morning fog forest",
+        "snowy forest in winter light"
       ]
     },
     {
       "name": "lofi",
-      "styles": ["Lo-Fi", "Jazzy Hip-Hop", "Trip Hop", "Downtempo", "Instrumental"],
-      "scenes": [
+      "styles": ["Lo-Fi", "Jazzy Hip-Hop", "Trip Hop", "Downtempo", "Instrumental", "Chillwave"],
+      "happy": [
+        "sunlight streams into a cafe with tables and chairs",
+        "record player spinning a vinyl record",
+        "city rooftops at golden hour",
+        "kitchen table with morning coffee in sunlight"
+      ],
+      "sad": [
         "desk by a window on a rainy evening",
         "bedroom at night lit by a lamp",
-        "city rooftops at dusk",
-        "record player spinning a vinyl record"
+        "raindrops on a window over a city at night",
+        "city rooftops at dusk"
       ]
     },
     {
       "name": "latin",
       "parents": ["Latin"],
       "styles": ["Reggaeton", "Dancehall"],
-      "scenes": [
+      "happy": [
         "sunny street with colorful houses and palm trees",
         "people dancing in the street",
         "palm trees on a beach at sunset",
         "colorful old car on a sunny street"
+      ],
+      "sad": [
+        "palm trees along a city street at night",
+        "neon signs on a street at night in the tropics",
+        "empty beach at dusk",
+        "old car on a street at night"
       ]
     },
     {
       "name": "hiphop",
       "parents": ["Hip Hop"],
       "styles": ["Contemporary R&B", "RnB/Swing", "Grime"],
-      "scenes": [
+      "happy": [
+        "basketball court in the city on a sunny day",
+        "palm trees along a city street at sunset",
+        "black car driving towards a city skyline at sunset",
+        "friends on a city rooftop in summer"
+      ],
+      "sad": [
         "city street at night with a parked car",
         "car driving through the city at night",
-        "basketball court in the city",
-        "graffiti wall on a city street"
+        "gas station at night",
+        "light trails on a highway at night"
       ]
     },
     {
       "name": "electronic",
       "parents": ["Electronic"],
-      "scenes": [
-        "neon city lights at night",
+      "happy": [
+        "crowd dancing at a summer festival",
+        "confetti falls over a crowd at night",
         "people dancing in a dark club with lights",
-        "laser lights over a crowd",
-        "light trails on a highway at night"
+        "laser lights over a crowd"
+      ],
+      "sad": [
+        "neon city lights at night",
+        "tunnel lit by red neon lights at night",
+        "light trails on a highway at night",
+        "empty subway platform at night"
       ]
     },
     {
       "name": "jazz",
       "parents": ["Jazz", "Blues"],
       "styles": ["Soul", "Neo Soul", "Lounge"],
-      "scenes": [
+      "happy": [
+        "cafe terrace in the morning",
+        "saxophone player on a stage",
+        "sunset over a city street with old buildings",
+        "couple dancing in a dim bar"
+      ],
+      "sad": [
         "smoky jazz bar at night",
         "saxophone player on a dim stage",
         "wet city street at night with warm lights",
-        "diner at night with a neon sign"
+        "city street in the rain with umbrellas"
       ]
     },
     {
       "name": "classical",
       "parents": ["Classical", "Stage & Screen"],
-      "scenes": [
+      "happy": [
+        "sunlight through tall windows in an old hall",
+        "old library with tall windows",
+        "formal garden in the morning sun",
+        "cathedral interior with light"
+      ],
+      "sad": [
         "grand piano on a stage",
         "foggy mountain landscape at dawn",
-        "sunlight through tall windows in an old hall",
+        "empty hall with tall windows on a grey day",
         "quiet garden in the morning fog"
       ]
     },
@@ -156,30 +198,41 @@
       "name": "folk",
       "parents": ["Folk, World, & Country"],
       "styles": ["Folk Rock", "Americana", "Acoustic", "Bluegrass", "Country"],
-      "scenes": [
+      "happy": [
         "countryside farmhouse at sunset",
-        "wooden porch with a rocking chair",
         "field of wheat at golden hour",
-        "dirt road through the countryside"
+        "old car on a dirt road in the countryside",
+        "horse in a field at sunset"
+      ],
+      "sad": [
+        "wooden porch with a rocking chair",
+        "country road at dusk",
+        "campfire at night under the stars",
+        "empty farmland under a grey sky"
       ]
     },
     {
       "name": "rock",
       "parents": ["Rock"],
-      "scenes": [
-        "desert highway under a big sky",
-        "rock concert crowd with stage lights",
+      "happy": [
         "vintage car on an open road",
-        "guitar amplifier on a stage"
+        "road trip through the mountains in summer",
+        "crowd at an outdoor concert in summer",
+        "desert highway under a big sky"
+      ],
+      "sad": [
+        "musician playing guitar on a stage at night",
+        "motel sign at night",
+        "empty highway at night",
+        "rock concert crowd with stage lights"
       ]
     },
     {
       "name": "pop",
-      "parents": ["Pop", "Funk / Soul", "Reggae"],
-      "scenes": []
+      "parents": ["Pop", "Funk / Soul", "Reggae"]
     }
   ],
-  "stopwords": ["the", "and", "for", "with", "from", "this", "that", "your", "you", "all", "out",
+  "stopwords": ["the", "rock", "pop", "jazz", "rap", "and", "for", "with", "from", "this", "that", "your", "you", "all", "out",
     "best", "top", "hits", "mix", "mixtape", "playlist", "songs", "song", "music", "radio",
     "vibes", "vibe", "beats", "classics", "essentials", "mode", "edition", "deluxe", "remastered",
     "version", "vol", "feat", "new", "now", "today", "this", "is", "of", "official", "album"]

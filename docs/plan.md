@@ -167,19 +167,23 @@ tracks that weren't just fetched with their playlist or album are looked up agai
 1. Mood × energy picks a quadrant, which maps to 6–10 caption-style scene sentences from an
    embedded `scenes.json`.
 2. The dominant genre family (at least 30% of the genre weight; discogs styles are matched before
-   parents, so `Electronic---Ambient` is ambient, not electronic) adds a family scene. Without
-   one, a strong acoustic, instrumental or party score adds a modifier scene.
+   parents, so `Electronic---Ambient` is ambient, not electronic) supplies two scenes from its
+   happy or sad list (mood ≥ 0.5). The family beats the quadrant: in tuning, hip hop at mood 0.6
+   got picnics from the happy-calm quadrant. Without a family, a strong acoustic, instrumental or
+   party score adds a modifier scene next to the quadrant scene.
 3. The vibe text is used verbatim as the first query. Playlist-name words that are real analogdb
-   keywords (at least 20 posts, checked with `/keyword/{word}` and cached) form another query.
-4. At most 3 queries, in order: vibe, genre (or modifier), quadrant, name keywords, a second
-   quadrant scene. Sentences are chosen by a hash of the mix id. The queries run in parallel as
+   keywords (at least 20 posts, checked with `/keyword/{word}` and cached; genre words such as
+   "rock" are stopwords) form another query.
+4. At most 3 queries, in order: vibe; then either two family scenes, or a modifier and a quadrant
+   scene; name keywords; then modifier and quadrant scenes to fill. Sentences are chosen by a
+   hash of the mix id. The queries run in parallel as
    `/search` (page size 50, `nsfw=false`, `sprocket=false`); one failing is fine, all failing is a
    502.
 5. Merge by id, then keep photos with a `high` image of at least 1440px on the long side, an aspect
    ratio of 0.66–1.5 and a name the proxy serves. Grayscale photos are kept only for sad, calm
    mixes.
-6. Score = 0.55 search rank (weighted by query: vibe 1.2, quadrant 1, genre 0.9, modifier 0.8,
-   name 0.7; plus a bonus for matching several queries) + 0.3 colour similarity (each photo
+6. Score = 0.55 search rank (weighted by query: vibe 1.2, first genre or quadrant scene 1,
+   later ones 0.8–0.9, name 0.85; plus a bonus for matching several queries) + 0.3 colour similarity (each photo
    colour's Lab distance to the nearest target colour, weighted by its share) + 0.1 log upvotes +
    0.05 jitter seeded by the mix id. The target palette is a shadow, mid tone and highlight of one
    hue: happy is warm (golden when calm, orange-red when energetic), sad is cool (blue when calm,

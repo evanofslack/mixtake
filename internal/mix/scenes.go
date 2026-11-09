@@ -46,7 +46,8 @@ type sceneBook struct {
 		Name    string   `json:"name"`
 		Parents []string `json:"parents"`
 		Styles  []string `json:"styles"`
-		Scenes  []string `json:"scenes"`
+		Happy   []string `json:"happy"` // scenes for mood ≥ 0.5
+		Sad     []string `json:"sad"`
 	} `json:"families"`
 	Stopwords []string `json:"stopwords"`
 }
@@ -62,50 +63,50 @@ var scenes = func() sceneBook {
 // familyShare is the share of the genre weight a family needs to add its scene.
 const familyShare = 0.3
 
-// Scenes picks up to three searches for a mix: the vibe verbatim when there is one, a scene for
-// the dominant genre family or a strong acoustic, instrumental or party score, a scene for the
-// mood quadrant, and the playlist-name keywords. Choices among sentences are seeded by mixID, so
-// a mix always gets the same queries while mixes in the same quadrant vary.
+// Scenes picks up to three searches for a mix, in order: the vibe verbatim when there is one;
+// two scenes for the dominant genre family, split by mood, or else a modifier scene for a strong
+// acoustic, instrumental or party score and a scene for the mood quadrant; the playlist-name
+// keywords; then more modifier or quadrant scenes to fill. A genre family sets the scene better
+// than the quadrant does (hip hop at mood 0.6 is a city at sunset, not a picnic). Choices among
+// sentences are seeded by mixID, so a mix always gets the same queries while mixes in the same
+// quadrant vary.
 func Scenes(p Profile, mixID, vibe string, nameKeywords []string) []SceneQuery {
 	var qs []SceneQuery
 	add := func(text, source string, weight float64) {
-		for _, q := range qs {
-			if q.Text == text {
-				return
-			}
-		}
-		if text != "" && len(qs) < maxQueries {
+		if text != "" && len(qs) < maxQueries && !used(qs, text) {
 			qs = append(qs, SceneQuery{Text: text, Source: source, Weight: weight})
 		}
+	}
+	// next picks a sentence from list that isn't a query yet
+	next := func(list []string, slot string) string {
+		rest := slices.DeleteFunc(slices.Clone(list), func(s string) bool { return used(qs, s) })
+		return pick(rest, mixID, slot)
 	}
 	if vibe = strings.TrimSpace(vibe); vibe != "" {
 		add(vibe, SceneVibe, 1.2)
 	}
-	family := dominantFamily(p.Genres)
-	modifier := strongModifier(p.Averages)
+	family := familyScenes(dominantFamily(p.Genres), p.Averages.Mood >= 0.5)
+	modifier := modifierScenes(strongModifier(p.Averages))
 	quadrant := scenes.Quadrants[p.Quadrant]
-	switch {
-	case family != "":
-		add(pick(familyScenes(family), mixID, "genre"), SceneGenre, 0.9)
-	case modifier != "":
-		add(pick(modifierScenes(modifier), mixID, "modifier"), SceneModifier, 0.8)
+	if len(family) > 0 {
+		add(next(family, "genre"), SceneGenre, 1)
+	} else {
+		add(next(modifier, "modifier"), SceneModifier, 0.9)
+		add(next(quadrant, "quadrant"), SceneQuadrant, 1)
 	}
-	add(pick(quadrant, mixID, "quadrant"), SceneQuadrant, 1)
 	if len(nameKeywords) > 0 {
-		add(strings.Join(nameKeywords, " "), SceneName, 0.7)
+		add(strings.Join(nameKeywords, " "), SceneName, 0.85)
 	}
-	if family != "" && modifier != "" {
-		add(pick(modifierScenes(modifier), mixID, "modifier"), SceneModifier, 0.8)
+	if len(family) > 0 {
+		add(next(family, "genre2"), SceneGenre, 0.9)
+		add(next(modifier, "modifier"), SceneModifier, 0.8)
 	}
-	// a second quadrant scene fills any slot left
-	var rest []string
-	for _, s := range quadrant {
-		if !slices.ContainsFunc(qs, func(q SceneQuery) bool { return q.Text == s }) {
-			rest = append(rest, s)
-		}
-	}
-	add(pick(rest, mixID, "quadrant2"), SceneQuadrant, 0.9)
+	add(next(quadrant, "quadrant2"), SceneQuadrant, 0.8)
 	return qs
+}
+
+func used(qs []SceneQuery, text string) bool {
+	return slices.ContainsFunc(qs, func(q SceneQuery) bool { return q.Text == text })
 }
 
 // pick chooses a sentence deterministically from mixID and slot.
@@ -155,16 +156,21 @@ func dominantFamily(genres []Genre) string {
 			best, bestW = f.Name, w
 		}
 	}
-	if total == 0 || bestW/total < familyShare || len(familyScenes(best)) == 0 {
+	if total == 0 || bestW/total < familyShare || len(familyScenes(best, true)) == 0 {
 		return ""
 	}
 	return best
 }
 
-func familyScenes(name string) []string {
+// familyScenes is a family's scenes for a happy or a sad mood.
+func familyScenes(name string, happy bool) []string {
 	for _, f := range scenes.Families {
-		if f.Name == name {
-			return f.Scenes
+		switch {
+		case f.Name != name:
+		case happy:
+			return f.Happy
+		default:
+			return f.Sad
 		}
 	}
 	return nil
