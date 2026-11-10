@@ -44,6 +44,19 @@ serve: install
 tune link="" vibe="" seed="0" sheet="":
     go run ./cmd/tune -link "{{link}}" -vibe "{{vibe}}" -seed "{{seed}}" -sheet "{{sheet}}"
 
+# build both docker images: the app for this machine, the analyzer for amd64 (emulated on arm64)
+docker-build:
+    docker buildx build --load -t evanofslack/mixtake:latest .
+    docker buildx build --load --platform linux/amd64 -t evanofslack/mixtake-analyzer:latest analyzer
+
+# run the compose stack in the background (settings from .env); `just down` stops it
+up:
+    docker compose up -d
+
+# stop the compose stack; the data volume is kept
+down:
+    docker compose down
+
 # go tests with the race detector
 test:
     go test -race ./...

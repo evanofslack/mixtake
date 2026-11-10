@@ -98,15 +98,16 @@ no recorded fixtures.
 The image is `linux/amd64` only and its build context is `analyzer/`:
 
 ```sh
-docker build --platform linux/amd64 -t mixtake-analyzer analyzer
-docker run --rm -p 8000:8000 mixtake-analyzer
+docker buildx build --platform linux/amd64 -t mixtake-analyzer analyzer
+docker run --rm -p 8000:8000 -e ANALYZER_WORKERS=2 mixtake-analyzer
 ```
 
-Model files already in `analyzer/models` are copied into the image; any that are missing are
-downloaded during the build (pass `--build-arg MODELS_BASE_URL=…` and `MODELS_LAYOUT=flat` to use
-a mirror), and all of them are checked against `models.lock`. The image runs as a non-root user,
-has a `HEALTHCHECK` on `/health` and listens on port 8000. On Apple silicon the build and the
-container run under emulation and are slow.
+The build downloads the models from the `models-v1` GitHub release and checks every file against
+`models.lock` (`--build-arg MODELS_BASE_URL=… MODELS_LAYOUT=…` picks another source). For an
+offline build, add `--build-context models=analyzer/models` to use local copies; only files that
+are missing or don't match are downloaded. The image runs as a non-root user, has a `HEALTHCHECK`
+on `/health` and listens on port 8000. On Apple silicon the build and the container run under
+emulation: it works, but a preview takes about 45 s instead of under 1 s.
 
 ## Licensing
 

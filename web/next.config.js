@@ -1,4 +1,6 @@
 const isDev = process.env.NODE_ENV === "development";
+// where `next dev` sends /api: `API_URL=http://localhost:8081 npm run dev` when 8080 is taken
+const apiUrl = (process.env.API_URL || "http://localhost:8080").replace(/\/+$/, "");
 
 /** @type {import('next').NextConfig} */
 module.exports = {
@@ -12,14 +14,14 @@ module.exports = {
         unoptimized: true,
     },
     // a static export served by the go binary in production; in dev, proxy the API to `just api`
-    // (rewrites can't be exported)
+    // or API_URL (rewrites can't be exported)
     ...(isDev
         ? {
               async rewrites() {
                   return [
                       {
                           source: "/api/:path*",
-                          destination: "http://localhost:8080/api/:path*",
+                          destination: `${apiUrl}/api/:path*`,
                       },
                   ];
               },
