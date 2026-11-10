@@ -15,10 +15,16 @@ const (
 	imageCache     = "public, max-age=31536000, immutable"
 )
 
-// mixPhotos handles GET /api/mixes/{id}/photos?vibe=: ranked cover photos for the mix's current
-// profile. vibe overrides the mix's stored vibe for this search only.
+// mixPhotos handles GET /api/mixes/{id}/photos?vibe=&seed=: ranked cover photos for the mix's
+// current profile. vibe overrides the mix's stored vibe for this search only; a seed other than 0
+// shuffles to a different set.
 func (s *Server) mixPhotos(w http.ResponseWriter, r *http.Request) {
-	vibe, err := mix.CoverVibe(r.URL.Query().Get("vibe"))
+	q := r.URL.Query()
+	vibe, err := mix.CoverVibe(q.Get("vibe"))
+	var seed int
+	if err == nil {
+		seed, err = mix.CoverSeed(q.Get("seed"))
+	}
 	var inputErr *mix.InputError
 	if errors.As(err, &inputErr) {
 		writeError(w, http.StatusBadRequest, inputErr.Msg)
@@ -32,7 +38,7 @@ func (s *Server) mixPhotos(w http.ResponseWriter, r *http.Request) {
 		s.internalError(w, r, err)
 		return
 	}
-	set, err := s.deps.Covers.ForMix(r.Context(), snap, vibe)
+	set, err := s.deps.Covers.ForMix(r.Context(), snap, vibe, seed)
 	s.writePhotos(w, r, set, err)
 }
 
