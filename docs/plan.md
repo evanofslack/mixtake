@@ -180,7 +180,7 @@ seven searches from several **lenses**, so the 12 covers span different kinds of
 | literal | 2–3 | scenes for the dominant genre family, or a strong modifier, and the mood quadrant |
 | abstract | 2–3 | light, shadow, texture, reflections, blur, silhouettes, haze, colour fields |
 | words | 0–2 | evocative words from the track titles and the playlist or album name |
-| color | 1 | `/posts` by the target palette's colour name plus a keyword for that colour |
+| color | 1 | `/posts` by the target palette's colour name plus a keyword for that colour and mood quadrant (`orange sunset`, not `orange building`) |
 
 1. Mood × energy picks a quadrant. `scenes.json` has 18 caption-style `literal` and 18
    `abstract` sentences per quadrant. Every sentence was checked to return at least 15 usable
