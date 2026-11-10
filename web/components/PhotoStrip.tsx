@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { ActionIcon, Button, TextInput } from "@mantine/core";
-import { FiArrowLeft, FiSearch } from "react-icons/fi";
+import { FiArrowLeft, FiSearch, FiShuffle } from "react-icons/fi";
 import type { Photo, PhotoSet } from "../lib/api";
 import { thumbFor } from "../lib/photos";
 
@@ -13,6 +13,7 @@ type Props = {
     vibe: string;
     onSelect: (p: Photo) => void;
     onVibe: (vibe: string) => void;
+    onShuffle: () => void;
     onBack: () => void;
 };
 
@@ -25,7 +26,22 @@ export default function PhotoStrip(props: Props) {
         <div className="min-w-0">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <Why set={set} like={like} loading={loading} onBack={props.onBack} />
-                <VibeForm vibe={props.vibe} onVibe={props.onVibe} disabled={loading} />
+                <div className="flex items-center gap-2">
+                    {!like && (
+                        <Button
+                            variant="subtle"
+                            size="compact-sm"
+                            leftSection={<FiShuffle />}
+                            onClick={props.onShuffle}
+                            disabled={loading}
+                            className="shrink-0"
+                            title="a different set of photos for the same mix"
+                        >
+                            Shuffle
+                        </Button>
+                    )}
+                    <VibeForm vibe={props.vibe} onVibe={props.onVibe} disabled={loading} />
+                </div>
             </div>
             <ul
                 aria-label={like ? "photos like the selected one" : "cover photos"}

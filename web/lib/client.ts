@@ -38,12 +38,24 @@ export async function createMix(input: string, vibe: string, mock: boolean): Pro
 }
 
 // cover candidates for a mix; a 409 means too few songs are analysed yet. `vibe` re-searches with
-// other words without making a new mix
-export async function fetchPhotos(id: string, vibe: string, mock: boolean): Promise<PhotoSet> {
+// other words without making a new mix, and a `seed` other than 0 shuffles to a different set
+export async function fetchPhotos(
+    id: string,
+    vibe: string,
+    seed: number,
+    mock: boolean,
+): Promise<PhotoSet> {
     if (mock) {
-        return mockPhotos(id, vibe);
+        return mockPhotos(id, vibe, seed);
     }
-    const q = vibe ? `?vibe=${encodeURIComponent(vibe)}` : "";
+    const params = new URLSearchParams();
+    if (vibe) {
+        params.set("vibe", vibe);
+    }
+    if (seed) {
+        params.set("seed", String(seed));
+    }
+    const q = params.toString() ? `?${params}` : "";
     return getJSON(`/api/mixes/${encodeURIComponent(id)}/photos${q}`);
 }
 

@@ -7,7 +7,7 @@ import { clampCrop, CoverState } from "../lib/canvas";
 import { fetchPhotos, fetchSimilar } from "../lib/client";
 import { RequestError } from "../lib/errors";
 import { editorImageFor, thumbFor, useImage } from "../lib/photos";
-import { mergeQuery, readShared, slug, writeShared } from "../lib/share";
+import { mergeQuery, readShared, SEED_MAX, slug, writeShared } from "../lib/share";
 import CoverCanvas from "./CoverCanvas";
 import CoverControls from "./CoverControls";
 import Panel, { Waiting } from "./Panel";
@@ -42,6 +42,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
     // when the final set arrives
     const [chosen, setChosen] = useState(initial.photo !== null);
     const [vibe, setVibe] = useState(initial.vibe);
+    const [seed, setSeed] = useState(initial.seed);
     const [like, setLike] = useState<number | null>(initial.like);
     const [missing, setMissing] = useState(false);
 
@@ -73,7 +74,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         }
         let cancelled = false;
         setMain((f) => ({ ...f, loading: true, error: null }));
-        fetchPhotos(mixId, vibe, mock).then(
+        fetchPhotos(mixId, vibe, seed, mock).then(
             (set) => {
                 if (cancelled) {
                     return;
@@ -100,7 +101,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         return () => {
             cancelled = true;
         };
-    }, [ready, finished, mixId, vibe, mock, retry, remember]);
+    }, [ready, finished, mixId, vibe, seed, mock, retry, remember]);
 
     // the server hasn't counted enough songs yet: try again shortly
     useEffect(() => {
@@ -186,8 +187,8 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
 
     // keep the edits in the URL, without a history entry per keystroke
     const shared = useMemo(
-        () => writeShared({ photo: photoId, vibe, like, state }, defaultTitle),
-        [photoId, vibe, like, state, defaultTitle],
+        () => writeShared({ photo: photoId, vibe, seed, like, state }, defaultTitle),
+        [photoId, vibe, seed, like, state, defaultTitle],
     );
     const routerRef = useRef(router);
     routerRef.current = router;
@@ -239,14 +240,23 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         setLikeSet(null);
         setLike(photo.id);
     };
-    const research = (v: string) => {
-        setVibe(v);
+    // a new set of photos: its first photo replaces the current one
+    const reload = () => {
         setLike(null);
         setLikeSet(null);
         setMainSet(null);
-        // the new set's first photo replaces the current one
         setChosen(false);
         setMissing(false);
+    };
+    // new words start from the usual set for them
+    const research = (v: string) => {
+        setVibe(v);
+        setSeed(0);
+        reload();
+    };
+    const shuffle = () => {
+        setSeed(1 + Math.floor(Math.random() * SEED_MAX));
+        reload();
     };
     const back = () => {
         setLike(null);
@@ -312,6 +322,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                 vibe={vibe}
                 onSelect={select}
                 onVibe={research}
+                onShuffle={shuffle}
                 onBack={back}
             />
             {(likeFetch.error || (mainSet && main.error)) && (
