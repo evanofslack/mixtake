@@ -25,8 +25,12 @@ live (mood map, energy arc, genres, tempo and key), get a film-photo cover from
     derived from the mood heads.
 - **analogdb** (`https://api.analogdb.com/v1`): caption-style scene queries work very well with
   `/search?q=`. Raw playlist names and album-art image search don't. `/search` has no colour
-  filter (only `/posts` does), so colour ranking happens in Go. `i.analogdb.com` sends no CORS
-  headers, so images are proxied through Go so the canvas can export them.
+  filter, so colour ranking happens in Go; `/posts?color=` does filter, taking one of red,
+  orange, tan, yellow, green, olive, teal, navy, purple, pink, gray, black, white, brown (or a
+  hex), with `keyword=`, `sort=random&seed=1..500`, `grayscale`, `ratio_min` and `ratio_max`.
+  Colour alone gives random clutter (game consoles, signs); colour plus a keyword is on topic.
+  Anonymous clients get 60 requests a minute per IP, and bursts get 429. `i.analogdb.com` sends
+  no CORS headers, so images are proxied through Go so the canvas can export them.
 - No API keys are needed.
 
 ## Stack
@@ -43,7 +47,7 @@ live (mood map, energy arc, genres, tempo and key), get a film-photo cover from
 
 ```
 cmd/mixtake/      wiring: config → clients → store → runner → server
-cmd/tune/         tuning CLI: link → profile, scene queries, top photo URLs
+cmd/tune/         tuning CLI: link → profile, scene queries, top photos, contact sheet
 internal/
   config/         env parsing
   mix/            domain types, the IO interfaces, input parsing, profile aggregation,
@@ -76,7 +80,8 @@ type Analyzer interface { // essentia sidecar, or Fake
 }
 
 type Photos interface { // analogdb
-    Search(ctx context.Context, q PhotoQuery) ([]Photo, error)
+    Search(ctx context.Context, q PhotoQuery) ([]Photo, error)    // cached in memory
+    ByColor(ctx context.Context, q ColorQuery) ([]Photo, error)   // cached in memory
     Similar(ctx context.Context, id int) ([]Photo, error)
     Image(ctx context.Context, name string) (io.ReadCloser, string, error) // body, content type
     KeywordCount(ctx context.Context, word string) (int, error)           // cached in memory
@@ -118,7 +123,7 @@ with fakes of these four.
 | `POST /api/mixes {input, vibe?}` | Parse the input: a playlist or album link costs one embed fetch; pasted links or URIs need no fetch. Caps of 100 and 300 tracks. Stores the mix, starts a job, returns `201 {id}`. Errors for private, invalid, unsupported or empty input. Rate limited per IP; 503 when the global queue is full. |
 | `GET /api/mixes/{id}` | Snapshot: source, tracks with features, profile, status. Restarts an incomplete job if none is running. |
 | `GET /api/mixes/{id}/events` | SSE: `snapshot` first, then `track`, `progress`, `profile` (every ~10 tracks and at the end), then `done` or `error`. |
-| `GET /api/mixes/{id}/photos?vibe=` | `200 PhotoSet {queries, palette, photos}`: about 12 ranked analogdb photos for the current profile, plus the scene queries and target palette used. `vibe` (≤200 characters) overrides the mix's vibe for this search only. 404 unknown mix; 409 until 10 tracks are analysed (or the job finished with fewer, for short albums); 400 long vibe; 502 analogdb failed. |
+| `GET /api/mixes/{id}/photos?vibe=&seed=` | `200 PhotoSet {queries, palette, photos}`: about 12 ranked analogdb photos for the current profile, plus the queries (all of them, every lens) and target palette used. `vibe` (≤200 characters) overrides the mix's vibe for this search only. `seed` (optional whole number, 0–1000000000) shuffles: 0 or absent is the mix's usual set, any other value picks different sentences, title words and colour page, so a "shuffle" button can send a new random seed each click; the same seed always gives the same set. 404 unknown mix; 409 until 10 tracks are analysed (or the job finished with fewer, for short albums); 400 long vibe or bad seed; 502 only when every analogdb search failed. |
 | `GET /api/photos/{id}/similar` | `200 PhotoSet` with empty `queries` and `palette`: analogdb's similar photos, filtered, in analogdb's order, without the photo itself. 404 unknown photo (or one without a similarity embedding); 502 analogdb failed. |
 | `GET /api/img/{name}` | Streams an `i.analogdb.com` image with `Cache-Control: public, max-age=31536000, immutable`. Only analogdb file names are served (404 otherwise): a uuid, or the older `<24 hex>-<low\|medium\|high\|raw>`, with `.jpeg`, `.jpg` or `.png`. 502 analogdb failed. |
 | `GET /api/health` | Health check. Metrics are served on `METRICS_PORT` at `/metrics`. |
@@ -162,37 +167,86 @@ tracks that weren't just fetched with their playlist or album are looked up agai
 
 ### Photo pipeline
 
-`mix.Covers` runs it; `cmd/tune` prints every step for a link.
+`mix.Covers` runs it; `cmd/tune` prints every step for a link and, with `-sheet out.jpg`, draws
+a contact sheet of the 12 picks labelled by lens and query (`-seed` shows a shuffle).
 
-1. Mood × energy picks a quadrant, which maps to 6–10 caption-style scene sentences from an
-   embedded `scenes.json`.
+The first version ran three literal searches, and every cover in a set showed the same scene
+(all concert crowds for Beast Mode, all empty halls for Peaceful Piano). Now a set draws about
+seven searches from several **lenses**, so the 12 covers span different kinds of image:
+
+| Lens | Queries | Source |
+|---|---|---|
+| vibe | 0–1 | the vibe text verbatim, always first |
+| literal | 2–3 | scenes for the dominant genre family, or a strong modifier, and the mood quadrant |
+| abstract | 2–3 | light, shadow, texture, reflections, blur, silhouettes, haze, colour fields |
+| words | 0–2 | evocative words from the track titles and the playlist or album name |
+| color | 1 | `/posts` by the target palette's colour name plus a keyword for that colour |
+
+1. Mood × energy picks a quadrant. `scenes.json` has 18 caption-style `literal` and 18
+   `abstract` sentences per quadrant. Every sentence was checked to return at least 15 usable
+   photos from `/search`, and sets were tuned on contact sheets. Abstract sentences map mood
+   and energy to texture: calm is stillness, haze, pastel and empty space; energetic is blur,
+   streaks, flash and saturated colour; sad is night, shadow and fog; happy is sun flare, warm
+   light and overexposure.
 2. The dominant genre family (at least 30% of the genre weight; discogs styles are matched before
-   parents, so `Electronic---Ambient` is ambient, not electronic) supplies two scenes from its
-   happy or sad list (mood ≥ 0.5). The family beats the quadrant: in tuning, hip hop at mood 0.6
-   got picnics from the happy-calm quadrant. Without a family, a strong acoustic, instrumental or
-   party score adds a modifier scene next to the quadrant scene.
-3. The vibe text is used verbatim as the first query. Playlist-name words that are real analogdb
-   keywords (at least 20 posts, checked with `/keyword/{word}` and cached; genre words such as
-   "rock" are stopwords) form another query.
-4. At most 3 queries, in order: vibe; then either two family scenes, or a modifier and a quadrant
-   scene; name keywords; then modifier and quadrant scenes to fill. Sentences are chosen by a
-   hash of the mix id. The queries run in parallel as
-   `/search` (page size 50, `nsfw=false`, `sprocket=false`); one failing is fine, all failing is a
-   502.
-5. Merge by id, then keep photos with a `high` image of at least 1440px on the long side, an aspect
+   parents, so `Electronic---Ambient` is ambient, not electronic) has 15 `happy` and 15 `sad`
+   literal scenes (mood ≥ 0.5 picks happy) and 10–12 `abstract` ones. The family supplies the
+   first two literal scenes and the quadrant only a third: in tuning, hip hop at mood 0.6 got
+   picnics and morning coffee from the happy-calm quadrant. Without a family, a strong acoustic,
+   instrumental or party score supplies modifier scenes (12–15 each) alternating with the
+   quadrant's. With a family the modifier is ignored: Kind of Blue is instrumental, but a
+   waterfall is no cover for it.
+3. **Title words.** Track titles (without "(feat. …)", "[Remix]" or " - Remastered") and the
+   playlist or album name are split into words. Stopwords (genre words, "love", "baby", "remix",
+   pronouns…) are dropped and plurals of evocative words are made singular. A word scores one
+   per title it is in, +2 for being in the name and +1.5 for being on the `title_words` list
+   (about 80 evocative words, each with at least 25 analogdb posts: rain, night, summer, ocean,
+   moon, blue, gold…). Name words and words in two or more titles qualify; an evocative word in
+   one title qualifies only for mixes with fewer than 20 tracks (in a 100-track playlist,
+   "Midnight Sun" and "Waterfalls" gave a sun and a waterfall to Beast Mode). Colour words other
+   than blue are stopwords: "White Ferrari" gave Blonde a white dog and an egret. Evocative
+   words are searched as they are; the other top candidates (at most 3 per set) need 20 posts on
+   `/keyword/{word}` (cached). At most 2 words become searches. Ties are broken by the seed.
+4. **Colour.** `ColorName` maps the target palette to an analogdb colour: tan, yellow, orange,
+   red as happy mixes get more energetic; gray, navy, then purple for sad ones (analogdb's navy
+   includes bright tropical blues, which don't suit the calmest mixes). It is paired with a
+   seeded keyword from that colour's `colors` list (lake, snow, fog… for gray), chosen for having
+   plenty of posts in that colour and few people in swimwear, and listed with
+   `/posts?sort=random&seed=…&grayscale=false&ratio_min=0.66&ratio_max=1.5`. This is the
+   loosest lens: it adds colour-field images, and sometimes a portrait.
+5. **Order**, seven queries besides the vibe: literal, abstract, word, literal, abstract, colour,
+   word, then literal and abstract scenes alternate to fill. Abstract scenes alternate family →
+   quadrant. Sentences are picked by a hash of the
+   seed key (the mix id, plus `#seed` when shuffled) and the slot, never repeating, so a mix
+   always gets the same set for a seed while mixes in the same quadrant differ.
+6. **Requests.** Searches run two at a time (`/search`, page size 50, `nsfw=false`,
+   `sprocket=false`). The analogdb client caches each page (search text normalised, colour
+   query) for an hour, because many mixes share sentences, and retries 429, 5xx and network
+   errors up to 3 attempts, after 250ms then 750ms or the server's `Retry-After` (giving up at
+   once if that is over 2s). A failing lens is left out; only if every search fails is it a 502.
+   A cold set is 7 or 8 searches plus 0–3 keyword lookups (7–10 requests) and took 0.6–2.8s in
+   tuning; the timing is logged at debug level.
+7. Merge by id, then keep photos with a `high` image of at least 1440px on the long side, an aspect
    ratio of 0.66–1.5 and a name the proxy serves. Grayscale photos are kept only for sad, calm
-   mixes.
-6. Score = 0.55 search rank (weighted by query: vibe 1.2, first genre or quadrant scene 1,
-   later ones 0.8–0.9, name 0.85; plus a bonus for matching several queries) + 0.3 colour similarity (each photo
-   colour's Lab distance to the nearest target colour, weighted by its share) + 0.1 log upvotes +
-   0.05 jitter seeded by the mix id. The target palette is a shadow, mid tone and highlight of one
-   hue: happy is warm (golden when calm, orange-red when energetic), sad is cool (blue when calm,
-   violet when energetic); energy raises saturation and mood lightness.
-7. The top 12 have their image URLs rewritten to `/api/img/{name}`. Photo sets are cached in
-   memory for 30 minutes by mix id, vibe and coverage in tens of tracks.
+   mixes. White scan borders are fine.
+8. Score = 0.55 search rank (weighted by query: vibe 1.2, first literal and abstract 1, word
+   0.95, second literal and abstract 0.9, colour 0.85, fill 0.8; plus a bonus for matching several
+   queries) + 0.3 colour similarity (each photo colour's Lab distance to the nearest target
+   colour, weighted by its share) + 0.1 log upvotes + 0.05 jitter seeded by the seed key. The
+   target palette is a shadow, mid tone and highlight of one hue: happy is warm (golden when
+   calm, orange-red when energetic), sad is cool (blue when calm, violet when energetic); energy
+   raises saturation and mood lightness.
+9. **Diversity.** `Diversify` picks the 12 greedily, like maximal marginal relevance: each step
+   takes the best score minus 0.04 per photo already picked from its query, 0.03 per photo from
+   its lens, 0.15 per photo by the same author, 0.6 × how far its palette similarity to a picked
+   photo is above 0.75, and 0.3 × how far its analogdb keyword overlap (Jaccard) with a picked
+   photo is above 0.3. A query gives at most 2 photos while others have photos left. The pick
+   order interleaves the lenses.
+10. The picks have their image URLs rewritten to `/api/img/{name}`. Photo sets are cached in
+    memory for 30 minutes by mix id, vibe, seed and coverage in tens of tracks. `PhotoSet.queries`
+    lists every query, in order, for the "searched for …" line.
 
-analogdb rate limits bursts (429), so the cache matters and the tune CLI runs links one at a
-time.
+The tune CLI runs links one at a time to stay under analogdb's rate limit.
 
 ### Metrics
 
@@ -253,7 +307,7 @@ time.
   - `api`: fake analyzer unless `ANALYZER_URL` is set
   - `analyzer`, `web`, `start`
   - `serve`: `-tags embedweb`
-  - `test`, `fmt`, `check`, `tune link=… vibe=…`
+  - `test`, `fmt`, `check`, `tune link=… vibe=… seed=… sheet=…`
   - `docker-build`, `up`, `down`: build both images, run and stop the compose stack
 - **Static files**: embedded behind the `embedweb` build tag; the dev binary serves the API only.
 - **Images**:

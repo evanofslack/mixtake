@@ -33,6 +33,8 @@ type Analyzer interface {
 // images or keywords and ErrUpstream for other failures.
 type Photos interface {
 	Search(ctx context.Context, q PhotoQuery) ([]Photo, error)
+	// ByColor lists colour photos with a share of a colour, in a random order fixed by the seed.
+	ByColor(ctx context.Context, q ColorQuery) ([]Photo, error)
 	Similar(ctx context.Context, id int) ([]Photo, error)
 	// Image streams an image from i.analogdb.com by its file name, with its content type.
 	Image(ctx context.Context, name string) (io.ReadCloser, string, error)

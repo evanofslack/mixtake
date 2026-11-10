@@ -1,0 +1,169 @@
+package main
+
+import (
+	"context"
+	"fmt"
+	"image"
+	"image/color"
+	"image/draw"
+	"image/jpeg"
+	_ "image/png"
+	"os"
+	"strings"
+	"sync"
+
+	"github.com/evanofslack/mixtake/internal/mix"
+)
+
+// Contact sheet layout: a 4×3 grid of square tiles, each with a two-line label under it.
+const (
+	sheetCols  = 4
+	tileSize   = 360
+	labelLines = 2
+	glyphScale = 2
+	lineHeight = 9 * glyphScale
+	labelSize  = labelLines*lineHeight + 6
+	gutter     = 6
+)
+
+// tile is one contact sheet cell: the photo's smallest image and its label lines.
+type tile struct {
+	name  string // analogdb image file name
+	lines []string
+}
+
+// writeSheet draws the picks as a contact sheet JPEG at path, labelled by lens and query.
+func writeSheet(ctx context.Context, images func(context.Context, string) (image.Image, error),
+	p mix.Pick, path string) error {
+	var tiles []tile
+	for _, c := range p.Candidates {
+		name := smallest(c.Photo)
+		if name == "" {
+			continue
+		}
+		q := mix.SceneQuery{Source: "?"}
+		if c.Query >= 0 && c.Query < len(p.Queries) {
+			q = p.Queries[c.Query]
+		}
+		tiles = append(tiles, tile{name: name, lines: []string{
+			fmt.Sprintf("%s %s %d", q.Lens, q.Source, c.Photo.ID), q.Text}})
+	}
+	rows := (len(tiles) + sheetCols - 1) / sheetCols
+	sheet := image.NewRGBA(image.Rect(0, 0, sheetCols*(tileSize+gutter)+gutter,
+		max(1, rows)*(tileSize+labelSize+gutter)+gutter))
+	draw.Draw(sheet, sheet.Bounds(), image.NewUniform(color.RGBA{24, 24, 24, 255}), image.Point{}, draw.Src)
+
+	imgs := make([]image.Image, len(tiles))
+	var wg sync.WaitGroup
+	sem := make(chan struct{}, 4)
+	for i, t := range tiles {
+		wg.Go(func() {
+			sem <- struct{}{}
+			defer func() { <-sem }()
+			img, err := images(ctx, t.name)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "sheet: %s: %v\n", t.name, err)
+				return
+			}
+			imgs[i] = img
+		})
+	}
+	wg.Wait()
+	for i, t := range tiles {
+		x := gutter + (i%sheetCols)*(tileSize+gutter)
+		y := gutter + (i/sheetCols)*(tileSize+labelSize+gutter)
+		if imgs[i] != nil {
+			drawCover(sheet, image.Rect(x, y, x+tileSize, y+tileSize), imgs[i])
+		}
+		for j, line := range t.lines[:min(labelLines, len(t.lines))] {
+			drawText(sheet, x+2, y+tileSize+4+j*lineHeight, line, tileSize-4)
+		}
+	}
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	if err := jpeg.Encode(f, sheet, &jpeg.Options{Quality: 85}); err != nil {
+		f.Close()
+		return err
+	}
+	return f.Close()
+}
+
+// smallest is the file name of a photo's low resolution image, or else any image it has.
+func smallest(p mix.Photo) string {
+	var name string
+	for _, img := range p.Images {
+		n := img.URL[strings.LastIndexByte(img.URL, '/')+1:]
+		if img.Resolution == "low" {
+			return n
+		}
+		if name == "" {
+			name = n
+		}
+	}
+	return name
+}
+
+// drawCover scales src to fill r, cropping the centre, with nearest-neighbour sampling.
+func drawCover(dst *image.RGBA, r image.Rectangle, src image.Image) {
+	b := src.Bounds()
+	side := min(b.Dx(), b.Dy())
+	ox, oy := b.Min.X+(b.Dx()-side)/2, b.Min.Y+(b.Dy()-side)/2
+	for y := range r.Dy() {
+		for x := range r.Dx() {
+			dst.Set(r.Min.X+x, r.Min.Y+y, src.At(ox+x*side/r.Dx(), oy+y*side/r.Dy()))
+		}
+	}
+}
+
+// drawText writes s in upper case with a 5×7 bitmap font, clipped to width pixels.
+func drawText(dst *image.RGBA, x, y int, s string, width int) {
+	ink := color.RGBA{235, 235, 235, 255}
+	for _, r := range strings.ToUpper(s) {
+		if x+6*glyphScale > dst.Bounds().Max.X || width < 6*glyphScale {
+			return
+		}
+		rows := font[r]
+		for gy, bits := range rows {
+			for gx := range 5 {
+				if bits&(0x10>>gx) == 0 {
+					continue
+				}
+				for sy := range glyphScale {
+					for sx := range glyphScale {
+						dst.Set(x+gx*glyphScale+sx, y+gy*glyphScale+sy, ink)
+					}
+				}
+			}
+		}
+		x += 6 * glyphScale
+		width -= 6 * glyphScale
+	}
+}
+
+// font is a 5×7 bitmap font: seven rows per glyph, the high bit of five on the left.
+var font = map[rune][7]byte{
+	'A': {0x0E, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11}, 'B': {0x1E, 0x11, 0x11, 0x1E, 0x11, 0x11, 0x1E},
+	'C': {0x0E, 0x11, 0x10, 0x10, 0x10, 0x11, 0x0E}, 'D': {0x1E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1E},
+	'E': {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x1F}, 'F': {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x10},
+	'G': {0x0E, 0x11, 0x10, 0x17, 0x11, 0x11, 0x0F}, 'H': {0x11, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11},
+	'I': {0x0E, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0E}, 'J': {0x07, 0x02, 0x02, 0x02, 0x02, 0x12, 0x0C},
+	'K': {0x11, 0x12, 0x14, 0x18, 0x14, 0x12, 0x11}, 'L': {0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x1F},
+	'M': {0x11, 0x1B, 0x15, 0x15, 0x11, 0x11, 0x11}, 'N': {0x11, 0x11, 0x19, 0x15, 0x13, 0x11, 0x11},
+	'O': {0x0E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}, 'P': {0x1E, 0x11, 0x11, 0x1E, 0x10, 0x10, 0x10},
+	'Q': {0x0E, 0x11, 0x11, 0x11, 0x15, 0x12, 0x0D}, 'R': {0x1E, 0x11, 0x11, 0x1E, 0x14, 0x12, 0x11},
+	'S': {0x0F, 0x10, 0x10, 0x0E, 0x01, 0x01, 0x1E}, 'T': {0x1F, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04},
+	'U': {0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}, 'V': {0x11, 0x11, 0x11, 0x11, 0x11, 0x0A, 0x04},
+	'W': {0x11, 0x11, 0x11, 0x15, 0x15, 0x15, 0x0A}, 'X': {0x11, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x11},
+	'Y': {0x11, 0x11, 0x0A, 0x04, 0x04, 0x04, 0x04}, 'Z': {0x1F, 0x01, 0x02, 0x04, 0x08, 0x10, 0x1F},
+	'0': {0x0E, 0x11, 0x13, 0x15, 0x19, 0x11, 0x0E}, '1': {0x04, 0x0C, 0x04, 0x04, 0x04, 0x04, 0x0E},
+	'2': {0x0E, 0x11, 0x01, 0x02, 0x04, 0x08, 0x1F}, '3': {0x1F, 0x02, 0x04, 0x02, 0x01, 0x11, 0x0E},
+	'4': {0x02, 0x06, 0x0A, 0x12, 0x1F, 0x02, 0x02}, '5': {0x1F, 0x10, 0x1E, 0x01, 0x01, 0x11, 0x0E},
+	'6': {0x06, 0x08, 0x10, 0x1E, 0x11, 0x11, 0x0E}, '7': {0x1F, 0x01, 0x02, 0x04, 0x08, 0x08, 0x08},
+	'8': {0x0E, 0x11, 0x11, 0x0E, 0x11, 0x11, 0x0E}, '9': {0x0E, 0x11, 0x11, 0x0F, 0x01, 0x02, 0x0C},
+	':': {0x00, 0x0C, 0x0C, 0x00, 0x0C, 0x0C, 0x00}, '-': {0x00, 0x00, 0x00, 0x1F, 0x00, 0x00, 0x00},
+	'.': {0x00, 0x00, 0x00, 0x00, 0x00, 0x0C, 0x0C}, ',': {0x00, 0x00, 0x00, 0x00, 0x0C, 0x04, 0x08},
+	'\'': {0x0C, 0x04, 0x08, 0x00, 0x00, 0x00, 0x00}, '+': {0x00, 0x04, 0x04, 0x1F, 0x04, 0x04, 0x00},
+	'#': {0x0A, 0x0A, 0x1F, 0x0A, 0x1F, 0x0A, 0x0A}, '/': {0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x00},
+}

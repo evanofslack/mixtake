@@ -3,7 +3,6 @@ package mix
 import (
 	"cmp"
 	"fmt"
-	"hash/fnv"
 	"math"
 	"regexp"
 	"slices"
@@ -52,6 +51,7 @@ func imageFile(url string) (string, bool) {
 type Candidate struct {
 	Photo Photo
 	Score float64
+	Query int // index of the query that ranked it highest
 }
 
 // usable reports whether a photo can be a cover: not nsfw, and a large enough high resolution
@@ -83,16 +83,17 @@ func FilterPhotos(ps []Photo, allowGray bool, n int) []Photo {
 }
 
 // RankPhotos merges the results of each query (results[i] answered queries[i]), keeps usable
-// photos and orders them by search rank, closeness to the profile's palette and upvotes, plus a
-// little jitter seeded by mixID so mixes with the same queries still differ. Grayscale photos
-// are only kept for calm, sad mixes. It returns at most n candidates.
-func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, mixID string, n int) []Candidate {
+// photos, scores them by search rank, closeness to the profile's palette and upvotes, plus a
+// little jitter seeded by key so mixes with the same queries still differ, then picks at most n
+// with Diversify. Grayscale photos are only kept for calm, sad mixes.
+func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, key string, n int) []Candidate {
 	allowGray := p.Quadrant == QuadrantSadCalm
 	targets := labs(TargetPalette(p.Averages))
 	type entry struct {
 		photo Photo
 		rank  float64
 		hits  int
+		query int
 	}
 	merged := map[int]*entry{}
 	for qi, ps := range results {
@@ -103,11 +104,13 @@ func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, mixID string
 		for i, ph := range ps {
 			r := w * (1 - float64(i)/float64(len(ps)))
 			if e, ok := merged[ph.ID]; ok {
-				e.rank = max(e.rank, r)
+				if r > e.rank {
+					e.rank, e.query = r, qi
+				}
 				e.hits++
 				continue
 			}
-			merged[ph.ID] = &entry{photo: ph, rank: r, hits: 1}
+			merged[ph.ID] = &entry{photo: ph, rank: r, hits: 1, query: qi}
 		}
 	}
 	var out []Candidate
@@ -118,20 +121,107 @@ func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, mixID string
 		rank := min(1, e.rank/1.2+0.1*float64(e.hits-1))
 		votes := min(1, math.Log1p(float64(max(e.photo.Score, 0)))/math.Log1p(votesCap))
 		score := rankWeight*rank + colourWeight*colourSimilarity(e.photo.Colors, targets) +
-			votesWeight*votes + jitterWeight*jitter(mixID, e.photo.ID)
-		out = append(out, Candidate{Photo: e.photo, Score: score})
+			votesWeight*votes + jitterWeight*jitter(key, e.photo.ID)
+		out = append(out, Candidate{Photo: e.photo, Score: score, Query: e.query})
 	}
 	slices.SortFunc(out, func(a, b Candidate) int {
 		return cmp.Or(cmp.Compare(b.Score, a.Score), cmp.Compare(a.Photo.ID, b.Photo.ID))
 	})
-	return out[:min(len(out), n)]
+	return Diversify(out, queries, n)
 }
 
-// jitter is a stable pseudo-random number in [0, 1) for a mix and photo.
-func jitter(mixID string, photoID int) float64 {
-	h := fnv.New32a()
-	h.Write([]byte(mixID + "|" + strconv.Itoa(photoID)))
-	return float64(h.Sum32()) / (1 << 32)
+// Diversity rules for a set of covers, so it spans queries and lenses instead of the best dozen
+// matches of one scene.
+const (
+	maxPerQuery   = 2    // photos one query can contribute, while others have photos left
+	queryPenalty  = 0.04 // per photo already picked from the same query
+	lensPenalty   = 0.03 // per photo already picked from the same lens
+	authorPenalty = 0.15 // for each photo already picked by the same author
+	lookalike     = 0.75 // palette similarity above which photos count as near-duplicates
+	lookPenalty   = 0.6  // per unit of similarity above lookalike
+	subjectShare  = 0.3  // keyword overlap (Jaccard) above which photos share a subject
+	subjectWeight = 0.3  // per unit of overlap above subjectShare
+)
+
+// Diversify picks up to n candidates greedily, like maximal marginal relevance: each step takes
+// the best score after penalties for its query and lens already being in the set, for an author
+// already in it, and for a palette or analogdb keywords too close to a photo already picked (two
+// churches from different queries). A query contributes at most maxPerQuery photos unless
+// nothing else is left. cs must be sorted best first; the result is in pick order, so it
+// interleaves lenses.
+func Diversify(cs []Candidate, queries []SceneQuery, n int) []Candidate {
+	lens := func(c Candidate) string {
+		if c.Query >= 0 && c.Query < len(queries) {
+			return queries[c.Query].Lens
+		}
+		return ""
+	}
+	palettes := make([][][3]float64, len(cs))
+	for i, c := range cs {
+		hexes := make([]string, 0, len(c.Photo.Colors))
+		for _, col := range c.Photo.Colors {
+			hexes = append(hexes, col.Hex)
+		}
+		palettes[i] = labs(hexes)
+	}
+	taken := make([]bool, len(cs))
+	var picked []int
+	perQuery, perLens, perAuthor := map[int]int{}, map[string]int{}, map[string]int{}
+	for capacity := maxPerQuery; len(picked) < min(n, len(cs)); {
+		best, bestScore := -1, math.Inf(-1)
+		for i, c := range cs {
+			if taken[i] || perQuery[c.Query] >= capacity {
+				continue
+			}
+			s := c.Score - queryPenalty*float64(perQuery[c.Query]) - lensPenalty*float64(perLens[lens(c)])
+			if c.Photo.Author != "" {
+				s -= authorPenalty * float64(perAuthor[c.Photo.Author])
+			}
+			var sim, overlap float64
+			for _, j := range picked {
+				sim = max(sim, colourSimilarity(c.Photo.Colors, palettes[j]),
+					colourSimilarity(cs[j].Photo.Colors, palettes[i]))
+				overlap = max(overlap, jaccard(c.Photo.Keywords, cs[j].Photo.Keywords))
+			}
+			s -= lookPenalty*max(0, sim-lookalike) + subjectWeight*max(0, overlap-subjectShare)
+			if s > bestScore {
+				best, bestScore = i, s
+			}
+		}
+		if best < 0 {
+			capacity++ // every query left is full
+			continue
+		}
+		taken[best] = true
+		picked = append(picked, best)
+		perQuery[cs[best].Query]++
+		perLens[lens(cs[best])]++
+		perAuthor[cs[best].Photo.Author]++
+	}
+	out := make([]Candidate, 0, len(picked))
+	for _, i := range picked {
+		out = append(out, cs[i])
+	}
+	return out
+}
+
+// jaccard is the share of keywords two photos have in common, 0–1.
+func jaccard(a, b []string) float64 {
+	if len(a) == 0 || len(b) == 0 {
+		return 0
+	}
+	shared := 0
+	for _, w := range a {
+		if slices.Contains(b, w) {
+			shared++
+		}
+	}
+	return float64(shared) / float64(len(a)+len(b)-shared)
+}
+
+// jitter is a stable pseudo-random number in [0, 1) for a seed key and photo.
+func jitter(key string, photoID int) float64 {
+	return float64(hash(key+"|"+strconv.Itoa(photoID))) / (1 << 32)
 }
 
 // TargetPalette is the colours a mix's cover aims for, as "#rrggbb": a shadow, a mid tone and a

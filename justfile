@@ -39,9 +39,10 @@ serve: install
     cd web && npm run build
     go run -tags embedweb ./cmd/mixtake
 
-# run a spotify link through the real pipeline and print the cover queries and top photos
-tune link="" vibe="":
-    go run ./cmd/tune -link "{{link}}" -vibe "{{vibe}}"
+# run a spotify link through the real pipeline and print the cover queries and top photos;
+# sheet=out.jpg also draws a contact sheet, seed=N shows a shuffle
+tune link="" vibe="" seed="0" sheet="":
+    go run ./cmd/tune -link "{{link}}" -vibe "{{vibe}}" -seed "{{seed}}" -sheet "{{sheet}}"
 
 # build both docker images: the app for this machine, the analyzer for amd64 (emulated on arm64)
 docker-build:
