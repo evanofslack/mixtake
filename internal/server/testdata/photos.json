@@ -1,0 +1,167 @@
+[
+ {
+  "id": 34825,
+  "title": "Night\u2026[Kodak Ultramax 400]",
+  "author": "dihoidao",
+  "permalink": "https://www.reddit.com/r/analog/comments/1mlk684/nightkodak_ultramax_400/",
+  "caption": "A rainy city street at night is viewed through a window covered in water droplets, with blurred car lights and buildings in the background.",
+  "score": 186,
+  "grayscale": false,
+  "images": [
+   {
+    "resolution": "low",
+    "url": "https://i.analogdb.com/3602eaff-dada-45ca-83b4-607a9a927be1.jpeg",
+    "width": 513,
+    "height": 720
+   },
+   {
+    "resolution": "medium",
+    "url": "https://i.analogdb.com/f03b2e19-eb5a-41f7-b67a-c805a502b970.jpeg",
+    "width": 770,
+    "height": 1080
+   },
+   {
+    "resolution": "high",
+    "url": "https://i.analogdb.com/f979253a-49fc-4828-8936-19c112c0dfac.jpeg",
+    "width": 1027,
+    "height": 1440
+   },
+   {
+    "resolution": "raw",
+    "url": "https://i.analogdb.com/836a0c17-4777-48e8-9bdb-576f48022e0a.jpeg",
+    "width": 2433,
+    "height": 3413
+   }
+  ],
+  "colors": [
+   {
+    "hex": "#1d1819",
+    "percent": 0.40723413
+   },
+   {
+    "hex": "#27212d",
+    "percent": 0.20772688
+   },
+   {
+    "hex": "#295db1",
+    "percent": 0.11354505
+   }
+  ],
+  "keywords": [
+   "city",
+   "street",
+   "night",
+   "rain"
+  ]
+ },
+ {
+  "id": 6483,
+  "title": "London // Fuji Provia 100F // Canon EOS 600 // Zeiss 28mm",
+  "author": "alexandermatragos",
+  "permalink": "https://www.reddit.com/r/analog/comments/122n36u/london_fuji_provia_100f_canon_eos_600_zeiss_28mm/",
+  "caption": "Raindrops cover a window looking out at a city skyline at dusk.",
+  "score": 101,
+  "grayscale": false,
+  "images": [
+   {
+    "resolution": "low",
+    "url": "https://i.analogdb.com/f456b9fb-393a-4bbe-8444-2bf8d12779a1.jpeg",
+    "width": 720,
+    "height": 480
+   },
+   {
+    "resolution": "medium",
+    "url": "https://i.analogdb.com/c6fce52d-0672-4602-8260-0d4521ba9dde.jpeg",
+    "width": 1080,
+    "height": 720
+   },
+   {
+    "resolution": "high",
+    "url": "https://i.analogdb.com/44021562-dde1-4579-8e56-75cd504ab531.jpeg",
+    "width": 1440,
+    "height": 960
+   },
+   {
+    "resolution": "raw",
+    "url": "https://i.analogdb.com/38b3f04a-c7f1-401c-9b07-cf11e7277439.jpeg",
+    "width": 5386,
+    "height": 3590
+   }
+  ],
+  "colors": [
+   {
+    "hex": "#03141e",
+    "percent": 0.21285682
+   },
+   {
+    "hex": "#17353c",
+    "percent": 0.18066822
+   },
+   {
+    "hex": "#093e82",
+    "percent": 0.14212779
+   }
+  ],
+  "keywords": [
+   "raindrop",
+   "window",
+   "city",
+   "skyline"
+  ]
+ },
+ {
+  "id": 53532,
+  "title": "Fomapan 400 +1",
+  "author": "alex_neri",
+  "permalink": "https://www.reddit.com/r/analog_bw/comments/jwpoix/fomapan_400_1/",
+  "caption": "Raindrops cover a window with a blurry building visible in the background.",
+  "score": 15,
+  "grayscale": true,
+  "images": [
+   {
+    "resolution": "low",
+    "url": "https://i.analogdb.com/a6626221a94ce515988833dc-low.jpeg",
+    "width": 720,
+    "height": 484
+   },
+   {
+    "resolution": "medium",
+    "url": "https://i.analogdb.com/a6626221a94ce515988833dc-medium.jpeg",
+    "width": 1080,
+    "height": 726
+   },
+   {
+    "resolution": "high",
+    "url": "https://i.analogdb.com/a6626221a94ce515988833dc-high.jpeg",
+    "width": 1440,
+    "height": 968
+   },
+   {
+    "resolution": "raw",
+    "url": "https://i.analogdb.com/a6626221a94ce515988833dc-raw.jpeg",
+    "width": 3295,
+    "height": 2214
+   }
+  ],
+  "colors": [
+   {
+    "hex": "#444444",
+    "percent": 0.22149334
+   },
+   {
+    "hex": "#5c5c5c",
+    "percent": 0.19310721
+   },
+   {
+    "hex": "#292929",
+    "percent": 0.18127296
+   }
+  ],
+  "keywords": [
+   "raindrop",
+   "window",
+   "building",
+   "rain"
+  ]
+ }
+]

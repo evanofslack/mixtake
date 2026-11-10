@@ -58,6 +58,12 @@ func (testCatalog) Preview(context.Context, string) (io.ReadCloser, error) {
 
 func newMixServer(t *testing.T, delay time.Duration, limits Limits, cfg mix.RunnerConfig) *Server {
 	t.Helper()
+	return newServerWith(t, delay, limits, cfg, &testPhotos{})
+}
+
+func newServerWith(t *testing.T, delay time.Duration, limits Limits, cfg mix.RunnerConfig,
+	photos mix.Photos) *Server {
+	t.Helper()
 	st, err := store.Open(filepath.Join(t.TempDir(), "test.db"))
 	if err != nil {
 		t.Fatal(err)
@@ -69,7 +75,8 @@ func newMixServer(t *testing.T, delay time.Duration, limits Limits, cfg mix.Runn
 		runner.Wait()
 		st.Close()
 	})
-	return New(Deps{Log: slog.New(slog.NewTextHandler(io.Discard, nil)), Runner: runner, Limits: limits})
+	return New(Deps{Log: slog.New(slog.NewTextHandler(io.Discard, nil)), Runner: runner,
+		Covers: mix.NewCovers(photos, 0), Limits: limits})
 }
 
 func post(h http.Handler, body string) *httptest.ResponseRecorder {

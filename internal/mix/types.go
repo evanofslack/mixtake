@@ -233,7 +233,14 @@ type PhotoColor struct {
 	Percent float64 `json:"percent"`
 }
 
-// Photo is an analogdb post.
+// PhotoSet is a ranked list of cover candidates and how they were chosen.
+type PhotoSet struct {
+	Queries []string `json:"queries"` // the analogdb searches used, for the "why this cover" line
+	Palette []string `json:"palette"` // target colours "#rrggbb" the ranking aimed for
+	Photos  []Photo  `json:"photos"`
+}
+
+// Photo is an analogdb post. The API serves image URLs as /api/img/{name} proxy paths.
 type Photo struct {
 	ID        int          `json:"id"`
 	Title     string       `json:"title"`
@@ -242,6 +249,7 @@ type Photo struct {
 	Caption   string       `json:"caption"`
 	Score     int          `json:"score"` // upvotes
 	Grayscale bool         `json:"grayscale"`
+	NSFW      bool         `json:"-"`
 	Images    []PhotoImage `json:"images"`
 	Colors    []PhotoColor `json:"colors"`
 	Keywords  []string     `json:"keywords"`

@@ -18,8 +18,8 @@ import (
 var (
 	// ErrBusy means too many tracks are already waiting for analysis.
 	ErrBusy = errors.New("analysis queue is full")
-	// ErrUpstream wraps unexpected Spotify failures (network errors, page format changes).
-	ErrUpstream = errors.New("spotify request failed")
+	// ErrUpstream wraps unexpected Spotify or analogdb failures (network errors, format changes).
+	ErrUpstream = errors.New("upstream request failed")
 )
 
 const maxVibeRunes = 200
@@ -98,7 +98,8 @@ func (r *Runner) Wait() { r.wg.Wait() }
 
 // Create parses input, fetches a playlist or album if that's what it is, stores the mix and starts
 // its job. It returns an *InputError for bad input, ErrNotFound or ErrPrivate for links Spotify
-// won't serve, ErrBusy when the queue is full and ErrUpstream when Spotify fails.
+// won't serve, ErrBusy when the queue is full and the mix would add to it (a mix whose job is in
+// memory or whose tracks are all cached is never busy), and ErrUpstream when Spotify fails.
 func (r *Runner) Create(ctx context.Context, input, vibe string) (Mix, error) {
 	in, err := ParseInput(input, r.cfg.MaxPasteTracks)
 	if err != nil {
@@ -108,10 +109,6 @@ func (r *Runner) Create(ctx context.Context, input, vibe string) (Mix, error) {
 	if utf8.RuneCountInString(vibe) > maxVibeRunes {
 		return Mix{}, inputErr(ErrUnsupported, "Keep the vibe under %d characters.", maxVibeRunes)
 	}
-	if r.busy() {
-		return Mix{}, ErrBusy
-	}
-
 	src := Source{Kind: in.Kind}
 	ids := in.TrackIDs
 	var known map[string]Track // fetched with their preview URLs
@@ -157,7 +154,7 @@ func (r *Runner) Create(ctx context.Context, input, vibe string) (Mix, error) {
 	default:
 		return Mix{}, err
 	}
-	if _, err := r.ensureJob(ctx, m, known); err != nil {
+	if _, err := r.ensureJob(ctx, m, known, true); err != nil {
 		return Mix{}, err
 	}
 	return m, nil
@@ -186,12 +183,6 @@ func (r *Runner) Subscribe(ctx context.Context, id string) (<-chan Event, func()
 	return ch, cancel, nil
 }
 
-func (r *Runner) busy() bool {
-	r.mu.Lock()
-	defer r.mu.Unlock()
-	return r.pending >= r.cfg.MaxQueue
-}
-
 // job returns the in-memory job for id, or rebuilds it from the store.
 func (r *Runner) job(ctx context.Context, id string) (*job, error) {
 	r.mu.Lock()
@@ -204,12 +195,13 @@ func (r *Runner) job(ctx context.Context, id string) (*job, error) {
 	if err != nil {
 		return nil, err
 	}
-	return r.ensureJob(ctx, m, nil)
+	return r.ensureJob(ctx, m, nil, false)
 }
 
 // ensureJob returns the job for m, loading its state from the store and starting it if it isn't
-// in memory. known holds freshly fetched tracks with preview URLs.
-func (r *Runner) ensureJob(ctx context.Context, m Mix, known map[string]Track) (*job, error) {
+// in memory. known holds freshly fetched tracks with preview URLs. With checkBusy, it returns
+// ErrBusy instead of starting a job that would add tracks to a full queue.
+func (r *Runner) ensureJob(ctx context.Context, m Mix, known map[string]Track, checkBusy bool) (*job, error) {
 	r.mu.Lock()
 	j := r.jobs[m.ID]
 	r.mu.Unlock()
@@ -226,12 +218,15 @@ func (r *Runner) ensureJob(ctx context.Context, m Mix, known map[string]Track) (
 	if j := r.jobs[m.ID]; j != nil {
 		return j, nil // another request got there first
 	}
+	cov := CoverageOf(results)
+	if checkBusy && cov.Done < cov.Total && r.pending >= r.cfg.MaxQueue {
+		return nil, ErrBusy
+	}
 	j = newJob(m, results)
 	for id := range known {
 		j.fetched[id] = true
 	}
 	r.jobs[m.ID] = j
-	cov := CoverageOf(results)
 	r.m.FeatureCache.WithLabelValues("hit").Add(float64(cov.Done))
 	r.m.FeatureCache.WithLabelValues("miss").Add(float64(cov.Total - cov.Done))
 	if cov.Done == cov.Total {

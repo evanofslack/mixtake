@@ -29,12 +29,15 @@ type Analyzer interface {
 	ModelVersion() string
 }
 
-// Photos searches analogdb and fetches its images.
+// Photos searches analogdb and fetches its images. Methods return ErrNotFound for unknown posts,
+// images or keywords and ErrUpstream for other failures.
 type Photos interface {
 	Search(ctx context.Context, q PhotoQuery) ([]Photo, error)
 	Similar(ctx context.Context, id int) ([]Photo, error)
-	// Image streams an image from i.analogdb.com by its uuid file name, with its content type.
+	// Image streams an image from i.analogdb.com by its file name, with its content type.
 	Image(ctx context.Context, name string) (io.ReadCloser, string, error)
+	// KeywordCount is how many posts have the keyword word, or 0 if none do.
+	KeywordCount(ctx context.Context, word string) (int, error)
 }
 
 // Store persists tracks, features and mixes.

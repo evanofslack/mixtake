@@ -136,6 +136,14 @@ export interface Photo {
     keywords: string[];
 }
 
+// GET /api/mixes/{id}/photos and /api/photos/{id}/similar. Image URLs are /api/img/{name} proxy
+// paths, so the canvas can export them.
+export interface PhotoSet {
+    queries: string[]; // analogdb searches used, for the "why this cover" line
+    palette: string[]; // target colours "#rrggbb" the ranking aimed for
+    photos: Photo[];
+}
+
 export interface ApiError {
     error: string;
 }
@@ -151,4 +159,11 @@ export function energy(f: Features): number {
 
 function clamp01(v: number): number {
     return Math.min(1, Math.max(0, v));
+}
+
+// a ranked list of cover candidates and how they were chosen (GET /api/mixes/{id}/photos)
+export interface PhotoSet {
+    queries: string[]; // the analogdb searches used, for the "why this cover" line
+    palette: string[]; // target colours "#rrggbb" the ranking aimed for
+    photos: Photo[];
 }

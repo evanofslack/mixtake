@@ -9,6 +9,8 @@ import type {
     Features,
     Genre,
     MixEvent,
+    Photo,
+    PhotoSet,
     Snapshot,
     Source,
     SourceKind,
@@ -450,6 +452,116 @@ function coverArt(palette: string[]): string {
     const [a, b, c] = palette;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset=".65" stop-color="${b}"/><stop offset="1" stop-color="${c}"/></linearGradient></defs><rect width="64" height="64" fill="url(#g)"/></svg>`;
     return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
+// ---- photos: a stand-in for analogdb, from the generated scenes in public/mock
+
+type MockScene = {
+    file: string;
+    w: number;
+    h: number;
+    title: string;
+    author: string;
+    caption: string;
+    gray: boolean;
+    colors: [string, number][];
+};
+
+// prettier-ignore
+const SCENES: MockScene[] = [
+    { file: "dusk-water", w: 1200, h: 800, title: "last ferry home", author: "halide_and_salt", caption: "Portra 400, Olympus XA", gray: false, colors: [["#332c42", 0.285], ["#1b1d30", 0.245], ["#6f4653", 0.185], ["#b86766", 0.161], ["#db967c", 0.124]] },
+    { file: "forest-fog", w: 800, h: 1200, title: "fog on the ridge trail", author: "slow_shutter", caption: "Fuji Superia 400", gray: false, colors: [["#6a746c", 0.258], ["#48524a", 0.234], ["#858e87", 0.216], ["#929c94", 0.154], ["#9ca69e", 0.137]] },
+    { file: "rain-window", w: 1200, h: 800, title: "rain on the bus window", author: "nightbus", caption: "Cinestill 800T", gray: false, colors: [["#17212e", 0.231], ["#554d3e", 0.221], ["#222b34", 0.213], ["#0e1521", 0.194], ["#131d2a", 0.141]] },
+    { file: "desert-dunes", w: 1600, h: 1067, title: "white sands, noon", author: "marigold.film", caption: "Ektar 100, Pentax 67", gray: false, colors: [["#a56942", 0.273], ["#abbcc0", 0.271], ["#cad0ca", 0.165], ["#ba9472", 0.155], ["#e0dbcb", 0.136]] },
+    { file: "neon-bokeh", w: 1000, h: 1000, title: "out of focus, downtown", author: "kodachrome_kid", caption: "Cinestill 800T pushed a stop", gray: false, colors: [["#140b18", 0.372], ["#0e0813", 0.2], ["#211120", 0.174], ["#421f33", 0.151], ["#3e3b4a", 0.102]] },
+    { file: "golden-field", w: 1200, h: 800, title: "wheat, september", author: "lowtide", caption: "Gold 200", gray: false, colors: [["#75571f", 0.263], ["#d4b27a", 0.262], ["#af883e", 0.192], ["#e7ca95", 0.153], ["#f5dba8", 0.131]] },
+    { file: "grey-beach", w: 1200, h: 800, title: "off-season", author: "paperweather", caption: "Portra 160, Mamiya 7", gray: false, colors: [["#a7a6a1", 0.294], ["#b6b5b0", 0.222], ["#889397", 0.191], ["#c0c0bd", 0.165], ["#c9cbcc", 0.129]] },
+    { file: "alpine-lake", w: 1600, h: 1600, title: "blue hour at the lake", author: "ota_b", caption: "Velvia 50", gray: false, colors: [["#748ea9", 0.253], ["#192533", 0.224], ["#17212d", 0.218], ["#1f2b3a", 0.153], ["#374d65", 0.151]] },
+    { file: "snow-trees", w: 800, h: 1200, title: "first snow", author: "fixer_bath", caption: "Portra 400 overexposed", gray: false, colors: [["#ced3da", 0.279], ["#dadee4", 0.234], ["#bfc6cd", 0.198], ["#e3e6ec", 0.157], ["#e9ecf1", 0.132]] },
+    { file: "hill-sunset", w: 1200, h: 800, title: "the long way home", author: "sundial", caption: "Kodak Gold 200, Canon AE-1", gray: false, colors: [["#23111f", 0.264], ["#dc8353", 0.256], ["#a44745", 0.217], ["#602d41", 0.176], ["#2a1625", 0.087]] },
+    { file: "bw-street", w: 800, h: 1200, title: "between buildings", author: "contact_sheet", caption: "HP5 at 1600", gray: true, colors: [["#9f9f9f", 0.267], ["#2e2e2e", 0.221], ["#212121", 0.189], ["#525252", 0.171], ["#2a2a2a", 0.152]] },
+    { file: "pastel-morning", w: 1200, h: 800, title: "morning, slowly", author: "softfocus", caption: "Portra 400, expired", gray: false, colors: [["#b5a0b2", 0.256], ["#e4c7cb", 0.23], ["#cbb3c6", 0.214], ["#eed0cf", 0.151], ["#f2d7d3", 0.15]] },
+];
+
+const MOCK_QUERIES = [
+    "rain on a window at night",
+    "foggy forest morning",
+    "sunset over water",
+    "empty beach off season",
+    "city lights out of focus",
+    "golden hour field",
+    "mountain lake blue hour",
+];
+
+const PHOTO_BASE = 9000;
+
+// every resolution is the same small file with its real size, so the upscale warning and the
+// export behave as they would with a small analogdb photo
+function mockPhoto(i: number, score: number): Photo {
+    const s = SCENES[i];
+    const url = `/mock/${s.file}.jpg`;
+    return {
+        id: PHOTO_BASE + i,
+        title: s.title,
+        author: s.author,
+        permalink: "https://analogdb.com",
+        caption: s.caption,
+        score: round(score),
+        grayscale: s.gray,
+        images: (["low", "medium", "high", "raw"] as const).map((resolution) => ({
+            resolution,
+            url,
+            width: s.w,
+            height: s.h,
+        })),
+        colors: s.colors.map(([hex, percent]) => ({ hex, percent })),
+        keywords: s.title.split(/[ ,]+/),
+    };
+}
+
+// GET /api/mixes/{id}/photos?vibe=
+export async function mockPhotos(id: string, vibe: string): Promise<PhotoSet> {
+    await sleep(450);
+    if (!decodeId(id)) {
+        throw new RequestError("mix not found", 404);
+    }
+    const words = vibe.trim().toLowerCase();
+    const rand = rng(hash(`${id}\n${words}`));
+    const order = shuffle(
+        SCENES.map((_, i) => i),
+        rand,
+    );
+    const queries = words
+        ? [words, pick(MOCK_QUERIES, rand)]
+        : shuffle([...MOCK_QUERIES], rand).slice(0, 2);
+    const photos = order.map((i, rank) => mockPhoto(i, 1 - rank * 0.04 - rand() * 0.02));
+    return { queries, palette: photos[0].colors.slice(0, 4).map((c) => c.hex), photos };
+}
+
+// GET /api/photos/{id}/similar: the nearest scenes by colour, without the photo itself
+export async function mockSimilar(photoId: number): Promise<PhotoSet> {
+    await sleep(350);
+    const src = SCENES[photoId - PHOTO_BASE];
+    if (!src) {
+        throw new RequestError("photo not found", 404);
+    }
+    const dist = (s: MockScene) =>
+        s.colors.reduce((sum, [hex, pct]) => {
+            const near = Math.min(...src.colors.map(([h]) => rgbDistance(hex, h)));
+            return sum + near * pct;
+        }, 0);
+    const photos = SCENES.map((s, i) => ({ i, d: dist(s) }))
+        .filter(({ i }) => i !== photoId - PHOTO_BASE)
+        .sort((a, b) => a.d - b.d)
+        .slice(0, 8)
+        .map(({ i, d }) => mockPhoto(i, 1 - d / 442));
+    return { queries: [], palette: [], photos };
+}
+
+function rgbDistance(a: string, b: string): number {
+    const p = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+    const [x, y] = [p(a), p(b)];
+    return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]);
 }
 
 // ---- small helpers

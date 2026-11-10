@@ -78,7 +78,8 @@ type Analyzer interface { // essentia sidecar, or Fake
 type Photos interface { // analogdb
     Search(ctx context.Context, q PhotoQuery) ([]Photo, error)
     Similar(ctx context.Context, id int) ([]Photo, error)
-    Image(ctx context.Context, uuid string) (io.ReadCloser, string, error) // body, content type
+    Image(ctx context.Context, name string) (io.ReadCloser, string, error) // body, content type
+    KeywordCount(ctx context.Context, word string) (int, error)           // cached in memory
 }
 
 type Store interface { // SQLite now, swappable later
@@ -117,9 +118,9 @@ with fakes of these four.
 | `POST /api/mixes {input, vibe?}` | Parse the input: a playlist or album link costs one embed fetch; pasted links or URIs need no fetch. Caps of 100 and 300 tracks. Stores the mix, starts a job, returns `201 {id}`. Errors for private, invalid, unsupported or empty input. Rate limited per IP; 503 when the global queue is full. |
 | `GET /api/mixes/{id}` | Snapshot: source, tracks with features, profile, status. Restarts an incomplete job if none is running. |
 | `GET /api/mixes/{id}/events` | SSE: `snapshot` first, then `track`, `progress`, `profile` (every ~10 tracks and at the end), then `done` or `error`. |
-| `GET /api/mixes/{id}/photos` | About 12 ranked analogdb photos for the current profile and vibe, plus the scene queries used. |
-| `GET /api/photos/{id}/similar` | analogdb similar photos, filtered and ranked. |
-| `GET /api/img/{uuid}` | Streams `i.analogdb.com/{uuid}.(jpeg\|png)` only, with long cache headers. |
+| `GET /api/mixes/{id}/photos?vibe=` | `200 PhotoSet {queries, palette, photos}`: about 12 ranked analogdb photos for the current profile, plus the scene queries and target palette used. `vibe` (≤200 characters) overrides the mix's vibe for this search only. 404 unknown mix; 409 until 10 tracks are analysed (or the job finished with fewer, for short albums); 400 long vibe; 502 analogdb failed. |
+| `GET /api/photos/{id}/similar` | `200 PhotoSet` with empty `queries` and `palette`: analogdb's similar photos, filtered, in analogdb's order, without the photo itself. 404 unknown photo (or one without a similarity embedding); 502 analogdb failed. |
+| `GET /api/img/{name}` | Streams an `i.analogdb.com` image with `Cache-Control: public, max-age=31536000, immutable`. Only analogdb file names are served (404 otherwise): a uuid, or the older `<24 hex>-<low\|medium\|high\|raw>`, with `.jpeg`, `.jpg` or `.png`. 502 analogdb failed. |
 | `GET /api/health` | Health check. Metrics are served on `METRICS_PORT` at `/metrics`. |
 
 Errors are JSON `{"error": "<message to show the user>"}`. `POST /api/mixes` returns:
@@ -132,7 +133,7 @@ Errors are JSON `{"error": "<message to show the user>"}`. `POST /api/mixes` ret
 | 404 | Spotify has no such playlist, album or track. Spotify serves the same not-found page for private playlists, so private playlists land here too; the message suggests copying the tracks. |
 | 429 | Over `RATE_LIMIT_PER_MINUTE` per client ip or `GLOBAL_RATE_LIMIT_PER_MINUTE` overall, with `Retry-After`. Fixed one-minute windows. With `TRUST_PROXY`, the ip comes from `CLIENT_IP_HEADER` (rightmost entry for `X-Forwarded-For`). |
 | 502 | Spotify failed or its embed page changed shape. |
-| 503 | 1000 or more tracks are already waiting for analysis, with `Retry-After: 30`. |
+| 503 | 1000 or more tracks are already waiting for analysis and this mix would add to them, with `Retry-After: 30`. A mix whose job is already in memory, or whose tracks are all cached, is never refused. |
 
 `GET /api/mixes/{id}` and `/events` return 404 for unknown ids. The event stream sends a
 `: ping` comment every 15s and closes after `done` or `error`, so clients should close their
@@ -161,15 +162,37 @@ tracks that weren't just fetched with their playlist or album are looked up agai
 
 ### Photo pipeline
 
+`mix.Covers` runs it; `cmd/tune` prints every step for a link.
+
 1. Mood × energy picks a quadrant, which maps to 6–10 caption-style scene sentences from an
    embedded `scenes.json`.
-2. Modifiers come from acoustic, instrumental and party scores and the genre family.
-3. Vibe text is mixed in, along with playlist-name words that are real analogdb keywords (checked
-   with `/keyword/{word}`).
-4. Run 2–3 `/search` queries (page size 50, `nsfw=false`, `sprocket=false`).
-5. Merge, then filter to at least 1440px with an aspect ratio of 0.66–1.5.
-6. Score by search rank, colour distance to a target palette (mood → warm or cool, energy →
-   saturation) and a small upvote weight. Order deterministically, seeded by the mix id.
+2. The dominant genre family (at least 30% of the genre weight; discogs styles are matched before
+   parents, so `Electronic---Ambient` is ambient, not electronic) supplies two scenes from its
+   happy or sad list (mood ≥ 0.5). The family beats the quadrant: in tuning, hip hop at mood 0.6
+   got picnics from the happy-calm quadrant. Without a family, a strong acoustic, instrumental or
+   party score adds a modifier scene next to the quadrant scene.
+3. The vibe text is used verbatim as the first query. Playlist-name words that are real analogdb
+   keywords (at least 20 posts, checked with `/keyword/{word}` and cached; genre words such as
+   "rock" are stopwords) form another query.
+4. At most 3 queries, in order: vibe; then either two family scenes, or a modifier and a quadrant
+   scene; name keywords; then modifier and quadrant scenes to fill. Sentences are chosen by a
+   hash of the mix id. The queries run in parallel as
+   `/search` (page size 50, `nsfw=false`, `sprocket=false`); one failing is fine, all failing is a
+   502.
+5. Merge by id, then keep photos with a `high` image of at least 1440px on the long side, an aspect
+   ratio of 0.66–1.5 and a name the proxy serves. Grayscale photos are kept only for sad, calm
+   mixes.
+6. Score = 0.55 search rank (weighted by query: vibe 1.2, first genre or quadrant scene 1,
+   later ones 0.8–0.9, name 0.85; plus a bonus for matching several queries) + 0.3 colour similarity (each photo
+   colour's Lab distance to the nearest target colour, weighted by its share) + 0.1 log upvotes +
+   0.05 jitter seeded by the mix id. The target palette is a shadow, mid tone and highlight of one
+   hue: happy is warm (golden when calm, orange-red when energetic), sad is cool (blue when calm,
+   violet when energetic); energy raises saturation and mood lightness.
+7. The top 12 have their image URLs rewritten to `/api/img/{name}`. Photo sets are cached in
+   memory for 30 minutes by mix id, vibe and coverage in tens of tracks.
+
+analogdb rate limits bursts (429), so the cache matters and the tune CLI runs links one at a
+time.
 
 ### Metrics
 
@@ -194,7 +217,8 @@ tracks that weren't just fetched with their playlist or album are looked up agai
 
 ## Web
 
-- `next dev` proxies `/api` to `:8080`; production is a static export served by Go.
+- `next dev` proxies `/api` to `API_URL` (default `:8080`); production is a static export served
+  by Go.
 - Theme and layering follow samila-ui.
 - Pages:
   - `/`: input and example playlists
@@ -208,6 +232,19 @@ tracks that weren't just fetched with their playlist or album are looked up agai
     fonts, 3×3 positions, palette colours)
   - ShareBar: JPG at 1500 or 3000 px, copy link
   - Listen: collapsed Spotify embed player
+- Cover studio:
+  - `lib/canvas.ts` `drawCover` draws both the preview and the export. Crop, text and colour are
+    fractions of the square, so the output doesn't depend on its size.
+  - Fonts (Instrument Serif, Space Grotesk, Bebas Neue, IBM Plex Mono, Caveat) are woff2 files in
+    `public/fonts` with `@font-face`, not `next/font`, so the build needs no network and the canvas
+    knows the family names.
+  - The photographer's credit stays on the page and is never drawn on the image.
+  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `x`, `y`,
+    `zoom`, `title`, `sub`, `font`, `pos`, `align`, `color`, `size`, `scrim` (defaults are
+    omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
+    in them. If the photo isn't in either, the studio shows the first photo with the same text and
+    says so.
+  - Mock mode serves 12 generated scenes from `public/mock`.
 
 ## Tooling
 
@@ -216,7 +253,7 @@ tracks that weren't just fetched with their playlist or album are looked up agai
   - `api`: fake analyzer unless `ANALYZER_URL` is set
   - `analyzer`, `web`, `start`
   - `serve`: `-tags embedweb`
-  - `test`, `fmt`, `check`, `tune <link>`
+  - `test`, `fmt`, `check`, `tune link=… vibe=…`
   - `docker-build`, `up`, `down`: build both images, run and stop the compose stack
 - **Static files**: embedded behind the `embedweb` build tag; the dev binary serves the API only.
 - **Images**:
