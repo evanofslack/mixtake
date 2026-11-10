@@ -1,0 +1,108 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - name: set up go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: format
+        run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
+
+      - name: vet
+        run: go vet ./...
+
+      - name: test
+        run: go test -race ./...
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - name: set up node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: install
+        run: npm ci
+
+      - name: format
+        run: npm run format:check
+
+      - name: type check
+        run: npm run type-check
+
+      - name: build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: set up go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: build with the embedded site
+        working-directory: .
+        run: go build -tags embedweb -o /dev/null ./cmd/mixtake
+
+  analyzer:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: analyzer
+    env:
+      UV_NO_ENV_FILE: 1
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - name: set up uv
+        uses: astral-sh/setup-uv@v10.3.3
+        with:
+          working-directory: analyzer
+          enable-cache: true
+
+      - name: install
+        run: uv sync --frozen
+
+      - name: format
+        run: uv run ruff format --check .
+
+      - name: lint
+        run: uv run ruff check .
+
+      # ~27 MB; with them the model-dependent tests run instead of skipping
+      - name: cache models
+        uses: actions/cache@v6
+        with:
+          path: analyzer/models
+          key: models-${{ hashFiles('analyzer/models.lock') }}
+
+      - name: fetch models
+        run: scripts/fetch_models.sh
+        env:
+          MODELS_BASE_URL: https://github.com/evanofslack/mixtake/releases/download/models-v1
+          MODELS_LAYOUT: flat
+
+      - name: test
+        run: uv run pytest -q -rs

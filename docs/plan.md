@@ -253,13 +253,51 @@ time.
   - `api`: fake analyzer unless `ANALYZER_URL` is set
   - `analyzer`, `web`, `start`
   - `serve`: `-tags embedweb`
-  - `test`, `fmt`, `check`, `tune link=… vibe=…`, `docker`, `compose`
+  - `test`, `fmt`, `check`, `tune link=… vibe=…`
+  - `docker-build`, `up`, `down`: build both images, run and stop the compose stack
 - **Static files**: embedded behind the `embedweb` build tag; the dev binary serves the API only.
 - **Images**:
-  - `mixtake`: node build, Go build, distroless static, nonroot, `/data` volume
-  - `mixtake-analyzer`: amd64, python:3.12-slim, models fetched at build time
-- **CI**: `go vet` and `go test -race`; web type-check and build; ruff and pytest.
-- **Publish**: both images to Docker Hub.
+  - `evanofslack/mixtake`: node build, Go cross-compile, distroless static, nonroot, `/data`
+    volume, amd64 and arm64. `mixtake healthcheck` backs the `HEALTHCHECK`, since distroless has
+    no shell.
+  - `evanofslack/mixtake-analyzer`: amd64 only, python:3.12-slim, models fetched at build time
+    from the `models-v1` release and checked against `models.lock`. `--build-context
+    models=analyzer/models` uses local copies for an offline build.
+- **CI** (`ci.yml`, PRs and main): gofmt, `go vet`, `go test -race`; prettier, type-check, build,
+  and the embedweb Go build; ruff and pytest, with the models fetched from the release and cached
+  so the model tests run.
+- **Publish** (`publish.yml`, main and `v*` tags): both images to Docker Hub with buildx and the
+  GHA layer cache. Tags: `latest` on main, `main`, `sha-<short>`, and `X.Y.Z`/`X.Y` on tags.
+  Needs the `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets.
+
+## Deployment
+
+Prod is an amd64 Ubuntu VPS with 8 GB RAM at `mixtake.evanslack.dev`, behind Caddy and a proxied
+Cloudflare DNS record, like samila.
+
+- **Setup**: copy `docker-compose.yaml` and `.env.example` (as `.env`) into a directory on the VPS,
+  then `docker compose pull && docker compose up -d`. Update the same way.
+- **Caddy**: compose binds the app to `127.0.0.1:8080` (`MIXTAKE_PORT` if that's taken):
+
+  ```caddyfile
+  mixtake.evanslack.dev {
+      encode zstd gzip
+      reverse_proxy 127.0.0.1:8080
+  }
+  ```
+
+  SSE streams through `reverse_proxy` without extra settings.
+- **Cloudflare**: a proxied A record for `mixtake`, SSL mode Full (strict). The app reads the
+  client ip from `CF-Connecting-IP` (`TRUST_PROXY=true`), so rate limits are per visitor rather
+  than per Cloudflare edge.
+- **Sizing**: each analyzer worker needs about 1.7 GB, so 8 GB runs `ANALYZER_WORKERS=2` with
+  `ANALYZE_CONCURRENCY=4`. Keep `ANALYZE_CONCURRENCY` at least `ANALYZER_WORKERS`. Both are set in
+  `.env` and apply on `docker compose up -d`, with no rebuild.
+- **Backups**: the `mixtake_mixtake-data` volume holds `mixtake.db`. A consistent copy while
+  running: `docker run --rm -v mixtake_mixtake-data:/data -v "$PWD":/backup alpine
+  sh -c 'apk add -q sqlite && sqlite3 /data/mixtake.db ".backup /backup/mixtake.db"'`. Losing it
+  loses saved mixes and the feature cache, nothing else.
+- **Metrics**: `/metrics` on `127.0.0.1:9090` (`MIXTAKE_METRICS_PORT`) for a local Prometheus.
 
 ## Delivery
 
