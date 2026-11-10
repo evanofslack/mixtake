@@ -19,9 +19,25 @@ func TestScenesFile(t *testing.T) {
 		sized(string(q)+" literal", scenes.Quadrants[q].Literal, 15, 25)
 		sized(string(q)+" abstract", scenes.Quadrants[q].Abstract, 15, 25)
 	}
-	for _, a := range []Averages{{Mood: 0.9, Energy: 0.9}, {Mood: 0.9, Energy: 0.5}, {Mood: 0.9, Energy: 0.3},
-		{Mood: 0.9}, {Mood: 0.1, Energy: 0.9}, {Mood: 0.1, Energy: 0.4}, {Mood: 0.1}} {
-		sized(ColorName(a)+" color keywords", scenes.Colors[ColorName(a)], 3, 10)
+	// every colour and quadrant a profile can have has keywords, and no others do
+	reachable := map[string]bool{}
+	for m := 0.0; m <= 1; m += 0.01 {
+		for e := 0.0; e <= 1; e += 0.01 {
+			reachable[ColorName(Averages{Mood: m, Energy: e})+" "+string(quadrant(m, e))] = true
+		}
+	}
+	for c, byQuad := range scenes.Colors {
+		for q, list := range byQuad {
+			name := c + " " + string(q)
+			if !reachable[name] {
+				t.Errorf("%s color keywords can't be used", name)
+			}
+			delete(reachable, name)
+			sized(name+" color keywords", list, 3, 10)
+		}
+	}
+	for name := range reachable {
+		t.Errorf("%s has no color keywords", name)
 	}
 	for _, m := range scenes.Modifiers {
 		sized("modifier "+m.Name, m.Scenes, 10, 25)
@@ -93,16 +109,22 @@ func TestScenes(t *testing.T) {
 			"rain on a tin roof"},
 		{"words", Profile{Quadrant: QuadrantSadCalm, Genres: jazz}, "", []string{"rain", "blue", "moon"},
 			[]string{L, A, W, L, A, C, W}, []string{SceneGenre, SceneGenre}, "blue"},
-		{"one word", Profile{Quadrant: QuadrantHappyCalm, Genres: pop}, "", []string{"piano"},
+		{"one word", Profile{Quadrant: QuadrantHappyCalm, Genres: pop, Averages: Averages{Mood: 0.6}}, "",
+			[]string{"piano"},
 			[]string{L, A, W, L, A, C, L}, []string{SceneQuadrant, SceneQuadrant, SceneQuadrant}, "piano"},
 		{"modifier without a family", Profile{Quadrant: QuadrantHappyCalm, Genres: pop,
 			Averages: Averages{Mood: 0.6, Acoustic: 0.9, Party: 0.65}}, "", nil,
 			[]string{L, A, L, A, C, L, A}, []string{SceneModifier, SceneQuadrant, SceneModifier},
-			"tan morning"},
+			"tan beach"},
 		{"family beats modifier", Profile{Quadrant: QuadrantSadCalm, Genres: jazz,
 			Averages: Averages{Instrumental: 0.9}}, "", nil,
 			[]string{L, A, L, A, C, L, A}, []string{SceneGenre, SceneGenre, SceneQuadrant}, ""},
-		{"no profile", Profile{}, "", nil, []string{C}, nil, "gray "},
+		{"only a quadrant", Profile{Quadrant: QuadrantSadCalm}, "", nil,
+			[]string{L, A, L, A, C, L, A}, []string{SceneQuadrant, SceneQuadrant, SceneQuadrant}, "gray "},
+		// a quadrant that doesn't match the averages' colour gets no colour query
+		{"colour off the mood", Profile{Quadrant: QuadrantHappyEnergetic, Genres: pop,
+			Averages: Averages{Mood: 0.1}}, "", nil,
+			[]string{L, A, L, A, L, A, L}, []string{SceneQuadrant, SceneQuadrant, SceneQuadrant, SceneQuadrant}, ""},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -129,6 +151,37 @@ func TestScenes(t *testing.T) {
 				t.Errorf("duplicate queries %q", texts)
 			}
 		})
+	}
+}
+
+// the colour query's keyword fits the mood: an energetic orange mix gets "orange sunset", not the
+// "orange sky" or "orange building" that brought up adobe walls and autumn leaves
+func TestColorKeywordFitsMood(t *testing.T) {
+	tests := []struct {
+		a     Averages
+		color string
+		never []string
+	}{
+		{Averages{Mood: 0.7, Energy: 0.6}, "orange", []string{"sky", "building", "street", "desert"}},
+		{Averages{Mood: 0.7, Energy: 0.9}, "red", []string{"sky", "building", "street"}},
+		{Averages{Mood: 0.2, Energy: 0.7}, "purple", []string{"sunset", "building"}},
+		{Averages{Mood: 0.2, Energy: 0.1}, "gray", []string{"street", "sky"}},
+	}
+	for _, tt := range tests {
+		q := quadrant(tt.a.Mood, tt.a.Energy)
+		allowed := scenes.Colors[tt.color][q]
+		for seed := range 50 {
+			p := Profile{Quadrant: q, Averages: tt.a}
+			for _, sq := range Scenes(p, SeedKey("mix", seed), "", nil) {
+				if sq.Lens != LensColor {
+					continue
+				}
+				if sq.Color != tt.color || !slices.Contains(allowed, sq.Keyword) ||
+					slices.Contains(tt.never, sq.Keyword) {
+					t.Errorf("%+v seed %d: colour query %q", tt.a, seed, sq.Text)
+				}
+			}
+		}
 	}
 }
 

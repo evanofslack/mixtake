@@ -169,15 +169,93 @@
       ]
     }
   },
-  "colors": {
-    "tan": ["desert", "field", "window", "sky", "street", "building"],
-    "yellow": ["field", "tree", "street", "sky", "building", "flower"],
-    "orange": ["sky", "building", "street", "desert", "sunset", "neon"],
-    "red": ["night", "street", "sky", "neon", "building", "flower"],
-    "navy": ["lake", "snow", "winter", "sky", "night", "street"],
-    "gray": ["lake", "snow", "fog", "window", "winter", "sky"],
-    "purple": ["night", "sky", "sunset", "building", "neon", "city"]
-  },
+    "colors": {
+      "red": {
+        "happy_energetic": [
+          "night",
+          "neon",
+          "sunset",
+          "flower",
+          "car",
+          "city"
+        ]
+      },
+      "orange": {
+        "happy_energetic": [
+          "sunset",
+          "night",
+          "ocean",
+          "water"
+        ],
+        "happy_calm": [
+          "sunset",
+          "autumn",
+          "sky",
+          "mountain",
+          "water",
+          "desert"
+        ]
+      },
+      "yellow": {
+        "happy_calm": [
+          "field",
+          "flower",
+          "tree",
+          "summer",
+          "beach",
+          "window",
+          "sky"
+        ]
+      },
+      "tan": {
+        "happy_calm": [
+          "beach",
+          "sand",
+          "field",
+          "desert",
+          "ocean",
+          "window",
+          "mountain"
+        ]
+      },
+      "purple": {
+        "sad_energetic": [
+          "night",
+          "neon",
+          "city",
+          "street",
+          "car",
+          "sky"
+        ]
+      },
+      "navy": {
+        "sad_energetic": [
+          "night",
+          "city",
+          "street",
+          "ocean"
+        ],
+        "sad_calm": [
+          "lake",
+          "snow",
+          "winter",
+          "ocean",
+          "fog",
+          "night"
+        ]
+      },
+      "gray": {
+        "sad_calm": [
+          "fog",
+          "rain",
+          "snow",
+          "winter",
+          "lake",
+          "window",
+          "beach"
+        ]
+      }
+    },
   "modifiers": [
     {
       "name": "acoustic",

@@ -57,9 +57,11 @@ type sceneBook struct {
 		Literal  []string `json:"literal"`
 		Abstract []string `json:"abstract"`
 	} `json:"quadrants"`
-	// Colors are keywords to pair with each analogdb colour, each with plenty of posts in that
-	// colour; colour alone gives clutter.
-	Colors    map[string][]string `json:"colors"`
+	// Colors are keywords to pair with each analogdb colour, by mood quadrant, each with at least
+	// ten posts in that colour: colour alone gives clutter, and a keyword that doesn't fit the mood
+	// (an energetic mix's "orange building") drifts off the vibe. A quadrant a colour can't occur
+	// in (see ColorName) has no list.
+	Colors    map[string]map[Quadrant][]string `json:"colors"`
 	Modifiers []struct {
 		Name   string   `json:"name"`
 		Field  string   `json:"field"` // an Averages field: acoustic, instrumental or party
@@ -124,7 +126,8 @@ func SeedKey(mixID string, seed int) string {
 //     quadrant's;
 //   - abstract scenes: the family's, then the quadrant's;
 //   - up to two title or name words (already checked to be analogdb keywords);
-//   - one colour query: the target palette's colour with a keyword for that colour.
+//   - one colour query: the target palette's colour with a keyword for that colour and quadrant,
+//     or none when there isn't one.
 //
 // There are sceneQueries besides the vibe, interleaved by lens. A genre family sets the literal
 // scene better than the quadrant does (hip hop at mood 0.6 is a city at sunset, not a picnic).
@@ -193,7 +196,7 @@ func Scenes(p Profile, key, vibe string, words []string) []SceneQuery {
 		}
 	}
 	color := ColorName(p.Averages)
-	keyword := pick(scenes.Colors[color], key, "color")
+	keyword := pick(scenes.Colors[color][p.Quadrant], key, "color")
 
 	literal(1)
 	abstract(1)
