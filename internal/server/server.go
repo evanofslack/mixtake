@@ -17,6 +17,7 @@ type Deps struct {
 	// Static is the exported web app, or nil when the binary was built without -tags embedweb.
 	Static fs.FS
 	Runner *mix.Runner
+	Covers *mix.Covers
 	Limits Limits
 }
 
@@ -46,6 +47,9 @@ func New(deps Deps) *Server {
 	s.mux.HandleFunc("POST /api/mixes", s.createMix)
 	s.mux.HandleFunc("GET /api/mixes/{id}", s.getMix)
 	s.mux.HandleFunc("GET /api/mixes/{id}/events", s.mixEvents)
+	s.mux.HandleFunc("GET /api/mixes/{id}/photos", s.mixPhotos)
+	s.mux.HandleFunc("GET /api/photos/{id}/similar", s.similarPhotos)
+	s.mux.HandleFunc("GET /api/img/{name}", s.image)
 	s.mux.Handle("/api/", http.HandlerFunc(s.apiNotFound))
 	s.mux.Handle("/", staticHandler(deps.Static))
 	return s

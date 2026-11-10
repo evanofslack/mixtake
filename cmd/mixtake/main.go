@@ -14,6 +14,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/evanofslack/mixtake/internal/analogdb"
 	"github.com/evanofslack/mixtake/internal/analyzer"
 	"github.com/evanofslack/mixtake/internal/config"
 	"github.com/evanofslack/mixtake/internal/logging"
@@ -76,6 +77,7 @@ func run() error {
 		Log:    log,
 		Static: static,
 		Runner: runner,
+		Covers: mix.NewCovers(analogdb.New(cfg.AnalogdbURL, "", nil, m), 0),
 		Limits: server.Limits{
 			RateLimit:       cfg.RateLimit,
 			GlobalRateLimit: cfg.GlobalRateLimit,

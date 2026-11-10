@@ -136,6 +136,14 @@ export interface Photo {
     keywords: string[];
 }
 
+// GET /api/mixes/{id}/photos and /api/photos/{id}/similar. Image URLs are /api/img/{name} proxy
+// paths, so the canvas can export them.
+export interface PhotoSet {
+    queries: string[]; // analogdb searches used, for the "why this cover" line
+    palette: string[]; // target colours "#rrggbb" the ranking aimed for
+    photos: Photo[];
+}
+
 export interface ApiError {
     error: string;
 }

@@ -460,6 +460,19 @@ func TestRunnerCreateErrors(t *testing.T) {
 	if _, err := h.r.Create(ctx, paste(tid("q", 3)), ""); !errors.Is(err, ErrBusy) {
 		t.Errorf("busy: err = %v", err)
 	}
+	// a mix whose job is already running, or whose tracks are all cached, is never busy
+	if _, err := h.r.Create(ctx, paste(tid("q", 1), tid("q", 2)), ""); err != nil {
+		t.Errorf("running job: err = %v", err)
+	}
+	if err := h.st.PutTracks(ctx, []Track{{ID: tid("c", 1)}}); err != nil {
+		t.Fatal(err)
+	}
+	if err := h.st.PutFeatures(ctx, tid("c", 1), h.an.ModelVersion(), Features{}); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := h.r.Create(ctx, paste(tid("c", 1)), ""); err != nil {
+		t.Errorf("cached: err = %v", err)
+	}
 }
 
 func TestRunnerShutdown(t *testing.T) {
