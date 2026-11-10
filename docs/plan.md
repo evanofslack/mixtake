@@ -217,7 +217,8 @@ time.
 
 ## Web
 
-- `next dev` proxies `/api` to `:8080`; production is a static export served by Go.
+- `next dev` proxies `/api` to `API_URL` (default `:8080`); production is a static export served
+  by Go.
 - Theme and layering follow samila-ui.
 - Pages:
   - `/`: input and example playlists
@@ -231,6 +232,19 @@ time.
     fonts, 3×3 positions, palette colours)
   - ShareBar: JPG at 1500 or 3000 px, copy link
   - Listen: collapsed Spotify embed player
+- Cover studio:
+  - `lib/canvas.ts` `drawCover` draws both the preview and the export. Crop, text and colour are
+    fractions of the square, so the output doesn't depend on its size.
+  - Fonts (Instrument Serif, Space Grotesk, Bebas Neue, IBM Plex Mono, Caveat) are woff2 files in
+    `public/fonts` with `@font-face`, not `next/font`, so the build needs no network and the canvas
+    knows the family names.
+  - The photographer's credit stays on the page and is never drawn on the image.
+  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `x`, `y`,
+    `zoom`, `title`, `sub`, `font`, `pos`, `align`, `color`, `size`, `scrim` (defaults are
+    omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
+    in them. If the photo isn't in either, the studio shows the first photo with the same text and
+    says so.
+  - Mock mode serves 12 generated scenes from `public/mock`.
 
 ## Tooling
 
