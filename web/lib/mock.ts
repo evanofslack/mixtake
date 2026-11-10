@@ -519,14 +519,14 @@ function mockPhoto(i: number, score: number): Photo {
     };
 }
 
-// GET /api/mixes/{id}/photos?vibe=
-export async function mockPhotos(id: string, vibe: string): Promise<PhotoSet> {
+// GET /api/mixes/{id}/photos?vibe=&seed=
+export async function mockPhotos(id: string, vibe: string, seed = 0): Promise<PhotoSet> {
     await sleep(450);
     if (!decodeId(id)) {
         throw new RequestError("mix not found", 404);
     }
     const words = vibe.trim().toLowerCase();
-    const rand = rng(hash(`${id}\n${words}`));
+    const rand = rng(hash(`${id}\n${words}\n${seed}`));
     const order = shuffle(
         SCENES.map((_, i) => i),
         rand,
