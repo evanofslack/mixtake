@@ -134,6 +134,7 @@ func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, key string, 
 // matches of one scene.
 const (
 	maxPerQuery   = 2    // photos one query can contribute, while others have photos left
+	vibePhotos    = 3    // photos the user's own words lead the set with, when they find them
 	queryPenalty  = 0.04 // per photo already picked from the same query
 	lensPenalty   = 0.03 // per photo already picked from the same lens
 	authorPenalty = 0.15 // for each photo already picked by the same author
@@ -147,7 +148,8 @@ const (
 // the best score after penalties for its query and lens already being in the set, for an author
 // already in it, and for a palette or analogdb keywords too close to a photo already picked (two
 // churches from different queries). A query contributes at most maxPerQuery photos unless
-// nothing else is left. cs must be sorted best first; the result is in pick order, so it
+// nothing else is left. The vibe is the exception: it is what the user asked for, so its best
+// vibePhotos lead the set. cs must be sorted best first; the result is in pick order, so it
 // interleaves lenses.
 func Diversify(cs []Candidate, queries []SceneQuery, n int) []Candidate {
 	lens := func(c Candidate) string {
@@ -167,10 +169,14 @@ func Diversify(cs []Candidate, queries []SceneQuery, n int) []Candidate {
 	taken := make([]bool, len(cs))
 	var picked []int
 	perQuery, perLens, perAuthor := map[int]int{}, map[string]int{}, map[string]int{}
+	// the vibe's photos first, then everything under the usual rules
+	vibe := min(n, vibePhotos)
 	for capacity := maxPerQuery; len(picked) < min(n, len(cs)); {
+		leading := perLens[LensVibe] < vibe
 		best, bestScore := -1, math.Inf(-1)
 		for i, c := range cs {
-			if taken[i] || perQuery[c.Query] >= capacity {
+			if taken[i] || (leading && lens(c) != LensVibe) ||
+				(!leading && perQuery[c.Query] >= capacity) {
 				continue
 			}
 			s := c.Score - queryPenalty*float64(perQuery[c.Query]) - lensPenalty*float64(perLens[lens(c)])
@@ -189,7 +195,11 @@ func Diversify(cs []Candidate, queries []SceneQuery, n int) []Candidate {
 			}
 		}
 		if best < 0 {
-			capacity++ // every query left is full
+			if leading {
+				vibe = perLens[LensVibe] // no more vibe photos
+			} else {
+				capacity++ // every query left is full
+			}
 			continue
 		}
 		taken[best] = true
