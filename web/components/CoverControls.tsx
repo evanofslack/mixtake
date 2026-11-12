@@ -137,7 +137,7 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                             checked={state.font === id}
                             onSelect={() => onChange({ font: id })}
                             label={FONTS[id].label}
-                            className="flex h-14 flex-col items-center justify-center gap-0.5 rounded-sm border border-line px-1"
+                            className="flex h-14 flex-col items-center justify-center gap-0.5 rounded-sm px-1"
                         >
                             <span
                                 aria-hidden
@@ -180,7 +180,7 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                                     })
                                 }
                                 label={POS_LABEL[p]}
-                                className="flex size-8 items-center justify-center rounded-xs border border-line"
+                                className="flex size-8 items-center justify-center rounded-xs"
                             >
                                 <span
                                     aria-hidden
@@ -348,7 +348,11 @@ function CustomColour({
             swatches={swatches}
             swatchesPerRow={7}
             eyeDropperButtonProps={{ "aria-label": "pick a color from the screen" }}
-            styles={custom ? { input: { borderColor: "var(--mix-ink)" } } : undefined}
+            styles={
+                custom
+                    ? { input: { boxShadow: "var(--mix-pressed), 0 0 0 1.5px var(--mix-ink)" } }
+                    : undefined
+            }
         />
     );
 }
@@ -372,7 +376,7 @@ function Swatch({
             checked={state.color === value}
             onSelect={() => onChange({ color: value })}
             label={label}
-            className="size-7 rounded-full border border-line p-0.5"
+            className="size-7 rounded-full p-0.5"
             round
         >
             {children}
@@ -445,7 +449,7 @@ function Choice({
 }) {
     return (
         <label
-            className={`relative cursor-pointer transition-colors hover:border-line-strong has-checked:border-ink has-checked:ring-1 has-checked:ring-ink has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink ${round ? "" : "has-checked:bg-bg"} ${className}`}
+            className={`relative cursor-pointer shadow-raised-sm transition-shadow has-checked:shadow-pressed-sm has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink ${round ? "has-checked:ring-1 has-checked:ring-ink" : ""} ${className}`}
             title={label}
         >
             <input

@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <MantineProvider
             theme={theme}
             cssVariablesResolver={cssVariablesResolver}
-            defaultColorScheme="auto"
+            defaultColorScheme="light"
         >
             <Notifications position="top-right" />
             <Component {...pageProps} />

@@ -183,7 +183,7 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
     return (
         <div
             ref={boxRef}
-            className="relative aspect-square w-full overflow-hidden rounded-sm bg-line shadow-sm"
+            className="relative aspect-square w-full overflow-hidden rounded-sm bg-line shadow-raised"
         >
             <canvas
                 ref={canvasRef}

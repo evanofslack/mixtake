@@ -20,7 +20,7 @@ export default function Sound({ profile, tracks }: Props) {
                 Genres
             </h3>
             <GenreBars genres={profile?.genres} tracks={tracks} />
-            <h3 className="mt-5 mb-1.5 border-t border-line pt-4 text-[10px] font-medium tracking-wider text-muted uppercase">
+            <h3 className="mt-5 mb-1.5 pt-4 text-[10px] font-medium tracking-wider text-muted uppercase groove-t">
                 Artists
             </h3>
             <TopArtists artists={profile?.artists} tracks={tracks} />

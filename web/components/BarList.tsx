@@ -55,7 +55,7 @@ export default function BarList({ items, label, onHover, onSelect, active, pinne
                         {onSelect ? (
                             <button
                                 type="button"
-                                className={`${row} cursor-pointer hover:bg-bg focus-visible:outline-2 focus-visible:outline-ink`}
+                                className={`${row} cursor-pointer hover:bg-sunk focus-visible:outline-2 focus-visible:outline-ink`}
                                 aria-pressed={pinned === item.key}
                                 onMouseEnter={() => onHover?.(item.key)}
                                 onMouseLeave={() => onHover?.(null)}

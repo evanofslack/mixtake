@@ -182,7 +182,7 @@ function ArcTip({ point, sorted }: { point?: Point; sorted: boolean }) {
         return null;
     }
     return (
-        <div className="max-w-60 rounded-sm border border-line bg-surface px-2.5 py-1.5 text-xs shadow-md">
+        <div className="max-w-60 rounded-sm bg-surface px-2.5 py-1.5 text-xs shadow-raised-sm">
             <p className="text-muted tabular-nums">
                 {sorted ? `#${point.n} · song ${point.position}` : `song ${point.position}`}
             </p>

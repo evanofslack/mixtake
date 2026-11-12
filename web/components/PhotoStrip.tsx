@@ -29,6 +29,7 @@ export default function PhotoStrip(props: Props) {
                     set={set}
                     like={like}
                     loading={loading}
+                    vibe={props.vibe}
                     onBack={props.onBack}
                     onVibe={props.onVibe}
                 />
@@ -122,12 +123,14 @@ function Why({
     set,
     like,
     loading,
+    vibe,
     onBack,
     onVibe,
 }: {
     set: PhotoSet | null;
     like: Photo | null;
     loading: boolean;
+    vibe: string;
     onBack: () => void;
     onVibe: (vibe: string) => void;
 }) {
@@ -161,25 +164,42 @@ function Why({
                         </span>
                     </Tooltip>
                     <ul
-                        className="flex min-w-0 flex-wrap gap-x-1 gap-y-1.5"
+                        className="flex min-w-0 flex-wrap gap-x-1.5 gap-y-2"
                         aria-label="analogdb searches"
                     >
-                        {set.queries.map((q) => (
-                            <li key={q}>
-                                <Tooltip label="lead with this search" withArrow openDelay={300}>
-                                    <UnstyledButton
-                                        onClick={() => onVibe(q)}
-                                        className="group relative rounded-xs py-0.5 pr-2 pl-3.5 font-serif text-[13px] leading-snug text-ink transition-colors hover:bg-accent-soft"
+                        {set.queries.map((q) => {
+                            // the search leading the set sits pressed in, the rest are raised
+                            const on = vibe.trim().toLowerCase() === q.toLowerCase();
+                            return (
+                                <li key={q}>
+                                    <Tooltip
+                                        label={on ? "leading the search" : "lead with this search"}
+                                        withArrow
+                                        openDelay={300}
                                     >
-                                        <span
-                                            aria-hidden
-                                            className="absolute top-1/2 left-1 h-3 w-0.5 -translate-y-1/2 rounded-full bg-accent/40 transition-colors group-hover:bg-accent"
-                                        />
-                                        {q}
-                                    </UnstyledButton>
-                                </Tooltip>
-                            </li>
-                        ))}
+                                        <UnstyledButton
+                                            onClick={() => onVibe(q)}
+                                            aria-pressed={on}
+                                            className={`group relative rounded-full py-1 pr-3 pl-4.5 font-mono text-xs leading-snug text-ink transition-shadow duration-150 motion-reduce:transition-none ${
+                                                on
+                                                    ? "shadow-pressed-xs"
+                                                    : "shadow-raised-xs hover:shadow-raised-sm active:shadow-pressed-xs"
+                                            }`}
+                                        >
+                                            <span
+                                                aria-hidden
+                                                className={`absolute top-1/2 left-2 h-3 w-0.5 -translate-y-1/2 rounded-full transition-colors ${
+                                                    on
+                                                        ? "bg-accent"
+                                                        : "bg-accent/40 group-hover:bg-accent"
+                                                }`}
+                                            />
+                                            {q}
+                                        </UnstyledButton>
+                                    </Tooltip>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
             )}
@@ -190,7 +210,10 @@ function Why({
                             <FiDroplet aria-hidden className="size-3.5" />
                         </span>
                     </Tooltip>
-                    <ul className="flex" aria-label="target colors">
+                    <ul
+                        className="flex rounded-full py-1 pr-2.5 pl-1 shadow-pressed-xs"
+                        aria-label="target colors"
+                    >
                         {set.palette.map((hex) => (
                             <li key={hex} className="-mr-1.5">
                                 <CopyButton value={hex}>
