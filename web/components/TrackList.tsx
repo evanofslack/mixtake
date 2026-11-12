@@ -146,8 +146,8 @@ function Row({ id, n, result, dark, state, pinned, onHover, onSelect }: RowProps
             tabIndex={f ? 0 : undefined}
             aria-current={pinned || undefined}
             className={`-mx-2 grid scroll-mt-24 grid-cols-[1.5rem_1fr_1.25rem] items-center gap-3 rounded-xs border-b border-line px-2 py-2 transition-[background-color,opacity] last:border-0 focus-visible:outline-2 focus-visible:outline-ink sm:grid-cols-[2rem_1fr_9rem_5.5rem_1.25rem] ${
-                f ? "cursor-pointer hover:bg-bg" : ""
-            } ${state === "lit" ? "bg-bg" : ""} ${state === "dim" ? "opacity-45" : ""} ${
+                f ? "cursor-pointer hover:bg-sunk" : ""
+            } ${state === "lit" ? "bg-sunk" : ""} ${state === "dim" ? "opacity-45" : ""} ${
                 pinned ? "ring-1 ring-accent" : ""
             }`}
         >

@@ -40,7 +40,7 @@ live (mood map, energy arc, genres and artists, tempo and key gauges), get a fil
 - **Go** (std lib first): `net/http` ServeMux, `log/slog`, `embed`, `database/sql` with
   `modernc.org/sqlite`, and `prometheus/client_golang` for a few critical metrics.
 - **Web**: Next.js static export (pages router), React 19, Mantine 9, `@mantine/charts`,
-  Tailwind 4, Node 24. Light and dark mode.
+  Tailwind 4, Node 24. Light mode by default, with a dim grey dark mode.
 - **Analyzer**: Python 3.12, FastAPI and Essentia, managed with uv, in its own container.
 - **Deploy**: one `mixtake` image serves web and API. `analyzer` is a separate compose service.
   Prod is an amd64 Ubuntu VPS behind Caddy and Cloudflare at `mixtake.evanslack.dev`.
@@ -285,6 +285,16 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
 - `next dev` proxies `/api` to `API_URL` (default `:8080`); production is a static export served
   by Go.
 - Theme and layering follow samila-ui.
+- Look: soft embossed paper. The page, panels and controls share one warm paper colour; panels
+  and buttons are raised, and inputs, tracks and placeholders are pressed in, using two shadows
+  (light top-left, dark bottom-right) from the `--mix-raised`/`--mix-pressed` tokens in
+  `styles/index.css`. Mantine stays: `styles/emboss.css` restyles its components in the
+  `components` layer. Charts and photos stay flat. Light is the default; dark is a dim warm grey
+  rather than black, because emboss needs room for a highlight. A fixed grain overlay adds
+  paper texture. This favours the look over contrast, on purpose.
+  Raised means pressable and pressed means an input, a readout or the current choice (the
+  leading search phrase, the status pill, gauge grooves); emboss is never the only sign of a
+  state, which also gets amber or an icon. Letterpress text-shadow is for display text only.
 - Pages:
   - `/`: input and example playlists
   - `/mix?id=…`: results

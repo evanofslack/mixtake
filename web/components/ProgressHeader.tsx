@@ -10,7 +10,7 @@ type Props = {
     status: StreamStatus;
 };
 
-// the source's cover and name, and how far the analysis has got
+// the source's cover, mounted like a print, its name and how far the analysis has got
 export default function ProgressHeader({ source, coverage, status }: Props) {
     const { total, done, failed } = coverage;
     const name = source.name || (source.kind === "tracks" ? "Your tracks" : "Untitled");
@@ -31,7 +31,7 @@ export default function ProgressHeader({ source, coverage, status }: Props) {
                 )}
 
                 <div
-                    className="mt-4 flex h-1.5 overflow-hidden rounded-full bg-line"
+                    className="mt-4 flex h-2 overflow-hidden rounded-full p-px shadow-pressed-xs"
                     role="progressbar"
                     aria-label="analysis progress"
                     aria-valuemin={0}
@@ -39,11 +39,11 @@ export default function ProgressHeader({ source, coverage, status }: Props) {
                     aria-valuenow={done + failed}
                 >
                     <div
-                        className="h-full bg-accent transition-[width] duration-500 ease-out motion-reduce:transition-none"
+                        className="h-full rounded-full bg-accent raised-fill transition-[width] duration-500 ease-out motion-reduce:transition-none"
                         style={{ width: `${pct(done)}%` }}
                     />
                     <div
-                        className="h-full bg-mark-soft transition-[width] duration-500 ease-out motion-reduce:transition-none"
+                        className="h-full rounded-r-full bg-mark-soft/70 transition-[width] duration-500 ease-out motion-reduce:transition-none"
                         style={{ width: `${pct(failed)}%` }}
                     />
                 </div>
@@ -70,17 +70,18 @@ function Cover({ src, palette }: { src?: string; palette?: string[] }) {
         ? `linear-gradient(135deg, ${palette.join(", ")})`
         : "var(--mix-line)";
     return (
-        <div
-            className="size-24 shrink-0 overflow-hidden rounded-sm border border-line shadow-sm sm:size-32"
-            style={{ background: fallback }}
-        >
-            {src && <img src={src} alt="" className="size-full object-cover" />}
+        <div className="size-24 shrink-0 rounded-md p-1.5 shadow-raised sm:size-32">
+            <div className="size-full overflow-hidden rounded-xs" style={{ background: fallback }}>
+                {src && <img src={src} alt="" className="size-full object-cover" />}
+            </div>
         </div>
     );
 }
 
 function StatusLabel({ status }: { status: StreamStatus }) {
-    const base = "flex items-center gap-1.5 text-xs text-muted";
+    // a small readout pressed into the page
+    const base =
+        "flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs text-muted shadow-pressed-xs";
     switch (status) {
         case "live":
             return (

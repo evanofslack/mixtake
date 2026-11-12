@@ -14,8 +14,9 @@ export default function Listen({ source }: { source: Source }) {
     return (
         <div className="mt-3">
             <Button
-                variant="subtle"
+                variant="default"
                 size="compact-sm"
+                radius="xl"
                 onClick={() => setOpen((o) => !o)}
                 aria-expanded={open}
                 aria-controls="listen-player"
@@ -24,7 +25,6 @@ export default function Listen({ source }: { source: Source }) {
                         className={`transition-transform motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
                     />
                 }
-                className="-ml-2"
             >
                 Listen on Spotify
             </Button>

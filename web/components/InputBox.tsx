@@ -44,10 +44,7 @@ export default function InputBox({ mock }: Props) {
 
     return (
         <div>
-            <form
-                onSubmit={onSubmit}
-                className="rounded-md border border-line bg-surface p-4 sm:p-5"
-            >
+            <form onSubmit={onSubmit} className="rounded-2xl bg-surface p-5 shadow-raised sm:p-6">
                 <Textarea
                     label="Playlist, album or tracks"
                     placeholder={
@@ -113,7 +110,7 @@ export default function InputBox({ mock }: Props) {
                 ))}
             </div>
 
-            <div className="mt-6 border-t border-line pt-4 text-sm">
+            <div className="mt-6 pt-4 text-sm groove-t">
                 <UnstyledButton
                     onClick={() => setHelpOpen((o) => !o)}
                     aria-expanded={helpOpen}
@@ -148,7 +145,7 @@ export default function InputBox({ mock }: Props) {
 
 function Kbd({ children }: { children: string }) {
     return (
-        <kbd className="rounded-xs border border-line-strong px-1 py-px font-mono text-xs text-ink">
+        <kbd className="rounded-xs px-1.5 py-px font-mono text-xs text-ink shadow-raised-sm">
             {children}
         </kbd>
     );

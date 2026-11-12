@@ -5,41 +5,82 @@
 @import "@mantine/core/styles.layer.css";
 @import "@mantine/notifications/styles.layer.css";
 @import "@mantine/charts/styles.layer.css";
+@import "./emboss.css";
 
 /* dark: follows mantine's colour scheme attribute, not the media query */
 @custom-variant dark (&:where([data-mantine-color-scheme="dark"], [data-mantine-color-scheme="dark"] *));
 
-/* warm paper and ink, like a print; dark is a darkroom. the accent is a film-amber */
+/* soft embossed paper: the page and everything on it are one warm paper, and controls are pressed
+   out of it or into it with a light shadow from the top left and a dark one from the bottom right.
+   dark is a dim grey room rather than a black one, since emboss needs room for a highlight above
+   the surface. the accent is a film-amber */
 :root {
-    --mix-bg: #f6f5f2;
-    --mix-surface: #ffffff;
-    --mix-ink: #16181d;
-    --mix-muted: #6b6f76;
-    --mix-line: #e3e1dc;
-    --mix-line-strong: #c9c6bf;
+    --mix-bg: #ebe8e2;
+    --mix-surface: var(--mix-bg);
+    /* a faint tint for hovered and highlighted rows, which are too dense to emboss */
+    --mix-sunk: #e2ded6;
+    --mix-ink: #1f1d1a;
+    --mix-muted: #6e6a63;
+    --mix-line: #d9d5cd;
+    --mix-line-strong: #c4bfb5;
     --mix-accent: #b86e1f;
     /* data marks: dots, bars and lines that aren't the highlight */
     --mix-mark: #4b4741;
-    --mix-mark-soft: #b8b2a9;
-    --mix-accent-soft: #f7e3c4;
+    --mix-mark-soft: #b3ada3;
+    --mix-accent-soft: #f2dcb8;
+
+    /* the two lights: a highlight up-left, a shadow down-right */
+    --mix-hi: rgb(255 255 255 / 0.9);
+    --mix-lo: rgb(120 106 88 / 0.3);
+    --mix-raised: 7px 7px 16px var(--mix-lo), -7px -7px 16px var(--mix-hi);
+    --mix-raised-sm: 3px 3px 7px var(--mix-lo), -3px -3px 7px var(--mix-hi);
+    --mix-pressed: inset 4px 4px 9px var(--mix-lo), inset -4px -4px 9px var(--mix-hi);
+    --mix-pressed-sm: inset 2px 2px 4px var(--mix-lo), inset -2px -2px 4px var(--mix-hi);
+    /* the quietest step, for small things in a row (search phrases, readouts) */
+    --mix-raised-xs: 2px 2px 4px var(--mix-lo-soft), -2px -2px 4px var(--mix-hi);
+    --mix-pressed-xs: inset 1px 1px 3px var(--mix-lo-soft), inset -1px -1px 3px var(--mix-hi);
+    --mix-lo-soft: rgb(120 106 88 / 0.22);
+    /* an engraved rule: a dark line beside a light one */
+    --mix-groove: rgb(120 106 88 / 0.26);
+    /* large display text looks printed into the paper */
+    --mix-letterpress: 0 1px 0 rgb(255 255 255 / 0.85);
+    /* a faint light from the top left, where the shadows say it comes from */
+    --mix-light: radial-gradient(ellipse 90% 70% at 0% 0%, rgb(255 255 255 / 0.4), transparent 70%);
+    /* paper grain over the whole page, photos included, like a print */
+    --mix-grain-opacity: 0.05;
+    --mix-grain-blend: multiply;
 }
 
 [data-mantine-color-scheme="dark"] {
-    --mix-bg: #0e0d0c;
-    --mix-surface: #181614;
-    --mix-ink: #ece8e1;
-    --mix-muted: #948d84;
-    --mix-line: #2a2724;
-    --mix-line-strong: #3d3934;
-    --mix-accent: #e0a458;
-    --mix-mark: #c9c3ba;
-    --mix-mark-soft: #4b4741;
-    --mix-accent-soft: #3a2a17;
+    --mix-bg: #3b3835;
+    --mix-sunk: #34312e;
+    --mix-ink: #efebe5;
+    --mix-muted: #b2aba1;
+    --mix-line: #4c4844;
+    --mix-line-strong: #5e5953;
+    --mix-accent: #e7b25e;
+    --mix-mark: #d6d1c9;
+    --mix-mark-soft: #6f6961;
+    --mix-accent-soft: #5a4426;
+
+    --mix-hi: rgb(255 245 230 / 0.09);
+    --mix-lo: rgb(0 0 0 / 0.38);
+    --mix-lo-soft: rgb(0 0 0 / 0.3);
+    --mix-groove: rgb(0 0 0 / 0.32);
+    --mix-letterpress: 0 -1px 0 rgb(0 0 0 / 0.5);
+    --mix-light: radial-gradient(
+        ellipse 90% 70% at 0% 0%,
+        rgb(255 245 230 / 0.05),
+        transparent 70%
+    );
+    --mix-grain-opacity: 0.06;
+    --mix-grain-blend: soft-light;
 }
 
 @theme inline {
     --color-bg: var(--mix-bg);
     --color-surface: var(--mix-surface);
+    --color-sunk: var(--mix-sunk);
     --color-ink: var(--mix-ink);
     --color-muted: var(--mix-muted);
     --color-line: var(--mix-line);
@@ -48,6 +89,19 @@
     --color-accent-soft: var(--mix-accent-soft);
     --color-mark: var(--mix-mark);
     --color-mark-soft: var(--mix-mark-soft);
+    --shadow-raised: var(--mix-raised);
+    --shadow-raised-sm: var(--mix-raised-sm);
+    --shadow-pressed: var(--mix-pressed);
+    --shadow-pressed-sm: var(--mix-pressed-sm);
+    --shadow-raised-xs: var(--mix-raised-xs);
+    --shadow-pressed-xs: var(--mix-pressed-xs);
+    /* rounder than tailwind's defaults, matching mantine's scale in lib/theme.ts */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
     --font-serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
     --font-mono:
         ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
@@ -56,8 +110,22 @@
 @layer base {
     body {
         background-color: var(--mix-bg);
+        background-image: var(--mix-light);
+        background-attachment: fixed;
         color: var(--mix-ink);
         -webkit-font-smoothing: antialiased;
+    }
+
+    /* paper grain: fixed noise over everything, never in the way of the pointer */
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        pointer-events: none;
+        opacity: var(--mix-grain-opacity);
+        mix-blend-mode: var(--mix-grain-blend);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     /* a visible keyboard focus ring everywhere */
@@ -65,6 +133,28 @@
         outline: 2px solid var(--mix-ink);
         outline-offset: 2px;
     }
+}
+
+/* engraved rules, in place of a plain border */
+@utility groove-t {
+    border-top: 1px solid var(--mix-groove);
+    box-shadow: inset 0 1px 0 var(--mix-hi);
+}
+
+@utility groove-r {
+    border-right: 1px solid var(--mix-groove);
+    box-shadow: 1px 0 0 var(--mix-hi);
+}
+
+@utility letterpress {
+    text-shadow: var(--mix-letterpress);
+}
+
+/* a raised fill inside a groove, like the amber of the progress bar */
+@utility raised-fill {
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.35),
+        1px 1px 2px var(--mix-lo-soft);
 }
 
 /* a dot on the mood map develops in, like a print in the tray */

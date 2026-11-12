@@ -1,0 +1,133 @@
+/* soft embossed paper: controls are pressed out of (raised) or into (pressed) the page, which is
+   the same colour as everything on it. lives in the components layer, so it beats mantine's own
+   styles without !important and tailwind utilities still beat it. mantine's static class names
+   (.mantine-Button-root) are stable across versions. */
+@layer components {
+    /* surfaces */
+    .emb-raised {
+        background-color: var(--mix-bg);
+        box-shadow: var(--mix-raised);
+    }
+
+    .emb-pressed {
+        background-color: var(--mix-bg);
+        box-shadow: var(--mix-pressed);
+    }
+
+    /* buttons: default and filled lift off the page and sink when pushed */
+    .mantine-Button-root[data-variant="default"],
+    .mantine-ActionIcon-root[data-variant="default"] {
+        background-color: var(--mix-bg);
+        border: 0;
+        box-shadow: var(--mix-raised-sm);
+        transition:
+            box-shadow 120ms ease,
+            transform 120ms ease;
+    }
+
+    .mantine-Button-root[data-variant="filled"],
+    .mantine-ActionIcon-root[data-variant="filled"] {
+        border: 0;
+        box-shadow: var(--mix-raised-sm);
+        transition: box-shadow 120ms ease;
+    }
+
+    :is(.mantine-Button-root, .mantine-ActionIcon-root):is(
+            [data-variant="default"],
+            [data-variant="filled"]
+        ):where(:not(:disabled, [data-disabled])):active {
+        box-shadow: var(--mix-pressed-sm);
+        transform: none;
+    }
+
+    /* subtle buttons stay flat until hovered, then sink a little */
+    :is(.mantine-Button-root, .mantine-ActionIcon-root)[data-variant="subtle"]:where(
+            :not(:disabled, [data-disabled])
+        ):hover {
+        background-color: transparent;
+        box-shadow: var(--mix-pressed-sm);
+    }
+
+    :is(.mantine-Button-root, .mantine-ActionIcon-root):is(:disabled, [data-disabled]) {
+        background-color: var(--mix-bg);
+        box-shadow: var(--mix-pressed-sm);
+        opacity: 0.6;
+    }
+
+    /* inputs are wells */
+    .mantine-Input-input {
+        background-color: var(--mix-bg);
+        border: 0;
+        box-shadow: var(--mix-pressed);
+    }
+
+    .mantine-Input-input:focus,
+    .mantine-Input-input:focus-within {
+        box-shadow:
+            var(--mix-pressed),
+            0 0 0 1.5px var(--mix-line-strong);
+    }
+
+    /* segmented control: a sunken track with a raised thumb */
+    .mantine-SegmentedControl-root {
+        background-color: var(--mix-bg);
+        box-shadow: var(--mix-pressed-sm);
+        padding: 4px;
+    }
+
+    .mantine-SegmentedControl-indicator {
+        background-color: var(--mix-bg);
+        box-shadow: var(--mix-raised-sm);
+        border: 0;
+    }
+
+    .mantine-SegmentedControl-control::before {
+        display: none;
+    }
+
+    /* slider: a sunken groove with a raised knob */
+    .mantine-Slider-track::before {
+        background-color: var(--mix-bg);
+        box-shadow: var(--mix-pressed-sm);
+    }
+
+    .mantine-Slider-thumb {
+        background-color: var(--mix-bg);
+        border: 0;
+        box-shadow: var(--mix-raised-sm);
+        width: calc(var(--slider-thumb-size) * 1.25);
+        height: calc(var(--slider-thumb-size) * 1.25);
+    }
+
+    /* accordion items are raised cards, the open one stays raised */
+    .mantine-Accordion-item[data-variant="contained"],
+    .mantine-Accordion-root[data-variant="contained"] .mantine-Accordion-item {
+        background-color: var(--mix-bg);
+        border: 0;
+        box-shadow: var(--mix-raised-sm);
+        margin-bottom: 0.75rem;
+        border-radius: var(--mantine-radius-md);
+    }
+
+    .mantine-Accordion-root[data-variant="contained"] .mantine-Accordion-control {
+        background-color: transparent;
+    }
+
+    /* floating things */
+    .mantine-Popover-dropdown,
+    .mantine-ColorInput-dropdown {
+        background-color: var(--mix-bg);
+        border: 0;
+        box-shadow: var(--mix-raised);
+    }
+
+    .mantine-Badge-root[data-variant="light"] {
+        background-color: var(--mix-bg);
+        color: var(--mix-muted);
+        box-shadow: var(--mix-pressed-sm);
+    }
+
+    .mantine-Alert-root {
+        box-shadow: var(--mix-pressed-sm);
+    }
+}

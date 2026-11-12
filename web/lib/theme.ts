@@ -22,18 +22,19 @@ const ink: MantineColorsTuple = [
     "#16181d",
 ];
 
-// mantine's dark surfaces, shifted to the warm blacks of a darkroom
+// mantine's dark surfaces, lifted to a dim warm grey so emboss has room for a highlight
+// (mantine uses 7 for the body, 6 for inputs and default buttons, 4 for borders)
 const dark: MantineColorsTuple = [
-    "#ece8e1",
-    "#c9c3ba",
+    "#efebe5",
+    "#d6d1c9",
+    "#b2aba1",
     "#948d84",
-    "#6f6961",
-    "#3d3934",
-    "#2a2724",
-    "#1d1b19",
-    "#141311",
-    "#0e0d0c",
-    "#080707",
+    "#5e5953",
+    "#4c4844",
+    "#3b3835",
+    "#3b3835",
+    "#34312e",
+    "#2b2926",
 ];
 
 // film amber, for the few things that should stand out (progress, the mood map's mean)
@@ -71,17 +72,17 @@ export const theme = createTheme({
     fontFamilyMonospace:
         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
     headings: { fontWeight: "650" },
-    defaultRadius: "sm",
-    radius: { xs: "2px", sm: "4px", md: "6px" },
+    defaultRadius: "md",
+    radius: { xs: "4px", sm: "8px", md: "12px", lg: "16px", xl: "20px" },
     cursorType: "pointer",
     components: {
         InputWrapper: InputWrapper.extend({ styles: { label: { fontWeight: 500 } } }),
     },
 });
 
-// the page background is paper or darkroom rather than mantine's white or grey
+// the page background is paper or a dim grey room rather than mantine's white or black
 export const cssVariablesResolver: CSSVariablesResolver = () => ({
     variables: {},
-    light: { "--mantine-color-body": "#f6f5f2", "--mantine-primary-color-contrast": "#ffffff" },
-    dark: { "--mantine-color-body": "#0e0d0c", "--mantine-primary-color-contrast": "#0e0d0c" },
+    light: { "--mantine-color-body": "#ebe8e2", "--mantine-primary-color-contrast": "#ffffff" },
+    dark: { "--mantine-color-body": "#3b3835", "--mantine-primary-color-contrast": "#24221f" },
 });

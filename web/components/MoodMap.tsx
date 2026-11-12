@@ -264,7 +264,7 @@ export default function MoodMap({ tracks }: Props) {
                 )}
                 {hover && (
                     <div
-                        className="pointer-events-none absolute z-10 max-w-56 -translate-x-1/2 rounded-sm border border-line bg-surface px-2.5 py-1.5 text-xs shadow-md"
+                        className="pointer-events-none absolute z-10 max-w-56 -translate-x-1/2 rounded-sm bg-surface px-2.5 py-1.5 text-xs shadow-raised-sm"
                         style={{
                             left: Math.min(Math.max(px(hover.x), 90), width - 90),
                             top: py(hover.y) > 70 ? py(hover.y) - 56 : py(hover.y) + 14,

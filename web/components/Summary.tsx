@@ -43,7 +43,7 @@ export default function Summary({ profile, tracks, final }: Props) {
     return (
         <div className={`transition-opacity duration-700 ${final ? "" : "opacity-70"}`}>
             <p
-                className="font-serif text-2xl leading-snug text-balance sm:text-3xl"
+                className="font-serif text-2xl leading-snug text-balance letterpress sm:text-3xl"
                 aria-live="polite"
             >
                 {profile.summary}
@@ -52,7 +52,7 @@ export default function Summary({ profile, tracks, final }: Props) {
                 )}
             </p>
             <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-stretch sm:gap-6">
-                <div className="flex shrink-0 flex-row gap-5 sm:flex-col sm:gap-3 sm:border-r sm:border-line sm:pr-6">
+                <div className="flex shrink-0 flex-row gap-5 sm:flex-col sm:gap-3 sm:pr-6 sm:groove-r">
                     <Facet
                         icon={<FiCompass />}
                         label="feel"
@@ -124,7 +124,7 @@ function Icon({ tip, children }: { tip: string; children: ReactNode }) {
                 tabIndex={0}
                 role="img"
                 aria-label={tip}
-                className="flex size-7 shrink-0 cursor-help items-center justify-center rounded-full bg-accent-soft text-accent [&>svg]:size-3.5"
+                className="flex size-8 shrink-0 cursor-help items-center justify-center rounded-full bg-accent-soft/50 text-accent shadow-pressed-xs [&>svg]:size-3.5"
             >
                 {children}
             </span>
@@ -217,11 +217,20 @@ function Gauge({ icon, label, value, display, unit, range, ends, values, tip }: 
                     />
                 ))}
             </div>
-            <div className="relative h-1 overflow-hidden rounded-full bg-line" aria-hidden>
+            {/* a groove filled to the average, with a knob on it */}
+            <div className="relative mt-0.5 h-1.5" aria-hidden>
+                <div className="h-full overflow-hidden rounded-full shadow-pressed-xs">
+                    <span
+                        className="block h-full rounded-full bg-ink transition-[width] duration-500 motion-reduce:transition-none"
+                        style={{ width: `${fill * 100}%` }}
+                    />
+                </div>
                 <span
-                    className="absolute inset-y-0 left-0 rounded-full bg-ink transition-[width] duration-500"
-                    style={{ width: `${fill * 100}%` }}
-                />
+                    className="absolute top-1/2 flex size-3.5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-bg shadow-raised-xs transition-[left] duration-500 motion-reduce:transition-none"
+                    style={{ left: `${fill * 100}%` }}
+                >
+                    <span className="size-1.5 rounded-full bg-accent" />
+                </span>
             </div>
             <div
                 className="mt-1 flex justify-between text-[10px] text-muted tabular-nums"
