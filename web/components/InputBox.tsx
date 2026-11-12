@@ -7,6 +7,9 @@ import { RequestError } from "../lib/errors";
 import { canSubmit, Detected, detectInput, MAX_TRACKS } from "../lib/input";
 import { EXAMPLES } from "../lib/examples";
 import { plural } from "../lib/format";
+import { moodColour } from "../lib/moodColour";
+import { quadrantAt, scatter } from "../lib/showcase";
+import { useDark } from "../lib/useDark";
 
 type Props = {
     mock: boolean;
@@ -91,23 +94,24 @@ export default function InputBox({ mock }: Props) {
                 {error && <ErrorAlert error={error} onClose={() => setError(null)} />}
             </form>
 
-            <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
-                <span className="text-muted">or try</span>
-                {EXAMPLES.map((ex) => (
-                    <Button
-                        key={ex.url}
-                        variant="default"
-                        size="compact-sm"
-                        radius="xl"
-                        disabled={busy}
-                        onClick={() => {
-                            setInput(ex.url);
-                            submit(ex.url);
-                        }}
-                    >
-                        {ex.label}
-                    </Button>
-                ))}
+            <div className="mt-5">
+                <p className="mb-2 text-xs text-muted">or try</p>
+                <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-3">
+                    {EXAMPLES.map((ex, i) => (
+                        <ExampleCard
+                            key={ex.url}
+                            label={ex.label}
+                            mood={ex.mood}
+                            energy={ex.energy}
+                            seed={i + 1}
+                            disabled={busy}
+                            onClick={() => {
+                                setInput(ex.url);
+                                submit(ex.url);
+                            }}
+                        />
+                    ))}
+                </div>
             </div>
 
             <div className="mt-6 pt-4 text-sm groove-t">
@@ -140,6 +144,70 @@ export default function InputBox({ mock }: Props) {
                 </Collapse>
             </div>
         </div>
+    );
+}
+
+// an example playlist as a small raised card: its name, its corner of the mood map and a few dots
+// where its songs roughly land
+function ExampleCard({
+    label,
+    mood,
+    energy,
+    seed,
+    disabled,
+    onClick,
+}: {
+    label: string;
+    mood: number;
+    energy: number;
+    seed: number;
+    disabled: boolean;
+    onClick: () => void;
+}) {
+    const dark = useDark();
+    const dots = useMemo(() => scatter(mood, energy, 6, 0.14, seed), [mood, energy, seed]);
+    return (
+        <UnstyledButton
+            onClick={onClick}
+            disabled={disabled}
+            className="group flex items-center gap-3 rounded-xl p-2.5 text-left shadow-raised-sm transition-shadow active:shadow-pressed-sm disabled:opacity-60 disabled:shadow-pressed-sm"
+        >
+            <svg
+                viewBox="0 0 40 40"
+                className="size-10 shrink-0 rounded-md shadow-pressed-xs"
+                aria-hidden
+            >
+                <line
+                    x1="20"
+                    x2="20"
+                    y1="4"
+                    y2="36"
+                    stroke="var(--mix-line-strong)"
+                    strokeDasharray="1.5 2"
+                />
+                <line
+                    x1="4"
+                    x2="36"
+                    y1="20"
+                    y2="20"
+                    stroke="var(--mix-line-strong)"
+                    strokeDasharray="1.5 2"
+                />
+                {dots.map((d, i) => (
+                    <circle
+                        key={i}
+                        cx={4 + d.x * 32}
+                        cy={36 - d.y * 32}
+                        r={2.2}
+                        fill={moodColour(d.x, d.y, dark)}
+                    />
+                ))}
+            </svg>
+            <span className="min-w-0 leading-tight">
+                <span className="block truncate text-sm font-medium">{label}</span>
+                <span className="block text-xs text-muted">{quadrantAt(mood, energy)}</span>
+            </span>
+        </UnstyledButton>
     );
 }
 

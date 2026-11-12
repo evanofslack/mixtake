@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import { Badge, Tooltip } from "@mantine/core";
 import Layout from "../components/Layout";
 import InputBox from "../components/InputBox";
+import Steps from "../components/home/Steps";
+import MoodPad from "../components/home/MoodPad";
+import Credits from "../components/home/Credits";
 import { isMockMode } from "../lib/client";
 
 export default function IndexPage() {
@@ -25,6 +28,19 @@ export default function IndexPage() {
                         </Badge>
                     </Tooltip>
                 )}
+            </section>
+
+            {/* how it works, shown rather than told */}
+            <section
+                id="how"
+                aria-label="how it works"
+                className="mx-auto mt-10 max-w-4xl scroll-mt-20 space-y-8 px-4 sm:px-6"
+            >
+                <Steps />
+                <MoodPad />
+                <div className="pt-4 groove-t">
+                    <Credits />
+                </div>
             </section>
         </Layout>
     );

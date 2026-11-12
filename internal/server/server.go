@@ -51,6 +51,8 @@ func New(deps Deps) *Server {
 	s.mux.HandleFunc("GET /api/photos/{id}/similar", s.similarPhotos)
 	s.mux.HandleFunc("GET /api/img/{name}", s.image)
 	s.mux.Handle("/api/", http.HandlerFunc(s.apiNotFound))
+	// the about page became a section of the front page; old links land on it
+	s.mux.Handle("GET /about", http.RedirectHandler("/#how", http.StatusMovedPermanently))
 	s.mux.Handle("/", staticHandler(deps.Static))
 	return s
 }

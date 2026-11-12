@@ -296,9 +296,13 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   leading search phrase, the status pill, gauge grooves); emboss is never the only sign of a
   state, which also gets amber or an icon. Letterpress text-shadow is for display text only.
 - Pages:
-  - `/`: input and example playlists
+  - `/`: input, example playlists as cards (name, quadrant, a few dots), then a "how it works"
+    section (`#how`) shown rather than told: Paste → Listen → Develop tiles that play once when
+    scrolled into view, a mood pad (drag a knob over the map and the nearest mock film photo
+    crossfades in, with mood and energy gauges; drifts on its own until touched, still under
+    reduced motion) and a one-line credits row with `Info` details
   - `/mix?id=…`: results
-  - `/about`: credits
+  - `/about` redirects (301) to `/#how`
 - Components:
   - InputBox: detects a link or a paste; explains private playlists
   - ProgressHeader

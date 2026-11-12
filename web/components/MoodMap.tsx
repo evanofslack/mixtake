@@ -3,6 +3,7 @@ import { SegmentedControl, Tooltip, useComputedColorScheme } from "@mantine/core
 import { FiMaximize2, FiMinimize2 } from "react-icons/fi";
 import { energy, Features, mood, TrackResult } from "../lib/api";
 import { Domain, fitDomain, FULL, isFull } from "../lib/domain";
+import { Corner, QUADRANTS } from "../lib/showcase";
 import { artistNames } from "../lib/format";
 import { useHighlight } from "../lib/highlight";
 import { moodColour } from "../lib/moodColour";
@@ -15,7 +16,6 @@ type Props = {
 
 type Dot = { id: string; title: string; artist: string; x: number; y: number };
 type View = "fit" | "full";
-type Corner = "tl" | "tr" | "bl" | "br";
 
 // room for the axis labels around the plot
 const PAD = { top: 12, right: 12, bottom: 30, left: 30 };
@@ -24,14 +24,6 @@ const HIT = 22;
 // the inset's side, and its gap from the plot's edge
 const INSET = 64;
 const INSET_GAP = 8;
-
-// each quadrant's name, and the plot corner that is its outer corner
-const QUADRANTS: { name: string; corner: Corner; x: Domain; y: Domain }[] = [
-    { name: "tense", corner: "tl", x: [0, 0.5], y: [0.5, 1] },
-    { name: "euphoric", corner: "tr", x: [0.5, 1], y: [0.5, 1] },
-    { name: "melancholy", corner: "bl", x: [0, 0.5], y: [0, 0.5] },
-    { name: "serene", corner: "br", x: [0.5, 1], y: [0, 0.5] },
-];
 
 // every analysed song on mood (x) × energy (y); dots develop in as results arrive. By default
 // the axes fit the songs, with an inset showing where that window sits in the whole map
