@@ -160,14 +160,21 @@ function Why({
                             <FiSearch aria-hidden className="size-3.5" />
                         </span>
                     </Tooltip>
-                    <ul className="flex min-w-0 flex-wrap gap-1.5" aria-label="analogdb searches">
+                    <ul
+                        className="flex min-w-0 flex-wrap gap-x-1 gap-y-1.5"
+                        aria-label="analogdb searches"
+                    >
                         {set.queries.map((q) => (
                             <li key={q}>
-                                <Tooltip label="search only this" withArrow openDelay={300}>
+                                <Tooltip label="lead with this search" withArrow openDelay={300}>
                                     <UnstyledButton
                                         onClick={() => onVibe(q)}
-                                        className="rounded-full border border-line px-2.5 py-0.5 text-xs text-ink transition-colors hover:border-line-strong hover:bg-bg"
+                                        className="group relative rounded-xs py-0.5 pr-2 pl-3.5 font-serif text-[13px] leading-snug text-ink italic transition-colors hover:bg-accent-soft"
                                     >
+                                        <span
+                                            aria-hidden
+                                            className="absolute top-1/2 left-1 h-3 w-0.5 -translate-y-1/2 rounded-full bg-accent/40 transition-colors group-hover:bg-accent"
+                                        />
                                         {q}
                                     </UnstyledButton>
                                 </Tooltip>

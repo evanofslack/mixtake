@@ -5,24 +5,29 @@ import { energy, Features, mood, TrackResult, TrackStatus } from "../lib/api";
 import { artistNames, keyName, plural } from "../lib/format";
 import { useHighlight } from "../lib/highlight";
 import { moodColour } from "../lib/moodColour";
+import { Sort, sortTracks } from "../lib/sort";
 import Panel from "./Panel";
+import SortControl from "./SortControl";
 
 type Props = {
     trackIds: string[];
     tracks: TrackResult[];
+    sort: Sort;
+    onSort: (s: Sort) => void;
 };
 
 // rows shown before "show all"
 const COLLAPSED = 12;
 
-// every song with its status and a few tiny feature bars
-export default function TrackList({ trackIds, tracks }: Props) {
+// every song with its status and a few tiny feature bars, in the page's sort order; the number
+// is always the song's place in the playlist
+export default function TrackList({ trackIds, tracks, sort, onSort }: Props) {
     const [open, setOpen] = useState(false);
     const rows = useMemo(() => {
         const byId = new Map(tracks.map((t) => [t.track.id, t]));
         const order = trackIds.length ? trackIds : tracks.map((t) => t.track.id);
-        return order.map((id) => ({ id, result: byId.get(id) }));
-    }, [trackIds, tracks]);
+        return sortTracks(order, byId, sort);
+    }, [trackIds, tracks, sort]);
     const hl = useHighlight();
     const dark = useComputedColorScheme("light", { getInitialValueInEffect: true }) === "dark";
     const lit = hl.tracks;
@@ -48,7 +53,12 @@ export default function TrackList({ trackIds, tracks }: Props) {
     const shown = open ? rows : rows.slice(0, COLLAPSED);
 
     return (
-        <Panel title="Songs" caption={plural(rows.length, "song")} className="lg:col-span-12">
+        <Panel
+            title="Songs"
+            caption={plural(rows.length, "song")}
+            actions={<SortControl sort={sort} onChange={onSort} />}
+            className="lg:col-span-12"
+        >
             <div
                 className="hidden grid-cols-[2rem_1fr_9rem_5.5rem_1.25rem] gap-3 border-b border-line pb-1.5 text-xs text-muted sm:grid"
                 aria-hidden
@@ -60,11 +70,11 @@ export default function TrackList({ trackIds, tracks }: Props) {
                 <span />
             </div>
             <ol aria-label="songs">
-                {shown.map((row, i) => (
+                {shown.map((row) => (
                     <Row
                         key={row.id}
                         id={row.id}
-                        n={i + 1}
+                        n={row.position}
                         result={row.result}
                         dark={dark}
                         state={

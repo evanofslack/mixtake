@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useRouter } from "next/router";
 import { Alert, Badge, Button, Loader, Tooltip } from "@mantine/core";
 import { FiAlertCircle, FiArrowLeft } from "react-icons/fi";
@@ -7,15 +7,14 @@ import ProgressHeader from "../components/ProgressHeader";
 import Summary from "../components/Summary";
 import MoodMap from "../components/MoodMap";
 import EnergyArc from "../components/EnergyArc";
-import GenreBars from "../components/GenreBars";
-import TempoKey from "../components/TempoKey";
-import TopArtists from "../components/TopArtists";
+import Sound from "../components/Sound";
 import TrackList from "../components/TrackList";
 import CoverStudio from "../components/CoverStudio";
 import Listen from "../components/Listen";
 import { isMockMode } from "../lib/client";
 import { useMixEvents } from "../lib/useMixEvents";
 import { HighlightProvider } from "../lib/highlight";
+import { PLAYLIST_ORDER, Sort } from "../lib/sort";
 
 // /mix?id=… : the live analysis and cover studio. A query string rather than /mix/[id], because
 // a static export can't pre-render pages for ids it doesn't know.
@@ -24,6 +23,8 @@ export default function MixPage() {
     const id = router.isReady && typeof router.query.id === "string" ? router.query.id : null;
     const mock = router.isReady && isMockMode(router.query);
     const { snapshot, coverage, status, error } = useMixEvents(id, mock);
+    // the energy arc and the song list share one order
+    const [sort, setSort] = useState<Sort>(PLAYLIST_ORDER);
 
     if (!router.isReady) {
         return <Shell>{null}</Shell>;
@@ -82,8 +83,8 @@ export default function MixPage() {
                     {error} What's below is what we managed so far.
                 </Alert>
             )}
-            <div className="mt-8 mb-6 max-w-3xl">
-                <Summary profile={profile} final={finished} />
+            <div className="mt-8 mb-6 max-w-4xl">
+                <Summary profile={profile} tracks={tracks} final={finished} />
                 {mix.vibe && (
                     <Tooltip label="the words that steer the cover photos">
                         <Badge
@@ -102,12 +103,13 @@ export default function MixPage() {
             <HighlightProvider tracks={tracks}>
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
                     <MoodMap tracks={tracks} />
-                    <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
-                        <GenreBars genres={profile?.genres} tracks={tracks} />
-                        <TopArtists artists={profile?.artists} tracks={tracks} />
-                    </div>
-                    <EnergyArc trackIds={mix.track_ids} tracks={tracks} />
-                    <TempoKey profile={profile} />
+                    <Sound profile={profile} tracks={tracks} />
+                    <EnergyArc
+                        trackIds={mix.track_ids}
+                        tracks={tracks}
+                        sort={sort}
+                        onSort={setSort}
+                    />
                     <CoverStudio
                         key={mix.id}
                         mixId={mix.id}
@@ -116,7 +118,12 @@ export default function MixPage() {
                         analysed={coverage.done}
                         finished={finished}
                     />
-                    <TrackList trackIds={mix.track_ids} tracks={tracks} />
+                    <TrackList
+                        trackIds={mix.track_ids}
+                        tracks={tracks}
+                        sort={sort}
+                        onSort={setSort}
+                    />
                 </div>
             </HighlightProvider>
         </Shell>

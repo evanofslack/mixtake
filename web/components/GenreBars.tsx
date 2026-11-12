@@ -3,9 +3,9 @@ import type { Genre, TrackResult } from "../lib/api";
 import { splitGenre } from "../lib/format";
 import { hasGenre, useHighlight } from "../lib/highlight";
 import BarList from "./BarList";
-import Panel, { Waiting } from "./Panel";
+import { Waiting } from "./Panel";
 
-// the profile's strongest genres, with their Discogs parent style in grey
+// the profile's strongest genres, with their Discogs parent style in grey (inside Sound)
 export default function GenreBars({ genres, tracks }: { genres?: Genre[]; tracks: TrackResult[] }) {
     const top = (genres ?? []).slice(0, 6);
     const max = Math.max(...top.map((g) => g.score), 0.0001);
@@ -20,10 +20,7 @@ export default function GenreBars({ genres, tracks }: { genres?: Genre[]; tracks
         return new Set(top.map((g) => g.name).filter((n) => songs.some((t) => hasGenre(t, n))));
     }, [hl.tracks, tracks, top]);
     return (
-        <Panel
-            title="Genres"
-            info="From Essentia's Discogs genre model, averaged over the analysed songs."
-        >
+        <>
             {top.length === 0 ? (
                 <Waiting>After ten songs</Waiting>
             ) : (
@@ -50,6 +47,6 @@ export default function GenreBars({ genres, tracks }: { genres?: Genre[]; tracks
                     })}
                 />
             )}
-        </Panel>
+        </>
     );
 }

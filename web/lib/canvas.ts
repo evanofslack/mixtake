@@ -29,7 +29,7 @@ export interface CoverState {
     scrim: boolean;
 }
 
-export const ZOOM_MAX = 4;
+export const ZOOM_MAX = 2.5;
 export const SIZE_MIN = 4;
 export const SIZE_MAX = 20;
 

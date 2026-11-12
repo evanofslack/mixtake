@@ -1,7 +1,7 @@
 # mixtake v2 plan
 
 Paste a Spotify playlist link, album link, or a list of copied tracks. Watch the music get analysed
-live (mood map, energy arc, genres, tempo and key), get a film-photo cover from
+live (mood map, energy arc, genres and artists, tempo and key gauges), get a film-photo cover from
 [analogdb](https://analogdb.com) that matches it, add text, then download or share.
 
 ## Background
@@ -117,7 +117,8 @@ with fakes of these four.
     features, so changing them needs no re-analysis; `web/lib/api.ts` mirrors them.
 - `Profile`: means and spreads, mood quadrant, energy arc in track order, tempo histogram, key
   counts, genre weights, top artists, coverage `{done, failed, total}` and a headline
-  ("Melancholy and hushed"); the web shows tempo, key and the scores as chips beside it.
+  ("Melancholy and hushed"); the web shows the feel (quadrant) and key as labelled facets, and
+  tempo, mood and energy as gauges (a histogram of the songs over a bar filled to the average).
 - `Mix`: id, source (kind, Spotify id, name, cover, palette), ordered track ids, vibe, created at.
   - The id is a short base32 of `sha256(ordered track ids + vibe)`, so the same input gives the
     same mix and reuses the cache.
@@ -291,10 +292,15 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
 - Components:
   - InputBox: detects a link or a paste; explains private playlists
   - ProgressHeader
-  - Charts: MoodMap (live scatter), EnergyArc, GenreBars, TempoKey, TopArtists, Summary
+  - Charts: Summary (facets and gauges, which replace the tempo/key panel), MoodMap (live
+    scatter on a 10-point grid), Sound (genres and top artists in one panel), EnergyArc
   - MoodMap and EnergyArc fit their axes to the songs (`lib/domain.ts`: padded, snapped, at least
     0.3 wide), so calm or sad mixes aren't squashed into a corner. MoodMap has a fit/whole toggle
     and an inset of the whole map with the zoomed window outlined.
+  - One sort for the page (`lib/sort.ts`): playlist order, energy, mood or tempo, either way.
+    The energy arc and the song list both follow it and both have the control. In playlist order
+    the arc is smoothed over five songs; sorted, it plots each analysed song's own values. The
+    arc's tooltip names the song; the list keeps each song's playlist number.
   - Linked highlighting (`lib/highlight.tsx`): hovering a song (mood map dot, energy arc, track
     row), a genre or an artist highlights the same songs everywhere; a click pins it, Esc or a
     click on empty space clears it. A genre covers a song when it is the song's top genre or
@@ -310,7 +316,8 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     guides are an SVG overlay on the preview, never drawn into the export.
 - Text is kept short: labels and numbers on the page, explanations behind `Info` icons (Mantine
   popover on hover, focus or tap) and tooltips. Full sentences are kept for errors.
-  - ShareBar: JPG at 1500 or 3000 px, copy link
+  - ShareBar: JPG at 1500 or 3000 px, copy link; a warning icon (details on hover) when the
+    crop is smaller than a size and will be upscaled. Zoom is capped at 2.5×.
   - Listen: collapsed Spotify embed player
 - Cover studio:
   - `lib/canvas.ts` `drawCover` draws both the preview and the export. Crop, text and colour are

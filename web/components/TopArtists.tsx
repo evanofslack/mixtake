@@ -3,7 +3,7 @@ import type { Profile, TrackResult } from "../lib/api";
 import { plural } from "../lib/format";
 import { hasArtist, useHighlight } from "../lib/highlight";
 import BarList from "./BarList";
-import Panel, { Waiting } from "./Panel";
+import { Waiting } from "./Panel";
 
 // names listed when no artist repeats
 const NAMED = 4;
@@ -14,7 +14,7 @@ type Props = {
     tracks: TrackResult[];
 };
 
-// who appears most
+// who appears most (inside Sound)
 export default function TopArtists({ artists, tracks }: Props) {
     const top = (artists ?? []).slice(0, 6);
     const max = Math.max(...top.map((a) => a.count), 1);
@@ -35,7 +35,7 @@ export default function TopArtists({ artists, tracks }: Props) {
     // a ranked list of ones says nothing, so describe the spread instead
     const noRepeats = top.length > 1 && max === 1;
     return (
-        <Panel title="Top artists">
+        <>
             {top.length === 0 ? (
                 <Waiting className="h-28">After ten songs</Waiting>
             ) : noRepeats ? (
@@ -66,6 +66,6 @@ export default function TopArtists({ artists, tracks }: Props) {
                     }))}
                 />
             )}
-        </Panel>
+        </>
     );
 }
