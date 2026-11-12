@@ -157,7 +157,12 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
 
             <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
                 <fieldset>
-                    <legend className="mb-1.5 text-sm font-medium">Position</legend>
+                    <legend className="mb-1.5 flex items-center gap-1 text-sm font-medium">
+                        Position
+                        <Info label="about position">
+                            Or drag the text on the cover; it snaps to these nine spots.
+                        </Info>
+                    </legend>
                     <div className="grid w-fit grid-cols-3 gap-1">
                         {POSITIONS.map((p) => (
                             <Choice

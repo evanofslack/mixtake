@@ -295,7 +295,12 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     0.3 wide), so calm or sad mixes aren't squashed into a corner. MoodMap has a fit/whole toggle
     and an inset of the whole map with the zoomed window outlined.
   - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
-    self-hosted fonts, 3×3 positions; colours from the photo, the mix palette or a picker)
+    self-hosted fonts; drag the text anywhere or pick one of 3×3 presets; colours from the
+    photo, the mix palette or a picker)
+  - Dragging text: a pointer-down inside the text's box (`textBox` in `lib/canvas.ts`) moves the
+    text, anywhere else pans the photo. Within 3% of a preset's centre the text snaps to it and
+    `pos` becomes that preset; elsewhere `pos` is `free` with the box centred on `tx`, `ty`. Snap
+    guides are an SVG overlay on the preview, never drawn into the export.
 - Text is kept short: labels and numbers on the page, explanations behind `Info` icons (Mantine
   popover on hover, focus or tap) and tooltips. Full sentences are kept for errors.
   - ShareBar: JPG at 1500 or 3000 px, copy link
@@ -308,7 +313,7 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     knows the family names.
   - The photographer's credit stays on the page and is never drawn on the image.
   - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `seed`
-    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `align`, `color`, `size`, `scrim` (defaults are
+    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `tx`, `ty` (only when `pos=free`), `align`, `color`, `size`, `scrim` (defaults are
     omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
     in them. If the photo isn't in either, the studio shows the first photo with the same text and
     says so.

@@ -7,7 +7,7 @@ import {
     DEFAULT_STATE,
     FONT_IDS,
     FontId,
-    Pos,
+    Placement,
     POSITIONS,
     SIZE_MAX,
     SIZE_MIN,
@@ -37,6 +37,8 @@ export const SHARE_KEYS = [
     "sub",
     "font",
     "pos",
+    "tx",
+    "ty",
     "align",
     "color",
     "size",
@@ -64,7 +66,7 @@ function id(q: Query, k: string): number | null {
 export function readShared(q: Query, defaultTitle: string): Shared {
     const d = DEFAULT_STATE;
     const font = str(q, "font") as FontId | undefined;
-    const pos = str(q, "pos") as Pos | undefined;
+    const pos = str(q, "pos") as Placement | undefined;
     const align = str(q, "align") as Align | undefined;
     const color = str(q, "color");
     return {
@@ -79,7 +81,9 @@ export function readShared(q: Query, defaultTitle: string): Shared {
             title: (str(q, "title") ?? defaultTitle).slice(0, 120),
             sub: (str(q, "sub") ?? d.sub).slice(0, 160),
             font: font && FONT_IDS.includes(font) ? font : d.font,
-            pos: pos && POSITIONS.includes(pos) ? pos : d.pos,
+            pos: pos && (pos === "free" || POSITIONS.includes(pos)) ? pos : d.pos,
+            tx: num(q, "tx", 0, 1, d.tx),
+            ty: num(q, "ty", 0, 1, d.ty),
             align: align === "left" || align === "center" || align === "right" ? align : d.align,
             color: color && /^[0-9a-f]{6}$/i.test(color) ? `#${color.toLowerCase()}` : d.color,
             size: num(q, "size", SIZE_MIN, SIZE_MAX, d.size),
@@ -120,6 +124,10 @@ export function writeShared(s: Shared, defaultTitle: string): Record<string, str
     }
     if (st.pos !== d.pos) {
         out.pos = st.pos;
+    }
+    if (st.pos === "free") {
+        out.tx = String(st.tx);
+        out.ty = String(st.ty);
     }
     if (st.align !== d.align) {
         out.align = st.align;
