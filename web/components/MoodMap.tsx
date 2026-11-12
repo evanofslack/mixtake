@@ -1,9 +1,11 @@
 import { PointerEvent, useMemo, useState } from "react";
-import { SegmentedControl, Tooltip } from "@mantine/core";
+import { SegmentedControl, Tooltip, useComputedColorScheme } from "@mantine/core";
 import { FiMaximize2, FiMinimize2 } from "react-icons/fi";
 import { energy, Features, mood, TrackResult } from "../lib/api";
 import { Domain, fitDomain, FULL, isFull } from "../lib/domain";
 import { artistNames } from "../lib/format";
+import { useHighlight } from "../lib/highlight";
+import { moodColour } from "../lib/moodColour";
 import { useWidth } from "../lib/useWidth";
 import Panel from "./Panel";
 
@@ -36,7 +38,8 @@ const QUADRANTS: { name: string; corner: Corner; x: Domain; y: Domain }[] = [
 export default function MoodMap({ tracks }: Props) {
     const [ref, width] = useWidth<HTMLDivElement>();
     const height = Math.round(Math.min(440, Math.max(260, width * 0.72)));
-    const [hover, setHover] = useState<Dot | null>(null);
+    const hl = useHighlight();
+    const dark = useComputedColorScheme("light", { getInitialValueInEffect: true }) === "dark";
     const [view, setView] = useState<View>("fit");
 
     const dots = useMemo<Dot[]>(
@@ -92,7 +95,8 @@ export default function MoodMap({ tracks }: Props) {
         );
     }, [dots, dom.x, dom.y]);
 
-    const onPointer = (e: PointerEvent<SVGSVGElement>) => {
+    // the song under the pointer, if any
+    const nearest = (e: PointerEvent<SVGSVGElement>): Dot | null => {
         const box = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - box.left;
         const y = e.clientY - box.top;
@@ -105,8 +109,29 @@ export default function MoodMap({ tracks }: Props) {
                 bestD = dist;
             }
         }
-        setHover(best);
+        return best;
     };
+    const onMove = (e: PointerEvent<SVGSVGElement>) => {
+        const d = nearest(e);
+        const current = hl.focus?.kind === "track" ? hl.focus.id : null;
+        if ((d?.id ?? null) !== current || (!d && hl.focus)) {
+            hl.hover(d ? { kind: "track", id: d.id } : null);
+        }
+    };
+    const onClick = (e: PointerEvent<SVGSVGElement>) => {
+        const d = nearest(e);
+        hl.toggle(d ? { kind: "track", id: d.id } : null);
+    };
+
+    // the focused song gets a label; highlighted songs are drawn last, so they sit on top
+    const hover =
+        hl.focus?.kind === "track"
+            ? (dots.find((d) => d.id === (hl.focus as { id: string }).id) ?? null)
+            : null;
+    const lit = hl.tracks;
+    const ordered = lit
+        ? [...dots.filter((d) => !lit.has(d.id)), ...dots.filter((d) => lit.has(d.id))]
+        : dots;
 
     const label = mean
         ? `Mood map of ${dots.length} songs. Average mood ${pct(mean.x)} of 100, energy ${pct(mean.y)} of 100.`
@@ -148,7 +173,7 @@ export default function MoodMap({ tracks }: Props) {
     return (
         <Panel
             title="Mood map"
-            info="Each dot is a song: sad to happy across, calm to energetic up. The orange dot is the average. Zoomed in to fit the songs; the small square shows where they sit on the whole map."
+            info="Each dot is a song: sad to happy across, calm to energetic up, coloured like the cover palette. Click one to pin it across the page. The orange dot is the average. Zoomed in to fit the songs; the small square shows where they sit on the whole map."
             actions={actions}
             className="lg:col-span-7"
         >
@@ -160,9 +185,9 @@ export default function MoodMap({ tracks }: Props) {
                         role="img"
                         aria-label={label}
                         className="block select-none"
-                        onPointerMove={onPointer}
-                        onPointerDown={onPointer}
-                        onPointerLeave={() => setHover(null)}
+                        onPointerMove={onMove}
+                        onPointerUp={onClick}
+                        onPointerLeave={() => hl.hover(null)}
                     >
                         <Frame
                             px={px}
@@ -190,19 +215,24 @@ export default function MoodMap({ tracks }: Props) {
                             />
                         )}
                         <g aria-hidden>
-                            {dots.map((d) => (
-                                <circle
-                                    key={d.id}
-                                    cx={px(d.x)}
-                                    cy={py(d.y)}
-                                    r={hover?.id === d.id ? r + 2 : r}
-                                    fill={hover?.id === d.id ? "var(--mix-ink)" : "var(--mix-mark)"}
-                                    fillOpacity={hover?.id === d.id ? 1 : 0.72}
-                                    stroke="var(--mix-surface)"
-                                    strokeWidth={1.5}
-                                    className="develop transition-[cx,cy] duration-500 ease-out motion-reduce:transition-none"
-                                />
-                            ))}
+                            {ordered.map((d) => {
+                                const on = lit?.has(d.id) ?? false;
+                                const big = on && (hover?.id === d.id || lit!.size <= 12);
+                                return (
+                                    <circle
+                                        key={d.id}
+                                        cx={px(d.x)}
+                                        cy={py(d.y)}
+                                        r={big ? r + 2 : on ? r + 1 : r}
+                                        fill={moodColour(d.x, d.y, dark)}
+                                        fillOpacity={lit && !on ? 0.15 : 0.9}
+                                        stroke={on ? "var(--mix-ink)" : "var(--mix-surface)"}
+                                        strokeOpacity={lit && !on ? 0.3 : 1}
+                                        strokeWidth={on ? 2 : 1.5}
+                                        className="develop transition-[cx,cy,fill-opacity] duration-500 ease-out motion-reduce:transition-none"
+                                    />
+                                );
+                            })}
                         </g>
                         {mean && (
                             <g

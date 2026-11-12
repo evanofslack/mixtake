@@ -1,8 +1,10 @@
-import { useMemo, useState } from "react";
-import { Button, Tooltip } from "@mantine/core";
+import { useEffect, useMemo, useState } from "react";
+import { Button, Tooltip, useComputedColorScheme } from "@mantine/core";
 import { FiAlertCircle, FiCheck, FiChevronDown, FiSearch, FiVolumeX } from "react-icons/fi";
 import { energy, Features, mood, TrackResult, TrackStatus } from "../lib/api";
 import { artistNames, keyName, plural } from "../lib/format";
+import { useHighlight } from "../lib/highlight";
+import { moodColour } from "../lib/moodColour";
 import Panel from "./Panel";
 
 type Props = {
@@ -21,6 +23,28 @@ export default function TrackList({ trackIds, tracks }: Props) {
         const order = trackIds.length ? trackIds : tracks.map((t) => t.track.id);
         return order.map((id) => ({ id, result: byId.get(id) }));
     }, [trackIds, tracks]);
+    const hl = useHighlight();
+    const dark = useComputedColorScheme("light", { getInitialValueInEffect: true }) === "dark";
+    const lit = hl.tracks;
+    // a song pinned from a chart: show it, even when the list is collapsed
+    const pinnedId = hl.pinned?.kind === "track" ? hl.pinned.id : null;
+    useEffect(() => {
+        if (!pinnedId) {
+            return;
+        }
+        if (rows.findIndex((r) => r.id === pinnedId) >= COLLAPSED) {
+            setOpen(true);
+        }
+        // after the list has expanded
+        const t = setTimeout(
+            () =>
+                document
+                    .getElementById(rowId(pinnedId))
+                    ?.scrollIntoView({ block: "nearest", behavior: "smooth" }),
+            50,
+        );
+        return () => clearTimeout(t);
+    }, [pinnedId, rows]);
     const shown = open ? rows : rows.slice(0, COLLAPSED);
 
     return (
@@ -37,7 +61,26 @@ export default function TrackList({ trackIds, tracks }: Props) {
             </div>
             <ol aria-label="songs">
                 {shown.map((row, i) => (
-                    <Row key={row.id} n={i + 1} result={row.result} />
+                    <Row
+                        key={row.id}
+                        id={row.id}
+                        n={i + 1}
+                        result={row.result}
+                        dark={dark}
+                        state={
+                            !lit
+                                ? "plain"
+                                : lit.has(row.id)
+                                  ? "lit"
+                                  : // one song focused: tint it, don't fade the rest of the list
+                                    hl.focus?.kind === "track"
+                                    ? "plain"
+                                    : "dim"
+                        }
+                        pinned={pinnedId === row.id}
+                        onHover={(on) => hl.hover(on ? { kind: "track", id: row.id } : null)}
+                        onSelect={() => hl.toggle({ kind: "track", id: row.id })}
+                    />
                 ))}
             </ol>
             {rows.length > COLLAPSED && (
@@ -60,11 +103,44 @@ export default function TrackList({ trackIds, tracks }: Props) {
     );
 }
 
-function Row({ n, result }: { n: number; result?: TrackResult }) {
+function rowId(trackId: string): string {
+    return `song-${trackId}`;
+}
+
+type RowProps = {
+    id: string;
+    n: number;
+    result?: TrackResult;
+    dark: boolean;
+    state: "plain" | "lit" | "dim";
+    pinned: boolean;
+    onHover: (on: boolean) => void;
+    onSelect: () => void;
+};
+
+function Row({ id, n, result, dark, state, pinned, onHover, onSelect }: RowProps) {
     const f = result?.status === "done" ? result.features : undefined;
     const status: TrackStatus = result?.status ?? "pending";
     return (
-        <li className="grid grid-cols-[1.5rem_1fr_1.25rem] items-center gap-3 border-b border-line py-2 last:border-0 sm:grid-cols-[2rem_1fr_9rem_5.5rem_1.25rem]">
+        <li
+            id={rowId(id)}
+            onMouseEnter={() => f && onHover(true)}
+            onMouseLeave={() => f && onHover(false)}
+            onClick={() => f && onSelect()}
+            onKeyDown={(e) => {
+                if (f && (e.key === "Enter" || e.key === " ")) {
+                    e.preventDefault();
+                    onSelect();
+                }
+            }}
+            tabIndex={f ? 0 : undefined}
+            aria-current={pinned || undefined}
+            className={`-mx-2 grid scroll-mt-24 grid-cols-[1.5rem_1fr_1.25rem] items-center gap-3 rounded-xs border-b border-line px-2 py-2 transition-[background-color,opacity] last:border-0 focus-visible:outline-2 focus-visible:outline-ink sm:grid-cols-[2rem_1fr_9rem_5.5rem_1.25rem] ${
+                f ? "cursor-pointer hover:bg-bg" : ""
+            } ${state === "lit" ? "bg-bg" : ""} ${state === "dim" ? "opacity-45" : ""} ${
+                pinned ? "ring-1 ring-accent" : ""
+            }`}
+        >
             <span className="text-right text-xs text-muted tabular-nums">{n}</span>
             <div className="min-w-0">
                 <p className={`truncate text-sm ${status === "done" ? "" : "text-muted"}`}>
@@ -77,7 +153,11 @@ function Row({ n, result }: { n: number; result?: TrackResult }) {
             <div className="hidden items-center gap-1.5 sm:flex" aria-hidden={!f}>
                 {f ? (
                     <>
-                        <Mini label="mood" value={mood(f)} />
+                        <Mini
+                            label="mood"
+                            value={mood(f)}
+                            colour={moodColour(mood(f), energy(f), dark)}
+                        />
                         <Mini label="energy" value={energy(f)} />
                         <Mini label="danceable" value={f.danceable} />
                     </>
@@ -92,7 +172,7 @@ function Row({ n, result }: { n: number; result?: TrackResult }) {
 }
 
 // a 2.5rem bar; the value is in its accessible name
-function Mini({ label, value }: { label: string; value: number }) {
+function Mini({ label, value, colour }: { label: string; value: number; colour?: string }) {
     const pct = Math.round(value * 100);
     return (
         <span
@@ -101,7 +181,10 @@ function Mini({ label, value }: { label: string; value: number }) {
             title={`${label} ${pct}`}
             className="block h-1.5 w-10 overflow-hidden rounded-full bg-line"
         >
-            <span className="block h-full rounded-full bg-mark" style={{ width: `${pct}%` }} />
+            <span
+                className="block h-full rounded-full bg-mark"
+                style={{ width: `${pct}%`, background: colour }}
+            />
         </span>
     );
 }

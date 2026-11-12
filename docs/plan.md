@@ -294,6 +294,12 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - MoodMap and EnergyArc fit their axes to the songs (`lib/domain.ts`: padded, snapped, at least
     0.3 wide), so calm or sad mixes aren't squashed into a corner. MoodMap has a fit/whole toggle
     and an inset of the whole map with the zoomed window outlined.
+  - Linked highlighting (`lib/highlight.tsx`): hovering a song (mood map dot, energy arc, track
+    row), a genre or an artist highlights the same songs everywhere; a click pins it, Esc or a
+    click on empty space clears it. A genre covers a song when it is the song's top genre or
+    scores at least 0.2.
+  - Song dots and the track list's mood bars are coloured with TargetPalette's hue rule
+    (`lib/moodColour.ts`), so the charts preview the cover's palette.
   - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
     self-hosted fonts; drag the text anywhere or pick one of 3×3 presets; colours from the
     photo, the mix palette or a picker)

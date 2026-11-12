@@ -15,6 +15,7 @@ import CoverStudio from "../components/CoverStudio";
 import Listen from "../components/Listen";
 import { isMockMode } from "../lib/client";
 import { useMixEvents } from "../lib/useMixEvents";
+import { HighlightProvider } from "../lib/highlight";
 
 // /mix?id=… : the live analysis and cover studio. A query string rather than /mix/[id], because
 // a static export can't pre-render pages for ids it doesn't know.
@@ -98,24 +99,26 @@ export default function MixPage() {
                 )}
                 <Listen source={mix.source} />
             </div>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-                <MoodMap tracks={tracks} />
-                <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
-                    <GenreBars genres={profile?.genres} />
-                    <TopArtists artists={profile?.artists} tracks={tracks} />
+            <HighlightProvider tracks={tracks}>
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+                    <MoodMap tracks={tracks} />
+                    <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
+                        <GenreBars genres={profile?.genres} tracks={tracks} />
+                        <TopArtists artists={profile?.artists} tracks={tracks} />
+                    </div>
+                    <EnergyArc trackIds={mix.track_ids} tracks={tracks} />
+                    <TempoKey profile={profile} />
+                    <CoverStudio
+                        key={mix.id}
+                        mixId={mix.id}
+                        mock={mock}
+                        source={mix.source}
+                        analysed={coverage.done}
+                        finished={finished}
+                    />
+                    <TrackList trackIds={mix.track_ids} tracks={tracks} />
                 </div>
-                <EnergyArc trackIds={mix.track_ids} tracks={tracks} />
-                <TempoKey profile={profile} />
-                <CoverStudio
-                    key={mix.id}
-                    mixId={mix.id}
-                    mock={mock}
-                    source={mix.source}
-                    analysed={coverage.done}
-                    finished={finished}
-                />
-                <TrackList trackIds={mix.track_ids} tracks={tracks} />
-            </div>
+            </HighlightProvider>
         </Shell>
     );
 }
