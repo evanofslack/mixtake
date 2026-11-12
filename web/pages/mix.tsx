@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useRouter } from "next/router";
-import { Alert, Button, Loader } from "@mantine/core";
+import { Alert, Badge, Button, Loader, Tooltip } from "@mantine/core";
 import { FiAlertCircle, FiArrowLeft } from "react-icons/fi";
 import Layout from "../components/Layout";
 import ProgressHeader from "../components/ProgressHeader";
@@ -15,6 +15,7 @@ import CoverStudio from "../components/CoverStudio";
 import Listen from "../components/Listen";
 import { isMockMode } from "../lib/client";
 import { useMixEvents } from "../lib/useMixEvents";
+import { HighlightProvider } from "../lib/highlight";
 
 // /mix?id=… : the live analysis and cover studio. A query string rather than /mix/[id], because
 // a static export can't pre-render pages for ids it doesn't know.
@@ -84,30 +85,40 @@ export default function MixPage() {
             <div className="mt-8 mb-6 max-w-3xl">
                 <Summary profile={profile} final={finished} />
                 {mix.vibe && (
-                    <p className="mt-1 text-xs text-muted">
-                        vibe: <span className="text-ink">{mix.vibe}</span>
-                    </p>
+                    <Tooltip label="the words that steer the cover photos">
+                        <Badge
+                            mt="xs"
+                            variant="light"
+                            color="gray"
+                            tabIndex={0}
+                            className="normal-case"
+                        >
+                            {mix.vibe}
+                        </Badge>
+                    </Tooltip>
                 )}
                 <Listen source={mix.source} />
             </div>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-                <MoodMap tracks={tracks} />
-                <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
-                    <GenreBars genres={profile?.genres} />
-                    <TopArtists artists={profile?.artists} tracks={tracks} />
+            <HighlightProvider tracks={tracks}>
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+                    <MoodMap tracks={tracks} />
+                    <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
+                        <GenreBars genres={profile?.genres} tracks={tracks} />
+                        <TopArtists artists={profile?.artists} tracks={tracks} />
+                    </div>
+                    <EnergyArc trackIds={mix.track_ids} tracks={tracks} />
+                    <TempoKey profile={profile} />
+                    <CoverStudio
+                        key={mix.id}
+                        mixId={mix.id}
+                        mock={mock}
+                        source={mix.source}
+                        analysed={coverage.done}
+                        finished={finished}
+                    />
+                    <TrackList trackIds={mix.track_ids} tracks={tracks} />
                 </div>
-                <EnergyArc trackIds={mix.track_ids} tracks={tracks} />
-                <TempoKey profile={profile} />
-                <CoverStudio
-                    key={mix.id}
-                    mixId={mix.id}
-                    mock={mock}
-                    source={mix.source}
-                    analysed={coverage.done}
-                    finished={finished}
-                />
-                <TrackList trackIds={mix.track_ids} tracks={tracks} />
-            </div>
+            </HighlightProvider>
         </Shell>
     );
 }

@@ -108,7 +108,9 @@ func (s *Server) mixEvents(w http.ResponseWriter, r *http.Request) {
 	rc := http.NewResponseController(w)
 	h := w.Header()
 	h.Set("Content-Type", "text/event-stream")
-	h.Set("Cache-Control", "no-cache")
+	// no-transform stops proxies that compress (next dev's rewrites, Cloudflare) from gzipping
+	// the stream, which holds events back until the stream ends
+	h.Set("Cache-Control", "no-cache, no-transform")
 	h.Set("X-Accel-Buffering", "no") // no proxy buffering
 	w.WriteHeader(http.StatusOK)
 	if err := rc.Flush(); err != nil {

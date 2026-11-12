@@ -75,8 +75,7 @@ export default function InputBox({ mock }: Props) {
                     <TextInput
                         className="grow"
                         label="Vibe"
-                        description="Optional. A few words to steer the cover photo."
-                        placeholder="rainy night drive"
+                        placeholder="optional, e.g. rainy night drive"
                         maxLength={80}
                         value={vibe}
                         onChange={(e) => setVibe(e.currentTarget.value)}
@@ -125,7 +124,7 @@ export default function InputBox({ mock }: Props) {
                         className={`transition-transform ${helpOpen ? "rotate-180" : ""}`}
                         aria-hidden
                     />
-                    How do I copy tracks from Spotify?
+                    Private playlist or Liked Songs?
                 </UnstyledButton>
                 <Collapse expanded={helpOpen} id="copy-help">
                     <div className="max-w-prose space-y-2 pt-3 pl-5 leading-relaxed text-muted">
@@ -161,7 +160,7 @@ function Hint({ id, detected }: { id: string; detected: Detected }) {
     let text: string;
     switch (detected.kind) {
         case "empty":
-            text = "A playlist link, an album link, or track links copied from the desktop app.";
+            text = "";
             ok = false;
             break;
         case "playlist":
@@ -192,19 +191,20 @@ function Hint({ id, detected }: { id: string; detected: Detected }) {
             text = "That doesn't look like a Spotify link.";
             ok = false;
     }
-    const neutral = detected.kind === "empty";
+    if (!text) {
+        return <p id={id} className="sr-only" aria-live="polite" />;
+    }
     return (
         <p
             id={id}
             aria-live="polite"
             className={`mt-1.5 flex items-start gap-1.5 text-xs ${ok ? "text-ink" : "text-muted"}`}
         >
-            {!neutral &&
-                (ok ? (
-                    <FiCheck className="mt-px shrink-0 text-accent" aria-hidden />
-                ) : (
-                    <FiAlertCircle className="mt-px shrink-0" aria-hidden />
-                ))}
+            {ok ? (
+                <FiCheck className="mt-px shrink-0 text-accent" aria-hidden />
+            ) : (
+                <FiAlertCircle className="mt-px shrink-0" aria-hidden />
+            )}
             {text}
         </p>
     );

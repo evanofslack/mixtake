@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { Profile, TrackResult } from "../lib/api";
 import { plural } from "../lib/format";
+import { hasArtist, useHighlight } from "../lib/highlight";
 import BarList from "./BarList";
 import Panel, { Waiting } from "./Panel";
 
@@ -21,12 +22,22 @@ export default function TopArtists({ artists, tracks }: Props) {
         () => new Set(tracks.flatMap((t) => t.track.artists.map((a) => a.name))).size,
         [tracks],
     );
+    const hl = useHighlight();
+    // the artists of whatever songs are highlighted
+    const active = useMemo(() => {
+        const lit = hl.tracks;
+        if (!lit) {
+            return undefined;
+        }
+        const songs = tracks.filter((t) => lit.has(t.track.id));
+        return new Set(top.map((a) => a.name).filter((n) => songs.some((t) => hasArtist(t, n))));
+    }, [hl.tracks, tracks, top]);
     // a ranked list of ones says nothing, so describe the spread instead
     const noRepeats = top.length > 1 && max === 1;
     return (
         <Panel title="Top artists">
             {top.length === 0 ? (
-                <Waiting className="h-28">Artists appear after the first ten songs.</Waiting>
+                <Waiting className="h-28">After ten songs</Waiting>
             ) : noRepeats ? (
                 <div className="text-sm">
                     <p className="font-medium">
@@ -43,6 +54,10 @@ export default function TopArtists({ artists, tracks }: Props) {
             ) : (
                 <BarList
                     label="top artists"
+                    active={active}
+                    pinned={hl.pinned?.kind === "artist" ? hl.pinned.name : null}
+                    onHover={(k) => hl.hover(k ? { kind: "artist", name: k } : null)}
+                    onSelect={(k) => hl.toggle({ kind: "artist", name: k })}
                     items={top.map((a) => ({
                         key: a.name,
                         label: a.name,

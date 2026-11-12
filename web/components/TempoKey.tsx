@@ -13,18 +13,19 @@ export default function TempoKey({ profile }: Props) {
     const tempos = (profile?.tempos ?? []).map((b) => ({ bpm: `${b.low}`, songs: b.count }));
     const keys = (profile?.keys ?? []).slice(0, 4);
     const maxKey = Math.max(...keys.map((k) => k.count), 1);
-    const caption = profile
-        ? `Mostly around ${Math.round(profile.averages.tempo)} BPM.`
-        : "Beats per minute and musical key.";
 
     return (
-        <Panel title="Tempo and key" caption={caption} className="lg:col-span-5">
+        <Panel
+            title="Tempo and key"
+            info="A histogram of each song's tempo in beats per minute, and the keys that come up most."
+            className="lg:col-span-5"
+        >
             {!profile ? (
-                <Waiting className="h-56">Tempo and key appear after the first ten songs.</Waiting>
+                <Waiting className="h-56">After ten songs</Waiting>
             ) : (
                 <div className="grid gap-5 sm:grid-cols-[3fr_2fr] lg:grid-cols-1 xl:grid-cols-[3fr_2fr]">
                     <div className="min-w-0">
-                        <h3 className="mb-1 text-xs text-muted">Tempo (BPM)</h3>
+                        <h3 className="mb-1 text-xs text-muted">BPM</h3>
                         <BarChart
                             h={150}
                             data={tempos}
@@ -42,7 +43,7 @@ export default function TempoKey({ profile }: Props) {
                         />
                     </div>
                     <div className="min-w-0">
-                        <h3 className="mb-2 text-xs text-muted">Most common keys</h3>
+                        <h3 className="mb-2 text-xs text-muted">Keys</h3>
                         <BarList
                             label="most common keys"
                             items={keys.map((k) => ({

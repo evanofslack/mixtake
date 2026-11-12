@@ -95,7 +95,7 @@ func TestTargetPalette(t *testing.T) {
 	}
 	for _, tt := range tests {
 		pal := TargetPalette(tt.a)
-		if len(pal) != 3 {
+		if len(pal) != 5 {
 			t.Fatalf("%s: %v", tt.name, pal)
 		}
 		for _, h := range pal {
@@ -103,17 +103,17 @@ func TestTargetPalette(t *testing.T) {
 				t.Errorf("%s: bad hex %q", tt.name, h)
 			}
 		}
-		lab, _ := hexLab(pal[1])
+		lab, _ := hexLab(pal[2])
 		// Lab b > 0 is yellow (warm), b < 0 is blue (cool)
 		if warm := lab[2] > 0; warm != tt.warm {
-			t.Errorf("%s: mid tone %s has b = %.1f, want warm %v", tt.name, pal[1], lab[2], tt.warm)
+			t.Errorf("%s: mid tone %s has b = %.1f, want warm %v", tt.name, pal[2], lab[2], tt.warm)
 		}
 	}
 	calm, energetic := TargetPalette(Averages{Mood: 0.8, Energy: 0.1}), TargetPalette(Averages{Mood: 0.8, Energy: 0.9})
-	c, _ := hexLab(calm[1])
-	e, _ := hexLab(energetic[1])
+	c, _ := hexLab(calm[2])
+	e, _ := hexLab(energetic[2])
 	if chroma(e) <= chroma(c) {
-		t.Errorf("energetic %s should be more saturated than calm %s", energetic[1], calm[1])
+		t.Errorf("energetic %s should be more saturated than calm %s", energetic[2], calm[2])
 	}
 }
 

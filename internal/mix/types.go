@@ -5,6 +5,7 @@ package mix
 import (
 	"crypto/sha256"
 	"encoding/base32"
+	"math"
 	"strings"
 	"time"
 )
@@ -68,18 +69,46 @@ type Features struct {
 	Party        float64 `json:"party"`
 	Acoustic     float64 `json:"acoustic"`
 	Instrumental float64 `json:"instrumental"`
-	Valence      float64 `json:"valence"` // DEAM, compressed range; low trust
-	Arousal      float64 `json:"arousal"` // DEAM, compressed range; low trust
+	Valence      float64 `json:"valence"` // DEAM, uses about 0.2–0.85
+	Arousal      float64 `json:"arousal"` // DEAM, uses about 0.2–0.85
 	Genres       []Genre `json:"genres"`  // top 3
 }
 
-// Mood is the positive–negative axis of the mood map, 0–1.
-func (f Features) Mood() float64 { return clamp01(0.5 + (f.Happy-f.Sad)/2) }
+// The mood map's axes blend two kinds of signal. The Essentia mood heads are binary classifiers
+// whose outputs pile up near 0 and 1, so every piano or ambient track scores about 0.001 for
+// party and 0.99 for relaxed and they all land on one spot; soften() pulls them in from the
+// extremes. DEAM valence and arousal are regressions, continuous even among calm songs, so they
+// carry most of the spread there. The weights were tuned on internal/mix/testdata/axes.json.
+const (
+	headTemp      = 3.0 // logit divisor in soften; 1 leaves the heads unchanged
+	moodDEAM      = 0.5 // share of valence in Mood
+	energyDEAM    = 0.6 // share of arousal in Energy
+	deamLo        = 0.2 // the range DEAM's 0–1 outputs actually use
+	deamHi        = 0.8
+	probabilityLo = 1e-4 // keeps logit finite
+)
+
+// Mood is the sad–happy axis of the mood map, 0–1.
+func (f Features) Mood() float64 {
+	heads := 0.5 + (soften(f.Happy)-soften(f.Sad))/2
+	return clamp01(moodDEAM*deam(f.Valence) + (1-moodDEAM)*heads)
+}
 
 // Energy is the calm–energetic axis of the mood map, 0–1.
 func (f Features) Energy() float64 {
-	return clamp01(0.4*f.Party + 0.3*f.Aggressive + 0.3*(1-f.Relaxed))
+	heads := 0.4*soften(f.Party) + 0.3*soften(f.Aggressive) + 0.3*(1-soften(f.Relaxed))
+	return clamp01(energyDEAM*deam(f.Arousal) + (1-energyDEAM)*heads)
 }
+
+// soften maps a classifier probability through its logit scaled down by headTemp, so 0.001 and
+// 0.01 differ visibly while 0.5 stays 0.5.
+func soften(p float64) float64 {
+	p = min(1-probabilityLo, max(probabilityLo, p))
+	return 1 / (1 + math.Exp(-math.Log(p/(1-p))/headTemp))
+}
+
+// deam stretches a DEAM score over the range it really uses to 0–1.
+func deam(v float64) float64 { return clamp01((v - deamLo) / (deamHi - deamLo)) }
 
 func clamp01(v float64) float64 { return min(1, max(0, v)) }
 

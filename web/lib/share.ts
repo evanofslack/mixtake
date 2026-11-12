@@ -1,33 +1,35 @@
 // The cover's edits live in the page's query string, so a link reproduces the cover. Values that
 // match the defaults are left out to keep links short.
+import { MAX_SEED } from "./api";
 import {
     Align,
     CoverState,
     DEFAULT_STATE,
     FONT_IDS,
     FontId,
-    Pos,
+    Placement,
     POSITIONS,
     SIZE_MAX,
     SIZE_MIN,
     ZOOM_MAX,
 } from "./canvas";
 
-// which photos the strip shows: the mix's set (optionally re-searched with `vibe`, and shuffled
-// when `seed` isn't 0) or the photos like `like`; `photo` is the one in the editor
+// which photos the strip shows: the mix's set (optionally re-searched with `vibe`) or the photos
+// like `like`; `photo` is the one in the editor
 export interface Shared {
     photo: number | null;
     vibe: string;
-    seed: number;
     like: number | null;
+    // the shuffle seed; 0 is the mix's usual set
+    seed: number;
     state: CoverState;
 }
 
 export const SHARE_KEYS = [
     "photo",
     "vibe",
-    "seed",
     "like",
+    "seed",
     "x",
     "y",
     "zoom",
@@ -35,14 +37,13 @@ export const SHARE_KEYS = [
     "sub",
     "font",
     "pos",
+    "tx",
+    "ty",
     "align",
     "color",
     "size",
     "scrim",
 ] as const;
-
-// the server's largest shuffle seed (mix.MaxSeed)
-export const SEED_MAX = 1_000_000_000;
 
 type Query = Record<string, string | string[] | undefined>;
 
@@ -65,14 +66,14 @@ function id(q: Query, k: string): number | null {
 export function readShared(q: Query, defaultTitle: string): Shared {
     const d = DEFAULT_STATE;
     const font = str(q, "font") as FontId | undefined;
-    const pos = str(q, "pos") as Pos | undefined;
+    const pos = str(q, "pos") as Placement | undefined;
     const align = str(q, "align") as Align | undefined;
     const color = str(q, "color");
     return {
         photo: id(q, "photo"),
         vibe: (str(q, "vibe") ?? "").slice(0, 200),
-        seed: Math.round(num(q, "seed", 0, SEED_MAX, 0)),
         like: id(q, "like"),
+        seed: Math.min(id(q, "seed") ?? 0, MAX_SEED),
         state: {
             x: num(q, "x", 0, 1, d.x),
             y: num(q, "y", 0, 1, d.y),
@@ -80,7 +81,9 @@ export function readShared(q: Query, defaultTitle: string): Shared {
             title: (str(q, "title") ?? defaultTitle).slice(0, 120),
             sub: (str(q, "sub") ?? d.sub).slice(0, 160),
             font: font && FONT_IDS.includes(font) ? font : d.font,
-            pos: pos && POSITIONS.includes(pos) ? pos : d.pos,
+            pos: pos && (pos === "free" || POSITIONS.includes(pos)) ? pos : d.pos,
+            tx: num(q, "tx", 0, 1, d.tx),
+            ty: num(q, "ty", 0, 1, d.ty),
             align: align === "left" || align === "center" || align === "right" ? align : d.align,
             color: color && /^[0-9a-f]{6}$/i.test(color) ? `#${color.toLowerCase()}` : d.color,
             size: num(q, "size", SIZE_MIN, SIZE_MAX, d.size),
@@ -99,11 +102,11 @@ export function writeShared(s: Shared, defaultTitle: string): Record<string, str
     if (s.vibe) {
         out.vibe = s.vibe;
     }
-    if (s.seed) {
-        out.seed = String(s.seed);
-    }
     if (s.like !== null) {
         out.like = String(s.like);
+    }
+    if (s.seed) {
+        out.seed = String(s.seed);
     }
     if (st.zoom !== d.zoom || st.x !== d.x || st.y !== d.y) {
         out.x = String(st.x);
@@ -121,6 +124,10 @@ export function writeShared(s: Shared, defaultTitle: string): Record<string, str
     }
     if (st.pos !== d.pos) {
         out.pos = st.pos;
+    }
+    if (st.pos === "free") {
+        out.tx = String(st.tx);
+        out.ty = String(st.ty);
     }
     if (st.align !== d.align) {
         out.align = st.align;

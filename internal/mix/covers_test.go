@@ -117,7 +117,7 @@ func TestCoversForMix(t *testing.T) {
 			if err != nil {
 				return
 			}
-			if len(set.Photos) != CoverCount || len(set.Palette) != 3 || len(set.Queries) != tt.queries {
+			if len(set.Photos) != CoverCount || len(set.Palette) != 5 || len(set.Queries) != tt.queries {
 				t.Errorf("set has %d photos, palette %v, queries %q", len(set.Photos), set.Palette, set.Queries)
 			}
 			if !slices.Contains(set.Queries, "piano") || slices.Contains(set.Queries, "peaceful") {

@@ -21,8 +21,10 @@ live (mood map, energy arc, genres, tempo and key), get a film-photo cover from
     runs it natively with uv.
   - essentia.upf.edu is unreliable, so the fetch script retries, and can switch to a mirror such
     as a GitHub release `models-v1` (not published yet).
-  - DEAM valence and arousal are compressed (roughly 0.36–0.64), so the mood and energy axes are
-    derived from the mood heads.
+  - The mood heads are binary classifiers that saturate: every piano or ambient track scores about
+    0.001 for party and 0.99 for relaxed. DEAM valence and arousal are continuous and use about
+    0.2–0.85 (not 0.36–0.64 as first thought), so they separate calm songs that the heads can't.
+    The mood and energy axes blend both (see the data model).
 - **analogdb** (`https://api.analogdb.com/v1`): caption-style scene queries work very well with
   `/search?q=`. Raw playlist names and album-art image search don't. `/search` has no colour
   filter, so colour ranking happens in Go; `/posts?color=` does filter, taking one of red,
@@ -104,11 +106,18 @@ with fakes of these four.
 
 - `Features`: tempo, key, mode, and 0–1 scores for danceable, happy, sad, relaxed, aggressive,
   party, acoustic, instrumental, valence and arousal, plus the top 3 genres with scores.
-- Derived axes (v0, to be tuned):
-  - `Mood = clamp(0.5 + (Happy − Sad) / 2)`
-  - `Energy = 0.4·Party + 0.3·Aggressive + 0.3·(1 − Relaxed)`
+- Derived axes (v1, tuned on `internal/mix/testdata/axes.json`, ~500 real tracks):
+  - `s(p) = sigmoid(logit(p) / 3)` softens a saturated head; `d(x) = clamp((x − 0.2) / 0.6)`
+    stretches DEAM over the range it uses.
+  - `Mood = 0.5·d(Valence) + 0.5·(0.5 + (s(Happy) − s(Sad)) / 2)`
+  - `Energy = 0.6·d(Arousal) + 0.4·(0.4·s(Party) + 0.3·s(Aggressive) + 0.3·(1 − s(Relaxed)))`
+  - v0 used the heads alone, which put lofi at energy 0.02 and Peaceful Piano at 0.00. Now lofi
+    averages 0.26 and Kind of Blue 0.42, while pop, rap and workout mixes barely move.
+    `TestAxesCalibration` guards the spread and the genre order. Both are computed from stored
+    features, so changing them needs no re-analysis; `web/lib/api.ts` mirrors them.
 - `Profile`: means and spreads, mood quadrant, energy arc in track order, tempo histogram, key
-  counts, genre weights, top artists, coverage `{done, failed, total}` and a summary sentence.
+  counts, genre weights, top artists, coverage `{done, failed, total}` and a headline
+  ("Melancholy and hushed"); the web shows tempo, key and the scores as chips beside it.
 - `Mix`: id, source (kind, Spotify id, name, cover, palette), ordered track ids, vibe, created at.
   - The id is a short base32 of `sha256(ordered track ids + vibe)`, so the same input gives the
     same mix and reuses the cache.
@@ -233,7 +242,7 @@ seven searches from several **lenses**, so the 12 covers span different kinds of
    0.95, second literal and abstract 0.9, colour 0.85, fill 0.8; plus a bonus for matching several
    queries) + 0.3 colour similarity (each photo colour's Lab distance to the nearest target
    colour, weighted by its share) + 0.1 log upvotes + 0.05 jitter seeded by the seed key. The
-   target palette is a shadow, mid tone and highlight of one hue: happy is warm (golden when
+   target palette is five tones of one hue, shadow to highlight: happy is warm (golden when
    calm, orange-red when energetic), sad is cool (blue when calm, violet when energetic); energy
    raises saturation and mood lightness.
 9. **Diversity.** `Diversify` picks the 12 greedily, like maximal marginal relevance: each step
@@ -282,8 +291,24 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - InputBox: detects a link or a paste; explains private playlists
   - ProgressHeader
   - Charts: MoodMap (live scatter), EnergyArc, GenreBars, TempoKey, TopArtists, Summary
-  - CoverStudio: photo strip, more-like-this, pan-to-crop canvas, text overlay (4–5 self-hosted
-    fonts, 3×3 positions, palette colours)
+  - MoodMap and EnergyArc fit their axes to the songs (`lib/domain.ts`: padded, snapped, at least
+    0.3 wide), so calm or sad mixes aren't squashed into a corner. MoodMap has a fit/whole toggle
+    and an inset of the whole map with the zoomed window outlined.
+  - Linked highlighting (`lib/highlight.tsx`): hovering a song (mood map dot, energy arc, track
+    row), a genre or an artist highlights the same songs everywhere; a click pins it, Esc or a
+    click on empty space clears it. A genre covers a song when it is the song's top genre or
+    scores at least 0.2.
+  - Song dots and the track list's mood bars are coloured with TargetPalette's hue rule
+    (`lib/moodColour.ts`), so the charts preview the cover's palette.
+  - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
+    self-hosted fonts; drag the text anywhere or pick one of 3×3 presets; colours from the
+    photo, the mix palette or a picker)
+  - Dragging text: a pointer-down inside the text's box (`textBox` in `lib/canvas.ts`) moves the
+    text, anywhere else pans the photo. Within 3% of a preset's centre the text snaps to it and
+    `pos` becomes that preset; elsewhere `pos` is `free` with the box centred on `tx`, `ty`. Snap
+    guides are an SVG overlay on the preview, never drawn into the export.
+- Text is kept short: labels and numbers on the page, explanations behind `Info` icons (Mantine
+  popover on hover, focus or tap) and tooltips. Full sentences are kept for errors.
   - ShareBar: JPG at 1500 or 3000 px, copy link
   - Listen: collapsed Spotify embed player
 - Cover studio:
@@ -293,9 +318,9 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     `public/fonts` with `@font-face`, not `next/font`, so the build needs no network and the canvas
     knows the family names.
   - The photographer's credit stays on the page and is never drawn on the image.
-  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `x`, `y`,
-    `zoom`, `title`, `sub`, `font`, `pos`, `align`, `color`, `size`, `scrim` (defaults are
-    omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
+  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `seed`
+    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `tx`, `ty` (only when
+    `pos=free`), `align`, `color`, `size`, `scrim` (defaults are omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
     in them. If the photo isn't in either, the studio shows the first photo with the same text and
     says so.
   - Mock mode serves 12 generated scenes from `public/mock`.

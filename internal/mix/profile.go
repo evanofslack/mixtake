@@ -2,10 +2,8 @@ package mix
 
 import (
 	"cmp"
-	"fmt"
 	"math"
 	"slices"
-	"strings"
 )
 
 // Tempo histogram: 10 BPM bins from 60 to 180, with slower and faster tracks in the end bins.
@@ -141,32 +139,13 @@ func quadrant(mood, energy float64) Quadrant {
 	return QuadrantSadCalm
 }
 
-// summary is one line such as "Bittersweet and driving · 118 BPM · mostly minor keys · 87 of 100
-// analysed".
+// summary is the mix's headline, such as "Bittersweet and driving", or "" before any song is
+// analysed. Tempo, key and coverage are shown as numbers alongside it, not repeated here.
 func summary(p Profile, feats []Features) string {
-	analysed := fmt.Sprintf("%d of %d analysed", p.Coverage.Done, p.Coverage.Total)
 	if len(feats) == 0 {
-		return analysed
+		return ""
 	}
-	parts := []string{
-		capitalize(moodWord(p.Averages.Mood)) + " and " + energyWord(p.Averages.Energy),
-		fmt.Sprintf("%.0f BPM", p.Averages.Tempo),
-	}
-	minor := 0
-	for _, f := range feats {
-		if f.Mode == "minor" {
-			minor++
-		}
-	}
-	switch share := float64(minor) / float64(len(feats)); {
-	case share >= 0.6:
-		parts = append(parts, "mostly minor keys")
-	case share <= 0.4:
-		parts = append(parts, "mostly major keys")
-	default:
-		parts = append(parts, "major and minor keys")
-	}
-	return strings.Join(append(parts, analysed), " · ")
+	return capitalize(moodWord(p.Averages.Mood)) + " and " + energyWord(p.Averages.Energy)
 }
 
 func moodWord(m float64) string {

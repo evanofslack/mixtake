@@ -157,6 +157,9 @@ func TestMixLifecycle(t *testing.T) {
 	if ct := resp.Header.Get("Content-Type"); ct != "text/event-stream" {
 		t.Fatalf("content type %q", ct)
 	}
+	if cc := resp.Header.Get("Cache-Control"); !strings.Contains(cc, "no-transform") {
+		t.Fatalf("cache control %q: proxies may compress and buffer the stream", cc)
+	}
 	var names []string
 	pings := 0
 	sc := bufio.NewScanner(resp.Body)

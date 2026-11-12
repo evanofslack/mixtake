@@ -3,6 +3,8 @@
 
 export type FontId = "serif" | "grotesk" | "display" | "mono" | "script";
 export type Pos = "tl" | "tc" | "tr" | "ml" | "mc" | "mr" | "bl" | "bc" | "br";
+// one of the nine presets, or "free": dragged somewhere else, centred on (tx, ty)
+export type Placement = Pos | "free";
 export type Align = "left" | "center" | "right";
 
 export interface CoverState {
@@ -14,7 +16,10 @@ export interface CoverState {
     title: string;
     sub: string;
     font: FontId;
-    pos: Pos;
+    pos: Placement;
+    // the text box's centre as fractions of the square, used when pos is "free"
+    tx: number;
+    ty: number;
     align: Align;
     // "auto" picks light or dark from the photo under the text; otherwise "#rrggbb"
     color: string;
@@ -35,6 +40,8 @@ export const DEFAULT_STATE: Omit<CoverState, "title"> = {
     sub: "",
     font: "serif",
     pos: "bl",
+    tx: 0.5,
+    ty: 0.5,
     align: "left",
     color: "auto",
     size: 11,
@@ -191,7 +198,7 @@ export function drawCover(
             state.color === "auto" ? autoColor(image, state, layout.box, size) : state.color;
         const light = luminance(color) > 0.4;
         if (state.scrim) {
-            drawScrim(ctx, state.pos, layout.box, size, light);
+            drawScrim(ctx, scrimRow(state), layout.box, size, light);
         }
         drawText(ctx, state, layout, color, light, size);
     }
@@ -207,9 +214,9 @@ function layoutText(ctx: Ctx, state: CoverState, size: number): TextLayout | nul
         return null;
     }
 
-    const margin = size * 0.07;
-    const col = state.pos[1];
-    // centred text can use the whole width; a corner leaves room for the photo
+    const margin = size * MARGIN;
+    const col = state.pos === "free" ? null : state.pos[1];
+    // centred text can use the whole width; a corner (or free text) leaves room for the photo
     const maxW = col === "c" ? size - 2 * margin : size * 0.78;
 
     let px = (size * state.size * spec.scale) / 100;
@@ -248,10 +255,67 @@ function layoutText(ctx: Ctx, state: CoverState, size: number): TextLayout | nul
         ...(sub?.lines ?? []).map((l) => l.width),
     );
 
-    const row = state.pos[0];
-    const y = row === "t" ? margin : row === "m" ? (size - boxH) / 2 : size - margin - boxH;
-    const x = col === "l" ? margin : col === "c" ? (size - boxW) / 2 : size - margin - boxW;
+    const { x, y } =
+        state.pos === "free"
+            ? freeOrigin(state.tx, state.ty, boxW, boxH, size)
+            : presetOrigin(state.pos, boxW, boxH, size);
     return { title, sub, gap, box: { x, y, w: boxW, h: boxH } };
+}
+
+// the cover's margin, as a fraction of its side
+const MARGIN = 0.07;
+// how close to the edge free text may go, as a fraction of the side
+const FREE_EDGE = 0.02;
+
+// the top-left of a box at one of the nine presets
+function presetOrigin(pos: Pos, w: number, h: number, size: number): { x: number; y: number } {
+    const margin = size * MARGIN;
+    const row = pos[0];
+    const col = pos[1];
+    return {
+        x: col === "l" ? margin : col === "c" ? (size - w) / 2 : size - margin - w,
+        y: row === "t" ? margin : row === "m" ? (size - h) / 2 : size - margin - h,
+    };
+}
+
+// the top-left of a box centred on (tx, ty), kept on the cover
+function freeOrigin(
+    tx: number,
+    ty: number,
+    w: number,
+    h: number,
+    size: number,
+): { x: number; y: number } {
+    const edge = size * FREE_EDGE;
+    return {
+        x: clamp(tx * size - w / 2, edge, Math.max(edge, size - edge - w)),
+        y: clamp(ty * size - h / 2, edge, Math.max(edge, size - edge - h)),
+    };
+}
+
+export interface Box {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+}
+
+// where the text is drawn, in pixels of a size×size cover, or null when there is no text
+export function textBox(ctx: Ctx, state: CoverState, size: number): Box | null {
+    ctx.save();
+    const layout = layoutText(ctx, state, size);
+    ctx.restore();
+    return layout?.box ?? null;
+}
+
+// the centre each preset would give a box this size, as fractions of the side: the snap targets
+// when dragging. Wrapping depends on the preset's column, so this is approximate for centred
+// presets of long titles, which is close enough to snap to.
+export function presetCentres(box: Box, size: number): { pos: Pos; x: number; y: number }[] {
+    return POSITIONS.map((pos) => {
+        const o = presetOrigin(pos, box.w, box.h, size);
+        return { pos, x: (o.x + box.w / 2) / size, y: (o.y + box.h / 2) / size };
+    });
 }
 
 function drawText(
@@ -302,17 +366,24 @@ function drawText(
     ctx.shadowColor = "transparent";
 }
 
+// which edge the scrim fades from: the preset's row, or for free text the nearer edge
+function scrimRow(state: CoverState): "t" | "m" | "b" {
+    if (state.pos !== "free") {
+        return state.pos[0] as "t" | "m" | "b";
+    }
+    return state.ty < 0.4 ? "t" : state.ty > 0.6 ? "b" : "m";
+}
+
 // a gradient from the text's edge of the cover, dark under light text and light under dark
 function drawScrim(
     ctx: Ctx,
-    pos: Pos,
+    row: "t" | "m" | "b",
     box: TextLayout["box"],
     size: number,
     lightText: boolean,
 ): void {
     const rgb = lightText ? "10, 9, 8" : "250, 248, 244";
     const strong = lightText ? 0.55 : 0.6;
-    const row = pos[0];
     const pad = size * 0.12;
     let g: CanvasGradient;
     if (row === "t") {
