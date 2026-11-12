@@ -313,8 +313,8 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     knows the family names.
   - The photographer's credit stays on the page and is never drawn on the image.
   - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `seed`
-    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `tx`, `ty` (only when `pos=free`), `align`, `color`, `size`, `scrim` (defaults are
-    omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
+    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `tx`, `ty` (only when
+    `pos=free`), `align`, `color`, `size`, `scrim` (defaults are omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
     in them. If the photo isn't in either, the studio shows the first photo with the same text and
     says so.
   - Mock mode serves 12 generated scenes from `public/mock`.
