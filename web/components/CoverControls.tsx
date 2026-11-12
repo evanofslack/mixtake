@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
     Accordion,
     ActionIcon,
@@ -303,22 +303,10 @@ function ColourSection({
                             ))}
                         </div>
                     )}
-                    <ColorInput
-                        size="xs"
-                        className="max-w-48"
-                        aria-label="custom text colour"
-                        placeholder="custom #hex"
-                        format="hex"
-                        value={custom ?? ""}
+                    <CustomColour
+                        custom={custom}
                         swatches={[...fromPhoto, ...fromMix]}
-                        swatchesPerRow={7}
-                        eyeDropperButtonProps={{ "aria-label": "pick a colour from the screen" }}
-                        onChangeEnd={(v) => {
-                            if (/^#[0-9a-f]{6}$/i.test(v)) {
-                                onChange({ color: v.toLowerCase() });
-                            }
-                        }}
-                        styles={custom ? { input: { borderColor: "var(--mix-ink)" } } : undefined}
+                        onPick={(hex) => onChange({ color: hex })}
                     />
                 </div>
             </fieldset>
@@ -332,6 +320,43 @@ function ColourSection({
                 <Info label="about shade">A soft gradient behind the text, for busy photos.</Info>
             </div>
         </div>
+    );
+}
+
+// any colour: typed, picked, or taken from the screen with the eyedropper (where the browser has
+// one). The field keeps its own text while typing and commits a complete hex.
+function CustomColour({
+    custom,
+    swatches,
+    onPick,
+}: {
+    custom: string | null;
+    swatches: string[];
+    onPick: (hex: string) => void;
+}) {
+    const [draft, setDraft] = useState(custom ?? "");
+    useEffect(() => setDraft(custom ?? ""), [custom]);
+    const commit = (v: string) => {
+        if (/^#[0-9a-f]{6}$/i.test(v)) {
+            onPick(v.toLowerCase());
+        }
+    };
+    return (
+        <ColorInput
+            size="xs"
+            className="max-w-48"
+            aria-label="custom text colour"
+            placeholder="custom #hex"
+            format="hex"
+            value={draft}
+            onChange={setDraft}
+            onChangeEnd={commit}
+            onBlur={() => commit(draft)}
+            swatches={swatches}
+            swatchesPerRow={7}
+            eyeDropperButtonProps={{ "aria-label": "pick a colour from the screen" }}
+            styles={custom ? { input: { borderColor: "var(--mix-ink)" } } : undefined}
+        />
     );
 }
 

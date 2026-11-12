@@ -32,7 +32,9 @@ export default function Info({ label, children, icon }: Props) {
                     onMouseLeave={() => setOpened(false)}
                     onFocus={() => setOpened(true)}
                     onBlur={() => setOpened(false)}
-                    onClick={() => setOpened((o) => !o)}
+                    // a tap also fires mouseenter and focus, so a click only ever opens; a click
+                    // outside, blur or Esc closes
+                    onClick={() => setOpened(true)}
                     className="text-muted"
                 >
                     {icon ?? <FiInfo aria-hidden />}
