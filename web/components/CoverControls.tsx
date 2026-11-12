@@ -39,13 +39,13 @@ type Props = {
 
 const POS_LABEL: Record<Pos, string> = {
     tl: "top left",
-    tc: "top centre",
+    tc: "top center",
     tr: "top right",
     ml: "middle left",
-    mc: "centre",
+    mc: "center",
     mr: "middle right",
     bl: "bottom left",
-    bc: "bottom centre",
+    bc: "bottom center",
     br: "bottom right",
 };
 
@@ -65,7 +65,7 @@ export default function CoverControls({ state, photo, palette, onChange, onZoom 
         },
         {
             value: "colour",
-            label: "Colour",
+            label: "Color",
             body: (
                 <ColourSection state={state} photo={photo} palette={palette} onChange={onChange} />
             ),
@@ -159,9 +159,7 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                 <fieldset>
                     <legend className="mb-1.5 flex items-center gap-1 text-sm font-medium">
                         Position
-                        <Info label="about position">
-                            Or drag the text on the cover; it snaps to these nine spots.
-                        </Info>
+                        <Info label="about position">Or drag the text on the cover</Info>
                     </legend>
                     <div className="grid w-fit grid-cols-3 gap-1">
                         {POSITIONS.map((p) => (
@@ -209,7 +207,7 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                             },
                             {
                                 value: "center",
-                                label: <AlignLabel icon={<FiAlignCenter />} name="centre" />,
+                                label: <AlignLabel icon={<FiAlignCenter />} name="center" />,
                             },
                             {
                                 value: "right",
@@ -257,78 +255,68 @@ function ColourSection({
     const known = new Set(["auto", LIGHT, DARK, ...fromPhoto, ...fromMix]);
     const custom = known.has(state.color) ? null : state.color;
     return (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5">
             <fieldset>
-                <legend className="mb-1.5 flex items-center gap-1 text-sm font-medium">
-                    Text colour
-                    <Info label="about text colour">
-                        Auto picks light or dark from the photo under the text. The first row is the
-                        photo&apos;s own colours, the second the mix&apos;s palette.
-                    </Info>
-                </legend>
-                <div className="flex flex-col gap-2">
-                    <div className="flex flex-wrap gap-2">
+                <legend className="sr-only">Text color</legend>
+                <div className="flex flex-wrap items-center gap-1.5">
+                    <Swatch
+                        value="auto"
+                        label="auto light or dark"
+                        state={state}
+                        onChange={onChange}
+                    >
+                        <span
+                            className="block size-full rounded-full"
+                            style={{
+                                background: `linear-gradient(135deg, ${LIGHT} 50%, ${DARK} 50%)`,
+                            }}
+                        />
+                    </Swatch>
+                    {[LIGHT, DARK, ...fromPhoto].map((hex) => (
                         <Swatch
-                            value="auto"
-                            label="auto: light or dark for the photo"
+                            key={hex}
+                            value={hex}
+                            label={hex === LIGHT ? "white" : hex === DARK ? "black" : hex}
                             state={state}
                             onChange={onChange}
                         >
-                            <span
-                                className="block size-full rounded-full"
-                                style={{
-                                    background: `linear-gradient(135deg, ${LIGHT} 50%, ${DARK} 50%)`,
-                                }}
-                            />
+                            <Dot hex={hex} />
                         </Swatch>
-                        {[LIGHT, DARK, ...fromPhoto].map((hex) => (
-                            <Swatch
-                                key={hex}
-                                value={hex}
-                                label={hex === LIGHT ? "white" : hex === DARK ? "black" : hex}
-                                state={state}
-                                onChange={onChange}
-                            >
-                                <Dot hex={hex} />
-                            </Swatch>
-                        ))}
-                    </div>
+                    ))}
                     {fromMix.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                            {fromMix.map((hex) => (
-                                <Swatch
-                                    key={hex}
-                                    value={hex}
-                                    label={`${hex}, mix palette`}
-                                    state={state}
-                                    onChange={onChange}
-                                >
-                                    <Dot hex={hex} />
-                                </Swatch>
-                            ))}
-                        </div>
+                        <span aria-hidden className="mx-1 h-5 w-px bg-line-strong" />
                     )}
-                    <CustomColour
-                        custom={custom}
-                        swatches={[...fromPhoto, ...fromMix]}
-                        onPick={(hex) => onChange({ color: hex })}
-                    />
+                    {fromMix.map((hex) => (
+                        <Swatch
+                            key={hex}
+                            value={hex}
+                            label={`${hex} from the mix`}
+                            state={state}
+                            onChange={onChange}
+                        >
+                            <Dot hex={hex} />
+                        </Swatch>
+                    ))}
                 </div>
             </fieldset>
-            <div className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <CustomColour
+                    custom={custom}
+                    swatches={[...fromPhoto, ...fromMix]}
+                    onPick={(hex) => onChange({ color: hex })}
+                />
                 <Switch
                     label="Shade"
                     checked={state.scrim}
                     onChange={(e) => onChange({ scrim: e.currentTarget.checked })}
                     color="var(--mix-ink)"
                 />
-                <Info label="about shade">A soft gradient behind the text, for busy photos.</Info>
             </div>
         </div>
     );
 }
 
-// any colour: typed, picked, or taken from the screen with the eyedropper (where the browser has
+// any color: typed, picked, or taken from the screen with the eyedropper (where the browser has
 // one). The field keeps its own text while typing and commits a complete hex.
 function CustomColour({
     custom,
@@ -350,7 +338,7 @@ function CustomColour({
         <ColorInput
             size="xs"
             className="max-w-48"
-            aria-label="custom text colour"
+            aria-label="custom text color"
             placeholder="custom #hex"
             format="hex"
             value={draft}
@@ -359,7 +347,7 @@ function CustomColour({
             onBlur={() => commit(draft)}
             swatches={swatches}
             swatchesPerRow={7}
-            eyeDropperButtonProps={{ "aria-label": "pick a colour from the screen" }}
+            eyeDropperButtonProps={{ "aria-label": "pick a color from the screen" }}
             styles={custom ? { input: { borderColor: "var(--mix-ink)" } } : undefined}
         />
     );
@@ -384,7 +372,7 @@ function Swatch({
             checked={state.color === value}
             onSelect={() => onChange({ color: value })}
             label={label}
-            className="size-8 rounded-full border border-line p-0.5"
+            className="size-7 rounded-full border border-line p-0.5"
             round
         >
             {children}
@@ -419,9 +407,7 @@ function CropSection({ state, onZoom, onChange }: Pick<Props, "state" | "onZoom"
                 color="var(--mix-ink)"
             />
             <div className="mt-2 flex items-center gap-1">
-                <Info label="how to crop">
-                    Drag the photo to move it, or focus it and use the arrow keys; + and − zoom.
-                </Info>
+                <Info label="how to crop">Drag the photo to move it</Info>
                 <Tooltip label="reset crop" withArrow>
                     <ActionIcon
                         variant="subtle"

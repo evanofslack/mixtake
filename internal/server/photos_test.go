@@ -99,7 +99,7 @@ func TestMixPhotos(t *testing.T) {
 		msg    string
 	}{
 		{"unknown mix", s, "/api/mixes/nope/photos", 404, "not found"},
-		{"too few analysed", slow, "/api/mixes/" + running + "/photos", 409, "Not enough songs analysed yet."},
+		{"too few analysed", slow, "/api/mixes/" + running + "/photos", 409, "Not enough songs analyzed yet."},
 		{"long vibe", s, "/api/mixes/" + ready + "/photos?vibe=" + strings.Repeat("x", 201), 400, "vibe"},
 		{"upstream", broken, "/api/mixes/" + brokenID + "/photos", 502, "analogdb"},
 		{"ok", s, "/api/mixes/" + ready + "/photos", 200, ""},

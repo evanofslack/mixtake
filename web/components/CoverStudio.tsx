@@ -263,10 +263,9 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         setLikeSet(null);
     };
 
-    const info = "Film photographs from analogdb, picked to match the mix's mood and colours.";
     if (!ready) {
         return (
-            <Panel title="Cover" info={info} className="lg:col-span-12">
+            <Panel title="Cover" className="lg:col-span-12">
                 <Waiting className="h-48">
                     {Math.min(analysed, MIN_TRACKS)} / {MIN_TRACKS} songs
                 </Waiting>
@@ -275,7 +274,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
     }
     if (!mainSet && main.waiting) {
         return (
-            <Panel title="Cover" info={info} className="lg:col-span-12">
+            <Panel title="Cover" className="lg:col-span-12">
                 <Waiting className="h-48">
                     {finished
                         ? `${main.waiting} There weren't enough songs with previews to pick a photo.`
@@ -286,7 +285,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
     }
     if (!mainSet && main.error) {
         return (
-            <Panel title="Cover" info={info} className="lg:col-span-12">
+            <Panel title="Cover" className="lg:col-span-12">
                 <Alert
                     color="red"
                     variant="light"
@@ -312,7 +311,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
 
     const loadingStrip = like !== null ? likeFetch.loading : main.loading && !mainSet;
     return (
-        <Panel title="Cover" info={info} className="lg:col-span-12">
+        <Panel title="Cover" className="lg:col-span-12">
             <PhotoStrip
                 set={shownSet}
                 loading={loadingStrip}

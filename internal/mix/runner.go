@@ -318,7 +318,7 @@ func (r *Runner) run(ctx context.Context, j *job) {
 	switch {
 	case cov.Done == 0:
 		result, status = "failed", StatusFailed
-		final = Event{EventError, ErrorEvent{Message: "None of these tracks could be analysed. " +
+		final = Event{EventError, ErrorEvent{Message: "None of these tracks could be analyzed. " +
 			"Spotify may not have previews for them."}}
 	case failed > 0 || ctx.Err() != nil:
 		result = "partial"

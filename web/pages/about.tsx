@@ -19,7 +19,7 @@ export default function AboutPage() {
                             needed, which is why a playlist has to be public, or its tracks pasted.
                         </li>
                         <li>
-                            Each preview is analysed with{" "}
+                            Each preview is analyzed with{" "}
                             <A href="https://essentia.upf.edu">Essentia</A> and its pretrained
                             models: tempo and key, and scores for how happy, sad, relaxed,
                             aggressive, danceable, acoustic and instrumental it sounds, plus its
@@ -33,7 +33,7 @@ export default function AboutPage() {
                             The profile, and your vibe if you gave one, become a few scene
                             descriptions that we search for in{" "}
                             <A href="https://analogdb.com">analogdb</A>, a collection of film
-                            photographs, ranked by how well their colours fit the mood.
+                            photographs, ranked by how well their colors fit the mood.
                         </li>
                     </ol>
                 </Section>
@@ -41,14 +41,14 @@ export default function AboutPage() {
                 <Section title="Privacy">
                     <p>
                         There are no accounts. We store track ids, their titles and artists, the
-                        analysed features, and the list of tracks in each mix, so a mix can be
-                        opened again by its link and songs don&apos;t have to be analysed twice.
-                        Audio previews are analysed and thrown away. Your cover&apos;s text and crop
+                        analyzed features, and the list of tracks in each mix, so a mix can be
+                        opened again by its link and songs don&apos;t have to be analyzed twice.
+                        Audio previews are analyzed and thrown away. Your cover&apos;s text and crop
                         live only in its share link.
                     </p>
                 </Section>
 
-                <Section title="Credits and licences">
+                <Section title="Credits and licenses">
                     <ul className="list-disc space-y-2 pl-5">
                         <li>
                             Audio analysis by <A href="https://essentia.upf.edu">Essentia</A>{" "}
