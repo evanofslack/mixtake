@@ -18,11 +18,11 @@ func near(a, b float64) bool { return math.Abs(a-b) < 1e-9 }
 
 func TestBuildProfile(t *testing.T) {
 	happyFast := Features{Tempo: 128, Key: "A", Mode: "minor", Happy: 1, Party: 1, Aggressive: 1,
-		Genres: []Genre{{"Electronic---House", 0.8}, {"Pop---Synth-pop", 0.1}}}
+		Valence: 0.85, Arousal: 0.85, Genres: []Genre{{"Electronic---House", 0.8}, {"Pop---Synth-pop", 0.1}}}
 	sadSlow := Features{Tempo: 50, Key: "A", Mode: "minor", Sad: 1, Relaxed: 1,
-		Genres: []Genre{{"Rock---Indie Rock", 0.6}, {"Electronic---House", 0.3}}}
+		Valence: 0.2, Arousal: 0.2, Genres: []Genre{{"Rock---Indie Rock", 0.6}, {"Electronic---House", 0.3}}}
 	mid := Features{Tempo: 200, Key: "C", Mode: "major", Happy: 0.5, Party: 0.5,
-		Genres: []Genre{{"Hip Hop---Trap", 0.5}}}
+		Valence: 0.6, Arousal: 0.6, Genres: []Genre{{"Hip Hop---Trap", 0.5}}}
 	tracks := []TrackResult{
 		done(happyFast, "Ashe", "Dave"),
 		{Status: TrackNoAudio, Track: Track{Artists: []Artist{{Name: "Dave"}}}},
@@ -36,17 +36,30 @@ func TestBuildProfile(t *testing.T) {
 	if want := (Coverage{Total: 6, Done: 3, Failed: 2}); p.Coverage != want {
 		t.Errorf("coverage = %+v, want %+v", p.Coverage, want)
 	}
-	// moods 1, 0, 0.75; energies 1, 0, 0.5
-	if !near(p.Averages.Mood, 1.75/3) || !near(p.Averages.Energy, 0.5) || !near(p.Averages.Tempo, 126) {
+	feats := []Features{happyFast, sadSlow, mid}
+	var moodSum, energySum float64
+	for _, f := range feats {
+		moodSum += f.Mood()
+		energySum += f.Energy()
+	}
+	if !near(p.Averages.Mood, moodSum/3) || !near(p.Averages.Energy, energySum/3) || !near(p.Averages.Tempo, 126) {
 		t.Errorf("averages = %+v", p.Averages)
 	}
-	if !near(p.Spread.Energy, math.Sqrt(1.0/6)) {
+	var sq float64
+	for _, f := range feats {
+		sq += (f.Energy() - energySum/3) * (f.Energy() - energySum/3)
+	}
+	if !near(p.Spread.Energy, math.Sqrt(sq/3)) {
 		t.Errorf("energy spread = %v", p.Spread.Energy)
 	}
 	if p.Quadrant != QuadrantHappyEnergetic {
 		t.Errorf("quadrant = %s", p.Quadrant)
 	}
-	wantArc := []ArcPoint{{0, 1, 1}, {2, 0, 0}, {4, 0.5, 0.75}}
+	wantArc := []ArcPoint{
+		{0, happyFast.Energy(), happyFast.Mood()},
+		{2, sadSlow.Energy(), sadSlow.Mood()},
+		{4, mid.Energy(), mid.Mood()},
+	}
 	if !reflect.DeepEqual(p.EnergyArc, wantArc) {
 		t.Errorf("arc = %+v", p.EnergyArc)
 	}

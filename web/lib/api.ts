@@ -148,13 +148,33 @@ export interface ApiError {
     error: string;
 }
 
-// mood and energy axes, matching Features.Mood and Features.Energy in Go
+// mood and energy axes, matching Features.Mood and Features.Energy in internal/mix/types.go
+// (the constants and why are documented there)
+const HEAD_TEMP = 3;
+const MOOD_DEAM = 0.5;
+const ENERGY_DEAM = 0.6;
+const DEAM_LO = 0.2;
+const DEAM_HI = 0.8;
+const PROBABILITY_LO = 1e-4;
+
 export function mood(f: Features): number {
-    return clamp01(0.5 + (f.happy - f.sad) / 2);
+    const heads = 0.5 + (soften(f.happy) - soften(f.sad)) / 2;
+    return clamp01(MOOD_DEAM * deam(f.valence) + (1 - MOOD_DEAM) * heads);
 }
 
 export function energy(f: Features): number {
-    return clamp01(0.4 * f.party + 0.3 * f.aggressive + 0.3 * (1 - f.relaxed));
+    const heads =
+        0.4 * soften(f.party) + 0.3 * soften(f.aggressive) + 0.3 * (1 - soften(f.relaxed));
+    return clamp01(ENERGY_DEAM * deam(f.arousal) + (1 - ENERGY_DEAM) * heads);
+}
+
+function soften(p: number): number {
+    const q = Math.min(1 - PROBABILITY_LO, Math.max(PROBABILITY_LO, p));
+    return 1 / (1 + Math.exp(-Math.log(q / (1 - q)) / HEAD_TEMP));
+}
+
+function deam(v: number): number {
+    return clamp01((v - DEAM_LO) / (DEAM_HI - DEAM_LO));
 }
 
 function clamp01(v: number): number {

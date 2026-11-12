@@ -441,8 +441,9 @@ function makeFeatures(t: Track, c: Character, rand: () => number): Features {
         party: round(clamp(e + n(0.1))),
         acoustic: round(clamp(ACOUSTIC[fam] + n(0.15))),
         instrumental: round(clamp(INSTRUMENTAL[fam] + n(0.2))),
-        valence: round(0.36 + m * 0.28),
-        arousal: round(0.36 + e * 0.28),
+        // DEAM uses about 0.2–0.85
+        valence: round(clamp(0.22 + m * 0.6 + n(0.04))),
+        arousal: round(clamp(0.22 + e * 0.6 + n(0.04))),
         genres,
     };
 }

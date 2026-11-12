@@ -21,8 +21,10 @@ live (mood map, energy arc, genres, tempo and key), get a film-photo cover from
     runs it natively with uv.
   - essentia.upf.edu is unreliable, so the fetch script retries, and can switch to a mirror such
     as a GitHub release `models-v1` (not published yet).
-  - DEAM valence and arousal are compressed (roughly 0.36–0.64), so the mood and energy axes are
-    derived from the mood heads.
+  - The mood heads are binary classifiers that saturate: every piano or ambient track scores about
+    0.001 for party and 0.99 for relaxed. DEAM valence and arousal are continuous and use about
+    0.2–0.85 (not 0.36–0.64 as first thought), so they separate calm songs that the heads can't.
+    The mood and energy axes blend both (see the data model).
 - **analogdb** (`https://api.analogdb.com/v1`): caption-style scene queries work very well with
   `/search?q=`. Raw playlist names and album-art image search don't. `/search` has no colour
   filter, so colour ranking happens in Go; `/posts?color=` does filter, taking one of red,
@@ -104,12 +106,18 @@ with fakes of these four.
 
 - `Features`: tempo, key, mode, and 0–1 scores for danceable, happy, sad, relaxed, aggressive,
   party, acoustic, instrumental, valence and arousal, plus the top 3 genres with scores.
-- Derived axes (v0, to be tuned):
-  - `Mood = clamp(0.5 + (Happy − Sad) / 2)`
-  - `Energy = 0.4·Party + 0.3·Aggressive + 0.3·(1 − Relaxed)`
+- Derived axes (v1, tuned on `internal/mix/testdata/axes.json`, ~500 real tracks):
+  - `s(p) = sigmoid(logit(p) / 3)` softens a saturated head; `d(x) = clamp((x − 0.2) / 0.6)`
+    stretches DEAM over the range it uses.
+  - `Mood = 0.5·d(Valence) + 0.5·(0.5 + (s(Happy) − s(Sad)) / 2)`
+  - `Energy = 0.6·d(Arousal) + 0.4·(0.4·s(Party) + 0.3·s(Aggressive) + 0.3·(1 − s(Relaxed)))`
+  - v0 used the heads alone, which put lofi at energy 0.02 and Peaceful Piano at 0.00. Now lofi
+    averages 0.26 and Kind of Blue 0.42, while pop, rap and workout mixes barely move.
+    `TestAxesCalibration` guards the spread and the genre order. Both are computed from stored
+    features, so changing them needs no re-analysis; `web/lib/api.ts` mirrors them.
 - `Profile`: means and spreads, mood quadrant, energy arc in track order, tempo histogram, key
-  counts, genre weights, top artists, coverage `{done, failed, total}` and a headline ("Melancholy and hushed"); the web shows tempo,
-  key and the scores as chips beside it rather than in the sentence.
+  counts, genre weights, top artists, coverage `{done, failed, total}` and a headline
+  ("Melancholy and hushed"); the web shows tempo, key and the scores as chips beside it.
 - `Mix`: id, source (kind, Spotify id, name, cover, palette), ordered track ids, vibe, created at.
   - The id is a short base32 of `sha256(ordered track ids + vibe)`, so the same input gives the
     same mix and reuses the cache.
