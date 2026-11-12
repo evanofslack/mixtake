@@ -1,15 +1,30 @@
-import { ReactNode } from "react";
-import { Badge, Tooltip } from "@mantine/core";
-import type { Profile } from "../lib/api";
-import { QUADRANT_LABEL } from "../lib/format";
+import { ReactNode, useMemo } from "react";
+import { Tooltip } from "@mantine/core";
+import { FiActivity, FiCompass, FiMusic, FiSmile, FiZap } from "react-icons/fi";
+import { energy, Features, mood, type Profile, type TrackResult } from "../lib/api";
+import { keyName, plural, QUADRANT_LABEL } from "../lib/format";
 
 type Props = {
     profile?: Profile;
+    tracks: TrackResult[];
     final: boolean;
 };
 
-// the headline and the mix's numbers as chips; dimmed until the analysis is finished
-export default function Summary({ profile, final }: Props) {
+// the tempo gauge's ends; songs outside sit at the ends
+const BPM: [number, number] = [50, 200];
+// columns in each gauge's little histogram
+const BINS = 24;
+
+// the headline, the mix's character (feel and key) and its numbers as gauges; dimmed until the
+// analysis is finished
+export default function Summary({ profile, tracks, final }: Props) {
+    const features = useMemo(
+        () =>
+            tracks.flatMap((t) =>
+                t.status === "done" && t.features ? [t.features as Features] : [],
+            ),
+        [tracks],
+    );
     if (!profile?.summary) {
         return <p className="font-serif text-2xl text-muted italic sm:text-3xl">Listening…</p>;
     }
@@ -23,7 +38,8 @@ export default function Summary({ profile, final }: Props) {
         }
     }
     const share = total ? minor / total : 0.5;
-    const keys = share >= 0.6 ? "minor" : share <= 0.4 ? "major" : "major + minor";
+    const modes = share >= 0.6 ? "mostly minor" : share <= 0.4 ? "mostly major" : "major + minor";
+    const top = profile.keys[0];
     return (
         <div className={`transition-opacity duration-700 ${final ? "" : "opacity-70"}`}>
             <p
@@ -31,26 +47,102 @@ export default function Summary({ profile, final }: Props) {
                 aria-live="polite"
             >
                 {profile.summary}
-            </p>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-                <Stat tip="where the average lands on the mood map">
-                    {QUADRANT_LABEL[profile.quadrant]}
-                </Stat>
-                <Stat tip="average tempo">{Math.round(a.tempo)} BPM</Stat>
-                <Stat tip={`${Math.round(share * 100)}% of songs in a minor key`}>{keys}</Stat>
-                <Stat tip="0 is sad, 100 is happy">mood {Math.round(a.mood * 100)}</Stat>
-                <Stat tip="0 is calm, 100 is energetic">energy {Math.round(a.energy * 100)}</Stat>
                 {!final && (
-                    <Stat tip="updates as more songs are analysed" muted>
-                        so far
-                    </Stat>
+                    <span className="ml-2 align-middle font-sans text-xs text-muted">so far</span>
                 )}
+            </p>
+            <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-stretch sm:gap-6">
+                <div className="flex shrink-0 flex-row gap-5 sm:flex-col sm:gap-3 sm:border-r sm:border-line sm:pr-6">
+                    <Facet
+                        icon={<FiCompass />}
+                        label="feel"
+                        tip="the corner of the mood map the average lands in"
+                    >
+                        {QUADRANT_LABEL[profile.quadrant]}
+                    </Facet>
+                    <Facet
+                        icon={<FiMusic />}
+                        label="key"
+                        tip={
+                            <div className="tabular-nums">
+                                <p>{Math.round(share * 100)}% of songs in a minor key</p>
+                                {profile.keys.slice(0, 4).map((k) => (
+                                    <p key={`${k.key}-${k.mode}`} className="opacity-75">
+                                        {keyName(k.key, k.mode)}: {plural(k.count, "song")}
+                                    </p>
+                                ))}
+                            </div>
+                        }
+                    >
+                        {modes}
+                        {top && (
+                            <span className="ml-1.5 text-xs font-normal text-muted">
+                                {keyName(top.key, top.mode)} most
+                            </span>
+                        )}
+                    </Facet>
+                </div>
+                <div className="grid min-w-0 grow grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-3">
+                    <Gauge
+                        icon={<FiActivity />}
+                        label="tempo"
+                        value={a.tempo}
+                        display={`${Math.round(a.tempo)}`}
+                        unit="bpm"
+                        range={BPM}
+                        ends={[`${BPM[0]}`, `${BPM[1]}`]}
+                        values={features.map((f) => f.tempo)}
+                        tip="average beats per minute; the bars are how many songs sit at each tempo"
+                    />
+                    <Gauge
+                        icon={<FiSmile />}
+                        label="mood"
+                        value={a.mood * 100}
+                        display={`${Math.round(a.mood * 100)}`}
+                        range={[0, 100]}
+                        ends={["sad", "happy"]}
+                        values={features.map((f) => mood(f) * 100)}
+                        tip="average mood, 0 sad to 100 happy; the bars are the songs"
+                    />
+                    <Gauge
+                        icon={<FiZap />}
+                        label="energy"
+                        value={a.energy * 100}
+                        display={`${Math.round(a.energy * 100)}`}
+                        range={[0, 100]}
+                        ends={["calm", "intense"]}
+                        values={features.map((f) => energy(f) * 100)}
+                        tip="average energy, 0 calm to 100 energetic; the bars are the songs"
+                    />
+                </div>
             </div>
         </div>
     );
 }
 
-function Stat({ tip, muted, children }: { tip: string; muted?: boolean; children: ReactNode }) {
+function Icon({ children }: { children: ReactNode }) {
+    return (
+        <span
+            aria-hidden
+            className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent [&>svg]:size-3.5"
+        >
+            {children}
+        </span>
+    );
+}
+
+// a named quality of the mix, like its feel or key
+function Facet({
+    icon,
+    label,
+    tip,
+    children,
+}: {
+    icon: ReactNode;
+    label: string;
+    tip: ReactNode;
+    children: ReactNode;
+}) {
     return (
         <Tooltip
             label={tip}
@@ -58,15 +150,105 @@ function Stat({ tip, muted, children }: { tip: string; muted?: boolean; children
             openDelay={150}
             events={{ hover: true, focus: true, touch: true }}
         >
-            <Badge
-                variant={muted ? "transparent" : "default"}
-                size="lg"
-                radius="sm"
+            <div
                 tabIndex={0}
-                className="font-normal normal-case tabular-nums"
+                className="flex min-w-0 items-center gap-2.5 rounded-xs outline-offset-4"
             >
-                {children}
-            </Badge>
+                <Icon>{icon}</Icon>
+                <div className="min-w-0 leading-tight">
+                    <p className="text-[10px] font-medium tracking-wider text-muted uppercase">
+                        {label}
+                    </p>
+                    <p className="truncate text-sm font-medium">{children}</p>
+                </div>
+            </div>
+        </Tooltip>
+    );
+}
+
+type GaugeProps = {
+    icon: ReactNode;
+    label: string;
+    value: number;
+    display: string;
+    unit?: string;
+    range: [number, number];
+    ends: [string, string];
+    // every song's value, drawn as a small histogram over the bar
+    values: number[];
+    tip: string;
+};
+
+// a number on its scale: a histogram of the songs, a bar filled to the average and the scale's
+// ends
+function Gauge({ icon, label, value, display, unit, range, ends, values, tip }: GaugeProps) {
+    const [lo, hi] = range;
+    const at = (v: number) => Math.min(1, Math.max(0, (v - lo) / (hi - lo)));
+    const bins = new Array<number>(BINS).fill(0);
+    for (const v of values) {
+        bins[Math.min(BINS - 1, Math.floor(at(v) * BINS))]++;
+    }
+    const peak = Math.max(1, ...bins);
+    const fill = at(value);
+    const avgBin = Math.min(BINS - 1, Math.floor(fill * BINS));
+    return (
+        <Tooltip
+            label={tip}
+            withArrow
+            openDelay={150}
+            multiline
+            w={220}
+            events={{ hover: true, focus: true, touch: true }}
+        >
+            <div
+                tabIndex={0}
+                role="meter"
+                aria-label={label}
+                aria-valuemin={lo}
+                aria-valuemax={hi}
+                aria-valuenow={Math.round(value)}
+                aria-valuetext={`${display}${unit ? ` ${unit}` : ""}`}
+                className="min-w-0 rounded-xs outline-offset-4"
+            >
+                <div className="flex items-center gap-2.5">
+                    <Icon>{icon}</Icon>
+                    <div className="leading-tight">
+                        <p className="text-[10px] font-medium tracking-wider text-muted uppercase">
+                            {label}
+                        </p>
+                        <p className="text-sm font-medium tabular-nums">
+                            {display}
+                            {unit && (
+                                <span className="ml-1 text-xs font-normal text-muted">{unit}</span>
+                            )}
+                        </p>
+                    </div>
+                </div>
+                <div className="mt-2 flex h-5 items-end gap-px" aria-hidden>
+                    {bins.map((n, i) => (
+                        <span
+                            key={i}
+                            className={`block grow rounded-t-[1px] transition-[height] duration-500 ${
+                                i === avgBin ? "bg-accent" : "bg-mark-soft"
+                            }`}
+                            style={{ height: n ? `${Math.max(12, (n / peak) * 100)}%` : 0 }}
+                        />
+                    ))}
+                </div>
+                <div className="relative h-1 overflow-hidden rounded-full bg-line" aria-hidden>
+                    <span
+                        className="absolute inset-y-0 left-0 rounded-full bg-ink transition-[width] duration-500"
+                        style={{ width: `${fill * 100}%` }}
+                    />
+                </div>
+                <div
+                    className="mt-1 flex justify-between text-[10px] text-muted tabular-nums"
+                    aria-hidden
+                >
+                    <span>{ends[0]}</span>
+                    <span>{ends[1]}</span>
+                </div>
+            </div>
         </Tooltip>
     );
 }

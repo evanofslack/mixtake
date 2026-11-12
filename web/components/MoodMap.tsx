@@ -173,7 +173,7 @@ export default function MoodMap({ tracks }: Props) {
     return (
         <Panel
             title="Mood map"
-            info="Each dot is a song: sad to happy across, calm to energetic up, coloured like the cover palette. Click one to pin it across the page. The orange dot is the average. Zoomed in to fit the songs; the small square shows where they sit on the whole map."
+            info="Each dot is a song: sad to happy across, calm to energetic up, coloured like the cover palette. Click one to pin it across the page. The orange dot is the average, and the shaded oval how far the songs spread around it. Gridlines are every 10 points. Zoomed in to fit the songs; the small square shows where they sit on the whole map."
             actions={actions}
             className="lg:col-span-7"
         >
@@ -247,17 +247,6 @@ export default function MoodMap({ tracks }: Props) {
                                     stroke="var(--mix-surface)"
                                     strokeWidth={2}
                                 />
-                                <text
-                                    x={px(mean.x) > width - 70 ? -12 : 12}
-                                    y={py(mean.y) < PAD.top + 16 ? 14 : -8}
-                                    textAnchor={px(mean.x) > width - 70 ? "end" : "start"}
-                                    className="fill-ink text-[11px] font-medium tabular-nums"
-                                    paintOrder="stroke"
-                                    stroke="var(--mix-surface)"
-                                    strokeWidth={3}
-                                >
-                                    {pct(mean.x)} · {pct(mean.y)}
-                                </text>
                             </g>
                         )}
                         {zoomed && (
@@ -317,8 +306,26 @@ function Frame({ px, py, dom, zoomed, width, height, plotW, plotH, skip }: Frame
         br: { x: px(dom.x[1]) - inset, y: py(dom.y[0]) - inset, anchor: "end" },
     };
     const end = (v: number) => String(Math.round(v * 100));
+    // a light grid every 10, so the dots sit somewhere; the centre lines are drawn over it
+    const grid = (d: Domain) => {
+        const out = [];
+        for (let t = Math.ceil(d[0] * 10 + 1e-6); t / 10 < d[1] - 1e-6; t++) {
+            if (t !== 5) {
+                out.push(t / 10);
+            }
+        }
+        return out;
+    };
     return (
         <g aria-hidden>
+            <g stroke="var(--mix-line)" strokeOpacity={0.7}>
+                {grid(dom.x).map((v) => (
+                    <line key={`x${v}`} x1={px(v)} x2={px(v)} y1={py(dom.y[0])} y2={py(dom.y[1])} />
+                ))}
+                {grid(dom.y).map((v) => (
+                    <line key={`y${v}`} x1={px(dom.x[0])} x2={px(dom.x[1])} y1={py(v)} y2={py(v)} />
+                ))}
+            </g>
             <rect
                 x={px(dom.x[0])}
                 y={py(dom.y[1])}

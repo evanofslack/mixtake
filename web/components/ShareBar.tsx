@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { FiCheck, FiDownload, FiLink } from "react-icons/fi";
+import { FiAlertTriangle, FiCheck, FiDownload, FiLink } from "react-icons/fi";
 import type { Photo } from "../lib/api";
 import type { CoverState } from "../lib/canvas";
 import { download, renderCover, upscales } from "../lib/photos";
+import Info from "./Info";
 
 type Props = {
     photo: Photo | null;
@@ -52,6 +53,13 @@ export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
     };
 
     const stretched = photo ? SIZES.filter((s) => upscales(photo, state.zoom, s)) : [];
+    // only behind the warning icon: most analogdb photos are smaller than 3000 px
+    const note =
+        stretched.length === 0
+            ? ""
+            : stretched.length === SIZES.length
+              ? "This photo is smaller than both sizes at this zoom, so it will be upscaled and look softer. Zoom out to keep it sharper."
+              : `This photo is smaller than ${stretched[0]} px at this zoom, so that size will be upscaled. The ${SIZES[0]} px download stays sharp.`;
     return (
         <div>
             <div className="flex flex-wrap gap-2">
@@ -85,13 +93,19 @@ export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
                 >
                     {copied ? "Copied" : "Copy link"}
                 </Button>
+                {stretched.length > 0 && (
+                    <div className="flex items-center">
+                        <Info
+                            label="this photo will be upscaled"
+                            icon={<FiAlertTriangle aria-hidden className="text-accent" />}
+                        >
+                            {note}
+                        </Info>
+                    </div>
+                )}
             </div>
-            <p className="mt-2 text-xs text-muted" aria-live="polite">
-                {stretched.length === 0
-                    ? "A square JPG, ready to upload as your playlist cover."
-                    : stretched.length === SIZES.length
-                      ? "This photo is smaller than both sizes at this zoom, so it will be upscaled and look softer."
-                      : `This photo is smaller than ${stretched[0]} px at this zoom, so that size will be upscaled.`}
+            <p className="sr-only" aria-live="polite">
+                {note}
             </p>
         </div>
     );
