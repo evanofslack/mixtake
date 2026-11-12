@@ -249,8 +249,9 @@ seven searches from several **lenses**, so the 12 covers span different kinds of
    takes the best score minus 0.04 per photo already picked from its query, 0.03 per photo from
    its lens, 0.15 per photo by the same author, 0.6 × how far its palette similarity to a picked
    photo is above 0.75, and 0.3 × how far its analogdb keyword overlap (Jaccard) with a picked
-   photo is above 0.3. A query gives at most 2 photos while others have photos left. The pick
-   order interleaves the lenses.
+   photo is above 0.3. A query gives at most 2 photos while others have photos left. The vibe is
+   the exception: its best 3 photos (by the same author and lookalike rules) lead the set, so
+   re-searching with new words visibly adds them. The pick order interleaves the lenses.
 10. The picks have their image URLs rewritten to `/api/img/{name}`. Photo sets are cached in
     memory for 30 minutes by mix id, vibe, seed and coverage in tens of tracks. `PhotoSet.queries`
     lists every query, in order, for the "searched for …" line.

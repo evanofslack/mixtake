@@ -275,6 +275,34 @@ func TestDiversify(t *testing.T) {
 			}
 		})
 	}
+
+	// the vibe (query 3) leads with up to vibePhotos, however low it scores
+	withVibe := append(slices.Clone(queries), SceneQuery{Text: "v", Lens: LensVibe})
+	vibeTests := []struct {
+		name string
+		cs   []Candidate
+		n    int
+		want []int
+	}{
+		{"leads with the vibe", []Candidate{
+			cand(1, 0, 0.90, "a", colours[0]), cand(2, 1, 0.89, "b", colours[1]),
+			cand(3, 2, 0.88, "c", colours[2]), cand(4, 3, 0.50, "d", colours[3]),
+			cand(5, 3, 0.49, "e", colours[4]), cand(6, 3, 0.48, "f", colours[5]),
+			cand(7, 3, 0.47, "g", colours[6]),
+		}, 6, []int{4, 5, 6, 1, 2, 3}},
+		{"takes what the vibe found", []Candidate{
+			cand(1, 0, 0.90, "a", colours[0]), cand(2, 1, 0.89, "b", colours[1]),
+			cand(4, 3, 0.50, "d", colours[3]),
+		}, 3, []int{4, 1, 2}},
+	}
+	for _, tt := range vibeTests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := ids(Diversify(tt.cs, withVibe, tt.n))
+			if !slices.Equal(got, tt.want) {
+				t.Errorf("got %v, want %v", got, tt.want)
+			}
+		})
+	}
 	// a full set takes at most maxPerQuery from each query and spans every lens
 	var cs []Candidate
 	for q := range 3 {
