@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { LineChart } from "@mantine/charts";
 import { energy, Features, mood, TrackResult } from "../lib/api";
+import { fitDomain } from "../lib/domain";
 import Panel, { Waiting } from "./Panel";
 
 type Props = {
@@ -34,6 +35,14 @@ export default function EnergyArc({ trackIds, tracks }: Props) {
         });
     }, [trackIds, tracks]);
     const analysed = data.filter((d) => d.energy !== null).length;
+    // the y-axis fits the smoothed lines, so a calm mix's arc still has a shape
+    const yDomain = useMemo(() => {
+        const vs = data.flatMap((d) =>
+            d.energy === null ? [] : [(d.energy as number) / 100, (d.mood as number) / 100],
+        );
+        const [lo, hi] = fitDomain(vs, 0.04, 0.3, 0.1);
+        return [Math.round(lo * 100), Math.round(hi * 100)];
+    }, [data]);
 
     return (
         <Panel
@@ -63,7 +72,11 @@ export default function EnergyArc({ trackIds, tracks }: Props) {
                     gridColor="var(--mix-line)"
                     textColor="var(--mix-muted)"
                     tickLine="none"
-                    yAxisProps={{ domain: [0, 100], ticks: [0, 50, 100], width: 32 }}
+                    yAxisProps={{
+                        domain: yDomain,
+                        ticks: [yDomain[0], Math.round((yDomain[0] + yDomain[1]) / 2), yDomain[1]],
+                        width: 32,
+                    }}
                     xAxisProps={{ interval: "preserveStartEnd", minTickGap: 24 }}
                     xAxisLabel="song"
                     tooltipAnimationDuration={150}

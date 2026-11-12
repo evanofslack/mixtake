@@ -283,6 +283,9 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - InputBox: detects a link or a paste; explains private playlists
   - ProgressHeader
   - Charts: MoodMap (live scatter), EnergyArc, GenreBars, TempoKey, TopArtists, Summary
+  - MoodMap and EnergyArc fit their axes to the songs (`lib/domain.ts`: padded, snapped, at least
+    0.3 wide), so calm or sad mixes aren't squashed into a corner. MoodMap has a fit/whole toggle
+    and an inset of the whole map with the zoomed window outlined.
   - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
     self-hosted fonts, 3×3 positions; colours from the photo, the mix palette or a picker)
 - Text is kept short: labels and numbers on the page, explanations behind `Info` icons (Mantine

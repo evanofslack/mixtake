@@ -1,5 +1,8 @@
 import { PointerEvent, useMemo, useState } from "react";
+import { SegmentedControl, Tooltip } from "@mantine/core";
+import { FiMaximize2, FiMinimize2 } from "react-icons/fi";
 import { energy, Features, mood, TrackResult } from "../lib/api";
+import { Domain, fitDomain, FULL, isFull } from "../lib/domain";
 import { artistNames } from "../lib/format";
 import { useWidth } from "../lib/useWidth";
 import Panel from "./Panel";
@@ -9,17 +12,32 @@ type Props = {
 };
 
 type Dot = { id: string; title: string; artist: string; x: number; y: number };
+type View = "fit" | "full";
+type Corner = "tl" | "tr" | "bl" | "br";
 
 // room for the axis labels around the plot
 const PAD = { top: 12, right: 12, bottom: 30, left: 30 };
 // how near the pointer has to be to a dot to show it
 const HIT = 22;
+// the inset's side, and its gap from the plot's edge
+const INSET = 64;
+const INSET_GAP = 8;
 
-// every analysed song on mood (x) × energy (y); dots develop in as results arrive
+// each quadrant's name, and the plot corner that is its outer corner
+const QUADRANTS: { name: string; corner: Corner; x: Domain; y: Domain }[] = [
+    { name: "tense", corner: "tl", x: [0, 0.5], y: [0.5, 1] },
+    { name: "euphoric", corner: "tr", x: [0.5, 1], y: [0.5, 1] },
+    { name: "melancholy", corner: "bl", x: [0, 0.5], y: [0, 0.5] },
+    { name: "serene", corner: "br", x: [0.5, 1], y: [0, 0.5] },
+];
+
+// every analysed song on mood (x) × energy (y); dots develop in as results arrive. By default
+// the axes fit the songs, with an inset showing where that window sits in the whole map
 export default function MoodMap({ tracks }: Props) {
     const [ref, width] = useWidth<HTMLDivElement>();
     const height = Math.round(Math.min(440, Math.max(260, width * 0.72)));
     const [hover, setHover] = useState<Dot | null>(null);
+    const [view, setView] = useState<View>("fit");
 
     const dots = useMemo<Dot[]>(
         () =>
@@ -45,11 +63,34 @@ export default function MoodMap({ tracks }: Props) {
         return { x: mx, y: my, sx, sy };
     }, [dots]);
 
+    const fitted = useMemo(
+        () => ({ x: fitDomain(dots.map((d) => d.x)), y: fitDomain(dots.map((d) => d.y)) }),
+        [dots],
+    );
+    const zoomable = dots.length > 1 && !(isFull(fitted.x) && isFull(fitted.y));
+    const dom = view === "fit" && zoomable ? fitted : { x: FULL, y: FULL };
+    const zoomed = dom === fitted;
+
     const plotW = Math.max(0, width - PAD.left - PAD.right);
     const plotH = height - PAD.top - PAD.bottom;
-    const px = (v: number) => PAD.left + v * plotW;
-    const py = (v: number) => PAD.top + (1 - v) * plotH;
+    const spanX = dom.x[1] - dom.x[0];
+    const spanY = dom.y[1] - dom.y[0];
+    const px = (v: number) => PAD.left + ((v - dom.x[0]) / spanX) * plotW;
+    const py = (v: number) => PAD.top + (1 - (v - dom.y[0]) / spanY) * plotH;
     const r = width < 480 ? 4 : 5;
+
+    // the inset goes in the corner with the fewest songs
+    const insetCorner = useMemo<Corner>(() => {
+        const midX = (dom.x[0] + dom.x[1]) / 2;
+        const midY = (dom.y[0] + dom.y[1]) / 2;
+        const count: Record<Corner, number> = { tl: 0, tr: 0, bl: 0, br: 0 };
+        for (const d of dots) {
+            count[`${d.y >= midY ? "t" : "b"}${d.x >= midX ? "r" : "l"}` as Corner]++;
+        }
+        return (["tr", "tl", "br", "bl"] as Corner[]).reduce((a, b) =>
+            count[b] < count[a] ? b : a,
+        );
+    }, [dots, dom.x, dom.y]);
 
     const onPointer = (e: PointerEvent<SVGSVGElement>) => {
         const box = e.currentTarget.getBoundingClientRect();
@@ -71,10 +112,44 @@ export default function MoodMap({ tracks }: Props) {
         ? `Mood map of ${dots.length} songs. Average mood ${pct(mean.x)} of 100, energy ${pct(mean.y)} of 100.`
         : "Mood map, waiting for the first songs.";
 
+    const actions = zoomable ? (
+        <SegmentedControl
+            size="xs"
+            value={view}
+            onChange={(v) => setView(v as View)}
+            aria-label="mood map scale"
+            data={[
+                {
+                    value: "fit",
+                    label: (
+                        <Tooltip label="fit the songs" withArrow>
+                            <span className="flex items-center px-0.5">
+                                <FiMinimize2 aria-hidden />
+                                <span className="sr-only">fit the songs</span>
+                            </span>
+                        </Tooltip>
+                    ),
+                },
+                {
+                    value: "full",
+                    label: (
+                        <Tooltip label="whole map" withArrow>
+                            <span className="flex items-center px-0.5">
+                                <FiMaximize2 aria-hidden />
+                                <span className="sr-only">whole map</span>
+                            </span>
+                        </Tooltip>
+                    ),
+                },
+            ]}
+        />
+    ) : undefined;
+
     return (
         <Panel
             title="Mood map"
-            info="Each dot is a song: sad to happy across, calm to energetic up. The orange dot is the average."
+            info="Each dot is a song: sad to happy across, calm to energetic up. The orange dot is the average. Zoomed in to fit the songs; the small square shows where they sit on the whole map."
+            actions={actions}
             className="lg:col-span-7"
         >
             <div ref={ref} className="relative w-full" style={{ height }}>
@@ -92,23 +167,26 @@ export default function MoodMap({ tracks }: Props) {
                         <Frame
                             px={px}
                             py={py}
+                            dom={dom}
+                            zoomed={zoomed}
                             width={width}
                             height={height}
                             plotW={plotW}
                             plotH={plotH}
+                            skip={zoomed ? insetCorner : null}
                         />
                         {mean && dots.length > 2 && (
                             <ellipse
                                 cx={px(mean.x)}
                                 cy={py(mean.y)}
-                                rx={Math.max(8, mean.sx * plotW)}
-                                ry={Math.max(8, mean.sy * plotH)}
+                                rx={Math.max(8, (mean.sx / spanX) * plotW)}
+                                ry={Math.max(8, (mean.sy / spanY) * plotH)}
                                 fill="var(--mix-accent)"
                                 fillOpacity={0.1}
                                 stroke="var(--mix-accent)"
                                 strokeOpacity={0.35}
                                 strokeDasharray="2 3"
-                                className="transition-all duration-700 motion-reduce:transition-none"
+                                className="transition-all duration-500 motion-reduce:transition-none"
                             />
                         )}
                         <g aria-hidden>
@@ -122,7 +200,7 @@ export default function MoodMap({ tracks }: Props) {
                                     fillOpacity={hover?.id === d.id ? 1 : 0.72}
                                     stroke="var(--mix-surface)"
                                     strokeWidth={1.5}
-                                    className="develop"
+                                    className="develop transition-[cx,cy] duration-500 ease-out motion-reduce:transition-none"
                                 />
                             ))}
                         </g>
@@ -130,7 +208,7 @@ export default function MoodMap({ tracks }: Props) {
                             <g
                                 aria-hidden
                                 style={{ transform: `translate(${px(mean.x)}px, ${py(mean.y)}px)` }}
-                                className="transition-transform duration-700 ease-out motion-reduce:transition-none"
+                                className="transition-transform duration-500 ease-out motion-reduce:transition-none"
                             >
                                 <circle r={9} fill="var(--mix-accent)" fillOpacity={0.2} />
                                 <circle
@@ -151,6 +229,17 @@ export default function MoodMap({ tracks }: Props) {
                                     {pct(mean.x)} · {pct(mean.y)}
                                 </text>
                             </g>
+                        )}
+                        {zoomed && (
+                            <Inset
+                                corner={insetCorner}
+                                dom={dom}
+                                mean={mean}
+                                left={PAD.left + INSET_GAP}
+                                right={PAD.left + plotW - INSET - INSET_GAP}
+                                top={PAD.top + INSET_GAP}
+                                bottom={PAD.top + plotH - INSET - INSET_GAP}
+                            />
                         )}
                     </svg>
                 )}
@@ -174,77 +263,152 @@ export default function MoodMap({ tracks }: Props) {
 type FrameProps = {
     px: (v: number) => number;
     py: (v: number) => number;
+    dom: { x: Domain; y: Domain };
+    zoomed: boolean;
     width: number;
     height: number;
     plotW: number;
     plotH: number;
+    // the corner the inset covers, which gets no quadrant name
+    skip: Corner | null;
 };
 
-// the plot's border, centre lines, corner names and axis titles
-function Frame({ px, py, width, height, plotW, plotH }: FrameProps) {
+// the plot's border, centre lines, quadrant names and axis titles
+function Frame({ px, py, dom, zoomed, width, height, plotW, plotH, skip }: FrameProps) {
     const inset = 8;
     const corner = "fill-muted text-[11px] tracking-wide uppercase";
+    const inside = (d: Domain) => d[0] < 0.5 && d[1] > 0.5;
+    const area = (d: Domain, q: Domain) =>
+        Math.max(0, Math.min(d[1], q[1]) - Math.max(d[0], q[0])) / (d[1] - d[0]);
+    const pos: Record<Corner, { x: number; y: number; anchor: "start" | "end" }> = {
+        tl: { x: px(dom.x[0]) + inset, y: py(dom.y[1]) + inset + 9, anchor: "start" },
+        tr: { x: px(dom.x[1]) - inset, y: py(dom.y[1]) + inset + 9, anchor: "end" },
+        bl: { x: px(dom.x[0]) + inset, y: py(dom.y[0]) - inset, anchor: "start" },
+        br: { x: px(dom.x[1]) - inset, y: py(dom.y[0]) - inset, anchor: "end" },
+    };
+    const end = (v: number) => String(Math.round(v * 100));
     return (
         <g aria-hidden>
             <rect
-                x={px(0)}
-                y={py(1)}
+                x={px(dom.x[0])}
+                y={py(dom.y[1])}
                 width={plotW}
                 height={plotH}
                 fill="none"
                 stroke="var(--mix-line)"
             />
-            <line
-                x1={px(0.5)}
-                x2={px(0.5)}
-                y1={py(0)}
-                y2={py(1)}
-                stroke="var(--mix-line-strong)"
-                strokeDasharray="3 4"
-            />
-            <line
-                x1={px(0)}
-                x2={px(1)}
-                y1={py(0.5)}
-                y2={py(0.5)}
-                stroke="var(--mix-line-strong)"
-                strokeDasharray="3 4"
-            />
-            <text x={px(0) + inset} y={py(1) + inset + 9} className={corner}>
-                tense
-            </text>
-            <text x={px(1) - inset} y={py(1) + inset + 9} textAnchor="end" className={corner}>
-                euphoric
-            </text>
-            <text x={px(0) + inset} y={py(0) - inset} className={corner}>
-                melancholy
-            </text>
-            <text x={px(1) - inset} y={py(0) - inset} textAnchor="end" className={corner}>
-                serene
-            </text>
-
-            <g className="fill-muted text-[11px]">
-                <text x={px(0)} y={height - 8}>
-                    sad
+            {inside(dom.x) && (
+                <line
+                    x1={px(0.5)}
+                    x2={px(0.5)}
+                    y1={py(dom.y[0])}
+                    y2={py(dom.y[1])}
+                    stroke="var(--mix-line-strong)"
+                    strokeDasharray="3 4"
+                />
+            )}
+            {inside(dom.y) && (
+                <line
+                    x1={px(dom.x[0])}
+                    x2={px(dom.x[1])}
+                    y1={py(0.5)}
+                    y2={py(0.5)}
+                    stroke="var(--mix-line-strong)"
+                    strokeDasharray="3 4"
+                />
+            )}
+            {QUADRANTS.filter(
+                (q) => q.corner !== skip && area(dom.x, q.x) * area(dom.y, q.y) >= 0.15,
+            ).map((q) => (
+                <text
+                    key={q.name}
+                    x={pos[q.corner].x}
+                    y={pos[q.corner].y}
+                    textAnchor={pos[q.corner].anchor}
+                    className={corner}
+                >
+                    {q.name}
                 </text>
-                <text x={px(0.5)} y={height - 8} textAnchor="middle" className="fill-ink">
+            ))}
+
+            <g className="fill-muted text-[11px] tabular-nums">
+                <text x={px(dom.x[0])} y={height - 8}>
+                    {zoomed ? end(dom.x[0]) : "sad"}
+                </text>
+                <text
+                    x={px((dom.x[0] + dom.x[1]) / 2)}
+                    y={height - 8}
+                    textAnchor="middle"
+                    className="fill-ink"
+                >
                     mood
                 </text>
                 <text x={width - PAD.right} y={height - 8} textAnchor="end">
-                    happy
+                    {zoomed ? end(dom.x[1]) : "happy"}
                 </text>
                 <g transform={`translate(${PAD.left - 12} 0) rotate(-90)`}>
-                    <text x={-py(0)} y={0}>
-                        calm
+                    <text x={-py(dom.y[0])} y={0}>
+                        {zoomed ? end(dom.y[0]) : "calm"}
                     </text>
-                    <text x={-py(0.5)} y={0} textAnchor="middle" className="fill-ink">
+                    <text
+                        x={-py((dom.y[0] + dom.y[1]) / 2)}
+                        y={0}
+                        textAnchor="middle"
+                        className="fill-ink"
+                    >
                         energy
                     </text>
-                    <text x={-py(1)} y={0} textAnchor="end">
-                        energetic
+                    <text x={-py(dom.y[1])} y={0} textAnchor="end">
+                        {zoomed ? end(dom.y[1]) : "energetic"}
                     </text>
                 </g>
             </g>
+        </g>
+    );
+}
+
+type InsetProps = {
+    corner: Corner;
+    dom: { x: Domain; y: Domain };
+    mean: { x: number; y: number } | null;
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+};
+
+// the whole map in miniature, with the zoomed window outlined
+function Inset({ corner, dom, mean, left, right, top, bottom }: InsetProps) {
+    const x0 = corner[1] === "l" ? left : right;
+    const y0 = corner[0] === "t" ? top : bottom;
+    const ix = (v: number) => x0 + v * INSET;
+    const iy = (v: number) => y0 + (1 - v) * INSET;
+    return (
+        <g aria-hidden className="pointer-events-none">
+            <rect
+                x={x0}
+                y={y0}
+                width={INSET}
+                height={INSET}
+                rx={2}
+                fill="var(--mix-surface)"
+                fillOpacity={0.9}
+                stroke="var(--mix-line-strong)"
+            />
+            <line x1={ix(0.5)} x2={ix(0.5)} y1={iy(0)} y2={iy(1)} stroke="var(--mix-line)" />
+            <line x1={ix(0)} x2={ix(1)} y1={iy(0.5)} y2={iy(0.5)} stroke="var(--mix-line)" />
+            <rect
+                x={ix(dom.x[0])}
+                y={iy(dom.y[1])}
+                width={(dom.x[1] - dom.x[0]) * INSET}
+                height={(dom.y[1] - dom.y[0]) * INSET}
+                fill="var(--mix-accent)"
+                fillOpacity={0.15}
+                stroke="var(--mix-accent)"
+                strokeWidth={1}
+                className="transition-all duration-500 motion-reduce:transition-none"
+            />
+            {mean && <circle cx={ix(mean.x)} cy={iy(mean.y)} r={2.5} fill="var(--mix-accent)" />}
         </g>
     );
 }
