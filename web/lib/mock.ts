@@ -253,7 +253,7 @@ export async function mockCreateMix(input: string, vibe: string): Promise<string
             throw new RequestError("This playlist is private, so we can't read it.", 403);
         }
         if (d.id.startsWith("busy0")) {
-            throw new RequestError("mixtake is busy analysing other mixes. Try again soon.", 503);
+            throw new RequestError("mixtake is busy analyzing other mixes. Try again soon.", 503);
         }
         if (d.id.startsWith("limit")) {
             throw new RequestError("You've started a lot of mixes. Slow down a little.", 429, 30);

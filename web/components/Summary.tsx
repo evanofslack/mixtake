@@ -2,7 +2,7 @@ import { ReactNode, useMemo } from "react";
 import { Tooltip } from "@mantine/core";
 import { FiActivity, FiCompass, FiMusic, FiSmile, FiZap } from "react-icons/fi";
 import { energy, Features, mood, type Profile, type TrackResult } from "../lib/api";
-import { keyName, plural, QUADRANT_LABEL } from "../lib/format";
+import { keyName, QUADRANT_LABEL } from "../lib/format";
 
 type Props = {
     profile?: Profile;
@@ -56,23 +56,14 @@ export default function Summary({ profile, tracks, final }: Props) {
                     <Facet
                         icon={<FiCompass />}
                         label="feel"
-                        tip="the corner of the mood map the average lands in"
+                        tip="where the average lands on the map"
                     >
                         {QUADRANT_LABEL[profile.quadrant]}
                     </Facet>
                     <Facet
                         icon={<FiMusic />}
                         label="key"
-                        tip={
-                            <div className="tabular-nums">
-                                <p>{Math.round(share * 100)}% of songs in a minor key</p>
-                                {profile.keys.slice(0, 4).map((k) => (
-                                    <p key={`${k.key}-${k.mode}`} className="opacity-75">
-                                        {keyName(k.key, k.mode)}: {plural(k.count, "song")}
-                                    </p>
-                                ))}
-                            </div>
-                        }
+                        tip={`${Math.round(share * 100)}% of songs in minor keys`}
                     >
                         {modes}
                         {top && (
@@ -92,7 +83,7 @@ export default function Summary({ profile, tracks, final }: Props) {
                         range={BPM}
                         ends={[`${BPM[0]}`, `${BPM[1]}`]}
                         values={features.map((f) => f.tempo)}
-                        tip="average beats per minute; the bars are how many songs sit at each tempo"
+                        tip="average tempo with every song below"
                     />
                     <Gauge
                         icon={<FiSmile />}
@@ -102,7 +93,7 @@ export default function Summary({ profile, tracks, final }: Props) {
                         range={[0, 100]}
                         ends={["sad", "happy"]}
                         values={features.map((f) => mood(f) * 100)}
-                        tip="average mood, 0 sad to 100 happy; the bars are the songs"
+                        tip="average mood from sad to happy"
                     />
                     <Gauge
                         icon={<FiZap />}
@@ -112,7 +103,7 @@ export default function Summary({ profile, tracks, final }: Props) {
                         range={[0, 100]}
                         ends={["calm", "intense"]}
                         values={features.map((f) => energy(f) * 100)}
-                        tip="average energy, 0 calm to 100 energetic; the bars are the songs"
+                        tip="average energy from calm to intense"
                     />
                 </div>
             </div>
@@ -120,14 +111,24 @@ export default function Summary({ profile, tracks, final }: Props) {
     );
 }
 
-function Icon({ children }: { children: ReactNode }) {
+// the round icon beside a facet or gauge; hovering, focusing or tapping it explains the number
+function Icon({ tip, children }: { tip: string; children: ReactNode }) {
     return (
-        <span
-            aria-hidden
-            className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent [&>svg]:size-3.5"
+        <Tooltip
+            label={tip}
+            withArrow
+            openDelay={150}
+            events={{ hover: true, focus: true, touch: true }}
         >
-            {children}
-        </span>
+            <span
+                tabIndex={0}
+                role="img"
+                aria-label={tip}
+                className="flex size-7 shrink-0 cursor-help items-center justify-center rounded-full bg-accent-soft text-accent [&>svg]:size-3.5"
+            >
+                {children}
+            </span>
+        </Tooltip>
     );
 }
 
@@ -140,29 +141,19 @@ function Facet({
 }: {
     icon: ReactNode;
     label: string;
-    tip: ReactNode;
+    tip: string;
     children: ReactNode;
 }) {
     return (
-        <Tooltip
-            label={tip}
-            withArrow
-            openDelay={150}
-            events={{ hover: true, focus: true, touch: true }}
-        >
-            <div
-                tabIndex={0}
-                className="flex min-w-0 items-center gap-2.5 rounded-xs outline-offset-4"
-            >
-                <Icon>{icon}</Icon>
-                <div className="min-w-0 leading-tight">
-                    <p className="text-[10px] font-medium tracking-wider text-muted uppercase">
-                        {label}
-                    </p>
-                    <p className="truncate text-sm font-medium">{children}</p>
-                </div>
+        <div className="flex min-w-0 items-center gap-2.5">
+            <Icon tip={tip}>{icon}</Icon>
+            <div className="min-w-0 leading-tight">
+                <p className="text-[10px] font-medium tracking-wider text-muted uppercase">
+                    {label}
+                </p>
+                <p className="truncate text-sm font-medium">{children}</p>
             </div>
-        </Tooltip>
+        </div>
     );
 }
 
@@ -192,63 +183,53 @@ function Gauge({ icon, label, value, display, unit, range, ends, values, tip }: 
     const fill = at(value);
     const avgBin = Math.min(BINS - 1, Math.floor(fill * BINS));
     return (
-        <Tooltip
-            label={tip}
-            withArrow
-            openDelay={150}
-            multiline
-            w={220}
-            events={{ hover: true, focus: true, touch: true }}
+        <div
+            role="meter"
+            aria-label={label}
+            aria-valuemin={lo}
+            aria-valuemax={hi}
+            aria-valuenow={Math.round(value)}
+            aria-valuetext={`${display}${unit ? ` ${unit}` : ""}`}
+            className="min-w-0"
         >
-            <div
-                tabIndex={0}
-                role="meter"
-                aria-label={label}
-                aria-valuemin={lo}
-                aria-valuemax={hi}
-                aria-valuenow={Math.round(value)}
-                aria-valuetext={`${display}${unit ? ` ${unit}` : ""}`}
-                className="min-w-0 rounded-xs outline-offset-4"
-            >
-                <div className="flex items-center gap-2.5">
-                    <Icon>{icon}</Icon>
-                    <div className="leading-tight">
-                        <p className="text-[10px] font-medium tracking-wider text-muted uppercase">
-                            {label}
-                        </p>
-                        <p className="text-sm font-medium tabular-nums">
-                            {display}
-                            {unit && (
-                                <span className="ml-1 text-xs font-normal text-muted">{unit}</span>
-                            )}
-                        </p>
-                    </div>
-                </div>
-                <div className="mt-2 flex h-5 items-end gap-px" aria-hidden>
-                    {bins.map((n, i) => (
-                        <span
-                            key={i}
-                            className={`block grow rounded-t-[1px] transition-[height] duration-500 ${
-                                i === avgBin ? "bg-accent" : "bg-mark-soft"
-                            }`}
-                            style={{ height: n ? `${Math.max(12, (n / peak) * 100)}%` : 0 }}
-                        />
-                    ))}
-                </div>
-                <div className="relative h-1 overflow-hidden rounded-full bg-line" aria-hidden>
-                    <span
-                        className="absolute inset-y-0 left-0 rounded-full bg-ink transition-[width] duration-500"
-                        style={{ width: `${fill * 100}%` }}
-                    />
-                </div>
-                <div
-                    className="mt-1 flex justify-between text-[10px] text-muted tabular-nums"
-                    aria-hidden
-                >
-                    <span>{ends[0]}</span>
-                    <span>{ends[1]}</span>
+            <div className="flex items-center gap-2.5">
+                <Icon tip={tip}>{icon}</Icon>
+                <div className="leading-tight">
+                    <p className="text-[10px] font-medium tracking-wider text-muted uppercase">
+                        {label}
+                    </p>
+                    <p className="text-sm font-medium tabular-nums">
+                        {display}
+                        {unit && (
+                            <span className="ml-1 text-xs font-normal text-muted">{unit}</span>
+                        )}
+                    </p>
                 </div>
             </div>
-        </Tooltip>
+            <div className="mt-2 flex h-5 items-end gap-px" aria-hidden>
+                {bins.map((n, i) => (
+                    <span
+                        key={i}
+                        className={`block grow rounded-t-[1px] transition-[height] duration-500 ${
+                            i === avgBin ? "bg-accent" : "bg-mark-soft"
+                        }`}
+                        style={{ height: n ? `${Math.max(12, (n / peak) * 100)}%` : 0 }}
+                    />
+                ))}
+            </div>
+            <div className="relative h-1 overflow-hidden rounded-full bg-line" aria-hidden>
+                <span
+                    className="absolute inset-y-0 left-0 rounded-full bg-ink transition-[width] duration-500"
+                    style={{ width: `${fill * 100}%` }}
+                />
+            </div>
+            <div
+                className="mt-1 flex justify-between text-[10px] text-muted tabular-nums"
+                aria-hidden
+            >
+                <span>{ends[0]}</span>
+                <span>{ends[1]}</span>
+            </div>
+        </div>
     );
 }

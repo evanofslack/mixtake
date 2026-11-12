@@ -49,12 +49,12 @@ export default function ProgressHeader({ source, coverage, status }: Props) {
                 </div>
                 <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm">
                     <p aria-live="polite">
-                        analysed <span className="font-medium tabular-nums">{done}</span> of{" "}
+                        analyzed <span className="font-medium tabular-nums">{done}</span> of{" "}
                         <span className="tabular-nums">{total}</span>
                         {failed > 0 && (
                             <span className="text-muted">
                                 {" "}
-                                · {failed} couldn&apos;t be analysed
+                                · {failed} couldn&apos;t be analyzed
                             </span>
                         )}
                     </p>

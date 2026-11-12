@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	msgTooFew      = "Not enough songs analysed yet."
+	msgTooFew      = "Not enough songs analyzed yet."
 	msgPhotosError = "analogdb didn't respond. Try again in a moment."
 	imageCache     = "public, max-age=31536000, immutable"
 )

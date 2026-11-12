@@ -13,7 +13,7 @@ export default function Sound({ profile, tracks }: Props) {
     return (
         <Panel
             title="Genres and artists"
-            info="Genres from Essentia's Discogs genre model, averaged over the analysed songs, with each one's parent style in grey. Hover or click one to find its songs on the other charts."
+            info="Genres from the Essentia Discogs model"
             className="lg:col-span-5"
         >
             <h3 className="mb-1.5 text-[10px] font-medium tracking-wider text-muted uppercase">

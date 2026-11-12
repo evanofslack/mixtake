@@ -15,7 +15,7 @@ type Props = {
     onSort: (s: Sort) => void;
 };
 
-// rolling mean over this many analysed neighbours, so the arc reads as a shape, not noise
+// rolling mean over this many analyzed neighbors, so the arc reads as a shape, not noise
 const WINDOW = 5;
 // highlighted songs get a marker each up to this many; beyond it the markers are clutter
 const MARKERS = 16;
@@ -115,8 +115,8 @@ export default function EnergyArc({ trackIds, tracks, sort, onSort }: Props) {
             title="Energy arc"
             info={
                 playlist
-                    ? "Energy and mood in playlist order, smoothed over five songs. Sort to see the songs from calmest to most energetic, saddest to happiest, or slowest to fastest. Hover for the song; click to pin it across the page."
-                    : `Each song's energy and mood, sorted by ${SORT_LABEL[sort.by]}. The song list below follows the same order. Hover for the song; click to pin it.`
+                    ? "Smoothed over five neighboring songs"
+                    : `Every song sorted by ${SORT_LABEL[sort.by]}`
             }
             actions={<SortControl sort={sort} onChange={onSort} />}
             className="lg:col-span-12"
@@ -203,7 +203,7 @@ function ArcTip({ point, sorted }: { point?: Point; sorted: boolean }) {
                     )}
                 </p>
             ) : (
-                <p className="mt-1 text-muted">not analysed</p>
+                <p className="mt-1 text-muted">not analyzed</p>
             )}
         </div>
     );

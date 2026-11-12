@@ -40,7 +40,7 @@ export default function PhotoStrip(props: Props) {
                         disabled={loading}
                     />
                     {!like && (
-                        <Tooltip label="shuffle: new photos, same vibe" withArrow>
+                        <Tooltip label="new photos with the same vibe" withArrow>
                             <ActionIcon
                                 variant="default"
                                 size={30}
@@ -169,7 +169,7 @@ function Why({
                                 <Tooltip label="lead with this search" withArrow openDelay={300}>
                                     <UnstyledButton
                                         onClick={() => onVibe(q)}
-                                        className="group relative rounded-xs py-0.5 pr-2 pl-3.5 font-serif text-[13px] leading-snug text-ink italic transition-colors hover:bg-accent-soft"
+                                        className="group relative rounded-xs py-0.5 pr-2 pl-3.5 font-serif text-[13px] leading-snug text-ink transition-colors hover:bg-accent-soft"
                                     >
                                         <span
                                             aria-hidden
@@ -185,12 +185,12 @@ function Why({
             )}
             {set.palette.length > 0 && (
                 <div className="flex items-center gap-2">
-                    <Tooltip label="colours the photos are ranked towards" withArrow>
+                    <Tooltip label="colors the photos are ranked toward" withArrow>
                         <span className="shrink-0 text-muted">
                             <FiDroplet aria-hidden className="size-3.5" />
                         </span>
                     </Tooltip>
-                    <ul className="flex" aria-label="target colours">
+                    <ul className="flex" aria-label="target colors">
                         {set.palette.map((hex) => (
                             <li key={hex} className="-mr-1.5">
                                 <CopyButton value={hex}>

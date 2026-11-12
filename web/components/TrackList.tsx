@@ -205,7 +205,7 @@ function shortKey(f: Features): string {
 
 const STATUS: Record<TrackStatus, string> = {
     pending: "waiting",
-    done: "analysed",
+    done: "analyzed",
     failed: "analysis failed",
     no_audio: "no preview available",
     not_found: "not found on Spotify",

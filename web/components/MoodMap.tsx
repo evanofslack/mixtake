@@ -173,7 +173,7 @@ export default function MoodMap({ tracks }: Props) {
     return (
         <Panel
             title="Mood map"
-            info="Each dot is a song: sad to happy across, calm to energetic up, coloured like the cover palette. Click one to pin it across the page. The orange dot is the average, and the shaded oval how far the songs spread around it. Gridlines are every 10 points. Zoomed in to fit the songs; the small square shows where they sit on the whole map."
+            info="Click a song to pin it everywhere"
             actions={actions}
             className="lg:col-span-7"
         >

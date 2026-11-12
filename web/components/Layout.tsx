@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import Head from "next/head";
 import Header from "./Header";
-import Footer from "./Footer";
 
 const SITE = "https://mixtake.evanslack.dev";
 const DESCRIPTION =
@@ -30,8 +29,7 @@ export default function Layout({ children, title = "mixtake" }: Props) {
             </Head>
             <div className="flex min-h-screen flex-col">
                 <Header />
-                <main className="grow">{children}</main>
-                <Footer />
+                <main className="grow pb-24">{children}</main>
             </div>
         </>
     );

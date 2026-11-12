@@ -34,7 +34,7 @@ const (
 	msgNotFound = "Spotify couldn't find that playlist or album. " + copyTracksHint
 	msgPrivate  = "That playlist is private or unavailable. " + copyTracksHint
 	msgUpstream = "Spotify didn't respond as expected. Try again in a moment."
-	msgBusy     = "mixtake is busy analysing other mixes. Try again in a minute."
+	msgBusy     = "mixtake is busy analyzing other mixes. Try again in a minute."
 	msgLimited  = "Too many new mixes from you. Try again in a minute."
 )
 

@@ -58,8 +58,8 @@ export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
         stretched.length === 0
             ? ""
             : stretched.length === SIZES.length
-              ? "This photo is smaller than both sizes at this zoom, so it will be upscaled and look softer. Zoom out to keep it sharper."
-              : `This photo is smaller than ${stretched[0]} px at this zoom, so that size will be upscaled. The ${SIZES[0]} px download stays sharp.`;
+              ? "Both sizes will look slightly soft"
+              : `The ${stretched[0]} px download will look soft`;
     return (
         <div>
             <div className="flex flex-wrap gap-2">

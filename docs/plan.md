@@ -316,6 +316,11 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     guides are an SVG overlay on the preview, never drawn into the export.
 - Text is kept short: labels and numbers on the page, explanations behind `Info` icons (Mantine
   popover on hover, focus or tap) and tooltips. Full sentences are kept for errors.
+  - Tooltips and `Info` text are 5–7 words with no commas, semicolons or periods. Controls whose
+    effect is plain from using them (text color, shade, the cover panel) get none.
+  - The summary's facets and gauges explain themselves from their round icon only.
+  - American spelling in everything a user sees (color, center, analyze). No site footer; credits
+    and licenses live on `/about`.
   - ShareBar: JPG at 1500 or 3000 px, copy link; a warning icon (details on hover) when the
     crop is smaller than a size and will be upscaled. Zoom is capped at 2.5×.
   - Listen: collapsed Spotify embed player

@@ -87,7 +87,7 @@ export default function InputBox({ mock }: Props) {
                         rightSection={<FiArrowRight />}
                         className="shrink-0"
                     >
-                        Analyse
+                        Analyze
                     </Button>
                 </div>
 
