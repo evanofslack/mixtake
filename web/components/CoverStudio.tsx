@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { Alert, Button } from "@mantine/core";
-import { FiAlertCircle, FiExternalLink, FiLayers } from "react-icons/fi";
-import type { Photo, PhotoSet, Source } from "../lib/api";
+import { ActionIcon, Alert, Button, Tooltip } from "@mantine/core";
+import { FiAlertCircle, FiCamera, FiLayers } from "react-icons/fi";
+import { MAX_SEED, type Photo, type PhotoSet, type Source } from "../lib/api";
 import { clampCrop, CoverState } from "../lib/canvas";
 import { fetchPhotos, fetchSimilar } from "../lib/client";
 import { RequestError } from "../lib/errors";
 import { editorImageFor, thumbFor, useImage } from "../lib/photos";
-import { mergeQuery, readShared, SEED_MAX, slug, writeShared } from "../lib/share";
+import { mergeQuery, readShared, slug, writeShared } from "../lib/share";
 import CoverCanvas from "./CoverCanvas";
 import CoverControls from "./CoverControls";
+import Info from "./Info";
 import Panel, { Waiting } from "./Panel";
 import PhotoStrip from "./PhotoStrip";
 import ShareBar from "./ShareBar";
@@ -42,8 +43,8 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
     // when the final set arrives
     const [chosen, setChosen] = useState(initial.photo !== null);
     const [vibe, setVibe] = useState(initial.vibe);
-    const [seed, setSeed] = useState(initial.seed);
     const [like, setLike] = useState<number | null>(initial.like);
+    const [seed, setSeed] = useState(initial.seed);
     const [missing, setMissing] = useState(false);
 
     const [mainSet, setMainSet] = useState<PhotoSet | null>(null);
@@ -187,8 +188,8 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
 
     // keep the edits in the URL, without a history entry per keystroke
     const shared = useMemo(
-        () => writeShared({ photo: photoId, vibe, seed, like, state }, defaultTitle),
-        [photoId, vibe, seed, like, state, defaultTitle],
+        () => writeShared({ photo: photoId, vibe, like, seed, state }, defaultTitle),
+        [photoId, vibe, like, seed, state, defaultTitle],
     );
     const routerRef = useRef(router);
     routerRef.current = router;
@@ -240,43 +241,41 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         setLikeSet(null);
         setLike(photo.id);
     };
-    // a new set of photos: its first photo replaces the current one
-    const reload = () => {
-        setLike(null);
-        setLikeSet(null);
-        setMainSet(null);
-        setChosen(false);
-        setMissing(false);
-    };
-    // new words start from the usual set for them
     const research = (v: string) => {
         setVibe(v);
         setSeed(0);
-        reload();
+        setLike(null);
+        setLikeSet(null);
+        setMainSet(null);
+        // the new set's first photo replaces the current one
+        setChosen(false);
+        setMissing(false);
     };
+    // new photos for the same scenes and colours
     const shuffle = () => {
-        setSeed(1 + Math.floor(Math.random() * SEED_MAX));
-        reload();
+        setSeed(1 + Math.floor(Math.random() * MAX_SEED));
+        setMainSet(null);
+        setChosen(false);
+        setMissing(false);
     };
     const back = () => {
         setLike(null);
         setLikeSet(null);
     };
 
-    const caption = "A film photograph from analogdb, picked to match the mix.";
+    const info = "Film photographs from analogdb, picked to match the mix's mood and colours.";
     if (!ready) {
         return (
-            <Panel title="Cover" caption={caption} className="lg:col-span-12">
+            <Panel title="Cover" info={info} className="lg:col-span-12">
                 <Waiting className="h-48">
-                    Your cover photos appear once {MIN_TRACKS} songs are analysed (
-                    {Math.min(analysed, MIN_TRACKS)} so far).
+                    {Math.min(analysed, MIN_TRACKS)} / {MIN_TRACKS} songs
                 </Waiting>
             </Panel>
         );
     }
     if (!mainSet && main.waiting) {
         return (
-            <Panel title="Cover" caption={caption} className="lg:col-span-12">
+            <Panel title="Cover" info={info} className="lg:col-span-12">
                 <Waiting className="h-48">
                     {finished
                         ? `${main.waiting} There weren't enough songs with previews to pick a photo.`
@@ -287,7 +286,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
     }
     if (!mainSet && main.error) {
         return (
-            <Panel title="Cover" caption={caption} className="lg:col-span-12">
+            <Panel title="Cover" info={info} className="lg:col-span-12">
                 <Alert
                     color="red"
                     variant="light"
@@ -313,7 +312,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
 
     const loadingStrip = like !== null ? likeFetch.loading : main.loading && !mainSet;
     return (
-        <Panel title="Cover" caption={caption} className="lg:col-span-12">
+        <Panel title="Cover" info={info} className="lg:col-span-12">
             <PhotoStrip
                 set={shownSet}
                 loading={loadingStrip}
@@ -332,8 +331,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
             )}
             {missing && (
                 <p className="mt-1 text-sm text-muted" role="status">
-                    The photo from this link isn&apos;t in the set any more, so here&apos;s the
-                    first one with the same text.
+                    Linked photo gone; showing the first instead.
                 </p>
             )}
 
@@ -355,13 +353,19 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                         />
                     </div>
                 </div>
-                <CoverControls state={state} photo={photo} onChange={update} onZoom={zoomTo} />
+                <CoverControls
+                    state={state}
+                    photo={photo}
+                    palette={mainSet?.palette ?? []}
+                    onChange={update}
+                    onZoom={zoomTo}
+                />
             </div>
         </Panel>
     );
 }
 
-// the photographer's credit stays on the page, not on the image
+// the photographer's credit stays on the page, one click away, never on the image
 function Credit({
     photo,
     onMore,
@@ -372,34 +376,39 @@ function Credit({
     like: number | null;
 }) {
     return (
-        <div className="mt-2 flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-            <div className="min-w-0 text-sm">
-                <p className="truncate">
-                    {photo.title ? <span>‘{photo.title}’</span> : "untitled"}
-                </p>
-                <p className="text-xs text-muted">
-                    photo by{" "}
-                    <a
-                        href={photo.permalink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-0.5 text-ink underline decoration-line-strong underline-offset-2 hover:decoration-ink"
-                    >
-                        u/{photo.author}
-                        <FiExternalLink aria-hidden className="size-3" />
-                    </a>
-                    {photo.caption && <span> · {photo.caption}</span>}
-                </p>
-            </div>
-            <Button
-                variant="subtle"
-                size="compact-sm"
-                leftSection={<FiLayers />}
-                onClick={onMore}
-                disabled={like === photo.id}
-            >
-                More like this
-            </Button>
+        <div className="mt-2 flex items-center gap-1">
+            <Info label="about this photo">
+                <p className="font-medium">{photo.title || "untitled"}</p>
+                {photo.caption && <p className="mt-1 text-muted">{photo.caption}</p>}
+            </Info>
+            <Tooltip label={`photo by u/${photo.author}`} withArrow>
+                <ActionIcon
+                    component="a"
+                    href={photo.permalink}
+                    target="_blank"
+                    rel="noreferrer"
+                    variant="subtle"
+                    color="gray"
+                    size="sm"
+                    aria-label={`photo by u/${photo.author}, opens analogdb`}
+                    className="text-muted"
+                >
+                    <FiCamera aria-hidden />
+                </ActionIcon>
+            </Tooltip>
+            <Tooltip label="more like this" withArrow>
+                <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="sm"
+                    aria-label="more like this"
+                    onClick={onMore}
+                    disabled={like === photo.id}
+                    className="text-muted"
+                >
+                    <FiLayers aria-hidden />
+                </ActionIcon>
+            </Tooltip>
         </div>
     );
 }

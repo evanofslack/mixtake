@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
-import { ActionIcon, Button, TextInput } from "@mantine/core";
-import { FiArrowLeft, FiSearch, FiShuffle } from "react-icons/fi";
+import { ActionIcon, Button, CopyButton, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
+import { FiArrowLeft, FiDroplet, FiSearch, FiShuffle } from "react-icons/fi";
 import type { Photo, PhotoSet } from "../lib/api";
 import { thumbFor } from "../lib/photos";
 
@@ -19,28 +19,39 @@ type Props = {
 
 const SKELETONS = 8;
 
-// how the photos were found, a re-search box and the thumbnails
+// how the photos were found, a re-search box, shuffle and the thumbnails
 export default function PhotoStrip(props: Props) {
     const { set, loading, selected, like, onSelect } = props;
     return (
         <div className="min-w-0">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <Why set={set} like={like} loading={loading} onBack={props.onBack} />
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <Why
+                    set={set}
+                    like={like}
+                    loading={loading}
+                    onBack={props.onBack}
+                    onVibe={props.onVibe}
+                />
+                <div className="flex shrink-0 items-center gap-1.5">
+                    <VibeForm
+                        key={props.vibe}
+                        vibe={props.vibe}
+                        onVibe={props.onVibe}
+                        disabled={loading}
+                    />
                     {!like && (
-                        <Button
-                            variant="subtle"
-                            size="compact-sm"
-                            leftSection={<FiShuffle />}
-                            onClick={props.onShuffle}
-                            disabled={loading}
-                            className="shrink-0"
-                            title="a different set of photos for the same mix"
-                        >
-                            Shuffle
-                        </Button>
+                        <Tooltip label="shuffle: new photos, same vibe" withArrow>
+                            <ActionIcon
+                                variant="default"
+                                size={30}
+                                aria-label="shuffle photos"
+                                onClick={props.onShuffle}
+                                disabled={loading}
+                            >
+                                <FiShuffle aria-hidden />
+                            </ActionIcon>
+                        </Tooltip>
                     )}
-                    <VibeForm vibe={props.vibe} onVibe={props.onVibe} disabled={loading} />
                 </div>
             </div>
             <ul
@@ -106,33 +117,31 @@ function Thumb({
     );
 }
 
-// "searched for 'rain on a window' · 'foggy forest'", with the colours the ranking aimed for
+// the searches as pills (tap one to search only that) and the colours the ranking aimed for
 function Why({
     set,
     like,
     loading,
     onBack,
+    onVibe,
 }: {
     set: PhotoSet | null;
     like: Photo | null;
     loading: boolean;
     onBack: () => void;
+    onVibe: (vibe: string) => void;
 }) {
     if (like) {
         return (
-            <div className="flex min-w-0 items-center gap-2 text-sm">
-                <Button
-                    variant="subtle"
-                    size="compact-sm"
-                    leftSection={<FiArrowLeft />}
-                    onClick={onBack}
-                >
-                    All photos
-                </Button>
-                <p className="min-w-0 truncate text-muted">
-                    like <span className="text-ink">‘{like.title || "this photo"}’</span>
-                </p>
-            </div>
+            <Button
+                variant="subtle"
+                size="compact-sm"
+                leftSection={<FiArrowLeft />}
+                onClick={onBack}
+                className="self-start"
+            >
+                All photos
+            </Button>
         );
     }
     if (!set) {
@@ -143,30 +152,52 @@ function Why({
         );
     }
     return (
-        <div className="min-w-0 text-sm">
+        <div className="flex min-w-0 flex-col gap-2">
             {set.queries.length > 0 && (
-                <p className="text-muted">
-                    searched analogdb for{" "}
-                    {set.queries.map((q, i) => (
-                        <span key={q}>
-                            {i > 0 && <span aria-hidden> · </span>}
-                            <span className="text-ink">‘{q}’</span>
+                <div className="flex min-w-0 items-start gap-2">
+                    <Tooltip label="analogdb searches" withArrow>
+                        <span className="mt-1 shrink-0 text-muted">
+                            <FiSearch aria-hidden className="size-3.5" />
                         </span>
-                    ))}
-                </p>
+                    </Tooltip>
+                    <ul className="flex min-w-0 flex-wrap gap-1.5" aria-label="analogdb searches">
+                        {set.queries.map((q) => (
+                            <li key={q}>
+                                <Tooltip label="search only this" withArrow openDelay={300}>
+                                    <UnstyledButton
+                                        onClick={() => onVibe(q)}
+                                        className="rounded-full border border-line px-2.5 py-0.5 text-xs text-ink transition-colors hover:border-line-strong hover:bg-bg"
+                                    >
+                                        {q}
+                                    </UnstyledButton>
+                                </Tooltip>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             )}
             {set.palette.length > 0 && (
-                <div className="mt-1.5 flex items-center gap-2">
-                    <span className="text-xs text-muted">aiming for</span>
+                <div className="flex items-center gap-2">
+                    <Tooltip label="colours the photos are ranked towards" withArrow>
+                        <span className="shrink-0 text-muted">
+                            <FiDroplet aria-hidden className="size-3.5" />
+                        </span>
+                    </Tooltip>
                     <ul className="flex" aria-label="target colours">
                         {set.palette.map((hex) => (
-                            <li
-                                key={hex}
-                                title={hex}
-                                className="-mr-1 size-4 rounded-full border-2 border-surface"
-                                style={{ background: hex }}
-                            >
-                                <span className="sr-only">{hex}</span>
+                            <li key={hex} className="-mr-1.5">
+                                <CopyButton value={hex}>
+                                    {({ copied, copy }) => (
+                                        <Tooltip label={copied ? "copied" : hex} withArrow>
+                                            <UnstyledButton
+                                                onClick={copy}
+                                                aria-label={`copy ${hex}`}
+                                                className="relative block size-6 rounded-full border-2 border-surface transition-transform hover:z-10 hover:scale-110"
+                                                style={{ background: hex }}
+                                            />
+                                        </Tooltip>
+                                    )}
+                                </CopyButton>
                             </li>
                         ))}
                     </ul>
@@ -191,11 +222,11 @@ function VibeForm({
         onVibe(value.trim());
     };
     return (
-        <form onSubmit={submit} className="w-full sm:w-72" role="search">
+        <form onSubmit={submit} className="w-full sm:w-60" role="search">
             <TextInput
                 size="xs"
                 aria-label="search again with different words"
-                placeholder="try other words, e.g. neon rain"
+                placeholder="other words…"
                 value={value}
                 maxLength={200}
                 onChange={(e) => setValue(e.currentTarget.value)}

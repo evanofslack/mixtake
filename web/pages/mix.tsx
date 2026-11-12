@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useRouter } from "next/router";
-import { Alert, Button, Loader } from "@mantine/core";
+import { Alert, Badge, Button, Loader, Tooltip } from "@mantine/core";
 import { FiAlertCircle, FiArrowLeft } from "react-icons/fi";
 import Layout from "../components/Layout";
 import ProgressHeader from "../components/ProgressHeader";
@@ -84,9 +84,17 @@ export default function MixPage() {
             <div className="mt-8 mb-6 max-w-3xl">
                 <Summary profile={profile} final={finished} />
                 {mix.vibe && (
-                    <p className="mt-1 text-xs text-muted">
-                        vibe: <span className="text-ink">{mix.vibe}</span>
-                    </p>
+                    <Tooltip label="the words that steer the cover photos">
+                        <Badge
+                            mt="xs"
+                            variant="light"
+                            color="gray"
+                            tabIndex={0}
+                            className="normal-case"
+                        >
+                            {mix.vibe}
+                        </Badge>
+                    </Tooltip>
                 )}
                 <Listen source={mix.source} />
             </div>

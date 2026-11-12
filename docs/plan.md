@@ -108,7 +108,8 @@ with fakes of these four.
   - `Mood = clamp(0.5 + (Happy − Sad) / 2)`
   - `Energy = 0.4·Party + 0.3·Aggressive + 0.3·(1 − Relaxed)`
 - `Profile`: means and spreads, mood quadrant, energy arc in track order, tempo histogram, key
-  counts, genre weights, top artists, coverage `{done, failed, total}` and a summary sentence.
+  counts, genre weights, top artists, coverage `{done, failed, total}` and a headline ("Melancholy and hushed"); the web shows tempo,
+  key and the scores as chips beside it rather than in the sentence.
 - `Mix`: id, source (kind, Spotify id, name, cover, palette), ordered track ids, vibe, created at.
   - The id is a short base32 of `sha256(ordered track ids + vibe)`, so the same input gives the
     same mix and reuses the cache.
@@ -233,7 +234,7 @@ seven searches from several **lenses**, so the 12 covers span different kinds of
    0.95, second literal and abstract 0.9, colour 0.85, fill 0.8; plus a bonus for matching several
    queries) + 0.3 colour similarity (each photo colour's Lab distance to the nearest target
    colour, weighted by its share) + 0.1 log upvotes + 0.05 jitter seeded by the seed key. The
-   target palette is a shadow, mid tone and highlight of one hue: happy is warm (golden when
+   target palette is five tones of one hue, shadow to highlight: happy is warm (golden when
    calm, orange-red when energetic), sad is cool (blue when calm, violet when energetic); energy
    raises saturation and mood lightness.
 9. **Diversity.** `Diversify` picks the 12 greedily, like maximal marginal relevance: each step
@@ -282,8 +283,10 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - InputBox: detects a link or a paste; explains private playlists
   - ProgressHeader
   - Charts: MoodMap (live scatter), EnergyArc, GenreBars, TempoKey, TopArtists, Summary
-  - CoverStudio: photo strip, more-like-this, pan-to-crop canvas, text overlay (4–5 self-hosted
-    fonts, 3×3 positions, palette colours)
+  - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
+    self-hosted fonts, 3×3 positions; colours from the photo, the mix palette or a picker)
+- Text is kept short: labels and numbers on the page, explanations behind `Info` icons (Mantine
+  popover on hover, focus or tap) and tooltips. Full sentences are kept for errors.
   - ShareBar: JPG at 1500 or 3000 px, copy link
   - Listen: collapsed Spotify embed player
 - Cover studio:
@@ -293,8 +296,8 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     `public/fonts` with `@font-face`, not `next/font`, so the build needs no network and the canvas
     knows the family names.
   - The photographer's credit stays on the page and is never drawn on the image.
-  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `x`, `y`,
-    `zoom`, `title`, `sub`, `font`, `pos`, `align`, `color`, `size`, `scrim` (defaults are
+  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `seed`
+    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `align`, `color`, `size`, `scrim` (defaults are
     omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
     in them. If the photo isn't in either, the studio shows the first photo with the same text and
     says so.

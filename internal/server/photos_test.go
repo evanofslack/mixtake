@@ -125,7 +125,7 @@ func TestMixPhotos(t *testing.T) {
 				t.Fatal(err)
 			}
 			// every fixture photo is usable, though the grayscale one only for sad, calm mixes
-			if len(set.Photos) < 2 || len(set.Queries) == 0 || len(set.Palette) != 3 {
+			if len(set.Photos) < 2 || len(set.Queries) == 0 || len(set.Palette) != 5 {
 				t.Errorf("set = %+v", set)
 			}
 			if strings.Contains(tt.target, "vibe=") && set.Queries[0] != "rain on a tin roof" {

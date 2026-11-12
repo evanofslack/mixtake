@@ -1,5 +1,6 @@
 // The cover's edits live in the page's query string, so a link reproduces the cover. Values that
 // match the defaults are left out to keep links short.
+import { MAX_SEED } from "./api";
 import {
     Align,
     CoverState,
@@ -13,21 +14,22 @@ import {
     ZOOM_MAX,
 } from "./canvas";
 
-// which photos the strip shows: the mix's set (optionally re-searched with `vibe`, and shuffled
-// when `seed` isn't 0) or the photos like `like`; `photo` is the one in the editor
+// which photos the strip shows: the mix's set (optionally re-searched with `vibe`) or the photos
+// like `like`; `photo` is the one in the editor
 export interface Shared {
     photo: number | null;
     vibe: string;
-    seed: number;
     like: number | null;
+    // the shuffle seed; 0 is the mix's usual set
+    seed: number;
     state: CoverState;
 }
 
 export const SHARE_KEYS = [
     "photo",
     "vibe",
-    "seed",
     "like",
+    "seed",
     "x",
     "y",
     "zoom",
@@ -40,9 +42,6 @@ export const SHARE_KEYS = [
     "size",
     "scrim",
 ] as const;
-
-// the server's largest shuffle seed (mix.MaxSeed)
-export const SEED_MAX = 1_000_000_000;
 
 type Query = Record<string, string | string[] | undefined>;
 
@@ -71,8 +70,8 @@ export function readShared(q: Query, defaultTitle: string): Shared {
     return {
         photo: id(q, "photo"),
         vibe: (str(q, "vibe") ?? "").slice(0, 200),
-        seed: Math.round(num(q, "seed", 0, SEED_MAX, 0)),
         like: id(q, "like"),
+        seed: Math.min(id(q, "seed") ?? 0, MAX_SEED),
         state: {
             x: num(q, "x", 0, 1, d.x),
             y: num(q, "y", 0, 1, d.y),
@@ -99,11 +98,11 @@ export function writeShared(s: Shared, defaultTitle: string): Record<string, str
     if (s.vibe) {
         out.vibe = s.vibe;
     }
-    if (s.seed) {
-        out.seed = String(s.seed);
-    }
     if (s.like !== null) {
         out.like = String(s.like);
+    }
+    if (s.seed) {
+        out.seed = String(s.seed);
     }
     if (st.zoom !== d.zoom || st.x !== d.x || st.y !== d.y) {
         out.x = String(st.x);

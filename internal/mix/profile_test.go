@@ -65,14 +65,14 @@ func TestBuildProfile(t *testing.T) {
 	if !reflect.DeepEqual(p.Artists, wantArtists) {
 		t.Errorf("artists = %+v", p.Artists)
 	}
-	if want := "Warm and driving · 126 BPM · mostly minor keys · 3 of 6 analysed"; p.Summary != want {
+	if want := "Warm and driving"; p.Summary != want {
 		t.Errorf("summary = %q, want %q", p.Summary, want)
 	}
 }
 
 func TestBuildProfileEmpty(t *testing.T) {
 	p := BuildProfile([]TrackResult{{Status: TrackPending}, {Status: TrackFailed}})
-	if p.Summary != "0 of 2 analysed" || p.Quadrant != QuadrantSadCalm || p.EnergyArc == nil || p.Genres == nil {
+	if p.Summary != "" || p.Quadrant != QuadrantSadCalm || p.EnergyArc == nil || p.Genres == nil {
 		t.Errorf("profile = %+v", p)
 	}
 }
@@ -83,9 +83,9 @@ func TestSummaryWords(t *testing.T) {
 		minor, total int
 		want         string
 	}{
-		{0.1, 0.1, 0, 2, "Melancholy and hushed · 100 BPM · mostly major keys · 2 of 2 analysed"},
-		{0.4, 0.4, 1, 2, "Bittersweet and laid-back · 100 BPM · major and minor keys · 2 of 2 analysed"},
-		{0.9, 0.9, 2, 2, "Euphoric and intense · 100 BPM · mostly minor keys · 2 of 2 analysed"},
+		{0.1, 0.1, 0, 2, "Melancholy and hushed"},
+		{0.4, 0.4, 1, 2, "Bittersweet and laid-back"},
+		{0.9, 0.9, 2, 2, "Euphoric and intense"},
 	}
 	for _, tt := range tests {
 		var feats []Features

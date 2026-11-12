@@ -8,9 +8,12 @@ export default function GenreBars({ genres }: { genres?: Genre[] }) {
     const top = (genres ?? []).slice(0, 6);
     const max = Math.max(...top.map((g) => g.score), 0.0001);
     return (
-        <Panel title="Genres" caption="From Essentia's Discogs genre model.">
+        <Panel
+            title="Genres"
+            info="From Essentia's Discogs genre model, averaged over the analysed songs."
+        >
             {top.length === 0 ? (
-                <Waiting>Genres appear after the first ten songs.</Waiting>
+                <Waiting>After ten songs</Waiting>
             ) : (
                 <BarList
                     label="top genres"

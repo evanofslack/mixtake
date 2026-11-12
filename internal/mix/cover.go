@@ -224,8 +224,8 @@ func jitter(key string, photoID int) float64 {
 	return float64(hash(key+"|"+strconv.Itoa(photoID))) / (1 << 32)
 }
 
-// TargetPalette is the colours a mix's cover aims for, as "#rrggbb": a shadow, a mid tone and a
-// highlight of one hue. Happy mixes are warm (golden when calm, orange-red when energetic), sad
+// TargetPalette is the colours a mix's cover aims for, as "#rrggbb": five tones of one hue from
+// shadow to highlight, the mid tone in the middle. Happy mixes are warm (golden when calm, orange-red when energetic), sad
 // ones cool (blue when calm, violet when energetic). Energy raises saturation; mood raises
 // lightness.
 func TargetPalette(a Averages) []string {
@@ -238,9 +238,11 @@ func TargetPalette(a Averages) []string {
 	sat := 0.15 + 0.55*a.Energy
 	lift := 0.15 * (a.Mood - 0.5)
 	return []string{
-		hslHex(hue, sat, 0.2+lift),
+		hslHex(hue, sat, 0.15+lift),
+		hslHex(hue, sat, 0.3+lift),
 		hslHex(hue, sat, 0.45+lift),
-		hslHex(hue, sat*0.8, 0.7+lift),
+		hslHex(hue, sat*0.9, 0.6+lift),
+		hslHex(hue, sat*0.8, 0.75+lift),
 	}
 }
 

@@ -74,7 +74,7 @@ export default function MoodMap({ tracks }: Props) {
     return (
         <Panel
             title="Mood map"
-            caption="Each dot is a song: sad to happy across, calm to energetic up."
+            info="Each dot is a song: sad to happy across, calm to energetic up. The orange dot is the average."
             className="lg:col-span-7"
         >
             <div ref={ref} className="relative w-full" style={{ height }}>
@@ -139,6 +139,17 @@ export default function MoodMap({ tracks }: Props) {
                                     stroke="var(--mix-surface)"
                                     strokeWidth={2}
                                 />
+                                <text
+                                    x={px(mean.x) > width - 70 ? -12 : 12}
+                                    y={py(mean.y) < PAD.top + 16 ? 14 : -8}
+                                    textAnchor={px(mean.x) > width - 70 ? "end" : "start"}
+                                    className="fill-ink text-[11px] font-medium tabular-nums"
+                                    paintOrder="stroke"
+                                    stroke="var(--mix-surface)"
+                                    strokeWidth={3}
+                                >
+                                    {pct(mean.x)} · {pct(mean.y)}
+                                </text>
                             </g>
                         )}
                     </svg>
@@ -155,25 +166,6 @@ export default function MoodMap({ tracks }: Props) {
                         <p className="truncate text-muted">{hover.artist}</p>
                     </div>
                 )}
-            </div>
-            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-                <span className="flex items-center gap-1.5">
-                    <span className="size-2 rounded-full bg-mark opacity-75" aria-hidden />
-                    song
-                </span>
-                <span className="flex items-center gap-1.5">
-                    <span
-                        className="size-2.5 rounded-full bg-accent ring-2 ring-accent/25"
-                        aria-hidden
-                    />
-                    average
-                    {mean && (
-                        <span className="tabular-nums">
-                            {" "}
-                            (mood {pct(mean.x)}, energy {pct(mean.y)})
-                        </span>
-                    )}
-                </span>
             </div>
         </Panel>
     );

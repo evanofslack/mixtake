@@ -26,7 +26,7 @@ export default function TopArtists({ artists, tracks }: Props) {
     return (
         <Panel title="Top artists">
             {top.length === 0 ? (
-                <Waiting className="h-28">Artists appear after the first ten songs.</Waiting>
+                <Waiting className="h-28">After ten songs</Waiting>
             ) : noRepeats ? (
                 <div className="text-sm">
                     <p className="font-medium">

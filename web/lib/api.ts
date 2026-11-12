@@ -161,6 +161,9 @@ function clamp01(v: number): number {
     return Math.min(1, Math.max(0, v));
 }
 
+// the largest shuffle seed GET /api/mixes/{id}/photos accepts (mix.MaxSeed)
+export const MAX_SEED = 1_000_000_000;
+
 // a ranked list of cover candidates and how they were chosen (GET /api/mixes/{id}/photos)
 export interface PhotoSet {
     queries: string[]; // the analogdb searches used, for the "why this cover" line

@@ -38,11 +38,11 @@ export default function EnergyArc({ trackIds, tracks }: Props) {
     return (
         <Panel
             title="Energy arc"
-            caption="Energy and mood in playlist order, smoothed over five songs."
+            info="Energy and mood in playlist order, smoothed over five songs."
             className="lg:col-span-7"
         >
             {analysed < 3 ? (
-                <Waiting className="h-56">The arc draws itself as songs are analysed.</Waiting>
+                <Waiting className="h-56">Drawing…</Waiting>
             ) : (
                 <LineChart
                     h={224}

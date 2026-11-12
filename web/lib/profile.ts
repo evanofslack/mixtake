@@ -11,7 +11,6 @@ import {
     Quadrant,
     TrackResult,
 } from "./api";
-import { QUADRANT_LABEL, splitGenre } from "./format";
 
 const AVERAGED = [
     "tempo",
@@ -80,7 +79,7 @@ export function computeProfile(results: TrackResult[], coverage: Coverage): Prof
             .map(([name, count]) => ({ name, count }))
             .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
             .slice(0, 8),
-        summary: summarise(averages, quadrant, genreList, done.length),
+        summary: summarise(averages, done.length),
     };
 }
 
@@ -116,18 +115,19 @@ function quadrantOf(m: number, e: number): Quadrant {
     return `${m >= 0.5 ? "happy" : "sad"}_${e >= 0.5 ? "energetic" : "calm"}` as Quadrant;
 }
 
-function summarise(a: Averages, q: Quadrant, genres: Genre[], n: number): string {
+// the headline, matching summary() in internal/mix/profile.go
+function summarise(a: Averages, n: number): string {
     if (n === 0) {
         return "";
     }
-    const g = genres.slice(0, 2).map((x) => splitGenre(x.name).name);
-    const lean = g.length ? `, leaning ${g.join(" and ")}` : "";
-    const texture =
-        a.acoustic > 0.55
-            ? " Mostly acoustic."
-            : a.instrumental > 0.55
-              ? " Mostly instrumental."
-              : "";
-    const mood = QUADRANT_LABEL[q];
-    return `${mood[0].toUpperCase()}${mood.slice(1)} on the whole, around ${Math.round(a.tempo)} BPM${lean}.${texture}`;
+    const m = moodWord(a.mood);
+    return `${m[0].toUpperCase()}${m.slice(1)} and ${energyWord(a.energy)}`;
+}
+
+function moodWord(m: number): string {
+    return m < 0.35 ? "melancholy" : m < 0.5 ? "bittersweet" : m < 0.65 ? "warm" : "euphoric";
+}
+
+function energyWord(e: number): string {
+    return e < 0.35 ? "hushed" : e < 0.5 ? "laid-back" : e < 0.65 ? "driving" : "intense";
 }

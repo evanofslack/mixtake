@@ -519,7 +519,7 @@ function mockPhoto(i: number, score: number): Photo {
     };
 }
 
-// GET /api/mixes/{id}/photos?vibe=&seed=
+// GET /api/mixes/{id}/photos?vibe=
 export async function mockPhotos(id: string, vibe: string, seed = 0): Promise<PhotoSet> {
     await sleep(450);
     if (!decodeId(id)) {
@@ -535,8 +535,11 @@ export async function mockPhotos(id: string, vibe: string, seed = 0): Promise<Ph
         ? [words, pick(MOCK_QUERIES, rand)]
         : shuffle([...MOCK_QUERIES], rand).slice(0, 2);
     const photos = order.map((i, rank) => mockPhoto(i, 1 - rank * 0.04 - rand() * 0.02));
-    return { queries, palette: photos[0].colors.slice(0, 4).map((c) => c.hex), photos };
+    return { queries, palette: MOCK_PALETTE, photos };
 }
+
+// five tones of one hue, like TargetPalette in internal/mix/cover.go
+const MOCK_PALETTE = ["#1a2230", "#2f3d52", "#4b5f7a", "#7287a3", "#a3b3c8"];
 
 // GET /api/photos/{id}/similar: the nearest scenes by colour, without the photo itself
 export async function mockSimilar(photoId: number): Promise<PhotoSet> {
