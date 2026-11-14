@@ -2,6 +2,8 @@ package mix
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
@@ -31,6 +33,10 @@ const (
 	// to bursts.
 	searchConcurrency = 2
 	maxCached         = 1000 // cached photo sets before expired ones are swept
+	// ideasTTL is how long a mix's LLM ideas are kept, so shuffles and new coverage reuse them.
+	ideasTTL = 24 * time.Hour
+	// goodIdeas is how many usable queries a reply should have; a shorter one is asked again.
+	goodIdeas = 8
 	// MaxSeed is the largest shuffle seed.
 	MaxSeed = 1_000_000_000
 )
@@ -39,9 +45,14 @@ const (
 type Covers struct {
 	photos Photos
 	ttl    time.Duration
+	// muse writes cover ideas when set (see UseMuse); prompt is its system prompt.
+	muse      Muse
+	prompt    string
+	promptKey string
 
 	mu    sync.Mutex
 	cache map[string]cached
+	ideas map[string]cachedIdeas
 
 	showcase showcaseCache
 }
@@ -51,22 +62,43 @@ type cached struct {
 	expires time.Time
 }
 
+type cachedIdeas struct {
+	ideas   Ideas
+	expires time.Time
+}
+
 // NewCovers returns a Covers that keeps photo sets for ttl (default 30 minutes).
 func NewCovers(photos Photos, ttl time.Duration) *Covers {
 	if ttl <= 0 {
 		ttl = 30 * time.Minute
 	}
-	return &Covers{photos: photos, ttl: ttl, cache: map[string]cached{}}
+	return &Covers{photos: photos, ttl: ttl, cache: map[string]cached{}, ideas: map[string]cachedIdeas{}}
+}
+
+// UseMuse makes covers search for ideas an LLM writes from a brief about each mix, with prompt
+// as the system prompt (DefaultIdeasPrompt when empty). When the LLM fails, or its reply has too
+// few usable queries, the canned scenes are used. Call it before serving.
+func (c *Covers) UseMuse(m Muse, prompt string) {
+	if strings.TrimSpace(prompt) == "" {
+		prompt = DefaultIdeasPrompt()
+	}
+	sum := sha256.Sum256([]byte(prompt))
+	c.muse, c.prompt, c.promptKey = m, prompt, hex.EncodeToString(sum[:6])
 }
 
 // Pick is how a mix's covers were chosen, with the photos' original analogdb URLs.
 type Pick struct {
-	Quadrant   Quadrant
-	Queries    []SceneQuery
+	Quadrant Quadrant
+	Queries  []SceneQuery
+	// Ideas are the LLM's ideas when the queries came from them, and nil otherwise.
+	Ideas *Ideas
+	// Palette is the target palette: the LLM's when it gave one, else TargetPalette.
 	Palette    []string
 	Candidates []Candidate
-	Requests   int // analogdb requests made (cached ones included)
-	Elapsed    time.Duration
+	// Usable is how many usable photos each query found (Usable[i] is for Queries[i]).
+	Usable   []int
+	Requests int // analogdb requests made (cached ones included)
+	Elapsed  time.Duration
 }
 
 // CoverVibe normalises a vibe override, returning an *InputError if it is too long.
@@ -142,12 +174,30 @@ func (c *Covers) Pick(ctx context.Context, snap Snapshot, vibe string, seed int)
 	start := time.Now()
 	prof := *snap.Profile
 	key := SeedKey(snap.Mix.ID, seed)
-	titles := make([]string, 0, len(snap.Tracks))
-	for _, t := range snap.Tracks {
-		titles = append(titles, t.Track.Title)
+	palette := TargetPalette(prof.Averages)
+	var (
+		queries []SceneQuery
+		lookups int
+		ideas   *Ideas
+	)
+	if is, err := c.ideasFor(ctx, snap, vibe); err == nil {
+		ideas = &is
+		queries = IdeaScenes(is, key, vibe, seed != 0)
+		if len(is.Palette) >= minIdeaPalette {
+			palette = is.Palette
+		}
+	} else {
+		if c.muse != nil {
+			slog.WarnContext(ctx, "cover ideas failed, using scenes", "mix", snap.Mix.ID, "error", err)
+		}
+		titles := make([]string, 0, len(snap.Tracks))
+		for _, t := range snap.Tracks {
+			titles = append(titles, t.Track.Title)
+		}
+		var words []string
+		words, lookups = c.titleKeywords(ctx, TitleWords(snap.Mix.Source.Name, titles, key))
+		queries = Scenes(prof, key, vibe, words)
 	}
-	words, lookups := c.titleKeywords(ctx, TitleWords(snap.Mix.Source.Name, titles, key))
-	queries := Scenes(prof, key, vibe, words)
 
 	results := make([][]Photo, len(queries))
 	errs := make([]error, len(queries))
@@ -180,14 +230,74 @@ func (c *Covers) Pick(ctx context.Context, snap Snapshot, vibe string, seed int)
 	if failed == len(queries) {
 		return Pick{}, fmt.Errorf("%w: every cover search failed: %w", ErrUpstream, errors.Join(errs...))
 	}
+	usable := make([]int, len(results))
+	for i, ps := range results {
+		usable[i] = len(FilterPhotos(ps, prof.Quadrant == QuadrantSadCalm, len(ps)))
+	}
 	return Pick{
+		Usable:     usable,
 		Quadrant:   prof.Quadrant,
 		Queries:    queries,
-		Palette:    TargetPalette(prof.Averages),
-		Candidates: RankPhotos(queries, results, prof, key, CoverCount),
+		Ideas:      ideas,
+		Palette:    palette,
+		Candidates: RankPhotos(queries, results, prof, palette, key, CoverCount),
 		Requests:   len(queries) + lookups,
 		Elapsed:    elapsed,
 	}, nil
+}
+
+// errNoMuse means covers have no LLM, so the canned scenes are used.
+var errNoMuse = errors.New("no muse")
+
+// ideasFor returns a mix's LLM ideas, from the cache when it can. They are cached by mix, vibe
+// and prompt, so a shuffle or more coverage reuses them; failures aren't cached.
+func (c *Covers) ideasFor(ctx context.Context, snap Snapshot, vibe string) (Ideas, error) {
+	if c.muse == nil {
+		return Ideas{}, errNoMuse
+	}
+	key := snap.Mix.ID + "|" + c.promptKey + "|" + vibe
+	now := time.Now()
+	c.mu.Lock()
+	e, ok := c.ideas[key]
+	c.mu.Unlock()
+	if ok && now.Before(e.expires) {
+		return e.ideas, nil
+	}
+	start := time.Now()
+	brief := Brief(snap, vibe)
+	var (
+		ideas Ideas
+		err   error
+	)
+	// a short reply is asked for again once, keeping the longer of the two
+	for attempt := 0; attempt < 2 && len(ideas.Queries) < goodIdeas; attempt++ {
+		raw, cerr := c.muse.Complete(ctx, c.prompt, brief)
+		if cerr != nil {
+			err = cerr
+			continue
+		}
+		is, perr := ParseIdeas(raw)
+		if perr != nil {
+			slog.WarnContext(ctx, "cover ideas unusable", "mix", snap.Mix.ID, "reply", raw)
+			err = perr
+			continue
+		}
+		if len(is.Queries) > len(ideas.Queries) {
+			ideas = is
+		}
+	}
+	if len(ideas.Queries) == 0 {
+		return Ideas{}, err
+	}
+	slog.InfoContext(ctx, "cover ideas from llm", "mix", snap.Mix.ID, "queries", len(ideas.Queries),
+		"palette", len(ideas.Palette), "elapsed", time.Since(start))
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if len(c.ideas) >= maxCached {
+		c.ideas = map[string]cachedIdeas{}
+	}
+	c.ideas[key] = cachedIdeas{ideas: ideas, expires: now.Add(ideasTTL)}
+	return ideas, nil
 }
 
 // titleKeywords keeps up to maxWords of the candidate words, in order: evocative words as they

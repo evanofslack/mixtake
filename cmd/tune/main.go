@@ -14,6 +14,7 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
+	"slices"
 	"strings"
 	"text/tabwriter"
 	"time"
@@ -21,6 +22,7 @@ import (
 	"github.com/evanofslack/mixtake/internal/analogdb"
 	"github.com/evanofslack/mixtake/internal/analyzer"
 	"github.com/evanofslack/mixtake/internal/config"
+	"github.com/evanofslack/mixtake/internal/llm"
 	"github.com/evanofslack/mixtake/internal/metrics"
 	"github.com/evanofslack/mixtake/internal/mix"
 	"github.com/evanofslack/mixtake/internal/spotify"
@@ -33,18 +35,19 @@ func main() {
 	top := flag.Int("n", 5, "photos to print")
 	sheet := flag.String("sheet", "", "write a contact sheet JPEG of the picks to this path")
 	seed := flag.Int("seed", 0, "shuffle seed; 0 is the usual set")
+	brief := flag.Bool("brief", false, "print the brief sent to the LLM")
 	flag.Parse()
 	if *link == "" {
 		fmt.Fprintln(os.Stderr, "usage: tune -link <spotify link> [-vibe text] [-n 5] [-seed 0] [-sheet out.jpg]")
 		os.Exit(2)
 	}
-	if err := run(*link, *vibe, *seed, *top, *sheet, os.Stdout); err != nil {
+	if err := run(*link, *vibe, *seed, *top, *sheet, *brief, os.Stdout); err != nil {
 		fmt.Fprintln(os.Stderr, "tune:", err)
 		os.Exit(1)
 	}
 }
 
-func run(link, vibe string, seed, top int, sheet string, out io.Writer) error {
+func run(link, vibe string, seed, top int, sheet string, brief bool, out io.Writer) error {
 	cfg, err := config.Load()
 	if err != nil {
 		return err
@@ -73,6 +76,22 @@ func run(link, vibe string, seed, top int, sheet string, out io.Writer) error {
 	defer runner.Wait()
 	photos := analogdb.New(cfg.AnalogdbURL, "", nil, m)
 	covers := mix.NewCovers(photos, 0)
+	museName := "off (set LLM_API_KEY)"
+	if cfg.LLMAPIKey != "" {
+		prompt := ""
+		if cfg.LLMPromptFile != "" {
+			b, err := os.ReadFile(cfg.LLMPromptFile)
+			if err != nil {
+				return fmt.Errorf("LLM_PROMPT_FILE: %w", err)
+			}
+			prompt = string(b)
+		}
+		covers.UseMuse(llm.New(cfg.LLMBaseURL, cfg.LLMAPIKey, cfg.LLMModel, nil, m), prompt)
+		museName = cfg.LLMModel
+		if cfg.LLMPromptFile != "" {
+			museName += " with " + cfg.LLMPromptFile
+		}
+	}
 
 	created, err := runner.Create(ctx, link, vibe)
 	if err != nil {
@@ -96,11 +115,14 @@ func run(link, vibe string, seed, top int, sheet string, out io.Writer) error {
 	if snap.Profile == nil {
 		return fmt.Errorf("no tracks analysed (status %s)", snap.Status)
 	}
+	if brief {
+		fmt.Fprintf(out, "brief:\n%s\n", mix.Brief(snap, snap.Mix.Vibe))
+	}
 	p, err := covers.Pick(ctx, snap, snap.Mix.Vibe, seed)
 	if err != nil {
 		return err
 	}
-	print(out, snap, p, top, orDefault(cfg.AnalyzerURL, "fake"))
+	print(out, snap, p, top, orDefault(cfg.AnalyzerURL, "fake"), museName)
 	if sheet == "" {
 		return nil
 	}
@@ -115,7 +137,7 @@ func run(link, vibe string, seed, top int, sheet string, out io.Writer) error {
 	}, p, sheet)
 }
 
-func print(out io.Writer, snap mix.Snapshot, p mix.Pick, top int, analyzerName string) {
+func print(out io.Writer, snap mix.Snapshot, p mix.Pick, top int, analyzerName, museName string) {
 	prof, a := snap.Profile, snap.Profile.Averages
 	fmt.Fprintf(out, "%s (%s, mix %s, analyzer %s)\n", orDefault(snap.Mix.Source.Name, "pasted tracks"),
 		snap.Mix.Source.Kind, snap.Mix.ID, analyzerName)
@@ -129,10 +151,34 @@ func print(out io.Writer, snap mix.Snapshot, p mix.Pick, top int, analyzerName s
 	}
 	fmt.Fprintf(out, "  genres: %s\n", strings.Join(genres, ", "))
 	fmt.Fprintf(out, "  quadrant: %s\n", p.Quadrant)
-	for i, q := range p.Queries {
-		fmt.Fprintf(out, "  query %d %-8s %-8s %.2f  %q\n", i, q.Lens, q.Source, q.Weight, q.Text)
+	fmt.Fprintf(out, "  llm: %s\n", museName)
+	if p.Ideas != nil {
+		fmt.Fprintf(out, "  llm read: %s\n", p.Ideas.Read)
+		fmt.Fprintf(out, "  llm ideas (%d):\n", len(p.Ideas.Queries))
+		for i, idea := range p.Ideas.Queries {
+			fmt.Fprintf(out, "    %2d %-28.28s %q  <- %s\n", i, idea.Angle, idea.Text, idea.From)
+		}
+	} else if !strings.HasPrefix(museName, "off") {
+		fmt.Fprintln(out, "  llm ideas failed; using canned scenes (see warnings above)")
 	}
-	fmt.Fprintf(out, "  palette: %s\n", strings.Join(p.Palette, " "))
+	picked := map[int]int{}
+	for _, c := range p.Candidates {
+		picked[c.Query]++
+	}
+	fmt.Fprintln(out, "  queries (usable photos found, photos picked):")
+	for i, q := range p.Queries {
+		usable := 0
+		if i < len(p.Usable) {
+			usable = p.Usable[i]
+		}
+		fmt.Fprintf(out, "  %2d %-8s %-20.20s %.2f  %3d %2d  %q\n", i, q.Lens, q.Source, q.Weight,
+			usable, picked[i], q.Text)
+	}
+	source := "profile"
+	if p.Ideas != nil && len(p.Ideas.Palette) >= 3 && slices.Equal(p.Palette, p.Ideas.Palette) {
+		source = "llm"
+	}
+	fmt.Fprintf(out, "  palette (%s): %s\n", source, strings.Join(p.Palette, " "))
 	fmt.Fprintf(out, "  %d analogdb requests (cached included) in %s\n", p.Requests,
 		p.Elapsed.Round(time.Millisecond))
 	tw := tabwriter.NewWriter(out, 0, 4, 2, ' ', 0)

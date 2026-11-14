@@ -18,6 +18,7 @@ import (
 	"github.com/evanofslack/mixtake/internal/analogdb"
 	"github.com/evanofslack/mixtake/internal/analyzer"
 	"github.com/evanofslack/mixtake/internal/config"
+	"github.com/evanofslack/mixtake/internal/llm"
 	"github.com/evanofslack/mixtake/internal/logging"
 	"github.com/evanofslack/mixtake/internal/metrics"
 	"github.com/evanofslack/mixtake/internal/mix"
@@ -77,12 +78,23 @@ func run() error {
 	defer runner.Wait()
 	defer cancelJobs()
 
+	covers := mix.NewCovers(analogdb.New(cfg.AnalogdbURL, "", nil, m), 0)
+	if cfg.LLMAPIKey != "" {
+		prompt, err := readPrompt(cfg.LLMPromptFile)
+		if err != nil {
+			return err
+		}
+		covers.UseMuse(llm.New(cfg.LLMBaseURL, cfg.LLMAPIKey, cfg.LLMModel, nil, m), prompt)
+		log.Info("cover ideas from llm", "model", cfg.LLMModel, "base_url", cfg.LLMBaseURL,
+			"prompt_file", cfg.LLMPromptFile)
+	}
+
 	static := web.FS()
 	srv := server.New(server.Deps{
 		Log:    log,
 		Static: static,
 		Runner: runner,
-		Covers: mix.NewCovers(analogdb.New(cfg.AnalogdbURL, "", nil, m), 0),
+		Covers: covers,
 		Limits: server.Limits{
 			RateLimit:       cfg.RateLimit,
 			GlobalRateLimit: cfg.GlobalRateLimit,
@@ -171,4 +183,16 @@ func orDefault(v, fallback string) string {
 		return fallback
 	}
 	return v
+}
+
+// readPrompt reads the cover ideas prompt from path, or returns "" for the built-in one.
+func readPrompt(path string) (string, error) {
+	if path == "" {
+		return "", nil
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		return "", fmt.Errorf("LLM_PROMPT_FILE: %w", err)
+	}
+	return string(b), nil
 }

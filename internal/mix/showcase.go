@@ -126,7 +126,7 @@ func (c *Covers) pickShowcase(ctx context.Context, key string) (Showcase, error)
 	for i, pt := range showcasePoints {
 		q := quadrant(pt.Mood, pt.Energy)
 		prof := Profile{Quadrant: q, Averages: Averages{Mood: pt.Mood, Energy: pt.Energy}}
-		for _, cand := range RankPhotos(queries[q], results[q], prof, key+"|"+strconv.Itoa(i), CoverCount) {
+		for _, cand := range RankPhotos(queries[q], results[q], prof, TargetPalette(prof.Averages), key+"|"+strconv.Itoa(i), CoverCount) {
 			if !used[cand.Photo.ID] {
 				used[cand.Photo.ID] = true
 				set.Photos = append(set.Photos, ShowcasePhoto{Mood: pt.Mood, Energy: pt.Energy, Photo: proxied(cand.Photo)})

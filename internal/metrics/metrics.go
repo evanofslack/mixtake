@@ -27,6 +27,9 @@ type Metrics struct {
 	Jobs *prometheus.CounterVec
 	// AnalogdbRequests counts analogdb calls. result: ok, error.
 	AnalogdbRequests *prometheus.CounterVec
+	// LLMRequests counts calls for cover ideas. result: ok, error. Failures fall back to the
+	// canned scenes silently, so this is the only sign the LLM is down or misconfigured.
+	LLMRequests *prometheus.CounterVec
 }
 
 // New registers every collector on a fresh registry, plus the Go runtime and process collectors.
@@ -58,12 +61,16 @@ func New() *Metrics {
 			Name: "mixtake_analogdb_requests_total",
 			Help: "analogdb requests, by result.",
 		}, []string{"result"}),
+		LLMRequests: prometheus.NewCounterVec(prometheus.CounterOpts{
+			Name: "mixtake_llm_requests_total",
+			Help: "LLM requests for cover ideas, by result.",
+		}, []string{"result"}),
 	}
 	m.registry.MustRegister(
 		collectors.NewGoCollector(),
 		collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}),
 		m.SpotifyRequests, m.AnalyzerDuration, m.AnalyzerQueueDepth,
-		m.FeatureCache, m.Jobs, m.AnalogdbRequests,
+		m.FeatureCache, m.Jobs, m.AnalogdbRequests, m.LLMRequests,
 	)
 	return m
 }

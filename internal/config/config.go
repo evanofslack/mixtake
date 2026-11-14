@@ -19,6 +19,14 @@ type Config struct {
 	AnalyzerURL string // ANALYZER_URL
 	AnalogdbURL string // ANALOGDB_URL
 
+	// LLMAPIKey turns on LLM-written cover queries; empty uses the canned scenes only.
+	LLMAPIKey string // LLM_API_KEY
+	LLMModel  string // LLM_MODEL
+	// LLMBaseURL is an OpenAI-compatible API, ending before /chat/completions.
+	LLMBaseURL string // LLM_BASE_URL
+	// LLMPromptFile replaces the built-in cover ideas prompt, for tuning without a rebuild.
+	LLMPromptFile string // LLM_PROMPT_FILE
+
 	TrustProxy      bool   // TRUST_PROXY: take the client ip from ClientIPHeader
 	ClientIPHeader  string // CLIENT_IP_HEADER
 	RateLimit       int    // RATE_LIMIT_PER_MINUTE: new mixes per client ip
@@ -32,6 +40,12 @@ type Config struct {
 	LogFormat string     // LOG_FORMAT: text or json
 }
 
+// Defaults for the LLM that writes cover queries, through OpenRouter.
+const (
+	DefaultLLMModel   = "google/gemini-2.5-flash-lite"
+	DefaultLLMBaseURL = "https://openrouter.ai/api/v1"
+)
+
 // Load reads the config from the process environment.
 func Load() (Config, error) { return Parse(os.Getenv) }
 
@@ -44,6 +58,10 @@ func Parse(getenv func(string) string) (Config, error) {
 		DBPath:             p.str("DB_PATH", "mixtake.db"),
 		AnalyzerURL:        strings.TrimRight(p.str("ANALYZER_URL", ""), "/"),
 		AnalogdbURL:        strings.TrimRight(p.str("ANALOGDB_URL", "https://api.analogdb.com"), "/"),
+		LLMAPIKey:          p.str("LLM_API_KEY", ""),
+		LLMModel:           p.str("LLM_MODEL", DefaultLLMModel),
+		LLMBaseURL:         strings.TrimRight(p.str("LLM_BASE_URL", DefaultLLMBaseURL), "/"),
+		LLMPromptFile:      p.str("LLM_PROMPT_FILE", ""),
 		TrustProxy:         p.bool("TRUST_PROXY", false),
 		ClientIPHeader:     p.str("CLIENT_IP_HEADER", "X-Forwarded-For"),
 		RateLimit:          p.int("RATE_LIMIT_PER_MINUTE", 10),

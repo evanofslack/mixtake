@@ -57,6 +57,7 @@ internal/
   spotify/        Catalog: embed fetch and parse, preview download (testdata/ fixtures)
   analyzer/       Analyzer: HTTP client for the sidecar, plus a deterministic Fake
   analogdb/       Photos: search, similar, image fetch
+  llm/            Muse: OpenAI-compatible chat completions client for cover ideas
   store/          Store: SQLite with embedded migrations
   server/         handlers, SSE, middleware (request id, access log, recover, rate limit), static
   metrics/        prometheus collectors
@@ -89,6 +90,10 @@ type Photos interface { // analogdb
     KeywordCount(ctx context.Context, word string) (int, error)           // cached in memory
 }
 
+type Muse interface { // optional LLM, any OpenAI-compatible chat completions API
+    Complete(ctx context.Context, system, user string) (string, error)
+}
+
 type Store interface { // SQLite now, swappable later
     Tracks(ctx context.Context, ids []string) (map[string]Track, error)
     PutTracks(ctx context.Context, ts []Track) error
@@ -100,7 +105,7 @@ type Store interface { // SQLite now, swappable later
 ```
 
 Everything else (input parsing, profile maths, scenes, ranking, runner) is concrete code, tested
-with fakes of these four.
+with fakes of these five.
 
 ## Data
 
@@ -260,6 +265,54 @@ seven searches from several **lenses**, so the 12 covers span different kinds of
 
 The tune CLI runs links one at a time to stay under analogdb's rate limit.
 
+#### LLM ideas
+
+With `LLM_API_KEY` set, an LLM writes the queries instead of the canned lenses above. The canned
+scenes stay as the fallback, used when the call fails or leaves fewer than 4 usable queries.
+
+- **Brief** (`mix.Brief`): the source's kind, name and owner or artists, release years, then up
+  to 100 cleaned `title — artist (year)` lines and the top artists. The audio analysis (genre
+  guesses, summary, mood, energy, tempo) comes last, labelled approximate: Essentia's genres are
+  often wrong, and when they led the brief the model followed them ("tropical house" made a
+  French/Spanish/Italian playlist a generic sunny holiday). The vibe is the listener's words.
+- **Prompt** (`internal/mix/ideas_prompt.txt`, or `LLM_PROMPT_FILE`):
+  - a `read` of the record that names its songs or artists, built from genre and scene,
+    language and country, era, title themes, associations and listening context;
+  - 3–4 angles from the read, spanning day and night, inside and out;
+  - 12 queries best first, each with its angle and what in the brief it came `from`, with the
+    first 3 the ones to bet the cover on.
+  - It bans music gear, text, the artists, flower-and-sunset symbols, feelings in place of
+    images, clothing and bodies (they find fashion portraits), and the stock images every
+    record got in tuning (neon on wet streets, rain on windows, a lone streetlamp, light trails,
+    payphones, graffiti, diners).
+  - It asks for a film-like palette, not pure digital hues.
+- **Parsing** (`ParseIdeas`):
+  - keeps 2–14-word queries without banned words, once each, and valid hex colours;
+  - moves queries matching `stockImages` to the end, since models write them anyway.
+  - A reply with fewer than 8 usable queries is asked for again once.
+- **Queries** (`IdeaScenes`): the vibe, then up to 10 ideas. There's no colour query, canned
+  anchor or title-word lookup, since those pulled sets back to generic.
+  - The first 3 ideas are heroes: weight 1–0.94 and up to 2 photos each, so a few strong
+    queries fill about half the set.
+  - The rest weigh 0.85 and give 1 photo each.
+  - Seed 0 keeps the model's order; a shuffle reorders by a seeded hash, so other ideas lead.
+- **Ranking**:
+  - The LLM's palette replaces `TargetPalette` when it has 3 or more colours.
+  - `Diversify` treats each angle as its own lens.
+  - Photos whose caption opens with a person lose 0.15 unless the query asked for people.
+- **Model**: one call per mix, vibe and prompt (two for a short reply), cached in memory for 24
+  hours, so shuffles reuse it. Temperature 1 with a JSON response. Any OpenAI-compatible
+  `LLM_BASE_URL` works; the default is `google/gemini-2.5-flash-lite` on OpenRouter.
+- **Model benchmark** (2026-11, six test mixes):
+  - Every model found 15–40 usable photos per query.
+  - Gemini 2.5 Flash Lite, 3.5 Flash Lite and 3.6 Flash all leaned hardest on stock night
+    imagery.
+  - Claude Haiku 5.5 (same price as 2.5 Flash Lite) followed the bans best and mined song
+    titles most, but sometimes returned short replies.
+- **Tuning**: `just tune -link …` prints the read, the ideas with their angle and source, each
+  query's usable and picked photo counts, and where the palette came from. `-brief` prints the
+  brief too. `.env` is loaded by `just`.
+
 ### Metrics
 
 - `mixtake_spotify_requests_total{kind,result}`, which includes a `parse_error` canary
@@ -268,6 +321,7 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
 - `mixtake_feature_cache_total{result}`
 - `mixtake_jobs_total{result}`
 - `mixtake_analogdb_requests_total{result}`
+- `mixtake_llm_requests_total{result}`: failures fall back to the canned scenes silently
 
 ## Analyzer sidecar
 
@@ -424,7 +478,7 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - `api`: fake analyzer unless `ANALYZER_URL` is set
   - `analyzer`, `web`, `start`
   - `serve`: `-tags embedweb`
-  - `test`, `fmt`, `check`, `tune link=… vibe=… seed=… sheet=…`
+  - `test`, `fmt`, `check`, `tune -link … [-vibe …] [-seed N] [-sheet out.jpg] [-brief]`
   - `docker-build`, `up`, `down`: build both images, run and stop the compose stack
 - **Static files**: embedded behind the `embedweb` build tag; the dev binary serves the API only.
 - **Images**:

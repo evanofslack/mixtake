@@ -1,6 +1,10 @@
 # ignore any UV_ENV_FILE from the shell; config comes from real env vars
 export UV_NO_ENV_FILE := "1"
 
+# recipes read .env when there is one (LLM_API_KEY and friends; see .env.example). Variables
+# already set in the shell win.
+set dotenv-load
+
 default:
     @just --list
 
@@ -40,9 +44,9 @@ serve: install
     go run -tags embedweb ./cmd/mixtake
 
 # run a spotify link through the real pipeline and print the cover queries and top photos;
-# sheet=out.jpg also draws a contact sheet, seed=N shows a shuffle
-tune link="" vibe="" seed="0" sheet="":
-    go run ./cmd/tune -link "{{link}}" -vibe "{{vibe}}" -seed "{{seed}}" -sheet "{{sheet}}"
+# flags pass through: just tune -link <url> [-sheet out.jpg] [-seed 3] [-vibe "…"] [-brief] [-n 12]
+tune *args:
+    go run ./cmd/tune {{args}}
 
 # build both docker images: the app for this machine, the analyzer for amd64 (emulated on arm64)
 docker-build:

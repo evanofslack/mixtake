@@ -8,7 +8,7 @@ import (
 
 // The interfaces below are the only ones in mixtake: one per IO dependency, so the logic in this
 // package can be tested with fakes. Implementations live in internal/spotify, internal/analyzer,
-// internal/analogdb and internal/store.
+// internal/analogdb, internal/store and internal/llm.
 
 // Catalog reads Spotify's public embed pages and preview audio.
 type Catalog interface {
@@ -40,6 +40,12 @@ type Photos interface {
 	Image(ctx context.Context, name string) (io.ReadCloser, string, error)
 	// KeywordCount is how many posts have the keyword word, or 0 if none do.
 	KeywordCount(ctx context.Context, word string) (int, error)
+}
+
+// Muse is an LLM behind a chat completions API, which writes cover ideas. It is optional.
+type Muse interface {
+	// Complete sends a system and a user message and returns the reply.
+	Complete(ctx context.Context, system, user string) (string, error)
 }
 
 // Store persists tracks, features and mixes.
