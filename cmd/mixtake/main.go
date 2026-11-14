@@ -18,6 +18,7 @@ import (
 	"github.com/evanofslack/mixtake/internal/analogdb"
 	"github.com/evanofslack/mixtake/internal/analyzer"
 	"github.com/evanofslack/mixtake/internal/config"
+	"github.com/evanofslack/mixtake/internal/examples"
 	"github.com/evanofslack/mixtake/internal/llm"
 	"github.com/evanofslack/mixtake/internal/logging"
 	"github.com/evanofslack/mixtake/internal/metrics"
@@ -88,6 +89,21 @@ func run() error {
 		log.Info("cover ideas from llm", "model", cfg.LLMModel, "base_url", cfg.LLMBaseURL,
 			"prompt_file", cfg.LLMPromptFile)
 	}
+
+	// the front page's examples: seeded into the store and pinned to the photos they were made
+	// from, so they open the same everywhere
+	exs, err := examples.All()
+	if err != nil {
+		return fmt.Errorf("examples: %w", err)
+	}
+	seeded, err := examples.Seed(ctx, st, exs)
+	if err != nil {
+		return fmt.Errorf("examples: %w", err)
+	}
+	for _, ex := range exs {
+		covers.Pin(ex.Mix.ID, ex.Photos)
+	}
+	log.InfoContext(ctx, "examples ready", "examples", len(exs), "seeded", seeded)
 
 	static := web.FS()
 	srv := server.New(server.Deps{

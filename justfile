@@ -44,7 +44,7 @@ serve: install
     go run -tags embedweb ./cmd/mixtake
 
 # run a spotify link through the real pipeline and print the cover queries and top photos;
-# flags pass through: just tune -link <url> [-sheet out.jpg] [-seed 3] [-vibe "…"] [-brief] [-n 12]
+# flags pass through: just tune -link <url> [-sheet out.jpg] [-seed 3] [-vibe "…"] [-brief] [-n 12] [-export internal/examples/data/<slug>.json]
 tune *args:
     go run ./cmd/tune {{args}}
 

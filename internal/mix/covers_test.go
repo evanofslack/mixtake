@@ -141,6 +141,38 @@ func TestCoversForMix(t *testing.T) {
 	}
 }
 
+func TestCoversPinned(t *testing.T) {
+	ph := &fakePhotos{photos: []Photo{photo(1, 1440, 1080, "#2a4d7a"), photo(2, 1440, 1080, "#7a4d2a")}}
+	c := NewCovers(ph, 0)
+	snap := coverSnapshot(20, StatusDone)
+	pinned := PhotoSet{Queries: []string{"ferry deck at dusk"}, Palette: []string{}, Photos: []Photo{{ID: 99}}}
+	c.Pin(snap.Mix.ID, pinned)
+	ctx := context.Background()
+
+	tests := []struct {
+		name   string
+		vibe   string
+		seed   int
+		pinned bool
+	}{
+		{"usual set", "", 0, true},
+		{"shuffled", "", 3, false},
+		{"other vibe", "rain on a tin roof", 0, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			set, err := c.ForMix(ctx, snap, tt.vibe, tt.seed)
+			if err != nil {
+				t.Fatal(err)
+			}
+			got := len(set.Photos) > 0 && set.Photos[0].ID == 99
+			if got != tt.pinned {
+				t.Errorf("pinned set returned = %v, want %v", got, tt.pinned)
+			}
+		})
+	}
+}
+
 func TestCoversUpstream(t *testing.T) {
 	var ps []Photo
 	for i := range 5 {

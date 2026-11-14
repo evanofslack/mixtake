@@ -313,6 +313,19 @@ scenes stay as the fallback, used when the call fails or leaves fewer than 4 usa
   query's usable and picked photo counts, and where the palette came from. `-brief` prints the
   brief too. `.env` is loaded by `just`.
 
+#### Front page examples
+
+The front page's example covers are real mixes, baked so they open the same on any server.
+- `just tune -link … [-seed N] -export internal/examples/data/<slug>.json` writes the mix, its
+  tracks, their features (with the analyzer's model version) and the photo set it picked.
+- `internal/examples` embeds those files. On startup the server seeds any that aren't in the
+  store (tracks, features, then the mix) and pins each photo set with `Covers.Pin`: `ForMix`
+  answers the mix's usual set (its own vibe, seed 0) from the pin, so the cover's photo is always
+  there, with no analysis, analogdb or LLM call. Shuffles and other vibes search live.
+- A pick from a shuffle is exported as the pinned usual set, so the example link needs no seed.
+- If the production analyzer's model version differs from the baked one, the runner analyses
+  those tracks again; the pinned photos keep the cover the same.
+
 ### Metrics
 
 - `mixtake_spotify_requests_total{kind,result}`, which includes a `parse_error` canary
