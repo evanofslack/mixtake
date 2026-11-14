@@ -8,6 +8,7 @@ import MoodPad from "../components/home/MoodPad";
 import CoverStack from "../components/home/CoverStack";
 import MoodGlow from "../components/home/MoodGlow";
 import { isMockMode } from "../lib/client";
+import { glowColours } from "../lib/colours";
 import { moodColour } from "../lib/moodColour";
 import { HERO_COVERS, nearestPhoto, pickHeroPhotos, useShowcase } from "../lib/showcase";
 import { useDark } from "../lib/useDark";
@@ -26,17 +27,20 @@ export default function IndexPage() {
     const onFront = useCallback((i: number) => setFront(i), []);
     const dark = useDark();
     const lead = HERO_COVERS[front];
-    const glow = moodColour(lead.mood, lead.energy, dark);
+    // the light around the hero leaks out of the front cover's photo; until it loads (or if
+    // analogdb gave no colours) the cover's mood colour stands in
+    const leaked = glowColours(heroPhotos?.[front]?.colors ?? [], dark);
+    const glow = leaked.length ? leaked : [moodColour(lead.mood, lead.energy, dark)];
 
     return (
         <Layout>
             {/* the hero: on wide screens the input on the left and a pile of finished covers on
                 the right; on small ones the covers sit between the title and the input */}
             <div className="relative isolate">
-                <MoodGlow colour={glow} />
+                <MoodGlow colours={glow} />
                 <section className="mx-auto grid max-w-2xl gap-8 px-4 pt-10 pb-6 sm:px-6 lg:max-w-5xl lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-x-14 lg:pt-20">
                     <div>
-                        <h1 className="font-display text-5xl leading-[0.95] tracking-tight letterpress sm:text-6xl">
+                        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                             A cover for every mix
                         </h1>
                         <p className="mt-3 text-muted">playlist → mood → film cover</p>

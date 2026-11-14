@@ -30,6 +30,8 @@ export type ShowcasePhoto = {
     energy: number;
     author: string;
     href: string;
+    // analogdb's colours for the photo, most prominent first
+    colors: { hex: string; percent: number }[];
 };
 
 // a showcase photo's image: medium is plenty for a frame a few hundred pixels wide
@@ -40,7 +42,16 @@ function toShowcase(s: Showcase): ShowcasePhoto[] {
             photo.images.find((i) => i.resolution === "high") ??
             photo.images[0];
         return img
-            ? [{ src: img.url, mood, energy, author: photo.author, href: photo.permalink }]
+            ? [
+                  {
+                      src: img.url,
+                      mood,
+                      energy,
+                      author: photo.author,
+                      href: photo.permalink,
+                      colors: photo.colors ?? [],
+                  },
+              ]
             : [];
     });
 }

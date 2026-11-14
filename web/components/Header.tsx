@@ -8,7 +8,7 @@ export default function Header() {
 
     return (
         <header
-            className={`sticky top-0 z-30 h-14 border-b bg-bg/80 backdrop-blur-md transition-colors ${
+            className={`sticky top-0 z-30 h-14 border-b bg-bg/45 backdrop-blur-xl backdrop-saturate-150 transition-colors ${
                 scrolled ? "border-line" : "border-transparent"
             }`}
         >
