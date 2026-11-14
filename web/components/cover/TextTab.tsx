@@ -19,7 +19,7 @@ import {
     WIDTH_MIN,
 } from "../../lib/canvas";
 import Info from "../Info";
-import { Choice, ColourRow, SectionTitle, SliderField } from "./ui";
+import { Choice, ColourDot, Row, SectionTitle, SliderField } from "./ui";
 
 type Props = {
     item: TextItem;
@@ -188,29 +188,25 @@ export default function TextTab({ item, first, onChange, photo, palette }: Props
                 <More item={item} onChange={onChange} photo={photo} palette={palette} />
             </section>
 
-            <section aria-label="Text color">
-                <SectionTitle>Color</SectionTitle>
-                <ColourRow
-                    name="cover-colour"
-                    label="Text color"
-                    value={item.color}
-                    onChange={(color) => onChange({ color })}
-                    photo={photo}
-                    palette={palette}
-                    auto
-                />
-                <Switch
-                    className="mt-3"
-                    label="Shade"
-                    checked={item.scrim}
-                    onChange={(e) => onChange({ scrim: e.currentTarget.checked })}
-                    color="var(--mix-ink)"
-                />
-            </section>
-
-            <section aria-label="Badge">
-                <div className="flex items-center justify-between">
-                    <SectionTitle>Badge</SectionTitle>
+            <section aria-label="Color" className="flex flex-col gap-2">
+                <Row label="Color">
+                    <ColourDot
+                        label="Text color"
+                        value={item.color}
+                        onChange={(color) => onChange({ color })}
+                        photo={photo}
+                        palette={palette}
+                        auto
+                    />
+                </Row>
+                <Row label="Shade">
+                    <Switch
+                        aria-label="shade behind the text"
+                        checked={item.scrim}
+                        onChange={(e) => onChange({ scrim: e.currentTarget.checked })}
+                    />
+                </Row>
+                <Row label="Badge">
                     <Switch
                         aria-label="badge behind the text"
                         checked={!!item.badge}
@@ -219,30 +215,28 @@ export default function TextTab({ item, first, onChange, photo, palette }: Props
                                 badge: e.currentTarget.checked ? (photo[0] ?? "#f7f4ee") : "",
                             })
                         }
-                        color="var(--mix-ink)"
                     />
-                </div>
-                {item.badge && (
-                    <div className="mt-1 flex flex-col gap-3">
-                        <ColourRow
-                            name="cover-badge"
+                    {item.badge && (
+                        <ColourDot
                             label="Badge color"
                             value={item.badge}
                             onChange={(badge) => onChange({ badge })}
                             photo={photo}
                             palette={palette}
                         />
-                        <SliderField
-                            label="Corners"
-                            min={0}
-                            max={1}
-                            step={0.01}
-                            value={item.badgeRadius}
-                            format={(v) => `${Math.round(v * 100)}%`}
-                            onChange={(v) => onChange({ badgeRadius: v })}
-                            reset={0.3}
-                        />
-                    </div>
+                    )}
+                </Row>
+                {item.badge && (
+                    <SliderField
+                        label="Corners"
+                        min={0}
+                        max={1}
+                        step={0.01}
+                        value={item.badgeRadius}
+                        format={(v) => `${Math.round(v * 100)}%`}
+                        onChange={(v) => onChange({ badgeRadius: v })}
+                        reset={0.3}
+                    />
                 )}
             </section>
         </div>
@@ -331,17 +325,15 @@ function More({ item, onChange, photo, palette }: Props) {
                     />
                 </div>
                 {item.outline > 0 && (
-                    <div className="mt-3">
-                        <p className="mb-1.5 text-sm font-medium">Outline color</p>
-                        <ColourRow
-                            name="cover-outline"
+                    <Row label="Outline" className="mt-3">
+                        <ColourDot
                             label="Outline color"
                             value={item.outlineColor}
                             onChange={(outlineColor) => onChange({ outlineColor })}
                             photo={photo}
                             palette={palette}
                         />
-                    </div>
+                    </Row>
                 )}
             </Collapse>
         </div>

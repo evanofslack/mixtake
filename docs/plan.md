@@ -392,6 +392,9 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     outline (preview only); a click (not a pan) on the photo opens Layout, on the background
     Background. Delete removes the selected text while the preview has focus. A badge is a filled
     rounded box behind an item, padded by 0.4 em; auto text color on a badge contrasts with it.
+  - Every colour setting is one swatch (`ColourDot` in `components/cover/ui.tsx`) that opens a
+    small panel: auto where it applies, white and black, the photo's colours, the mix's, and a
+    folded "Custom" picker with a hex field and the browser's eyedropper where it has one.
   - Undo and redo (⌘Z, ⇧⌘Z, or the arrows under the preview) cover every edit; edits within
     600 ms are one step, so a slider drag undoes at once. Picking a photo isn't a step.
   - Mock mode serves 12 generated scenes from `public/mock`.

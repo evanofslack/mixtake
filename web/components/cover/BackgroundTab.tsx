@@ -1,7 +1,7 @@
 import { ActionIcon, Button, Tooltip } from "@mantine/core";
 import { FiRepeat, FiShuffle } from "react-icons/fi";
 import { cssFill, Fill, FillKind, Frame } from "../../lib/canvas";
-import { Choice, ColourRow, SectionTitle } from "./ui";
+import { Choice, ColourDot, Row, SectionTitle } from "./ui";
 
 type Props = {
     bg: Fill;
@@ -83,44 +83,37 @@ export default function BackgroundTab({
             </section>
 
             <section aria-label="Background colors">
-                <div className="mb-2 flex items-center gap-2">
-                    <SectionTitle>{gradient ? "From" : "Color"}</SectionTitle>
-                </div>
-                <ColourRow
-                    name="cover-bg-a"
-                    label={gradient ? "Start color" : "Background color"}
-                    value={bg.a}
-                    onChange={(a) => onChange({ ...bg, a })}
-                    photo={photo}
-                    palette={palette}
-                />
-                {gradient && (
-                    <>
-                        <div className="mt-4 mb-2 flex items-center gap-2">
-                            <SectionTitle>To</SectionTitle>
+                <Row label={gradient ? "Colors" : "Color"}>
+                    <ColourDot
+                        label={gradient ? "Start color" : "Background color"}
+                        value={bg.a}
+                        onChange={(a) => onChange({ ...bg, a })}
+                        photo={photo}
+                        palette={palette}
+                    />
+                    {gradient && (
+                        <>
                             <Tooltip label="swap colors" withArrow>
                                 <ActionIcon
                                     variant="subtle"
                                     color="gray"
                                     size="sm"
                                     aria-label="swap colors"
-                                    className="-mt-2"
                                     onClick={() => onChange({ ...bg, a: bg.b, b: bg.a })}
                                 >
                                     <FiRepeat aria-hidden />
                                 </ActionIcon>
                             </Tooltip>
-                        </div>
-                        <ColourRow
-                            name="cover-bg-b"
-                            label="End color"
-                            value={bg.b}
-                            onChange={(b) => onChange({ ...bg, b })}
-                            photo={photo}
-                            palette={palette}
-                        />
-                    </>
-                )}
+                            <ColourDot
+                                label="End color"
+                                value={bg.b}
+                                onChange={(b) => onChange({ ...bg, b })}
+                                photo={photo}
+                                palette={palette}
+                            />
+                        </>
+                    )}
+                </Row>
             </section>
         </div>
     );

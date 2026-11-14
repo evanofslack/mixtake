@@ -1,6 +1,16 @@
 // Small pieces shared by the cover studio's tabs.
-import { ReactNode, useEffect, useId, useState } from "react";
-import { ColorInput, Slider } from "@mantine/core";
+import { PointerEvent, ReactNode, useEffect, useId, useState } from "react";
+import {
+    ActionIcon,
+    ColorPicker,
+    Popover,
+    Slider,
+    TextInput,
+    Tooltip,
+    UnstyledButton,
+} from "@mantine/core";
+import { FiChevronDown } from "react-icons/fi";
+import { LuPipette } from "react-icons/lu";
 import { DARK, LIGHT } from "../../lib/canvas";
 
 // a radio button drawn as a tile: arrow keys move within its group, like any radio group
@@ -103,10 +113,54 @@ export function SliderField({
     );
 }
 
-// a row of colour swatches: optionally "auto", white and black, the photo's colours, the mix's,
-// and a field for any other colour
-export function ColourRow({
-    name,
+// one setting: its label in a narrow column on the left, the control filling the rest, so every
+// setting in the panel lines up the same way
+export function Row({
+    label,
+    children,
+    className = "",
+}: {
+    label: ReactNode;
+    children: ReactNode;
+    className?: string;
+}) {
+    return (
+        <div
+            className={`grid min-h-8 grid-cols-[4.5rem_minmax(0,1fr)] items-center gap-x-3 ${className}`}
+        >
+            <span className="text-sm font-medium">{label}</span>
+            <div className="flex min-w-0 items-center gap-2">{children}</div>
+        </div>
+    );
+}
+
+// what a colour value is called, for its swatch's label
+function colourName(hex: string): string {
+    return hex === "auto"
+        ? "auto light or dark"
+        : hex === LIGHT
+          ? "white"
+          : hex === DARK
+            ? "black"
+            : hex;
+}
+
+function Swatch({ hex }: { hex: string }) {
+    return hex === "auto" ? (
+        <span
+            className="block size-full rounded-full border border-black/10"
+            style={{ background: `linear-gradient(135deg, ${LIGHT} 50%, ${DARK} 50%)` }}
+        />
+    ) : (
+        <Dot hex={hex} />
+    );
+}
+
+type EyeDropperCtor = new () => { open: () => Promise<{ sRGBHex: string }> };
+
+// a colour setting as one swatch; it opens a small panel of the photo's and the mix's colours,
+// with any other colour one step further in under "Custom"
+export function ColourDot({
     label,
     value,
     onChange,
@@ -114,7 +168,6 @@ export function ColourRow({
     palette,
     auto,
 }: {
-    name: string;
     label: string;
     value: string;
     onChange: (hex: string) => void;
@@ -122,100 +175,154 @@ export function ColourRow({
     palette: string[];
     auto?: boolean;
 }) {
+    const [opened, setOpened] = useState(false);
+    const name = useId();
     const fromMix = palette.map((h) => h.toLowerCase()).filter((h) => !photo.includes(h));
-    const known = new Set(["auto", LIGHT, DARK, ...photo, ...fromMix]);
+    const basics = [...(auto ? ["auto"] : []), LIGHT, DARK];
+    const known = new Set([...basics, ...photo, ...fromMix]);
     const custom = known.has(value) ? null : value;
-    const swatch = (hex: string, title: string, body: ReactNode) => (
-        <Choice
-            key={hex}
-            name={name}
-            checked={value === hex}
-            onSelect={() => onChange(hex)}
-            label={title}
-            className="size-7 rounded-full p-0.5"
-            round
-        >
-            {body}
-        </Choice>
-    );
-    return (
-        <div className="flex flex-col gap-2.5">
-            <fieldset>
-                <legend className="sr-only">{label}</legend>
-                <div className="flex flex-wrap items-center gap-1.5">
-                    {auto &&
-                        swatch(
-                            "auto",
-                            "auto light or dark",
-                            <span
-                                className="block size-full rounded-full"
-                                style={{
-                                    background: `linear-gradient(135deg, ${LIGHT} 50%, ${DARK} 50%)`,
-                                }}
-                            />,
-                        )}
-                    {[LIGHT, DARK, ...photo].map((hex) =>
-                        swatch(
-                            hex,
-                            hex === LIGHT ? "white" : hex === DARK ? "black" : hex,
-                            <Dot hex={hex} />,
-                        ),
-                    )}
-                    {fromMix.length > 0 && (
-                        <span aria-hidden className="mx-1 h-5 w-px bg-line-strong" />
-                    )}
-                    {fromMix.map((hex) => swatch(hex, `${hex} from the mix`, <Dot hex={hex} />))}
+    const [showCustom, setShowCustom] = useState(custom !== null);
+
+    // a pointer pick closes the panel; arrow keys move through the swatches and leave it open
+    const closeOnPick = (e: PointerEvent) => {
+        if ((e.target as HTMLElement).closest("label")) {
+            setOpened(false);
+        }
+    };
+    const group = (title: string | null, hexes: string[]) =>
+        hexes.length > 0 && (
+            <div>
+                {title && <p className="mb-1 text-[0.68rem] text-muted">{title}</p>}
+                <div className="flex flex-wrap gap-1.5">
+                    {hexes.map((hex) => (
+                        <Choice
+                            key={hex}
+                            name={name}
+                            checked={value === hex}
+                            onSelect={() => onChange(hex)}
+                            label={colourName(hex)}
+                            className="size-7 rounded-full p-0.5"
+                            round
+                        >
+                            <Swatch hex={hex} />
+                        </Choice>
+                    ))}
                 </div>
-            </fieldset>
-            <CustomColour
-                label={`custom ${label.toLowerCase()}`}
-                custom={custom}
-                swatches={[...photo, ...fromMix]}
-                onPick={onChange}
-            />
-        </div>
+            </div>
+        );
+
+    return (
+        <Popover
+            opened={opened}
+            onChange={setOpened}
+            position="bottom-start"
+            width={236}
+            closeOnEscape
+            returnFocus
+        >
+            <Popover.Target>
+                <UnstyledButton
+                    onClick={() => setOpened((o) => !o)}
+                    aria-label={`${label}: ${colourName(value)}`}
+                    aria-haspopup="dialog"
+                    aria-expanded={opened}
+                    className="size-7 shrink-0 rounded-full p-0.5 shadow-raised-sm transition-shadow active:shadow-pressed-sm"
+                >
+                    <Swatch hex={value} />
+                </UnstyledButton>
+            </Popover.Target>
+            <Popover.Dropdown aria-label={label} className="p-3">
+                <fieldset className="flex flex-col gap-2.5" onPointerUp={closeOnPick}>
+                    <legend className="sr-only">{label}</legend>
+                    {group(null, basics)}
+                    {group("From the photo", photo)}
+                    {group("From the mix", fromMix)}
+                </fieldset>
+                <UnstyledButton
+                    onClick={() => setShowCustom((o) => !o)}
+                    aria-expanded={showCustom}
+                    className="mt-3 flex items-center gap-1 text-xs font-medium text-muted"
+                >
+                    Custom
+                    <FiChevronDown
+                        aria-hidden
+                        className={`transition-transform ${showCustom ? "rotate-180" : ""}`}
+                    />
+                </UnstyledButton>
+                {showCustom && (
+                    <CustomColour
+                        label={`custom ${label.toLowerCase()}`}
+                        value={custom ?? (value.startsWith("#") ? value : LIGHT)}
+                        onPick={onChange}
+                    />
+                )}
+            </Popover.Dropdown>
+        </Popover>
     );
 }
 
-// any color: typed, picked, or taken from the screen with the eyedropper (where the browser has
-// one). The field keeps its own text while typing and commits a complete hex.
+// any colour: dragged on the picker, typed as hex, or taken from the screen where the browser has
+// an eyedropper. The hex field keeps its own text while typing and commits a complete hex.
 function CustomColour({
     label,
-    custom,
-    swatches,
+    value,
     onPick,
 }: {
     label: string;
-    custom: string | null;
-    swatches: string[];
+    value: string;
     onPick: (hex: string) => void;
 }) {
-    const [draft, setDraft] = useState(custom ?? "");
-    useEffect(() => setDraft(custom ?? ""), [custom]);
+    const [draft, setDraft] = useState(value);
+    useEffect(() => setDraft(value), [value]);
     const commit = (v: string) => {
-        if (/^#[0-9a-f]{6}$/i.test(v)) {
-            onPick(v.toLowerCase());
+        const hex = v.startsWith("#") ? v : `#${v}`;
+        if (/^#[0-9a-f]{6}$/i.test(hex)) {
+            onPick(hex.toLowerCase());
         }
     };
+    const [dropper, setDropper] = useState<EyeDropperCtor | null>(null);
+    useEffect(() => {
+        const ctor = (window as unknown as { EyeDropper?: EyeDropperCtor }).EyeDropper;
+        setDropper(() => ctor ?? null);
+    }, []);
     return (
-        <ColorInput
-            size="xs"
-            className="max-w-48"
-            aria-label={label}
-            placeholder="custom #hex"
-            format="hex"
-            value={draft}
-            onChange={setDraft}
-            onChangeEnd={commit}
-            onBlur={() => commit(draft)}
-            swatches={swatches}
-            swatchesPerRow={7}
-            eyeDropperButtonProps={{ "aria-label": "pick a color from the screen" }}
-            styles={
-                custom
-                    ? { input: { boxShadow: "var(--mix-pressed), 0 0 0 1.5px var(--mix-ink)" } }
-                    : undefined
-            }
-        />
+        <div className="mt-2 flex flex-col gap-2">
+            <ColorPicker
+                size="xs"
+                format="hex"
+                fullWidth
+                value={value}
+                onChange={(v) => onPick(v.toLowerCase())}
+                aria-label={label}
+            />
+            <div className="flex items-center gap-1.5">
+                <TextInput
+                    size="xs"
+                    className="grow"
+                    aria-label={`${label} hex`}
+                    value={draft}
+                    onChange={(e) => setDraft(e.currentTarget.value)}
+                    onBlur={() => commit(draft)}
+                    onKeyDown={(e) => e.key === "Enter" && commit(draft)}
+                />
+                {dropper && (
+                    <Tooltip label="pick from the screen" withArrow>
+                        <ActionIcon
+                            variant="default"
+                            size="md"
+                            aria-label="pick a colour from the screen"
+                            onClick={() =>
+                                new dropper()
+                                    .open()
+                                    .then((r) => commit(r.sRGBHex))
+                                    .catch(() => {})
+                            }
+                        >
+                            <LuPipette aria-hidden />
+                        </ActionIcon>
+                    </Tooltip>
+                )}
+            </div>
+        </div>
     );
 }
