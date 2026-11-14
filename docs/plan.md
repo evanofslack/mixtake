@@ -350,9 +350,17 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
 - Cover studio:
   - `lib/canvas.ts` `drawCover` draws both the preview and the export. Crop, text and colour are
     fractions of the square, so the output doesn't depend on its size.
-  - Fonts (Instrument Serif, Space Grotesk, Bebas Neue, IBM Plex Mono, Caveat) are woff2 files in
-    `public/fonts` with `@font-face`, not `next/font`, so the build needs no network and the canvas
-    knows the family names.
+  - Fonts are variable latin subsets (Fraunces, Bricolage Grotesque, Anybody, Unbounded, Martian
+    Mono, Caveat) in `public/fonts` with `@font-face` weight and stretch ranges, not `next/font`, so
+    the build needs no network and the canvas knows the family names. Each face has a usual weight
+    and width; picking a face resets the item to them.
+  - Type controls per text item: size, weight (the face's range), direction (across, up, down),
+    and under "More type" width (50–150%), slant (±20°), spacing, fine rotation, outline (width
+    and color) and shadow. Canvas has no `font-variation-settings`, so width uses the nearest
+    `ctx.fontStretch` keyword the face's axis covers plus a horizontal scale for the rest, slant
+    is a shear, and spacing uses `ctx.letterSpacing`. Whether the browser honours fontStretch and
+    letterSpacing is measured once; without them width is all scale and letters are drawn one by
+    one. Rotated text is placed by its rotated bounds, which also serve hit tests and auto color.
   - The photographer's credit stays on the page and is never drawn on the image.
   - A cover is three layers (`CoverState`): a background `Fill` (solid or a two-color
     horizontal, vertical, radial or diagonal gradient), the photo in a `Frame` (centre, size and
@@ -373,7 +381,7 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     longer side gets equal margins. **Background**: solid or one of four gradients, colors from the
     photo and the mix or any hex, swap, and shuffle (`pickPair` in `lib/colours.ts`). Picking a
     framed preset while the background is still the default takes its colors from the photo.
-    **Text**: the title and subtitle, typeface, position, alignment, size, color and shade.
+    **Text**: the title and subtitle, type (below), position, alignment, color and shade.
     Dragging pans the photo only when it starts inside the frame.
   - Undo and redo (⌘Z, ⇧⌘Z, or the arrows under the preview) cover every edit; edits within
     600 ms are one step, so a slider drag undoes at once. Picking a photo isn't a step.

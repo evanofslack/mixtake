@@ -1,10 +1,11 @@
-The cover fonts in this folder are latin subsets from Google Fonts:
+The cover fonts in this folder are variable latin subsets from Google Fonts:
 
-Instrument Serif: Copyright 2022 The Instrument Serif Project Authors (https://github.com/Instrument/instrument-serif)
-Space Grotesk: Copyright 2020 The Space Grotesk Project Authors (https://github.com/floriankarsten/space-grotesk)
-Bebas Neue: Copyright 2010 The Bebas Neue Project Authors (https://github.com/dharmatype/Bebas-Neue)
-IBM Plex Mono: Copyright 2017 IBM Corp. (https://github.com/IBM/plex)
+Fraunces: Copyright 2020 The Fraunces Project Authors (https://github.com/undercasetype/Fraunces)
+Bricolage Grotesque: Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
+Anybody: Copyright 2020 The Anybody Project Authors (https://github.com/Etcetera-Type-Co/Anybody)
+Martian Mono: Copyright 2021 The Martian Mono Project Authors (https://github.com/evilmartians/mono)
 Caveat: Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
+Unbounded: Copyright 2022 The Unbounded Project Authors (https://github.com/googlefonts/unbounded)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

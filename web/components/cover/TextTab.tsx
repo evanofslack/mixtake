@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { SegmentedControl, Switch, TextInput } from "@mantine/core";
-import { FiAlignCenter, FiAlignLeft, FiAlignRight } from "react-icons/fi";
+import { ReactNode, useState } from "react";
+import { Collapse, SegmentedControl, Switch, TextInput, UnstyledButton } from "@mantine/core";
+import { FiAlignCenter, FiAlignLeft, FiAlignRight, FiChevronDown } from "react-icons/fi";
 import {
     Align,
     alignFor,
@@ -9,8 +9,14 @@ import {
     Pos,
     POSITIONS,
     SIZE_MAX,
+    OUTLINE_MAX,
     SIZE_MIN,
+    SLANT_MAX,
     TextItem,
+    TRACKING_MAX,
+    TRACKING_MIN,
+    WIDTH_MAX,
+    WIDTH_MIN,
 } from "../../lib/canvas";
 import Info from "../Info";
 import { Choice, ColourRow, SectionTitle, SliderField } from "./ui";
@@ -36,6 +42,7 @@ export const POS_LABEL: Record<Pos, string> = {
 };
 
 export default function TextTab({ item, onChange, photo, palette }: Props) {
+    const spec = FONTS[item.font];
     return (
         <div className="flex flex-col gap-5">
             <section aria-label="Text">
@@ -61,13 +68,20 @@ export default function TextTab({ item, onChange, photo, palette }: Props) {
                 <SectionTitle>Type</SectionTitle>
                 <fieldset>
                     <legend className="mb-1.5 text-sm font-medium">Typeface</legend>
-                    <div className="grid grid-cols-5 gap-1.5">
+                    <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-6">
                         {FONT_IDS.map((id) => (
                             <Choice
                                 key={id}
                                 name="cover-font"
                                 checked={item.font === id}
-                                onSelect={() => onChange({ font: id })}
+                                // a new face starts at its usual weight and width
+                                onSelect={() =>
+                                    onChange({
+                                        font: id,
+                                        weight: FONTS[id].weight,
+                                        width: FONTS[id].width,
+                                    })
+                                }
                                 label={FONTS[id].label}
                                 className="flex h-14 flex-col items-center justify-center gap-0.5 rounded-sm px-1"
                             >
@@ -77,6 +91,10 @@ export default function TextTab({ item, onChange, photo, palette }: Props) {
                                     style={{
                                         fontFamily: `"${FONTS[id].family}"`,
                                         fontWeight: FONTS[id].weight,
+                                        fontStretch: FONTS[id].stretch
+                                            ? `${FONTS[id].width}%`
+                                            : undefined,
+                                        textTransform: FONTS[id].upper ? "uppercase" : undefined,
                                     }}
                                 >
                                     Aa
@@ -134,8 +152,38 @@ export default function TextTab({ item, onChange, photo, palette }: Props) {
                             onChange={(v) => onChange({ size: v })}
                             reset={11}
                         />
+                        <SliderField
+                            label="Weight"
+                            min={spec.weights[0]}
+                            max={spec.weights[1]}
+                            step={10}
+                            value={Math.min(
+                                spec.weights[1],
+                                Math.max(spec.weights[0], item.weight),
+                            )}
+                            format={(v) => String(Math.round(v))}
+                            onChange={(v) => onChange({ weight: v })}
+                            reset={spec.weight}
+                        />
                     </div>
                 </div>
+                <div className="mt-4">
+                    <p className="mb-1.5 text-sm font-medium" id="cover-rotate">
+                        Direction
+                    </p>
+                    <SegmentedControl
+                        aria-labelledby="cover-rotate"
+                        size="xs"
+                        value={String(item.rotate)}
+                        onChange={(v) => onChange({ rotate: Number(v) })}
+                        data={[
+                            { value: "-90", label: "Up" },
+                            { value: "0", label: "Across" },
+                            { value: "90", label: "Down" },
+                        ]}
+                    />
+                </div>
+                <More item={item} onChange={onChange} photo={photo} palette={palette} />
             </section>
 
             <section aria-label="Text color">
@@ -157,6 +205,105 @@ export default function TextTab({ item, onChange, photo, palette }: Props) {
                     color="var(--mix-ink)"
                 />
             </section>
+        </div>
+    );
+}
+
+// the finer type settings, folded away until asked for
+function More({ item, onChange, photo, palette }: Props) {
+    const [open, setOpen] = useState(
+        item.width !== FONTS[item.font].width ||
+            item.slant !== 0 ||
+            item.tracking !== 0 ||
+            item.outline > 0,
+    );
+    return (
+        <div className="mt-4">
+            <UnstyledButton
+                onClick={() => setOpen((o) => !o)}
+                aria-expanded={open}
+                className="flex items-center gap-1 text-sm font-medium"
+            >
+                More type
+                <FiChevronDown
+                    aria-hidden
+                    className={`transition-transform ${open ? "rotate-180" : ""}`}
+                />
+            </UnstyledButton>
+            <Collapse expanded={open}>
+                <div className="grid grid-cols-1 gap-x-6 gap-y-3 pt-3 sm:grid-cols-2">
+                    <SliderField
+                        label="Width"
+                        min={WIDTH_MIN}
+                        max={WIDTH_MAX}
+                        step={1}
+                        value={item.width}
+                        format={(v) => `${Math.round(v)}%`}
+                        onChange={(v) => onChange({ width: v })}
+                        reset={FONTS[item.font].width}
+                    />
+                    <SliderField
+                        label="Slant"
+                        min={-SLANT_MAX}
+                        max={SLANT_MAX}
+                        step={1}
+                        value={item.slant}
+                        format={(v) => `${v}°`}
+                        onChange={(v) => onChange({ slant: v })}
+                        reset={0}
+                    />
+                    <SliderField
+                        label="Spacing"
+                        min={TRACKING_MIN}
+                        max={TRACKING_MAX}
+                        step={0.01}
+                        value={item.tracking}
+                        format={(v) => `${Math.round(v * 100)}`}
+                        onChange={(v) => onChange({ tracking: v })}
+                        reset={0}
+                    />
+                    <SliderField
+                        label="Rotate"
+                        min={-90}
+                        max={90}
+                        step={1}
+                        value={item.rotate}
+                        format={(v) => `${v}°`}
+                        onChange={(v) => onChange({ rotate: v })}
+                        reset={0}
+                    />
+                    <SliderField
+                        label="Outline"
+                        min={0}
+                        max={OUTLINE_MAX}
+                        step={0.002}
+                        value={item.outline}
+                        format={(v) => (v === 0 ? "none" : `${Math.round(v * 1000) / 10}%`)}
+                        onChange={(v) => onChange({ outline: v })}
+                        reset={0}
+                    />
+                    <Switch
+                        className="self-end"
+                        label="Shadow"
+                        checked={item.shadow}
+                        onChange={(e) => onChange({ shadow: e.currentTarget.checked })}
+                        color="var(--mix-ink)"
+                    />
+                </div>
+                {item.outline > 0 && (
+                    <div className="mt-3">
+                        <p className="mb-1.5 text-sm font-medium">Outline color</p>
+                        <ColourRow
+                            name="cover-outline"
+                            label="Outline color"
+                            value={item.outlineColor}
+                            onChange={(outlineColor) => onChange({ outlineColor })}
+                            photo={photo}
+                            palette={palette}
+                        />
+                    </div>
+                )}
+            </Collapse>
         </div>
     );
 }

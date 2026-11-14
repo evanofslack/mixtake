@@ -22,6 +22,13 @@ import {
     TextItem,
     textItem,
     ZOOM_MAX,
+    OUTLINE_MAX,
+    SLANT_MAX,
+    TRACKING_MAX,
+    TRACKING_MIN,
+    WIDTH_MAX,
+    WIDTH_MIN,
+    withFont,
 } from "./canvas";
 
 // which photos the strip shows: the mix's set (optionally re-searched with `vibe`) or the photos
@@ -120,6 +127,14 @@ const TEXT: Schema<TextItem> = {
     color: ["c", colour],
     size: ["z", numIn(SIZE_MIN, SIZE_MAX)],
     scrim: ["m", bool],
+    weight: ["w", numIn(100, 900)],
+    width: ["d", numIn(WIDTH_MIN, WIDTH_MAX)],
+    slant: ["k", numIn(-SLANT_MAX, SLANT_MAX)],
+    tracking: ["g", numIn(TRACKING_MIN, TRACKING_MAX)],
+    rotate: ["r", numIn(-90, 90)],
+    outline: ["o", numIn(0, OUTLINE_MAX)],
+    outlineColor: ["q", hex],
+    shadow: ["h", bool],
 };
 
 const CROP: Schema<Pick<CoverState, "x" | "y" | "zoom">> = {
@@ -198,6 +213,12 @@ export function decodeCover(c: string, defaultTitle: string): CoverState | null 
     };
 }
 
+// an old link's text: its face at that face's usual weight and width
+function legacyText(u: Partial<TextItem>): TextItem {
+    const t = textItem("t0", u);
+    return withFont(t, t.font);
+}
+
 function textDefaults(i: number, defaultTitle: string): Partial<TextItem> {
     return i === 0 ? { text: defaultTitle } : {};
 }
@@ -217,7 +238,7 @@ function readLegacy(q: Query, defaultTitle: string): CoverState {
         y: num("y", 0, 1, DEFAULT_STATE.y),
         zoom: num("zoom", 1, ZOOM_MAX, DEFAULT_STATE.zoom),
         texts: [
-            textItem("t0", {
+            legacyText({
                 text: (str(q, "title") ?? defaultTitle).slice(0, 120),
                 sub: (str(q, "sub") ?? d.sub).slice(0, 160),
                 font: oneOf<FontId>(FONT_IDS)(str(q, "font")) ?? d.font,

@@ -280,34 +280,37 @@
     }
 }
 
-/* cover fonts: latin subsets, self-hosted (SIL Open Font License, public/fonts/OFL.txt). only the
+/* cover fonts: variable latin subsets, self-hosted (SIL Open Font License, public/fonts/OFL.txt). only the
    cover studio uses them, and its canvas waits on document.fonts.load before drawing */
 @font-face {
-    font-family: "Instrument Serif";
-    font-weight: 400;
+    font-family: "Fraunces";
+    font-weight: 100 900;
     font-display: swap;
-    src: url("/fonts/instrument-serif.woff2") format("woff2");
+    src: url("/fonts/fraunces.woff2") format("woff2");
 }
 
 @font-face {
-    font-family: "Space Grotesk";
-    font-weight: 300 700;
+    font-family: "Bricolage Grotesque";
+    font-weight: 200 800;
+    font-stretch: 75% 100%;
     font-display: swap;
-    src: url("/fonts/space-grotesk.woff2") format("woff2");
+    src: url("/fonts/bricolage-grotesque.woff2") format("woff2");
 }
 
 @font-face {
-    font-family: "Bebas Neue";
-    font-weight: 400;
+    font-family: "Anybody";
+    font-weight: 100 900;
+    font-stretch: 50% 150%;
     font-display: swap;
-    src: url("/fonts/bebas-neue.woff2") format("woff2");
+    src: url("/fonts/anybody.woff2") format("woff2");
 }
 
 @font-face {
-    font-family: "IBM Plex Mono";
-    font-weight: 500;
+    font-family: "Martian Mono";
+    font-weight: 100 800;
+    font-stretch: 75% 112.5%;
     font-display: swap;
-    src: url("/fonts/ibm-plex-mono-500.woff2") format("woff2");
+    src: url("/fonts/martian-mono.woff2") format("woff2");
 }
 
 @font-face {
@@ -315,6 +318,13 @@
     font-weight: 400 700;
     font-display: swap;
     src: url("/fonts/caveat.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Unbounded";
+    font-weight: 200 900;
+    font-display: swap;
+    src: url("/fonts/unbounded.woff2") format("woff2");
 }
 
 /* the photo strip scrolls sideways inside itself, with a thin scrollbar */
