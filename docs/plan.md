@@ -331,7 +331,9 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     (`lib/moodColour.ts`), so the charts preview the cover's palette.
   - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
     self-hosted fonts; drag the text anywhere or pick one of 3×3 presets; colours from the
-    photo, the mix palette or a picker)
+    photo, the mix palette or a picker). The preview stays in view while the controls scroll:
+    the whole column beside them on wide screens, a smaller preview pinned under the header on
+    phones.
   - Dragging text: a pointer-down inside the text's box (`textBox` in `lib/canvas.ts`) moves the
     text, anywhere else pans the photo. Within 3% of a preset's centre the text snaps to it and
     `pos` becomes that preset; elsewhere `pos` is `free` with the box centred on `tx`, `ty`. Snap

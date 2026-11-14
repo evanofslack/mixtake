@@ -347,33 +347,44 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                 </p>
             )}
 
+            {/* the preview stays in view while the controls scroll: the whole column beside them
+                on wide screens, and on phones (where the column dissolves into the grid, so the
+                sticky part can span it) a smaller preview pinned under the header */}
             <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,32rem)_minmax(0,1fr)] lg:gap-8">
-                <div className="min-w-0">
-                    <CoverCanvas
-                        image={image}
-                        loading={!!photo && !full.image && !full.failed}
-                        state={state}
-                        onChange={change}
-                        selected={selected}
-                        showSelection={tab === "text"}
-                        onPick={(t, id) => {
-                            setTab(t);
-                            if (id) {
-                                setPicked(id);
-                            }
-                        }}
-                        onDelete={(id) => change((s) => removeText(s, id))}
-                    />
-                    <div className="mt-2 flex items-center justify-between gap-2">
-                        {photo ? <Credit photo={photo} onMore={moreLike} like={like} /> : <span />}
-                        <UndoRedo
-                            onUndo={history.undo}
-                            onRedo={history.redo}
-                            canUndo={history.canUndo}
-                            canRedo={history.canRedo}
-                        />
+                <div className="min-w-0 max-lg:contents lg:sticky lg:top-[4.5rem] lg:self-start">
+                    <div className="sticky top-14 z-10 -mx-5 bg-surface px-5 pt-2 pb-3 shadow-[0_10px_10px_-10px_var(--mix-lo)] sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0 lg:shadow-none">
+                        <div className="mx-auto max-w-[42svh] lg:max-w-none">
+                            <CoverCanvas
+                                image={image}
+                                loading={!!photo && !full.image && !full.failed}
+                                state={state}
+                                onChange={change}
+                                selected={selected}
+                                showSelection={tab === "text"}
+                                onPick={(t, id) => {
+                                    setTab(t);
+                                    if (id) {
+                                        setPicked(id);
+                                    }
+                                }}
+                                onDelete={(id) => change((s) => removeText(s, id))}
+                            />
+                            <div className="mt-2 flex items-center justify-between gap-2">
+                                {photo ? (
+                                    <Credit photo={photo} onMore={moreLike} like={like} />
+                                ) : (
+                                    <span />
+                                )}
+                                <UndoRedo
+                                    onUndo={history.undo}
+                                    onRedo={history.redo}
+                                    canUndo={history.canUndo}
+                                    canRedo={history.canRedo}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="mt-4">
+                    <div className="lg:mt-4">
                         <ShareBar
                             photo={photo}
                             state={state}

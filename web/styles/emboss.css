@@ -99,6 +99,23 @@
         height: calc(var(--slider-thumb-size) * 1.25);
     }
 
+    /* switch: a sunken slot with a raised knob; on, the slot fills with ink */
+    .mantine-Switch-track {
+        background-color: var(--mix-bg);
+        border: 0;
+        box-shadow: var(--mix-pressed-sm);
+    }
+
+    .mantine-Switch-input:checked + .mantine-Switch-track {
+        background-color: var(--mix-ink);
+    }
+
+    .mantine-Switch-thumb {
+        background-color: var(--mix-bg);
+        border: 0;
+        box-shadow: var(--mix-raised-xs);
+    }
+
     /* accordion items are raised cards, the open one stays raised */
     .mantine-Accordion-item[data-variant="contained"],
     .mantine-Accordion-root[data-variant="contained"] .mantine-Accordion-item {
