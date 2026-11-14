@@ -82,6 +82,7 @@ export default function InputBox({ mock }: Props) {
                     />
                     <Button
                         type="submit"
+                        color="amber"
                         loading={busy}
                         disabled={!canSubmit(detected)}
                         rightSection={<FiArrowRight />}
