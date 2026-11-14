@@ -249,13 +249,14 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
             setState((s) => ({ ...s, x: 0.5, y: 0.5, zoom: 1 }));
         }
     };
-    const moreLike = () => {
-        if (!photo) {
+    // the photos like p, with p chosen so it leads its strip
+    const moreLike = (p: Photo | null) => {
+        if (!p) {
             return;
         }
-        setChosen(true);
+        select(p);
         setLikeSet(null);
-        setLike(photo.id);
+        setLike(p.id);
     };
     const research = (v: string) => {
         setVibe(v);
@@ -335,6 +336,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                 like={likePhoto}
                 vibe={vibe}
                 onSelect={select}
+                onMore={moreLike}
                 onVibe={research}
                 onShuffle={shuffle}
                 onBack={back}
@@ -382,7 +384,11 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                             />
                             <div className="mt-2 flex items-center justify-between gap-2">
                                 {photo ? (
-                                    <Credit photo={photo} onMore={moreLike} like={like} />
+                                    <Credit
+                                        photo={photo}
+                                        onMore={() => moreLike(photo)}
+                                        like={like}
+                                    />
                                 ) : (
                                     <span />
                                 )}

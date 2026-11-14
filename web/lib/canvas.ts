@@ -81,9 +81,12 @@ export const SIZE_MAX = 20;
 
 export const LIGHT = "#f7f4ee";
 export const DARK = "#141210";
+export const WHITE = "#ffffff";
 
 export const FULL_FRAME: Frame = { x: 0.5, y: 0.5, w: 1, h: 1, radius: 0 };
-export const DEFAULT_FILL: Fill = { kind: "solid", a: LIGHT, b: DARK };
+// a square photo with square corners and an even margin: a new cover's frame, and the Inset preset
+export const INSET_FRAME: Frame = { x: 0.5, y: 0.5, w: 0.88, h: 0.88, radius: 0 };
+export const DEFAULT_FILL: Fill = { kind: "solid", a: WHITE, b: DARK };
 
 export const DEFAULT_TEXT: Omit<TextItem, "id" | "text"> = {
     font: "serif",
@@ -117,7 +120,7 @@ export const DEFAULT_STATE: Omit<CoverState, "texts"> = {
     x: 0.5,
     y: 0.5,
     zoom: 1,
-    frame: FULL_FRAME,
+    frame: INSET_FRAME,
     bg: DEFAULT_FILL,
 };
 
@@ -133,7 +136,7 @@ export function withFont(item: TextItem, font: FontId): TextItem {
 // a full-bleed cover with one block of text, as the home page's examples use
 export function simpleCover(u: Partial<TextItem>): CoverState {
     const base = u.font ? withFont(textItem("t0"), u.font) : textItem("t0");
-    return { ...DEFAULT_STATE, texts: [{ ...base, ...u }] };
+    return { ...DEFAULT_STATE, frame: FULL_FRAME, texts: [{ ...base, ...u }] };
 }
 
 // the alignment that suits a preset's column

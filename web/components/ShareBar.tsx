@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button } from "@mantine/core";
+import { Button, Menu } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { FiAlertTriangle, FiCheck, FiDownload, FiLink } from "react-icons/fi";
+import { FiAlertTriangle, FiCheck, FiChevronDown, FiDownload, FiLink } from "react-icons/fi";
 import type { Photo } from "../lib/api";
 import type { CoverState } from "../lib/canvas";
 import { download, renderCover, upscales } from "../lib/photos";
@@ -14,18 +14,24 @@ type Props = {
     shareUrl: () => string;
 };
 
-const SIZES = [1500, 3000] as const;
+const SIZES = [
+    { px: 3000, label: "Large" },
+    { px: 1500, label: "Medium" },
+    { px: 640, label: "Small" },
+] as const;
+type Size = (typeof SIZES)[number]["px"];
 
-// download the cover as a square JPG, or copy a link that rebuilds it
+// download the cover as a square JPG at the chosen size, or copy a link that rebuilds it
 export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
-    const [busy, setBusy] = useState<number | null>(null);
+    const [size, setSize] = useState<Size>(3000);
+    const [busy, setBusy] = useState(false);
     const [copied, setCopied] = useState(false);
 
-    const save = async (size: number) => {
+    const save = async () => {
         if (!photo) {
             return;
         }
-        setBusy(size);
+        setBusy(true);
         try {
             download(await renderCover(photo, state, size), filename);
         } catch (e) {
@@ -35,7 +41,7 @@ export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
                 message: e instanceof Error ? e.message : "Try again in a moment.",
             });
         } finally {
-            setBusy(null);
+            setBusy(false);
         }
     };
 
@@ -52,38 +58,62 @@ export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
         }
     };
 
-    const stretched = photo ? SIZES.filter((s) => upscales(photo, state, s)) : [];
+    const soft = (px: number) => !!photo && upscales(photo, state, px);
     // only behind the warning icon: most analogdb photos are smaller than 3000 px
-    const note =
-        stretched.length === 0
-            ? ""
-            : stretched.length === SIZES.length
-              ? "Both sizes will look slightly soft"
-              : `The ${stretched[0]} px download will look soft`;
+    const note = soft(size) ? `The ${size} px download will look slightly soft` : "";
     return (
         <div>
             <div className="flex flex-wrap gap-2">
-                <div className="flex min-w-0 grow gap-2 sm:grow-0 [&>*]:min-w-0 [&>*]:grow">
-                    {SIZES.map((size) => (
-                        <Button
-                            key={size}
-                            size="sm"
-                            px="sm"
-                            variant={size === 3000 ? "filled" : "default"}
-                            leftSection={<FiDownload />}
-                            loading={busy === size}
-                            disabled={!photo || (busy !== null && busy !== size)}
-                            onClick={() => save(size)}
-                            aria-label={`Download ${size} px JPG`}
-                        >
-                            <span aria-hidden>
-                                <span className="hidden sm:inline">Download </span>
-                                {size}
-                                <span className="sm:hidden"> px</span>
-                            </span>
-                        </Button>
-                    ))}
-                </div>
+                <Button.Group className="min-w-0 grow sm:grow-0">
+                    <Button
+                        size="sm"
+                        px="sm"
+                        className="grow"
+                        leftSection={<FiDownload />}
+                        loading={busy}
+                        disabled={!photo}
+                        onClick={save}
+                    >
+                        Download {size} px
+                    </Button>
+                    <Menu position="bottom-end" withArrow>
+                        <Menu.Target>
+                            <Button
+                                size="sm"
+                                px={8}
+                                disabled={!photo || busy}
+                                aria-label="download size"
+                                className="border-l border-l-white/25"
+                            >
+                                <FiChevronDown aria-hidden />
+                            </Button>
+                        </Menu.Target>
+                        <Menu.Dropdown>
+                            <Menu.Label>Size</Menu.Label>
+                            {SIZES.map((s) => (
+                                <Menu.Item
+                                    key={s.px}
+                                    onClick={() => setSize(s.px)}
+                                    leftSection={
+                                        <FiCheck
+                                            aria-hidden
+                                            className={s.px === size ? "" : "invisible"}
+                                        />
+                                    }
+                                    rightSection={
+                                        soft(s.px) && (
+                                            <span className="text-xs text-muted">soft</span>
+                                        )
+                                    }
+                                    aria-checked={s.px === size}
+                                    role="menuitemradio"
+                                >
+                                    {s.label} · {s.px} px
+                                </Menu.Item>
+                            ))}
+                        </Menu.Dropdown>
+                    </Menu>
+                </Button.Group>
                 <Button
                     size="sm"
                     variant="subtle"
@@ -93,7 +123,7 @@ export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
                 >
                     {copied ? "Copied" : "Copy link"}
                 </Button>
-                {stretched.length > 0 && (
+                {note && (
                     <div className="flex items-center">
                         <Info
                             label="this photo will be upscaled"

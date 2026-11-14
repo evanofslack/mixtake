@@ -175,7 +175,7 @@ function unpack<T extends object>(raw: unknown, defaults: T, schema: Schema<T>):
 // the cover as the `c` param; the first item's text defaults to the playlist's name
 export function encodeCover(state: CoverState, defaultTitle: string): string {
     const body: Record<string, unknown> = { v: FORMAT, ...pack(state, DEFAULT_STATE, CROP) };
-    const frame = pack(state.frame, FULL_FRAME, FRAME);
+    const frame = pack(state.frame, DEFAULT_STATE.frame, FRAME);
     if (Object.keys(frame).length) {
         body.f = frame;
     }
@@ -208,7 +208,7 @@ export function decodeCover(c: string, defaultTitle: string): CoverState | null 
         : [];
     return {
         ...crop,
-        frame: unpack(body.f, FULL_FRAME, FRAME),
+        frame: unpack(body.f, DEFAULT_STATE.frame, FRAME),
         bg: unpack(body.b, DEFAULT_STATE.bg, FILL),
         texts: texts.length ? texts : [textItem("t0", { text: defaultTitle })],
     };
@@ -233,8 +233,11 @@ function readLegacy(q: Query, defaultTitle: string): CoverState {
     };
     const d = DEFAULT_TEXT;
     const color = colour(str(q, "color"));
+    // old links were all full-bleed photos; a new cover starts inset
+    const legacy = LEGACY_KEYS.some((k) => str(q, k) !== undefined);
     return {
         ...DEFAULT_STATE,
+        frame: legacy ? FULL_FRAME : DEFAULT_STATE.frame,
         x: num("x", 0, 1, DEFAULT_STATE.x),
         y: num("y", 0, 1, DEFAULT_STATE.y),
         zoom: num("zoom", 1, ZOOM_MAX, DEFAULT_STATE.zoom),
@@ -284,7 +287,7 @@ export function writeShared(s: Shared, defaultTitle: string): Record<string, str
         st.x === DEFAULT_STATE.x &&
         st.y === DEFAULT_STATE.y &&
         st.zoom === DEFAULT_STATE.zoom &&
-        Object.keys(pack(st.frame, FULL_FRAME, FRAME)).length === 0 &&
+        Object.keys(pack(st.frame, DEFAULT_STATE.frame, FRAME)).length === 0 &&
         Object.keys(pack(st.bg, DEFAULT_STATE.bg, FILL)).length === 0 &&
         st.texts.length === 1 &&
         Object.keys(pack(st.texts[0], textItem("t0", { text: defaultTitle }), TEXT)).length === 0;

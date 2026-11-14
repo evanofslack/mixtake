@@ -27,7 +27,7 @@ import {
     WIDTH_MIN,
 } from "../../lib/canvas";
 import { backingOf, BACKINGS, Backing, withBacking } from "../../lib/texts";
-import { Choice, ColourDot, Row, SliderField } from "./ui";
+import { Choice, ColourRow, Row, SliderField } from "./ui";
 
 type Props = {
     item: TextItem;
@@ -198,7 +198,7 @@ export default function TextInspector({ item, onChange, photo, palette }: Props)
                 />
             </Row>
             <Row label="Color">
-                <ColourDot
+                <ColourRow
                     label="Text color"
                     value={item.color}
                     onChange={(color) => onChange({ color })}
@@ -217,25 +217,29 @@ export default function TextInspector({ item, onChange, photo, palette }: Props)
                     onChange={(v) => onChange(withBacking(item, v as Backing, photo[0]))}
                     data={BACKINGS.map((b) => ({ value: b.id, label: b.label }))}
                 />
-                {backing === "badge" && (
-                    <ColourDot
+            </Row>
+            {backing === "badge" && (
+                <Row label="Badge">
+                    <ColourRow
                         label="Badge color"
                         value={item.badge}
                         onChange={(badge) => onChange({ badge })}
                         photo={photo}
                         palette={palette}
                     />
-                )}
-                {backing === "outline" && (
-                    <ColourDot
+                </Row>
+            )}
+            {backing === "outline" && (
+                <Row label="Outline">
+                    <ColourRow
                         label="Outline color"
                         value={item.outlineColor}
                         onChange={(outlineColor) => onChange({ outlineColor })}
                         photo={photo}
                         palette={palette}
                     />
-                )}
-            </Row>
+                </Row>
+            )}
             <FineTune item={item} onChange={onChange} />
         </div>
     );

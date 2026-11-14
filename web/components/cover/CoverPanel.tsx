@@ -18,7 +18,7 @@ import {
     shapeOf,
     SHAPES,
 } from "../../lib/layouts";
-import { Choice, ColourDot, Row, Section, SECTIONS_CLASSES, SliderField } from "./ui";
+import { Choice, ColourRow, Row, Section, SECTIONS_CLASSES, SliderField } from "./ui";
 
 export type CoverSection = "layout" | "photo" | "background";
 
@@ -181,37 +181,43 @@ export default function CoverPanel({
                             ))}
                         </div>
                     </fieldset>
-                    <Row label={gradient ? "Colors" : "Color"}>
-                        <ColourDot
+                    <Row label={gradient ? "Start" : "Color"}>
+                        <ColourRow
                             label={gradient ? "Start color" : "Background color"}
                             value={bg.a}
                             onChange={(a) => onFill({ ...bg, a })}
                             photo={photo}
                             palette={palette}
                         />
-                        {gradient && (
-                            <>
-                                <Tooltip label="swap colors" withArrow>
-                                    <ActionIcon
-                                        variant="subtle"
-                                        color="gray"
-                                        size="sm"
-                                        aria-label="swap colors"
-                                        onClick={() => onFill({ ...bg, a: bg.b, b: bg.a })}
-                                    >
-                                        <FiRepeat aria-hidden />
-                                    </ActionIcon>
-                                </Tooltip>
-                                <ColourDot
-                                    label="End color"
-                                    value={bg.b}
-                                    onChange={(b) => onFill({ ...bg, b })}
-                                    photo={photo}
-                                    palette={palette}
-                                />
-                            </>
-                        )}
                     </Row>
+                    {gradient && (
+                        <Row
+                            label={
+                                <span className="flex items-center gap-1">
+                                    End
+                                    <Tooltip label="swap colors" withArrow>
+                                        <ActionIcon
+                                            variant="subtle"
+                                            color="gray"
+                                            size="xs"
+                                            aria-label="swap colors"
+                                            onClick={() => onFill({ ...bg, a: bg.b, b: bg.a })}
+                                        >
+                                            <FiRepeat aria-hidden />
+                                        </ActionIcon>
+                                    </Tooltip>
+                                </span>
+                            }
+                        >
+                            <ColourRow
+                                label="End color"
+                                value={bg.b}
+                                onChange={(b) => onFill({ ...bg, b })}
+                                photo={photo}
+                                palette={palette}
+                            />
+                        </Row>
+                    )}
                 </Section>
             )}
         </Accordion>

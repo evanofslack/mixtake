@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { ActionIcon, Button, CopyButton, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
-import { FiArrowLeft, FiDroplet, FiSearch, FiShuffle } from "react-icons/fi";
+import { FiArrowLeft, FiDroplet, FiLayers, FiSearch, FiShuffle } from "react-icons/fi";
 import type { Photo, PhotoSet } from "../lib/api";
 import { thumbFor } from "../lib/photos";
 
@@ -12,6 +12,8 @@ type Props = {
     like: Photo | null;
     vibe: string;
     onSelect: (p: Photo) => void;
+    // show the photos like this one
+    onMore: (p: Photo) => void;
     onVibe: (vibe: string) => void;
     onShuffle: () => void;
     onBack: () => void;
@@ -21,7 +23,7 @@ const SKELETONS = 8;
 
 // how the photos were found, a re-search box, shuffle and the thumbnails
 export default function PhotoStrip(props: Props) {
-    const { set, loading, selected, like, onSelect } = props;
+    const { set, loading, selected, like, onSelect, onMore } = props;
     return (
         <div className="min-w-0">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -69,12 +71,26 @@ export default function PhotoStrip(props: Props) {
                           />
                       ))
                     : set.photos.map((p) => (
-                          <li key={p.id} className="shrink-0">
+                          <li key={p.id} className="relative shrink-0">
                               <Thumb
                                   photo={p}
                                   selected={p.id === selected}
                                   onClick={() => onSelect(p)}
                               />
+                              {p.id !== like?.id && (
+                                  <Tooltip label="more like this" withArrow>
+                                      <ActionIcon
+                                          size={20}
+                                          radius="xl"
+                                          variant="default"
+                                          aria-label={`more like ${p.title || "this photo"}`}
+                                          onClick={() => onMore(p)}
+                                          className="absolute top-1 right-1 border-0 bg-black/45 text-white opacity-90 backdrop-blur-sm hover:bg-black/65 hover:opacity-100"
+                                      >
+                                          <FiLayers size="0.7rem" aria-hidden />
+                                      </ActionIcon>
+                                  </Tooltip>
+                              )}
                           </li>
                       ))}
             </ul>

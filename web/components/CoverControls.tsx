@@ -1,6 +1,6 @@
 import { SegmentedControl } from "@mantine/core";
 import type { Photo } from "../lib/api";
-import { CoverState, DARK, DEFAULT_FILL, Fill, LIGHT, TextItem } from "../lib/canvas";
+import { CoverState, DARK, Fill, TextItem, WHITE } from "../lib/canvas";
 import { photoColours, pickPair } from "../lib/colours";
 import { LayoutId, LAYOUTS } from "../lib/layouts";
 import CoverPanel, { Reveal } from "./cover/CoverPanel";
@@ -38,7 +38,7 @@ export default function CoverControls({
     selected,
     onSelect,
 }: Props) {
-    const fromPhoto = photoColours(photo?.colors ?? [], [LIGHT, DARK]);
+    const fromPhoto = photoColours(photo?.colors ?? [], [WHITE, DARK]);
     const mixColours = palette.map((h) => h.toLowerCase());
     const pool = [...fromPhoto, ...mixColours];
     const index = state.texts.findIndex((t) => t.id === selected);
@@ -54,24 +54,14 @@ export default function CoverControls({
         const [a, b] = pickPair(pool);
         return { ...bg, a, b };
     };
-    // a framed layout over the untouched default background takes its colours from the photo
+    // a preset keeps the background, which starts white
     const applyLayout = (id: LayoutId) => {
         const l = LAYOUTS.find((x) => x.id === id)!;
-        onEdit((s) => {
-            const framed = l.frame.w < 1 || l.frame.h < 1;
-            const untouched =
-                s.bg.kind === DEFAULT_FILL.kind &&
-                s.bg.a === DEFAULT_FILL.a &&
-                s.bg.b === DEFAULT_FILL.b;
-            return {
-                ...s,
-                frame: l.frame,
-                bg: framed && untouched && pool.length ? shuffled(s.bg) : s.bg,
-                texts: l.text
-                    ? s.texts.map((t, i) => (i === 0 ? { ...t, ...l.text } : t))
-                    : s.texts,
-            };
-        });
+        onEdit((s) => ({
+            ...s,
+            frame: l.frame,
+            texts: l.text ? s.texts.map((t, i) => (i === 0 ? { ...t, ...l.text } : t)) : s.texts,
+        }));
     };
 
     return (

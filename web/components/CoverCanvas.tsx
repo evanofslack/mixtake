@@ -32,7 +32,9 @@ type Props = {
     onDelete: (id: string) => void;
 };
 
-// how near (as a fraction of the side) the text's centre must come to a preset to snap to it
+// how near (as a fraction of the side) the text's centre must come to a preset to snap to it. A
+// drag that starts that near a preset doesn't snap to it until it has left, so a second drag can
+// place the text by hand just beside it; Alt turns snapping off.
 const SNAP = 0.03;
 // how far (in px) a pointer may move and still count as a click
 const CLICK = 4;
@@ -40,11 +42,13 @@ const CLICK = 4;
 type Drag = { id: number; startX: number; startY: number; moved: boolean } & (
     | { kind: "photo"; x: number; y: number }
     // the pointer's offset from the text's centre, in fractions of the side
-    | { kind: "text"; item: string; dx: number; dy: number }
+    // and the presets it started near, which it won't snap to until it leaves them
+    | { kind: "text"; item: string; dx: number; dy: number; spent: Pos[] }
     | { kind: "background" }
 );
 
-// the square preview: drag a text item to move it (it snaps to the nine presets), drag the photo
+// the square preview: drag a text item to move it (it snaps to the nine presets on the way in),
+// drag the photo
 // (or use the arrow keys) to move it, +/- to zoom, Delete removes the selected text
 export default function CoverCanvas({
     image,
@@ -146,14 +150,20 @@ export default function CoverCanvas({
         const h = hit(p);
         if (h) {
             onPick("text", h.item.id);
+            const cx = h.box.x + h.box.w / 2;
+            const cy = h.box.y + h.box.h / 2;
+            const targets = presetCentres(h.box, 1);
             drag.current = {
                 ...base,
                 kind: "text",
                 item: h.item.id,
-                dx: p.x - (h.box.x + h.box.w / 2),
-                dy: p.y - (h.box.y + h.box.h / 2),
+                dx: p.x - cx,
+                dy: p.y - cy,
+                spent: targets
+                    .filter((t) => Math.hypot(t.x - cx, t.y - cy) < SNAP)
+                    .map((t) => t.pos),
             };
-            setGuides({ targets: presetCentres(h.box, 1), snapped: null });
+            setGuides({ targets, snapped: null });
         } else if (inside(frameFraction(state.frame), p)) {
             drag.current = { ...base, kind: "photo", x: e.clientX, y: e.clientY };
         } else {
@@ -187,7 +197,10 @@ export default function CoverCanvas({
         const p = at(e);
         const cx = p.x - d.dx;
         const cy = p.y - d.dy;
-        const near = guides?.targets.find((t) => Math.hypot(t.x - cx, t.y - cy) < SNAP);
+        const close = (guides?.targets ?? []).filter((t) => Math.hypot(t.x - cx, t.y - cy) < SNAP);
+        const spent = d.spent.filter((pos) => close.some((t) => t.pos === pos));
+        drag.current = { ...d, spent };
+        const near = e.altKey ? undefined : close.find((t) => !spent.includes(t.pos));
         if (near) {
             // a preset keeps links short; the alignment follows its column, as the grid does
             onChange((s) =>

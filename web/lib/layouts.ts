@@ -1,7 +1,7 @@
 // The photo frame's controls (size, shape, position) and the layout presets, as pure functions
 // over the Frame that canvas.ts draws. The frame is stored as a free rectangle; the controls
 // read it back as the nearest size, shape and 3×3 anchor.
-import { Align, Frame, FULL_FRAME, Pos, TextItem } from "./canvas";
+import { Align, Frame, FULL_FRAME, INSET_FRAME, Pos, TextItem } from "./canvas";
 
 export type Shape = "square" | "wide" | "tall" | "band";
 
@@ -81,8 +81,8 @@ export interface Layout {
 const text = (pos: Pos, align: Align, size: number) => ({ pos, align, size });
 
 export const LAYOUTS: Layout[] = [
-    { id: "full", label: "Full bleed", frame: FULL_FRAME },
-    { id: "inset", label: "Inset", frame: frameAt(0.84, 1, "mc", 0.02) },
+    { id: "full", label: "Full", frame: FULL_FRAME },
+    { id: "inset", label: "Inset", frame: INSET_FRAME },
     {
         id: "poster",
         label: "Poster",
