@@ -367,15 +367,24 @@ The front page's example covers are real mixes, baked so they open the same on a
   leading search phrase, the status pill, gauge grooves); emboss is never the only sign of a
   state, which also gets amber or an icon. Letterpress text-shadow is for display text only.
 - Pages:
-  - `/`: a hero with the title, the input and, beside it (above it on small
-    screens), a fanned pile of four example covers, one per quadrant, drawn with the studio's
-    `drawCover` from the showcase photos; the front print changes every 5s (paused on hover or
-    focus, still under reduced motion) and the glow behind the hero takes up to three of its photo's colours (`glowColours`). Then
-    example playlists as cards (name, quadrant, a few dots), then a "how it works"
-    section (`#how`) shown rather than told: Paste → Listen → Develop tiles that play once when
-    scrolled into view, a mood pad (drag a knob over the map and the nearest showcase photo
-    crossfades in, credited to its photographer, with mood and energy gauges; drifts on its own until touched, still under
+  - `/`: a hero with the title, "playlist → mood → cover art" and the input (the vibe hides
+    behind "add a vibe"), and beside it (a swipeable strip below it on small screens) four real
+    example covers. More examples follow in a grid. The examples (`lib/examples.ts`, data in
+    `lib/examples.json`) are real playlists baked by `scripts/bake-examples.mjs`: the finished
+    cover and bare photo as webp in `public/examples`, the studio share query, the search
+    phrases, a few songs and the photo's credit. They show at once, with no fade or rotation.
+    Each card opens its mix (`/mix?id=…&<share query>&replay=1`) with the cover restored, has a
+    Spotify link and credits the playlist's owner and the photographer. The glow behind the hero
+    takes the colours of the cover last pointed at (`glowColours`). Then "how it works" (`#how`):
+    a paragraph, then one example at a time (tabs) through Paste → Listen → Read → Develop →
+    Make it yours (its songs, mood dots, its phrases, its photo, its cover), playing once when
+    scrolled into view. The language model is mentioned once, in Read's info popover. Then the
+    mood pad (drag a knob over the map and the nearest showcase photo crossfades in, credited to
+    its photographer, with mood and energy gauges; drifts on its own until touched, still under
     reduced motion)
+  - `/mix?id=…&replay=1`: a finished mix played back in about 2.5 s (`lib/replay.ts`), as if it
+    were being analysed, then `replay` is dropped from the URL; reduced motion skips it. In mock
+    mode the examples open made-up mixes in their corner of the map.
   - `/mix?id=…`: results
   - `/about` redirects (301) to `/#how`
 - Components:
