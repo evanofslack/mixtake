@@ -336,7 +336,7 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - The summary's facets and gauges explain themselves from their round icon only.
   - American spelling in everything a user sees (color, center, analyze). No site footer and no
     credits page: the Listen step's (i) credits Essentia and its license, and the mood pad
-    credits each photo's author.
+    credits each photo's author behind a camera icon.
   - ShareBar: JPG at 1500 or 3000 px, copy link; a warning icon (details on hover) when the
     crop is smaller than a size and will be upscaled. Zoom is capped at 2.5×.
   - Listen: collapsed Spotify embed player

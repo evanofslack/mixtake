@@ -1,6 +1,7 @@
 import { KeyboardEvent, PointerEvent, useEffect, useRef, useState } from "react";
+import { Tooltip } from "@mantine/core";
 import { useReducedMotion } from "@mantine/hooks";
-import { FiMove } from "react-icons/fi";
+import { FiCamera, FiMove } from "react-icons/fi";
 import { moodColour } from "../../lib/moodColour";
 import { nearestPhoto, QUADRANTS, quadrantAt, ShowcasePhoto } from "../../lib/showcase";
 import { useDark } from "../../lib/useDark";
@@ -15,8 +16,8 @@ const clamp = (v: number) => Math.min(1, Math.max(0, v));
 // where the knob drifts before anyone touches it: a slow loop through all four quadrants
 function drift(t: number): Point {
     return {
-        mood: 0.5 + 0.36 * Math.sin(t / 4300 + 1.2),
-        energy: 0.5 + 0.34 * Math.sin(t / 3100),
+        mood: 0.5 + 0.36 * Math.sin(t / 5600 + 1.2),
+        energy: 0.5 + 0.34 * Math.sin(t / 4000),
     };
 }
 
@@ -29,8 +30,9 @@ export default function MoodPad({ photos }: { photos: ShowcasePhoto[] | null }) 
     const [p, setP] = useState<Point>(START);
     const [touched, setTouched] = useState(false);
     const [dragging, setDragging] = useState(false);
-    // photos mount the first time they're shown, so the page doesn't fetch all of them up front
-    const [seen, setSeen] = useState<Set<string>>(() => new Set());
+    // every photo is fetched in the background as soon as the set arrives, and only loaded ones
+    // are shown, so the frame never shows a half-loaded image
+    const [loaded, setLoaded] = useState<Set<string>>(() => new Set());
     const well = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -47,14 +49,24 @@ export default function MoodPad({ photos }: { photos: ShowcasePhoto[] | null }) 
         return () => cancelAnimationFrame(frame);
     }, [touched, reduced]);
 
-    const list = photos ?? [];
-    const photo = nearestPhoto(list, p.mood, p.energy);
-    const current = photo?.src;
     useEffect(() => {
-        if (current) {
-            setSeen((s) => (s.has(current) ? s : new Set(s).add(current)));
+        let live = true;
+        for (const ph of photos ?? []) {
+            const img = new Image();
+            img.onload = () =>
+                live && setLoaded((s) => (s.has(ph.src) ? s : new Set(s).add(ph.src)));
+            img.src = ph.src;
         }
-    }, [current]);
+        return () => {
+            live = false;
+        };
+    }, [photos]);
+
+    const list = photos ?? [];
+    const ready = list.filter((ph) => loaded.has(ph.src));
+    // the nearest photo that's ready to show
+    const photo = nearestPhoto(ready, p.mood, p.energy);
+    const current = photo?.src;
 
     const quadrant = quadrantAt(p.mood, p.energy);
     const colour = moodColour(p.mood, p.energy, dark);
@@ -196,26 +208,23 @@ export default function MoodPad({ photos }: { photos: ShowcasePhoto[] | null }) 
             <div className="flex min-w-0 flex-col gap-4">
                 <div className="rounded-xl p-2 shadow-pressed">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sunk">
-                        {!photos && <div className="breathe size-full bg-sunk" />}
-                        {list
-                            .filter((ph) => seen.has(ph.src))
-                            .map((ph) => (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                    key={ph.src}
-                                    src={ph.src}
-                                    alt={ph.src === current ? `a ${quadrant} film photo` : ""}
-                                    aria-hidden={ph.src !== current}
-                                    className={`absolute inset-0 size-full object-cover transition-[opacity,filter] duration-700 motion-reduce:transition-none ${
-                                        ph.src === current
-                                            ? "opacity-100"
-                                            : "opacity-0 blur-[2px] sepia"
-                                    }`}
-                                />
-                            ))}
+                        {ready.map((ph) => (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                                key={ph.src}
+                                src={ph.src}
+                                alt={ph.src === current ? `a ${quadrant} film photo` : ""}
+                                aria-hidden={ph.src !== current}
+                                className={`absolute inset-0 size-full object-cover transition-[opacity,filter] duration-700 motion-reduce:transition-none ${
+                                    ph.src === current
+                                        ? "opacity-100"
+                                        : "opacity-0 blur-[2px] sepia"
+                                }`}
+                            />
+                        ))}
                     </div>
                 </div>
-                <div className="flex items-baseline justify-between gap-3">
+                <div className="flex items-center justify-between gap-3">
                     <p
                         aria-live="polite"
                         className="font-serif text-2xl leading-none letterpress sm:text-3xl"
@@ -223,12 +232,15 @@ export default function MoodPad({ photos }: { photos: ShowcasePhoto[] | null }) 
                         {quadrant}
                     </p>
                     {photo?.author && (
-                        <a
-                            href={photo.href}
-                            className="truncate text-xs text-muted transition-colors hover:text-ink"
-                        >
-                            photo by {photo.author}
-                        </a>
+                        <Tooltip label={photo.author} withArrow openDelay={100}>
+                            <a
+                                href={photo.href}
+                                aria-label={`photo by ${photo.author}`}
+                                className="flex size-7 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:text-ink"
+                            >
+                                <FiCamera aria-hidden />
+                            </a>
+                        </Tooltip>
                     )}
                 </div>
                 <div className="grid grid-cols-2 gap-4">

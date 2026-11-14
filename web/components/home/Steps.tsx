@@ -21,6 +21,8 @@ export default function Steps({ photo }: { photo?: string }) {
     }, [entry?.isIntersecting]);
     const dark = useDark();
     const held = play ? "" : "held";
+    // the photo stays hidden until it has loaded, then develops in
+    const [printed, setPrinted] = useState(false);
 
     return (
         <ol ref={ref} className="grid gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-stretch">
@@ -85,8 +87,10 @@ export default function Steps({ photo }: { photo?: string }) {
                     <img
                         src={photo}
                         alt=""
-                        loading="lazy"
-                        className={`print ${held} size-full rounded-md object-cover`}
+                        onLoad={() => setPrinted(true)}
+                        className={`size-full rounded-md object-cover ${
+                            printed ? `print ${held}` : "opacity-0"
+                        }`}
                         style={{ animationDelay: "2200ms" }}
                     />
                 )}
