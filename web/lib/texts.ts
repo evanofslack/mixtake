@@ -1,6 +1,6 @@
 // Adding, copying, reordering and removing a cover's text items. Array order is stacking order:
 // later items draw on top.
-import { CoverState, FONTS, TextItem, textItem } from "./canvas";
+import { CoverState, DARK, FONTS, LIGHT, TextItem, textItem } from "./canvas";
 
 export const MAX_TEXTS = 6;
 
@@ -63,5 +63,41 @@ export function moveText(s: CoverState, id: string, by: 1 | -1): CoverState {
 
 // the item's text for a list, or its place when it has none
 export function textLabel(t: TextItem, i: number): string {
-    return t.text.trim() || t.sub.trim() || `Text ${i + 1}`;
+    return t.text.trim() || `Text ${i + 1}`;
+}
+
+// what keeps an item readable on the photo: a soft shade, a filled badge or an outline. One at a
+// time, so they can't pile up.
+export type Backing = "none" | "shade" | "badge" | "outline";
+
+export const BACKINGS: { id: Backing; label: string }[] = [
+    { id: "none", label: "None" },
+    { id: "shade", label: "Shade" },
+    { id: "badge", label: "Badge" },
+    { id: "outline", label: "Outline" },
+];
+
+// a new outline's width, in ems
+export const OUTLINE_DEFAULT = 0.03;
+
+// the item's backing; with several on, the strongest
+export function backingOf(t: TextItem): Backing {
+    return t.badge ? "badge" : t.outline > 0 ? "outline" : t.scrim ? "shade" : "none";
+}
+
+// the item with only this backing. A badge takes `colour` (else keeps its own, else light); an
+// outline keeps its width and colour, or starts thin and dark.
+export function withBacking(t: TextItem, b: Backing, colour?: string): TextItem {
+    return {
+        ...t,
+        scrim: b === "shade",
+        badge: b === "badge" ? t.badge || colour || LIGHT : "",
+        outline: b === "outline" ? t.outline || OUTLINE_DEFAULT : 0,
+        outlineColor: b === "outline" && !t.outline ? DARK : t.outlineColor,
+    };
+}
+
+// the item with at most one backing, the strongest it has
+export function oneBacking(t: TextItem): TextItem {
+    return withBacking(t, backingOf(t));
 }

@@ -125,7 +125,6 @@ export function scatter(
 // the showcase photos. the fonts and corners vary so the stack shows what the studio can do
 export type HeroCover = {
     title: string;
-    sub: string;
     font: FontId;
     pos: Pos;
     mood: number;
@@ -133,17 +132,10 @@ export type HeroCover = {
 };
 
 export const HERO_COVERS: HeroCover[] = [
-    { title: "slow sundays", sub: "24 songs", font: "serif", pos: "bl", mood: 0.8, energy: 0.22 },
-    { title: "summer static", sub: "", font: "display", pos: "tl", mood: 0.82, energy: 0.8 },
-    { title: "after the rain", sub: "", font: "script", pos: "bc", mood: 0.2, energy: 0.24 },
-    {
-        title: "night shift",
-        sub: "for the drive home",
-        font: "mono",
-        pos: "tr",
-        mood: 0.2,
-        energy: 0.78,
-    },
+    { title: "slow sundays", font: "serif", pos: "bl", mood: 0.8, energy: 0.22 },
+    { title: "summer static", font: "display", pos: "tl", mood: 0.82, energy: 0.8 },
+    { title: "after the rain", font: "script", pos: "bc", mood: 0.2, energy: 0.24 },
+    { title: "night shift", font: "mono", pos: "tr", mood: 0.2, energy: 0.78 },
 ];
 
 // a photo for each cover: the nearest to its point on the map, never the same photo twice (each

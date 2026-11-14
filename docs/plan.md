@@ -330,7 +330,8 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - Song dots and the track list's mood bars are coloured with TargetPalette's hue rule
     (`lib/moodColour.ts`), so the charts preview the cover's palette.
   - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
-    self-hosted fonts; drag the text anywhere or pick one of 3×3 presets; colours from the
+    self-hosted fonts; drag the text anywhere or pick one of 3×3 presets by its
+    horizontal and vertical place; colours from the
     photo, the mix palette or a picker). The preview stays in view while the controls scroll:
     the whole column beside them on wide screens, a smaller preview pinned under the header on
     phones.
@@ -356,9 +357,15 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     Mono, Caveat) in `public/fonts` with `@font-face` weight and stretch ranges, not `next/font`, so
     the build needs no network and the canvas knows the family names. Each face has a usual weight
     and width; picking a face resets the item to them.
-  - Type controls per text item: size, weight (the face's range), direction (across, up, down),
-    and under "More type" width (50–150%), slant (±20°), spacing, fine rotation, outline (width
-    and color) and shadow. Canvas has no `font-variation-settings`, so width uses the nearest
+  - Type controls per text item, one row each: face, size (S/M/L/XL: 5, 8, 11, 15%), weight (the
+    face's range), place (left/center/right and top/middle/bottom, which set the preset and its
+    alignment; text dragged off the presets shows neither until one is picked), turn (up,
+    across, down), color, and backing. Under "Fine-tune": exact size, width (50–150%), slant
+    (±20°), spacing, fine rotation, outline width or badge corners, and shadow.
+  - A backing keeps text readable on the photo: none, a shade (soft gradient on the photo), a
+    badge (a filled box) or an outline. One at a time (`withBacking` in `lib/texts.ts`); a link
+    with several keeps the strongest (badge, then outline, then shade). There is no subtitle:
+    another text item does that job, and old links' subtitles are dropped. Canvas has no `font-variation-settings`, so width uses the nearest
     `ctx.fontStretch` keyword the face's axis covers plus a horizontal scale for the rest, slant
     is a shear, and spacing uses `ctx.letterSpacing`. Whether the browser honours fontStretch and
     letterSpacing is measured once; without them width is all scale and letters are drawn one by
@@ -386,10 +393,11 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     (`pickPair` in `lib/colours.ts`). An anchored frame's longer side gets equal margins, so it
     only moves along its shorter side: Place is top/middle/bottom for a wide frame,
     left/center/right for a tall one, and absent for a square. Picking a framed preset while the
-    background is still the default takes its colors from the photo. **Text**: the text items
-    and the selected one's type, position, alignment and color.
+    background is still the default takes its colors from the photo. **Text**: a list of layers
+    (`components/cover/TextLayers.tsx`), the top of the stack first, each row its text edited in
+    place; the selected row holds its actions and opens its settings beneath it.
     Dragging pans the photo only when it starts inside the frame.
-  - A cover has up to six text items (`lib/texts.ts`): chips at the top of Text mode select
+  - A cover has up to six text items (`lib/texts.ts`): a row in Text mode selects
     one, with add, duplicate, bring forward, send back and delete. The first item is the title
     (its text defaults to the playlist's name); the rest start as small centred text. Clicking
     text on the preview selects it and opens Text mode, where the selected item gets a dashed

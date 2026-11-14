@@ -31,8 +31,6 @@ export interface Frame {
 export interface TextItem {
     id: string;
     text: string;
-    // a smaller line under the text
-    sub: string;
     font: FontId;
     pos: Placement;
     // the text box's centre as fractions of the square, used when pos is "free"
@@ -88,7 +86,6 @@ export const FULL_FRAME: Frame = { x: 0.5, y: 0.5, w: 1, h: 1, radius: 0 };
 export const DEFAULT_FILL: Fill = { kind: "solid", a: LIGHT, b: DARK };
 
 export const DEFAULT_TEXT: Omit<TextItem, "id" | "text"> = {
-    sub: "",
     font: "serif",
     pos: "bl",
     tx: 0.5,
@@ -161,8 +158,6 @@ interface FontSpec {
     // line height, in ems
     leading: number;
     upper?: boolean;
-    // the subtitle's face, when the title's doesn't read well small
-    sub?: FontId;
 }
 
 // variable faces, self-hosted from public/fonts (see styles/index.css)
@@ -197,7 +192,6 @@ export const FONTS: Record<FontId, FontSpec> = {
         scale: 1.05,
         leading: 0.92,
         upper: true,
-        sub: "grotesk",
     },
     wide: {
         label: "Wide",
@@ -208,7 +202,6 @@ export const FONTS: Record<FontId, FontSpec> = {
         stretch: null,
         scale: 0.78,
         leading: 1.02,
-        sub: "grotesk",
     },
     mono: {
         label: "Mono",
@@ -229,7 +222,6 @@ export const FONTS: Record<FontId, FontSpec> = {
         stretch: null,
         scale: 1.25,
         leading: 0.95,
-        sub: "grotesk",
     },
 };
 
@@ -253,17 +245,13 @@ export async function loadFonts(state: CoverState): Promise<void> {
     await Promise.all(state.texts.map((t) => loadFont(t.font)));
 }
 
-// resolves once a face (and its subtitle face) can be drawn on a canvas
+// resolves once a face can be drawn on a canvas
 export async function loadFont(id: FontId): Promise<void> {
     if (loadedFonts.has(id) || typeof document === "undefined" || !document.fonts) {
         return;
     }
-    const subId = FONTS[id].sub ?? id;
     try {
-        await Promise.all([
-            document.fonts.load(cssFont(id, 64)),
-            document.fonts.load(cssFont(subId, 64)),
-        ]);
+        await document.fonts.load(cssFont(id, 64));
     } catch {
         // draw with the fallback face rather than not at all
     }
@@ -481,8 +469,6 @@ interface Block {
 
 interface TextLayout {
     title: Block;
-    sub: Block | null;
-    gap: number;
     // the badge's padding around the text, in px; 0 without a badge
     pad: number;
     // the text box before rotation, padding included
@@ -621,10 +607,7 @@ function canStretch(ctx: Ctx, id: FontId): boolean {
 function layoutText(ctx: Ctx, item: TextItem, size: number): TextLayout | null {
     const spec = FONTS[item.font];
     const titleText = transform(item.text.trim(), spec.upper);
-    const subId = spec.sub ?? item.font;
-    const subSpec = FONTS[subId];
-    const subText = transform(item.sub.trim(), subSpec.upper);
-    if (!titleText && !subText) {
+    if (!titleText) {
         return null;
     }
 
@@ -648,30 +631,10 @@ function layoutText(ctx: Ctx, item: TextItem, size: number): TextLayout | null {
     const cap = titleText ? ctx.measureText("H").actualBoundingBoxAscent : 0;
     const title: Block = { style: st, px, lines, lead: px * spec.leading, cap };
 
-    let sub: Block | null = null;
-    if (subText) {
-        const sp = Math.max(size * 0.022, Math.min(px * 0.36, size * 0.045)) * subSpec.scale;
-        // a subtitle in its own face keeps that face's usual weight and width
-        const own = subId === item.font ? item : { ...item, ...subSpec };
-        const sst = styleFor(ctx, subId, sp, { ...own, tracking: item.tracking });
-        applyStyle(ctx, sst);
-        sub = {
-            style: sst,
-            px: sp,
-            lines: wrap(ctx, sst, subText, maxW),
-            lead: sp * 1.3,
-            cap: ctx.measureText("H").actualBoundingBoxAscent,
-        };
-    }
-
-    const gap = titleText && sub ? Math.max(sub.px * 0.9, px * 0.28) : 0;
-    const titleH = lines.length ? cap + (lines.length - 1) * title.lead : 0;
-    const subH = sub ? sub.cap + (sub.lines.length - 1) * sub.lead : 0;
-    const pad = item.badge ? (titleText ? px : (sub?.px ?? px)) * 0.4 : 0;
-    const w =
-        Math.max(0, ...lines.map((l) => l.width), ...(sub?.lines ?? []).map((l) => l.width)) +
-        2 * pad;
-    const h = titleH + gap + subH + 2 * pad;
+    const h0 = cap + (lines.length - 1) * title.lead;
+    const pad = item.badge ? px * 0.4 : 0;
+    const w = Math.max(0, ...lines.map((l) => l.width)) + 2 * pad;
+    const h = h0 + 2 * pad;
 
     // place the rotated box's bounds, then centre the upright box in them
     const rad = (item.rotate * Math.PI) / 180;
@@ -687,8 +650,6 @@ function layoutText(ctx: Ctx, item: TextItem, size: number): TextLayout | null {
     const cy = o.y + bh / 2;
     return {
         title,
-        sub,
-        gap,
         pad,
         box: { x: cx - w / 2, y: cy - h / 2, w, h },
         bounds: { x: o.x, y: o.y, w: bw, h: bh },
@@ -745,7 +706,7 @@ export function presetCentres(box: Box, size: number): { pos: Pos; x: number; y:
 }
 
 function drawText(ctx: Ctx, item: TextItem, layout: TextLayout, color: string, size: number): void {
-    const { box, title, sub, gap, pad } = layout;
+    const { box, title, pad } = layout;
     const lineX = (w: number) =>
         item.align === "left"
             ? box.x + pad
@@ -754,21 +715,11 @@ function drawText(ctx: Ctx, item: TextItem, layout: TextLayout, color: string, s
               : box.x + box.w - pad - w;
 
     // every line as a run, so the outline pass and the fill pass agree
-    const runs: { block: Block; line: Line; y: number; alpha: number }[] = [];
+    const runs: { block: Block; line: Line; y: number }[] = [];
     let baseline = box.y + pad + title.cap;
     for (const line of title.lines) {
-        runs.push({ block: title, line, y: baseline, alpha: 1 });
+        runs.push({ block: title, line, y: baseline });
         baseline += title.lead;
-    }
-    if (title.lines.length) {
-        baseline += gap - title.lead;
-    }
-    if (sub) {
-        baseline += sub.cap;
-        for (const line of sub.lines) {
-            runs.push({ block: sub, line, y: baseline, alpha: 0.88 });
-            baseline += sub.lead;
-        }
     }
 
     ctx.save();
@@ -811,7 +762,6 @@ function drawText(ctx: Ctx, item: TextItem, layout: TextLayout, color: string, s
         ctx.strokeStyle = item.outlineColor;
         for (const r of runs) {
             applyStyle(ctx, r.block.style);
-            ctx.globalAlpha = r.alpha;
             ctx.lineWidth = outline * 2 * r.block.px;
             drawRun(ctx, r.block.style, r.line.text, lineX(r.line.width), r.y, "stroke");
         }
@@ -822,7 +772,6 @@ function drawText(ctx: Ctx, item: TextItem, layout: TextLayout, color: string, s
     ctx.fillStyle = color;
     for (const r of runs) {
         applyStyle(ctx, r.block.style);
-        ctx.globalAlpha = r.alpha;
         drawRun(ctx, r.block.style, r.line.text, lineX(r.line.width), r.y, "fill");
     }
     ctx.restore();

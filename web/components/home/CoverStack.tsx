@@ -110,7 +110,6 @@ function Print({ cover, photo }: { cover: HeroCover; photo?: ShowcasePhoto }) {
             image,
             simpleCover({
                 text: cover.title,
-                sub: cover.sub,
                 font: cover.font,
                 pos: cover.pos,
                 align: alignFor(cover.pos, "left"),

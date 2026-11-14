@@ -3,7 +3,7 @@
 // `c` param: short-key JSON, base64url, with values that match the defaults left out. Links from
 // before `c` (one param per setting) are still read.
 import { MAX_SEED } from "./api";
-import { MAX_TEXTS } from "./texts";
+import { MAX_TEXTS, oneBacking } from "./texts";
 import {
     Align,
     clamp,
@@ -117,7 +117,6 @@ const FILL: Schema<Fill> = {
 
 const TEXT: Schema<TextItem> = {
     text: ["t", textOf(120)],
-    sub: ["s", textOf(160)],
     font: ["f", oneOf(FONT_IDS)],
     pos: ["p", oneOf(PLACEMENTS)],
     tx: ["x", numIn(0, 1)],
@@ -202,9 +201,10 @@ export function decodeCover(c: string, defaultTitle: string): CoverState | null 
     }
     const crop = unpack(body, { x: 0.5, y: 0.5, zoom: 1 }, CROP);
     const texts = Array.isArray(body.t)
-        ? body.t
-              .slice(0, MAX_TEXTS)
-              .map((raw, i) => unpack(raw, textItem(`t${i}`, textDefaults(i, defaultTitle)), TEXT))
+        ? body.t.slice(0, MAX_TEXTS).map((raw, i) =>
+              // one backing per item; a link with several keeps the strongest
+              oneBacking(unpack(raw, textItem(`t${i}`, textDefaults(i, defaultTitle)), TEXT)),
+          )
         : [];
     return {
         ...crop,
@@ -241,7 +241,6 @@ function readLegacy(q: Query, defaultTitle: string): CoverState {
         texts: [
             legacyText({
                 text: (str(q, "title") ?? defaultTitle).slice(0, 120),
-                sub: (str(q, "sub") ?? d.sub).slice(0, 160),
                 font: oneOf<FontId>(FONT_IDS)(str(q, "font")) ?? d.font,
                 pos: oneOf(PLACEMENTS)(str(q, "pos")) ?? d.pos,
                 tx: num("tx", 0, 1, d.tx),

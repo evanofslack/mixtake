@@ -4,8 +4,8 @@ import { CoverState, DARK, DEFAULT_FILL, Fill, LIGHT, TextItem } from "../lib/ca
 import { photoColours, pickPair } from "../lib/colours";
 import { LayoutId, LAYOUTS } from "../lib/layouts";
 import CoverPanel, { Reveal } from "./cover/CoverPanel";
-import TextList from "./cover/TextList";
-import TextTab from "./cover/TextTab";
+import TextInspector from "./cover/TextInspector";
+import TextLayers from "./cover/TextLayers";
 
 // the cover as a whole (layout, photo, background), or its text items
 export type Mode = "cover" | "text";
@@ -101,24 +101,22 @@ export default function CoverControls({
                     palette={mixColours}
                 />
             ) : (
-                <>
-                    <TextList
-                        texts={state.texts}
-                        selected={item?.id ?? null}
-                        onSelect={onSelect}
-                        onEdit={onEdit}
-                    />
+                <TextLayers
+                    texts={state.texts}
+                    selected={item?.id ?? null}
+                    onSelect={onSelect}
+                    onEdit={onEdit}
+                >
                     {item && (
-                        <TextTab
+                        <TextInspector
                             key={item.id}
                             item={item}
-                            first={index === 0}
                             onChange={onItem}
                             photo={fromPhoto}
                             palette={mixColours}
                         />
                     )}
-                </>
+                </TextLayers>
             )}
         </div>
     );
