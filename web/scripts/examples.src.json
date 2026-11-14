@@ -1,0 +1,102 @@
+[
+    {
+        "slug": "duty-free",
+        "mixId": "x7pzewkz6wfo",
+        "genre": "french pop, disco, afro-latin",
+        "query": "photo=46555&c=eyJ2IjoyLCJ6IjoxLjEyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiZHV0eSBmcmVlIiwiZiI6IndpZGUiLCJ3Ijo3MDAsInAiOiJ0YyIsImEiOiJjZW50ZXIiLCJ6IjoxMiwiYyI6ImZmZmZmZiJ9XX0",
+        "phrases": [
+            "white ferry wake crossing turquoise water toward a Mediterranean headland",
+            "scooter parked against whitewashed wall in a Tangier medina at noon",
+            "Lagos market stalls of yellow plastic crates in late afternoon haze"
+        ]
+    },
+    {
+        "slug": "parents-hate",
+        "mixId": "szkdoqyxettg",
+        "genre": "rap, punk, everything loud",
+        "query": "photo=38714&c=eyJ2IjoyLCJ6IjoxLjE0LCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0Ijoic29uZ3MgbXkgcGFyZW50cyBoYXRlIiwiZiI6InNjcmlwdCIsInciOjYwMCwicCI6ImJsIiwieiI6MTMsImMiOiJmZmZmZmYifV19",
+        "phrases": [
+            "motel car park at night, flash-lit sedan with open boot, grainy film",
+            "24-hour petrol station forecourt under fluorescent canopy at 3am",
+            "chlorine-blue backyard pool with cracked tiles at midday"
+        ]
+    },
+    {
+        "slug": "j8ms",
+        "mixId": "nl7urf23lxg5",
+        "genre": "cloud rap, uk hip hop",
+        "query": "photo=49800&c=eyJ2IjoyLCJ0IjpbeyJ0IjoiajhtcyIsImYiOiJtb25vIiwidyI6NDAwLCJwIjoidHIiLCJ6IjoxMSwiYyI6ImZmZmZmZiIsImEiOiJyaWdodCJ9XSwiZiI6eyJ3IjoxLCJoIjoxfX0",
+        "phrases": [
+            "Pale pink 1990s Cadillac parked beside a dry palm tree at noon",
+            "Frosted Dublin terrace of brick houses with chimney smoke rising at dawn",
+            "Kitchen table with a half-empty bottle of cognac and cold tea at 4am"
+        ]
+    },
+    {
+        "slug": "ethio-jazz",
+        "mixId": "53ko2kkcyqmj",
+        "genre": "ethio-jazz, 1970s addis",
+        "query": "photo=34689&c=eyJ2IjoyLCJ6IjoxLjEyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiQmVzdCBvZiBFdGhpby1KYXp6IiwiZiI6InNlcmlmIiwidyI6NjAwLCJwIjoiYmMiLCJhIjoiY2VudGVyIiwieiI6MTAsImMiOiJmZmZmZmYifV19",
+        "phrases": [
+            "Eucalyptus-covered Entoto hillside above a sprawling Addis Ababa at dawn haze",
+            "Blue and cream Mercedes taxis queued outside a market in Addis Ababa at dusk",
+            "Blue Nile gorge and falls at Tis Abay in hazy late-afternoon light"
+        ]
+    },
+    {
+        "slug": "city-pop",
+        "mixId": "xdkwziflya7j",
+        "genre": "japanese city pop, 1980s",
+        "query": "photo=40871&c=eyJ2IjoyLCJ6IjoxLjQsImYiOnsidyI6MSwiaCI6MX0sInQiOlt7InQiOiJDaXR5IFBvcCIsImYiOiJkaXNwbGF5IiwidyI6ODAwLCJkIjo2Mi41LCJwIjoidGwiLCJ6IjoxNywiYyI6ImZmZmZmZiJ9XX0",
+        "phrases": [
+            "Coastal highway guardrail with a surfboard rack on a car roof in heat haze",
+            "Guardrail and parked white hatchback on a Shonan coast road at dawn sea mist",
+            "Expressway overpass pillars under sodium haze, Tokyo, long exposure"
+        ]
+    },
+    {
+        "slug": "brazil",
+        "mixId": "5renyyfsrx2x",
+        "genre": "bossa nova, mpb",
+        "query": "photo=44600&c=eyJ2IjoyLCJ6IjoxLjIyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiYm9zc2Egbm92YSAmIGJyYXppbGlhbiB2aWJlcyIsImYiOiJzZXJpZiIsInciOjQwMCwiayI6MTAsInAiOiJ0ciIsImEiOiJyaWdodCIsInoiOjh9XX0",
+        "phrases": [
+            "curved concrete apartment block facade against a pale blue sky, Brazil",
+            "wave-patterned black and white mosaic pavement along a beach promenade at midday",
+            "wooden fishing boats drawn up on pale sand at dawn, tropical coast"
+        ]
+    },
+    {
+        "slug": "highlife",
+        "mixId": "t27tavdclsou",
+        "genre": "highlife, palm wine",
+        "query": "photo=46267&c=eyJ2IjoyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiQWZyaWNhbiBIaWdobGlmZSBhbmQgUGFsbSBXaW5lIiwiZiI6Imdyb3Rlc2siLCJ3Ijo2MDAsInAiOiJibCIsInoiOjUuNSwiYyI6IjE0MTIxMCIsImIiOiJmMmMyMzAiLCJoIjpmYWxzZX1dfQ",
+        "phrases": [
+            "yellow Lagos taxi cab idling at a rank in harsh noon sun",
+            "tapper's rope looped around a palm trunk at dawn, grainy 35mm",
+            "kerosene lantern on a wooden counter beside clay pots of palm wine"
+        ]
+    },
+    {
+        "slug": "jungle",
+        "mixId": "y4ju33hmbnci",
+        "name": "Jungle Classics 90s",
+        "genre": "jungle, drum & bass",
+        "query": "photo=52058&c=eyJ2IjoyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiSlVOR0xFIENMQVNTSUNTIDkwcyIsImYiOiJncm90ZXNrIiwidyI6ODAwLCJnIjotMC4wMiwicCI6InRsIiwieiI6MTIsImMiOiJmZmZmZmYifV19",
+        "phrases": [
+            "pirate radio aerial wires strung across a tower block roof at night",
+            "grainy flash photo of a crumbling concrete estate walkway after midnight",
+            "Dalston fruit stalls and shuttered shopfronts under harsh midday sun"
+        ]
+    },
+    {
+        "slug": "ambient",
+        "mixId": "i3dr2xfzdwnf",
+        "genre": "ambient, modern classical",
+        "query": "photo=43519&c=eyJ2IjoyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiQW1iaWVudCBMaWdodCIsImYiOiJzZXJpZiIsInciOjMwMCwicCI6ImJjIiwiYSI6ImNlbnRlciIsInoiOjksImMiOiJmZmZmZmYifV19",
+        "phrases": [
+            "fog lifting off a grey fjord, wooden pier and moored boats before dawn",
+            "black sand shoreline at Hellissandur under low winter sun",
+            "frost-furred birch branches against a pale overcast northern sky"
+        ]
+    }
+]

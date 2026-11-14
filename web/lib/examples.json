@@ -1,0 +1,443 @@
+[
+    {
+        "slug": "duty-free",
+        "name": "duty free",
+        "owner": "evan_slack",
+        "genre": "french pop, disco, afro-latin",
+        "spotify": "https://open.spotify.com/playlist/0tuoN8yx2qIQnSXJ3ClnJ0",
+        "mixId": "x7pzewkz6wfo",
+        "query": "photo=46555&c=eyJ2IjoyLCJ6IjoxLjEyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiZHV0eSBmcmVlIiwiZiI6IndpZGUiLCJ3Ijo3MDAsInAiOiJ0YyIsImEiOiJjZW50ZXIiLCJ6IjoxMiwiYyI6ImZmZmZmZiJ9XX0",
+        "cover": "/examples/duty-free.webp",
+        "photo": "/examples/duty-free-photo.webp",
+        "credit": {
+            "author": "Jaekohead",
+            "href": "https://www.reddit.com/r/analog/comments/rjua2v/ferry_shot_mamiya_c330_105mm_f35_cinestill_50d/"
+        },
+        "phrases": [
+            "white ferry wake crossing turquoise water toward a Mediterranean headland",
+            "scooter parked against whitewashed wall in a Tangier medina at noon",
+            "Lagos market stalls of yellow plastic crates in late afternoon haze"
+        ],
+        "tracks": [
+            "S'en aller — Swing, Angèle",
+            "Si Nos Vamos — Marc Seguí",
+            "Clandestina (feat. Emma Peters) - Cocaina Remix — FILV, Edmofo, Emma Peters"
+        ],
+        "colors": [
+            {
+                "hex": "#c9cdc9",
+                "percent": 0.21738456
+            },
+            {
+                "hex": "#e7d2c4",
+                "percent": 0.19197598
+            },
+            {
+                "hex": "#7b999b",
+                "percent": 0.14443603
+            },
+            {
+                "hex": "#f7dcc8",
+                "percent": 0.13582264
+            },
+            {
+                "hex": "#537174",
+                "percent": 0.11433189
+            }
+        ],
+        "mood": 0.6,
+        "energy": 0.56
+    },
+    {
+        "slug": "parents-hate",
+        "name": "songs my parents hate",
+        "owner": "evan_slack",
+        "genre": "rap, punk, everything loud",
+        "spotify": "https://open.spotify.com/playlist/03UKHeZQfJcIeletRbuB1Y",
+        "mixId": "szkdoqyxettg",
+        "query": "photo=38714&c=eyJ2IjoyLCJ6IjoxLjE0LCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0Ijoic29uZ3MgbXkgcGFyZW50cyBoYXRlIiwiZiI6InNjcmlwdCIsInciOjYwMCwicCI6ImJsIiwieiI6MTMsImMiOiJmZmZmZmYifV19",
+        "cover": "/examples/parents-hate.webp",
+        "photo": "/examples/parents-hate-photo.webp",
+        "credit": {
+            "author": "Important_Simple_357",
+            "href": "https://www.reddit.com/r/analog/comments/1tsvvey/route_66_stay_fujichrome_rtpii_p67ii_isco_110mm_f2/"
+        },
+        "phrases": [
+            "motel car park at night, flash-lit sedan with open boot, grainy film",
+            "24-hour petrol station forecourt under fluorescent canopy at 3am",
+            "chlorine-blue backyard pool with cracked tiles at midday"
+        ],
+        "tracks": [
+            "I Wanna Help Your Mind — Goth Babe",
+            "Emanate — spüke",
+            "Daydream — Tutara Peak, Aether, Zes, Lilia, Grand Pavilion"
+        ],
+        "colors": [
+            {
+                "hex": "#08193b",
+                "percent": 0.419914
+            },
+            {
+                "hex": "#4b2137",
+                "percent": 0.15674748
+            },
+            {
+                "hex": "#040303",
+                "percent": 0.142055
+            },
+            {
+                "hex": "#0d0f14",
+                "percent": 0.12074604
+            },
+            {
+                "hex": "#ce234c",
+                "percent": 0.08821659
+            }
+        ],
+        "mood": 0.62,
+        "energy": 0.56
+    },
+    {
+        "slug": "j8ms",
+        "name": "j8ms",
+        "owner": "evan_slack",
+        "genre": "cloud rap, uk hip hop",
+        "spotify": "https://open.spotify.com/playlist/7CuulklR3d4KOR98couoht",
+        "mixId": "nl7urf23lxg5",
+        "query": "photo=49800&c=eyJ2IjoyLCJ0IjpbeyJ0IjoiajhtcyIsImYiOiJtb25vIiwidyI6NDAwLCJwIjoidHIiLCJ6IjoxMSwiYyI6ImZmZmZmZiIsImEiOiJyaWdodCJ9XSwiZiI6eyJ3IjoxLCJoIjoxfX0",
+        "cover": "/examples/j8ms.webp",
+        "photo": "/examples/j8ms-photo.webp",
+        "credit": {
+            "author": "jakeinez",
+            "href": "https://www.reddit.com/r/analog/comments/hf4zow/sunset_cruise_canon_a1portra_400/"
+        },
+        "phrases": [
+            "Pale pink 1990s Cadillac parked beside a dry palm tree at noon",
+            "Frosted Dublin terrace of brick houses with chimney smoke rising at dawn",
+            "Kitchen table with a half-empty bottle of cognac and cold tea at 4am"
+        ],
+        "tracks": [
+            "Damselfly — Loyle Carner, Tom Misch",
+            "622 — Innanet James",
+            "GLOWED UP — KAYTRANADA, Anderson .Paak"
+        ],
+        "colors": [
+            {
+                "hex": "#bcbac2",
+                "percent": 0.24644605
+            },
+            {
+                "hex": "#e5cbc4",
+                "percent": 0.19942988
+            },
+            {
+                "hex": "#8ea1a1",
+                "percent": 0.15574725
+            },
+            {
+                "hex": "#3b4743",
+                "percent": 0.13663764
+            },
+            {
+                "hex": "#1e3031",
+                "percent": 0.13661783
+            }
+        ],
+        "mood": 0.53,
+        "energy": 0.5
+    },
+    {
+        "slug": "ethio-jazz",
+        "name": "Best of Ethio-Jazz",
+        "owner": "volt.fm",
+        "genre": "ethio-jazz, 1970s addis",
+        "spotify": "https://open.spotify.com/playlist/0VEDG29vrWB5GlaeqIZeqv",
+        "mixId": "53ko2kkcyqmj",
+        "query": "photo=34689&c=eyJ2IjoyLCJ6IjoxLjEyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiQmVzdCBvZiBFdGhpby1KYXp6IiwiZiI6InNlcmlmIiwidyI6NjAwLCJwIjoiYmMiLCJhIjoiY2VudGVyIiwieiI6MTAsImMiOiJmZmZmZmYifV19",
+        "cover": "/examples/ethio-jazz.webp",
+        "photo": "/examples/ethio-jazz-photo.webp",
+        "credit": {
+            "author": "pizzadog112",
+            "href": "https://www.reddit.com/r/analog/comments/1mdmqtw/hilltop_harman_rolleiflex_28f_harman_phoenix_200/"
+        },
+        "phrases": [
+            "Eucalyptus-covered Entoto hillside above a sprawling Addis Ababa at dawn haze",
+            "Blue and cream Mercedes taxis queued outside a market in Addis Ababa at dusk",
+            "Blue Nile gorge and falls at Tis Abay in hazy late-afternoon light"
+        ],
+        "tracks": [
+            "Tezeta — Mulatu Astatke",
+            "Yègellé Tezeta — Mulatu Astatke",
+            "Tezeta (Nostalgia) — Mulatu Astatke"
+        ],
+        "colors": [
+            {
+                "hex": "#e3e7ec",
+                "percent": 0.22114529
+            },
+            {
+                "hex": "#0f0706",
+                "percent": 0.16839983
+            },
+            {
+                "hex": "#25120b",
+                "percent": 0.15776532
+            },
+            {
+                "hex": "#432513",
+                "percent": 0.11462415
+            },
+            {
+                "hex": "#7c6859",
+                "percent": 0.09033495
+            }
+        ],
+        "mood": 0.51,
+        "energy": 0.43
+    },
+    {
+        "slug": "city-pop",
+        "name": "City Pop シティーポップ",
+        "owner": "aofd3",
+        "genre": "japanese city pop, 1980s",
+        "spotify": "https://open.spotify.com/playlist/5ZEY1gtao9eGzvAD3KEh2x",
+        "mixId": "xdkwziflya7j",
+        "query": "photo=40871&c=eyJ2IjoyLCJ6IjoxLjQsImYiOnsidyI6MSwiaCI6MX0sInQiOlt7InQiOiJDaXR5IFBvcCIsImYiOiJkaXNwbGF5IiwidyI6ODAwLCJkIjo2Mi41LCJwIjoidGwiLCJ6IjoxNywiYyI6ImZmZmZmZiJ9XX0",
+        "cover": "/examples/city-pop.webp",
+        "photo": "/examples/city-pop-photo.webp",
+        "credit": {
+            "author": "Mindless_Lettuce5841",
+            "href": "https://www.reddit.com/r/analog/comments/1uhznrz/cars_on_the_japanese_coast_nikon_fm_28mm/"
+        },
+        "phrases": [
+            "Coastal highway guardrail with a surfboard rack on a car roof in heat haze",
+            "Guardrail and parked white hatchback on a Shonan coast road at dawn sea mist",
+            "Expressway overpass pillars under sodium haze, Tokyo, long exposure"
+        ],
+        "tracks": [
+            "Midnight Pretenders — Tomoko Aran",
+            "Plastic Love — Mariya Takeuchi",
+            "Cassette — Efence"
+        ],
+        "colors": [
+            {
+                "hex": "#040303",
+                "percent": 0.27555185
+            },
+            {
+                "hex": "#b7cec9",
+                "percent": 0.23959145
+            },
+            {
+                "hex": "#9c8171",
+                "percent": 0.1649207
+            },
+            {
+                "hex": "#64adbe",
+                "percent": 0.15426173
+            },
+            {
+                "hex": "#686b56",
+                "percent": 0.05894315
+            }
+        ],
+        "mood": 0.62,
+        "energy": 0.62
+    },
+    {
+        "slug": "brazil",
+        "name": "bossa nova  & brazilian vibes  2026",
+        "owner": "Delicieuse Musique",
+        "genre": "bossa nova, mpb",
+        "spotify": "https://open.spotify.com/playlist/6QAI0uVsSqW1RXijnpA8jm",
+        "mixId": "5renyyfsrx2x",
+        "query": "photo=44600&c=eyJ2IjoyLCJ6IjoxLjIyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiYm9zc2Egbm92YSAmIGJyYXppbGlhbiB2aWJlcyIsImYiOiJzZXJpZiIsInciOjQwMCwiayI6MTAsInAiOiJ0ciIsImEiOiJyaWdodCIsInoiOjh9XX0",
+        "cover": "/examples/brazil.webp",
+        "photo": "/examples/brazil-photo.webp",
+        "credit": {
+            "author": "SubPop120",
+            "href": "https://www.reddit.com/r/analog/comments/nqmhlt/the_watergate_hotel_nikon_fm3a_40mm_colorplus_200/"
+        },
+        "phrases": [
+            "curved concrete apartment block facade against a pale blue sky, Brazil",
+            "wave-patterned black and white mosaic pavement along a beach promenade at midday",
+            "wooden fishing boats drawn up on pale sand at dawn, tropical coast"
+        ],
+        "tracks": [
+            "São Jorge — Hermeto Pascoal",
+            "Canção da Cura — Sessa",
+            "Andar com fé — Gilberto Gil"
+        ],
+        "colors": [
+            {
+                "hex": "#0b1304",
+                "percent": 0.25011633
+            },
+            {
+                "hex": "#d8d8d6",
+                "percent": 0.2100987
+            },
+            {
+                "hex": "#c3c6c0",
+                "percent": 0.13889841
+            },
+            {
+                "hex": "#292c0d",
+                "percent": 0.10638715
+            },
+            {
+                "hex": "#b9a167",
+                "percent": 0.08807737
+            }
+        ],
+        "mood": 0.51,
+        "energy": 0.43
+    },
+    {
+        "slug": "highlife",
+        "name": "African Highlife and Palm Wine",
+        "owner": "ammon",
+        "genre": "highlife, palm wine",
+        "spotify": "https://open.spotify.com/playlist/2rruuZkdTBl9WNEy5UBuJo",
+        "mixId": "t27tavdclsou",
+        "query": "photo=46267&c=eyJ2IjoyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiQWZyaWNhbiBIaWdobGlmZSBhbmQgUGFsbSBXaW5lIiwiZiI6Imdyb3Rlc2siLCJ3Ijo2MDAsInAiOiJibCIsInoiOjUuNSwiYyI6IjE0MTIxMCIsImIiOiJmMmMyMzAiLCJoIjpmYWxzZX1dfQ",
+        "cover": "/examples/highlife.webp",
+        "photo": "/examples/highlife-photo.webp",
+        "credit": {
+            "author": "MLUdrea",
+            "href": "https://www.reddit.com/r/analog/comments/q16si3/caution_canon_ae1p_canon_50mm_f12_l_fujifilm/"
+        },
+        "phrases": [
+            "yellow Lagos taxi cab idling at a rank in harsh noon sun",
+            "tapper's rope looped around a palm trunk at dawn, grainy 35mm",
+            "kerosene lantern on a wooden counter beside clay pots of palm wine"
+        ],
+        "tracks": [
+            "Ijo Shina — Sir Shina Peters",
+            "Uwa Ngbede Ka Mma — Gentleman Mike Ejeagha & His Trio",
+            "My Lovely Elizabeth — S.E. Rogie"
+        ],
+        "colors": [
+            {
+                "hex": "#110a0b",
+                "percent": 0.15046009
+            },
+            {
+                "hex": "#8f7169",
+                "percent": 0.14013975
+            },
+            {
+                "hex": "#785956",
+                "percent": 0.13528008
+            },
+            {
+                "hex": "#cebb9e",
+                "percent": 0.13076835
+            },
+            {
+                "hex": "#4a2e2d",
+                "percent": 0.1196141
+            }
+        ],
+        "mood": 0.6,
+        "energy": 0.55
+    },
+    {
+        "slug": "jungle",
+        "name": "Jungle Classics 90s",
+        "owner": "oppositemarco",
+        "genre": "jungle, drum & bass",
+        "spotify": "https://open.spotify.com/playlist/4hvbZXAhxnqcybT7zNhHLn",
+        "mixId": "y4ju33hmbnci",
+        "query": "photo=52058&c=eyJ2IjoyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiSlVOR0xFIENMQVNTSUNTIDkwcyIsImYiOiJncm90ZXNrIiwidyI6ODAwLCJnIjotMC4wMiwicCI6InRsIiwieiI6MTIsImMiOiJmZmZmZmYifV19",
+        "cover": "/examples/jungle.webp",
+        "photo": "/examples/jungle-photo.webp",
+        "credit": {
+            "author": "crookedcusp",
+            "href": "https://www.reddit.com/r/analog/comments/iulfcu/me_super_50mm_17_portra_400/"
+        },
+        "phrases": [
+            "pirate radio aerial wires strung across a tower block roof at night",
+            "grainy flash photo of a crumbling concrete estate walkway after midnight",
+            "Dalston fruit stalls and shuttered shopfronts under harsh midday sun"
+        ],
+        "tracks": [
+            "Maximum Style (Lover To Lover) — Tom & Jerry",
+            "All the Crew Big Up - 95 Relick — Roni Size, DJ Die",
+            "R.I.P. - DJ Hype Remix — Remarc"
+        ],
+        "colors": [
+            {
+                "hex": "#131513",
+                "percent": 0.35021899
+            },
+            {
+                "hex": "#2b291e",
+                "percent": 0.15482941
+            },
+            {
+                "hex": "#483e28",
+                "percent": 0.13637909
+            },
+            {
+                "hex": "#6c5732",
+                "percent": 0.10070597
+            },
+            {
+                "hex": "#95713d",
+                "percent": 0.08303654
+            }
+        ],
+        "mood": 0.66,
+        "energy": 0.58
+    },
+    {
+        "slug": "ambient",
+        "name": "Ambient Light ",
+        "owner": "Argy Karis",
+        "genre": "ambient, modern classical",
+        "spotify": "https://open.spotify.com/playlist/2vYoPAumqelI7ZyL35dB77",
+        "mixId": "i3dr2xfzdwnf",
+        "query": "photo=43519&c=eyJ2IjoyLCJmIjp7InciOjEsImgiOjF9LCJ0IjpbeyJ0IjoiQW1iaWVudCBMaWdodCIsImYiOiJzZXJpZiIsInciOjMwMCwicCI6ImJjIiwiYSI6ImNlbnRlciIsInoiOjksImMiOiJmZmZmZmYifV19",
+        "cover": "/examples/ambient.webp",
+        "photo": "/examples/ambient-photo.webp",
+        "credit": {
+            "author": "jakobivarekvall",
+            "href": "https://www.reddit.com/r/analog/comments/mke5h1/the_harbour_of_gothenburg_nikon_fe2_nikkor_50mm/"
+        },
+        "phrases": [
+            "fog lifting off a grey fjord, wooden pier and moored boats before dawn",
+            "black sand shoreline at Hellissandur under low winter sun",
+            "frost-furred birch branches against a pale overcast northern sky"
+        ],
+        "tracks": [
+            "Untitled #3 - Samskeyti — Sigur Rós",
+            "Dalur — Ólafur Arnalds, Brasstríó Mosfellsdals",
+            "The Weight Of Stillness — Evelyn Bates, Elena Kopteva"
+        ],
+        "colors": [
+            {
+                "hex": "#1d1d1d",
+                "percent": 0.1756501
+            },
+            {
+                "hex": "#c0c0c0",
+                "percent": 0.15416692
+            },
+            {
+                "hex": "#393939",
+                "percent": 0.14418227
+            },
+            {
+                "hex": "#575757",
+                "percent": 0.14148827
+            },
+            {
+                "hex": "#b0b0b0",
+                "percent": 0.1112625
+            }
+        ],
+        "mood": 0.21,
+        "energy": 0.18
+    }
+]
