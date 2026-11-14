@@ -354,11 +354,21 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     `public/fonts` with `@font-face`, not `next/font`, so the build needs no network and the canvas
     knows the family names.
   - The photographer's credit stays on the page and is never drawn on the image.
-  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `seed`
-    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `tx`, `ty` (only when
-    `pos=free`), `align`, `color`, `size`, `scrim` (defaults are omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
-    in them. If the photo isn't in either, the studio shows the first photo with the same text and
-    says so.
+  - A cover is three layers (`CoverState`): a background `Fill` (solid or a two-color
+    horizontal, vertical, radial or diagonal gradient), the photo in a `Frame` (centre, size and
+    corner radius as fractions; full bleed by default, which hides the background) and a list of
+    `TextItem`s drawn in order. Text presets place a box on the whole cover, not the frame, so
+    text can sit on the background beside an inset photo. Auto text color samples the background
+    and photo together.
+  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source) and `seed`
+    (shuffle) stay readable params, since they choose the photos. The cover is one `c` param:
+    short-key JSON (`v: 2`), base64url, with values equal to the defaults left out; the first text
+    item's text defaults to the playlist's name. Old links with one param per setting (`x`,
+    `title`, `font`, …) are still read and rewritten as `c`. A link refetches the mix's set with
+    `vibe` and the `like` set, then looks up `photo` in them. If the photo isn't in either, the
+    studio shows the first photo with the same text and says so.
+  - Undo and redo (⌘Z, ⇧⌘Z, or the arrows under the preview) cover every edit; edits within
+    600 ms are one step, so a slider drag undoes at once. Picking a photo isn't a step.
   - Mock mode serves 12 generated scenes from `public/mock`.
 
 ## Tooling

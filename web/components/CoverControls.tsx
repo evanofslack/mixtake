@@ -16,6 +16,7 @@ import { photoColours } from "../lib/colours";
 import Info from "./Info";
 import {
     Align,
+    alignFor,
     CoverState,
     DARK,
     FONT_IDS,
@@ -25,6 +26,7 @@ import {
     POSITIONS,
     SIZE_MAX,
     SIZE_MIN,
+    TextItem,
     ZOOM_MAX,
 } from "../lib/canvas";
 
@@ -34,8 +36,12 @@ type Props = {
     // the colours the mix's photos were ranked towards
     palette: string[];
     onChange: (update: Partial<CoverState>) => void;
+    onText: (id: string, update: Partial<TextItem>) => void;
     onZoom: (zoom: number) => void;
 };
+
+// the controls for one text item
+type ItemProps = { item: TextItem; onChange: (update: Partial<TextItem>) => void };
 
 const POS_LABEL: Record<Pos, string> = {
     tl: "top left",
@@ -50,26 +56,37 @@ const POS_LABEL: Record<Pos, string> = {
 };
 
 // the editor's settings: stacked beside the preview on wide screens, an accordion on phones
-export default function CoverControls({ state, photo, palette, onChange, onZoom }: Props) {
+export default function CoverControls({ state, photo, palette, onChange, onText, onZoom }: Props) {
     const wide = useMediaQuery("(min-width: 64em)", false);
+    const item = state.texts[0];
+    const onItem = (u: Partial<TextItem>) => item && onText(item.id, u);
     const sections: { value: string; label: string; body: ReactNode }[] = [
-        {
-            value: "text",
-            label: "Text",
-            body: <TextSection state={state} onChange={onChange} />,
-        },
-        {
-            value: "type",
-            label: "Type",
-            body: <TypeSection state={state} onChange={onChange} />,
-        },
-        {
-            value: "colour",
-            label: "Color",
-            body: (
-                <ColourSection state={state} photo={photo} palette={palette} onChange={onChange} />
-            ),
-        },
+        ...(item
+            ? [
+                  {
+                      value: "text",
+                      label: "Text",
+                      body: <TextSection item={item} onChange={onItem} />,
+                  },
+                  {
+                      value: "type",
+                      label: "Type",
+                      body: <TypeSection item={item} onChange={onItem} />,
+                  },
+                  {
+                      value: "colour",
+                      label: "Color",
+                      body: (
+                          <ColourSection
+                              item={item}
+                              photo={photo}
+                              palette={palette}
+                              onChange={onItem}
+                          />
+                      ),
+                  },
+              ]
+            : []),
         {
             value: "crop",
             label: "Crop",
@@ -103,19 +120,19 @@ export default function CoverControls({ state, photo, palette, onChange, onZoom 
     );
 }
 
-function TextSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
+function TextSection({ item, onChange }: ItemProps) {
     return (
         <div className="flex flex-col gap-3">
             <TextInput
                 label="Title"
-                value={state.title}
+                value={item.text}
                 maxLength={120}
                 placeholder="no title"
-                onChange={(e) => onChange({ title: e.currentTarget.value })}
+                onChange={(e) => onChange({ text: e.currentTarget.value })}
             />
             <TextInput
                 label="Subtitle"
-                value={state.sub}
+                value={item.sub}
                 maxLength={160}
                 placeholder="optional"
                 onChange={(e) => onChange({ sub: e.currentTarget.value })}
@@ -124,7 +141,7 @@ function TextSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
     );
 }
 
-function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
+function TypeSection({ item, onChange }: ItemProps) {
     return (
         <div className="flex flex-col gap-4">
             <fieldset>
@@ -134,7 +151,7 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                         <Choice
                             key={id}
                             name="cover-font"
-                            checked={state.font === id}
+                            checked={item.font === id}
                             onSelect={() => onChange({ font: id })}
                             label={FONTS[id].label}
                             className="flex h-14 flex-col items-center justify-center gap-0.5 rounded-sm px-1"
@@ -166,19 +183,9 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                             <Choice
                                 key={p}
                                 name="cover-pos"
-                                checked={state.pos === p}
-                                onSelect={() =>
-                                    onChange({
-                                        pos: p,
-                                        // follow the column; the alignment control can override it
-                                        align:
-                                            p[1] === "l"
-                                                ? "left"
-                                                : p[1] === "r"
-                                                  ? "right"
-                                                  : "center",
-                                    })
-                                }
+                                checked={item.pos === p}
+                                // follow the column; the alignment control can override it
+                                onSelect={() => onChange({ pos: p, align: alignFor(p, "left") })}
                                 label={POS_LABEL[p]}
                                 className="flex size-8 items-center justify-center rounded-xs"
                             >
@@ -198,7 +205,7 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                     <SegmentedControl
                         aria-labelledby="cover-align"
                         size="sm"
-                        value={state.align}
+                        value={item.align}
                         onChange={(v) => onChange({ align: v as Align })}
                         data={[
                             {
@@ -224,7 +231,7 @@ function TypeSection({ state, onChange }: Pick<Props, "state" | "onChange">) {
                         min={SIZE_MIN}
                         max={SIZE_MAX}
                         step={0.5}
-                        value={state.size}
+                        value={item.size}
                         onChange={(v) => onChange({ size: v })}
                         label={(v) => `${v}%`}
                         color="var(--mix-ink)"
@@ -245,26 +252,21 @@ function AlignLabel({ icon, name }: { icon: ReactNode; name: string }) {
 }
 
 function ColourSection({
-    state,
+    item,
     photo,
     palette,
     onChange,
-}: Pick<Props, "state" | "photo" | "palette" | "onChange">) {
+}: ItemProps & Pick<Props, "photo" | "palette">) {
     const fromPhoto = photoColours(photo?.colors ?? [], [LIGHT, DARK]);
     const fromMix = palette.map((h) => h.toLowerCase()).filter((h) => !fromPhoto.includes(h));
     const known = new Set(["auto", LIGHT, DARK, ...fromPhoto, ...fromMix]);
-    const custom = known.has(state.color) ? null : state.color;
+    const custom = known.has(item.color) ? null : item.color;
     return (
         <div className="flex flex-col gap-2.5">
             <fieldset>
                 <legend className="sr-only">Text color</legend>
                 <div className="flex flex-wrap items-center gap-1.5">
-                    <Swatch
-                        value="auto"
-                        label="auto light or dark"
-                        state={state}
-                        onChange={onChange}
-                    >
+                    <Swatch value="auto" label="auto light or dark" item={item} onChange={onChange}>
                         <span
                             className="block size-full rounded-full"
                             style={{
@@ -277,7 +279,7 @@ function ColourSection({
                             key={hex}
                             value={hex}
                             label={hex === LIGHT ? "white" : hex === DARK ? "black" : hex}
-                            state={state}
+                            item={item}
                             onChange={onChange}
                         >
                             <Dot hex={hex} />
@@ -291,7 +293,7 @@ function ColourSection({
                             key={hex}
                             value={hex}
                             label={`${hex} from the mix`}
-                            state={state}
+                            item={item}
                             onChange={onChange}
                         >
                             <Dot hex={hex} />
@@ -307,7 +309,7 @@ function ColourSection({
                 />
                 <Switch
                     label="Shade"
-                    checked={state.scrim}
+                    checked={item.scrim}
                     onChange={(e) => onChange({ scrim: e.currentTarget.checked })}
                     color="var(--mix-ink)"
                 />
@@ -360,20 +362,20 @@ function CustomColour({
 function Swatch({
     value,
     label,
-    state,
+    item,
     onChange,
     children,
 }: {
     value: string;
     label: string;
-    state: CoverState;
-    onChange: (u: Partial<CoverState>) => void;
+    item: TextItem;
+    onChange: (u: Partial<TextItem>) => void;
     children: ReactNode;
 }) {
     return (
         <Choice
             name="cover-colour"
-            checked={state.color === value}
+            checked={item.color === value}
             onSelect={() => onChange({ color: value })}
             label={label}
             className="size-7 rounded-full p-0.5"

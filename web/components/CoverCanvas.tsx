@@ -1,15 +1,18 @@
 import { KeyboardEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import { Loader } from "@mantine/core";
 import {
+    alignFor,
+    aspectOf,
     Box,
     clampCrop,
     CoverState,
     drawCover,
-    fontLoaded,
-    loadFont,
+    fontsLoaded,
+    loadFonts,
     panBy,
     Pos,
     presetCentres,
+    TextItem,
     textBox,
     ZOOM_MAX,
 } from "../lib/canvas";
@@ -50,9 +53,9 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
         if (!canvas || !image || width === 0) {
             return;
         }
-        if (!fontLoaded(state.font)) {
+        if (!fontsLoaded(state)) {
             let cancelled = false;
-            loadFont(state.font).then(() => !cancelled && setFontTick((t) => t + 1));
+            loadFonts(state).then(() => !cancelled && setFontTick((t) => t + 1));
             return () => {
                 cancelled = true;
             };
@@ -68,25 +71,34 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
         }
     });
 
+    // dx, dy are fractions of the frame
     const pan = (dx: number, dy: number) =>
-        image && onChange((s) => panBy(image.width, image.height, s, dx, dy));
+        image && onChange((s) => panBy(image.width, image.height, s, dx, dy, aspectOf(s.frame)));
     const zoom = (by: number) =>
         image &&
         onChange((s) =>
-            clampCrop(image.width, image.height, {
-                ...s,
-                zoom: Math.min(ZOOM_MAX, Math.max(1, s.zoom + by)),
-            }),
+            clampCrop(
+                image.width,
+                image.height,
+                { ...s, zoom: Math.min(ZOOM_MAX, Math.max(1, s.zoom + by)) },
+                aspectOf(s.frame),
+            ),
         );
+    // the text item that dragging moves
+    const item = state.texts[0];
+    const updateItem = (s: CoverState, u: Partial<TextItem>): CoverState => ({
+        ...s,
+        texts: s.texts.map((t) => (t.id === item?.id ? { ...t, ...u } : t)),
+    });
 
     // the text's box as fractions of the side, measured the way drawCover lays it out
     const measure = (): Box | null => {
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext("2d");
-        if (!canvas || !ctx || canvas.width === 0) {
+        if (!canvas || !ctx || canvas.width === 0 || !item) {
             return null;
         }
-        const b = textBox(ctx, state, canvas.width);
+        const b = textBox(ctx, item, canvas.width);
         const f = canvas.width;
         return b && { x: b.x / f, y: b.y / f, w: b.w / f, h: b.h / f };
     };
@@ -127,7 +139,8 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
         }
         if (d.kind === "photo") {
             // the photo follows the pointer, so the view moves the other way
-            pan(-(e.clientX - d.x) / width, -(e.clientY - d.y) / width);
+            const { w, h } = state.frame;
+            pan(-(e.clientX - d.x) / (width * w), -(e.clientY - d.y) / (width * h));
             drag.current = { ...d, x: e.clientX, y: e.clientY };
             return;
         }
@@ -137,19 +150,15 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
         const near = guides?.targets.find((t) => Math.hypot(t.x - cx, t.y - cy) < SNAP);
         if (near) {
             // a preset keeps links short; the alignment follows its column, as the grid does
-            const col = near.pos[1];
-            onChange((s) => ({
-                ...s,
-                pos: near.pos,
-                align: col === "l" ? "left" : col === "r" ? "right" : "center",
-            }));
+            onChange((s) => updateItem(s, { pos: near.pos, align: alignFor(near.pos, "left") }));
         } else {
-            onChange((s) => ({
-                ...s,
-                pos: "free",
-                tx: round(Math.min(1, Math.max(0, cx))),
-                ty: round(Math.min(1, Math.max(0, cy))),
-            }));
+            onChange((s) =>
+                updateItem(s, {
+                    pos: "free",
+                    tx: round(Math.min(1, Math.max(0, cx))),
+                    ty: round(Math.min(1, Math.max(0, cy))),
+                }),
+            );
         }
         setGuides((g) => g && { ...g, snapped: near?.pos ?? null });
     };
@@ -189,7 +198,7 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
                 ref={canvasRef}
                 tabIndex={0}
                 role="img"
-                aria-label={`Cover preview${state.title ? `: ${state.title}` : ""}. Drag the text to move it. Drag or use the arrow keys to move the photo, plus and minus to zoom, 0 to reset.`}
+                aria-label={`Cover preview${item?.text ? `: ${item.text}` : ""}. Drag the text to move it. Drag or use the arrow keys to move the photo, plus and minus to zoom, 0 to reset.`}
                 aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown + - 0"
                 className={`block size-full touch-none select-none ${
                     !image

@@ -1,19 +1,37 @@
-// Cover drawing: one pure function renders the crop and the text at any size, so the preview and
-// the downloaded JPG are the same picture. Everything is in fractions of the square, never pixels.
+// Cover drawing: one pure function renders the cover at any size, so the preview and the
+// downloaded JPG are the same picture. Everything is in fractions of the square, never pixels.
+//
+// A cover is three layers: a background fill, the photo in a (rounded) frame, and a list of text
+// items drawn in order on top. A full-bleed frame hides the background entirely.
 
 export type FontId = "serif" | "grotesk" | "display" | "mono" | "script";
 export type Pos = "tl" | "tc" | "tr" | "ml" | "mc" | "mr" | "bl" | "bc" | "br";
 // one of the nine presets, or "free": dragged somewhere else, centred on (tx, ty)
 export type Placement = Pos | "free";
 export type Align = "left" | "center" | "right";
+export type FillKind = "solid" | "horizontal" | "vertical" | "radial" | "diagonal";
 
-export interface CoverState {
-    // the centre of the square crop, as a fraction of the image's width and height
+export interface Fill {
+    kind: FillKind;
+    // "#rrggbb"; a solid fill only uses `a`
+    a: string;
+    b: string;
+}
+
+// where the photo sits, as fractions of the square: its centre, size and corner radius
+export interface Frame {
     x: number;
     y: number;
-    // 1 fits the short side of the photo into the square; higher crops in
-    zoom: number;
-    title: string;
+    w: number;
+    h: number;
+    // as a fraction of the frame's shorter side
+    radius: number;
+}
+
+export interface TextItem {
+    id: string;
+    text: string;
+    // a smaller line under the text
     sub: string;
     font: FontId;
     pos: Placement;
@@ -21,22 +39,36 @@ export interface CoverState {
     tx: number;
     ty: number;
     align: Align;
-    // "auto" picks light or dark from the photo under the text; otherwise "#rrggbb"
+    // "auto" picks light or dark from what's under the text; otherwise "#rrggbb"
     color: string;
-    // title size as a percentage of the cover's side
+    // text size as a percentage of the cover's side
     size: number;
-    // a soft gradient behind the text
+    // a soft gradient behind the text, inside the photo
     scrim: boolean;
+}
+
+export interface CoverState {
+    // the centre of the crop, as a fraction of the image's width and height
+    x: number;
+    y: number;
+    // 1 fits the photo's short side into the frame; higher crops in
+    zoom: number;
+    frame: Frame;
+    bg: Fill;
+    texts: TextItem[];
 }
 
 export const ZOOM_MAX = 2.5;
 export const SIZE_MIN = 4;
 export const SIZE_MAX = 20;
 
-export const DEFAULT_STATE: Omit<CoverState, "title"> = {
-    x: 0.5,
-    y: 0.5,
-    zoom: 1,
+export const LIGHT = "#f7f4ee";
+export const DARK = "#141210";
+
+export const FULL_FRAME: Frame = { x: 0.5, y: 0.5, w: 1, h: 1, radius: 0 };
+export const DEFAULT_FILL: Fill = { kind: "solid", a: LIGHT, b: DARK };
+
+export const DEFAULT_TEXT: Omit<TextItem, "id" | "text"> = {
     sub: "",
     font: "serif",
     pos: "bl",
@@ -47,6 +79,31 @@ export const DEFAULT_STATE: Omit<CoverState, "title"> = {
     size: 11,
     scrim: false,
 };
+
+export const DEFAULT_STATE: Omit<CoverState, "texts"> = {
+    x: 0.5,
+    y: 0.5,
+    zoom: 1,
+    frame: FULL_FRAME,
+    bg: DEFAULT_FILL,
+};
+
+export function textItem(id: string, u: Partial<TextItem> = {}): TextItem {
+    return { id, text: "", ...DEFAULT_TEXT, ...u };
+}
+
+// a full-bleed cover with one block of text, as the home page's examples use
+export function simpleCover(u: Partial<TextItem>): CoverState {
+    return { ...DEFAULT_STATE, texts: [textItem("t0", u)] };
+}
+
+// the alignment that suits a preset's column
+export function alignFor(pos: Placement, fallback: Align): Align {
+    if (pos === "free") {
+        return fallback;
+    }
+    return pos[1] === "l" ? "left" : pos[1] === "r" ? "right" : "center";
+}
 
 interface FontSpec {
     label: string;
@@ -88,9 +145,6 @@ export const FONTS: Record<FontId, FontSpec> = {
 export const FONT_IDS = Object.keys(FONTS) as FontId[];
 export const POSITIONS: Pos[] = ["tl", "tc", "tr", "ml", "mc", "mr", "bl", "bc", "br"];
 
-export const LIGHT = "#f7f4ee";
-export const DARK = "#141210";
-
 export function cssFont(id: FontId, px: number): string {
     const f = FONTS[id];
     return `${f.weight} ${px}px "${f.family}"`;
@@ -98,12 +152,17 @@ export function cssFont(id: FontId, px: number): string {
 
 const loadedFonts = new Set<FontId>();
 
-// whether loadFont(id) has finished, so a redraw needn't wait
-export function fontLoaded(id: FontId): boolean {
-    return loadedFonts.has(id);
+// whether every face the cover uses has loaded, so a redraw needn't wait
+export function fontsLoaded(state: CoverState): boolean {
+    return state.texts.every((t) => loadedFonts.has(t.font));
 }
 
-// resolves once the title and subtitle faces can be drawn on a canvas
+// resolves once the faces of every text item can be drawn on a canvas
+export async function loadFonts(state: CoverState): Promise<void> {
+    await Promise.all(state.texts.map((t) => loadFont(t.font)));
+}
+
+// resolves once a face (and its subtitle face) can be drawn on a canvas
 export async function loadFont(id: FontId): Promise<void> {
     if (loadedFonts.has(id) || typeof document === "undefined" || !document.fonts) {
         return;
@@ -120,48 +179,184 @@ export async function loadFont(id: FontId): Promise<void> {
     loadedFonts.add(id);
 }
 
-// the photo's rectangle that lands in the square, in source pixels
+type CropState = Pick<CoverState, "x" | "y" | "zoom">;
+
+// the frame's width over its height
+export function aspectOf(frame: Frame): number {
+    return frame.w / frame.h;
+}
+
+// the photo's rectangle that lands in the frame, in source pixels
 export function cropRect(
     w: number,
     h: number,
-    s: Pick<CoverState, "x" | "y" | "zoom">,
-): { sx: number; sy: number; side: number } {
-    const side = Math.min(w, h) / clampZoom(s.zoom);
-    const cx = clamp(s.x * w, side / 2, w - side / 2);
-    const cy = clamp(s.y * h, side / 2, h - side / 2);
-    return { sx: cx - side / 2, sy: cy - side / 2, side };
+    s: CropState,
+    aspect = 1,
+): { sx: number; sy: number; sw: number; sh: number } {
+    let sw = w;
+    let sh = w / aspect;
+    if (sh > h) {
+        sh = h;
+        sw = h * aspect;
+    }
+    const z = clampZoom(s.zoom);
+    sw /= z;
+    sh /= z;
+    const cx = clamp(s.x * w, sw / 2, w - sw / 2);
+    const cy = clamp(s.y * h, sh / 2, h - sh / 2);
+    return { sx: cx - sw / 2, sy: cy - sh / 2, sw, sh };
 }
 
-// keeps the crop inside the photo after a pan or zoom
-export function clampCrop<T extends Pick<CoverState, "x" | "y" | "zoom">>(
-    w: number,
-    h: number,
-    s: T,
-): T {
+// keeps the crop inside the photo after a pan, zoom or frame change
+export function clampCrop<T extends CropState>(w: number, h: number, s: T, aspect = 1): T {
     const zoom = round(clampZoom(s.zoom), 3);
-    const { sx, sy, side } = cropRect(w, h, { ...s, zoom });
+    const { sx, sy, sw, sh } = cropRect(w, h, { ...s, zoom }, aspect);
     // rounded as the share link writes them, so a link redraws exactly this crop
-    return { ...s, zoom, x: round((sx + side / 2) / w, 4), y: round((sy + side / 2) / h, 4) };
+    return { ...s, zoom, x: round((sx + sw / 2) / w, 4), y: round((sy + sh / 2) / h, 4) };
 }
 
-// moves the crop by a fraction of the visible square (positive moves the view right/down)
-export function panBy<T extends Pick<CoverState, "x" | "y" | "zoom">>(
+// moves the crop by a fraction of the visible frame (positive moves the view right/down)
+export function panBy<T extends CropState>(
     w: number,
     h: number,
     s: T,
     dx: number,
     dy: number,
+    aspect = 1,
 ): T {
-    const side = Math.min(w, h) / clampZoom(s.zoom);
-    return clampCrop(w, h, { ...s, x: s.x + (dx * side) / w, y: s.y + (dy * side) / h });
+    const { sw, sh } = cropRect(w, h, s, aspect);
+    return clampCrop(w, h, { ...s, x: s.x + (dx * sw) / w, y: s.y + (dy * sh) / h }, aspect);
 }
 
-// how many source pixels span the cover's side at this crop
-export function sourceSide(w: number, h: number, zoom: number): number {
-    return Math.min(w, h) / clampZoom(zoom);
+// how many source pixels span the frame's width at this crop
+export function sourceWidth(w: number, h: number, zoom: number, aspect = 1): number {
+    return cropRect(w, h, { x: 0.5, y: 0.5, zoom }, aspect).sw;
 }
 
 type Ctx = CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+type Image = CanvasImageSource & { width: number; height: number };
+
+export interface Box {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+}
+
+// the frame in pixels of a size×size cover
+export function frameBox(frame: Frame, size: number): Box {
+    return {
+        x: (frame.x - frame.w / 2) * size,
+        y: (frame.y - frame.h / 2) * size,
+        w: frame.w * size,
+        h: frame.h * size,
+    };
+}
+
+function isFull(frame: Frame): boolean {
+    return frame.w >= 1 && frame.h >= 1;
+}
+
+// draws the cover into a size×size context
+export function drawCover(ctx: Ctx, image: Image, state: CoverState, size: number): void {
+    ctx.save();
+    ctx.clearRect(0, 0, size, size);
+    drawBase(ctx, image, state, size);
+
+    const fb = frameBox(state.frame, size);
+    const layouts = state.texts.map((t) => ({ item: t, layout: layoutText(ctx, t, size) }));
+    const colours = layouts.map(({ item, layout }) =>
+        !layout
+            ? LIGHT
+            : item.color === "auto"
+              ? autoColor(image, state, layout.box, size)
+              : item.color,
+    );
+    // scrims sit on the photo, under every item's text
+    layouts.forEach(({ item, layout }, i) => {
+        if (layout && item.scrim) {
+            ctx.save();
+            clipFrame(ctx, state.frame, size);
+            drawScrim(ctx, scrimRow(item), layout.box, fb, luminance(colours[i]) > 0.4);
+            ctx.restore();
+        }
+    });
+    layouts.forEach(({ item, layout }, i) => {
+        if (layout) {
+            drawText(ctx, item, layout, colours[i], size);
+        }
+    });
+    ctx.restore();
+}
+
+// the background and the framed photo, without text
+function drawBase(ctx: Ctx, image: Image, state: CoverState, size: number): void {
+    const { frame } = state;
+    if (!isFull(frame)) {
+        ctx.fillStyle = fillStyle(ctx, state.bg, size);
+        ctx.fillRect(0, 0, size, size);
+    }
+    const fb = frameBox(frame, size);
+    const { sx, sy, sw, sh } = cropRect(image.width, image.height, state, aspectOf(frame));
+    ctx.save();
+    clipFrame(ctx, frame, size);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(image, sx, sy, sw, sh, fb.x, fb.y, fb.w, fb.h);
+    ctx.restore();
+}
+
+function clipFrame(ctx: Ctx, frame: Frame, size: number): void {
+    const fb = frameBox(frame, size);
+    const r = frame.radius * Math.min(fb.w, fb.h);
+    ctx.beginPath();
+    if (r > 0) {
+        ctx.roundRect(fb.x, fb.y, fb.w, fb.h, r);
+    } else {
+        ctx.rect(fb.x, fb.y, fb.w, fb.h);
+    }
+    ctx.clip();
+}
+
+// the canvas paint for a fill across a size×size cover
+export function fillStyle(ctx: Ctx, fill: Fill, size: number): string | CanvasGradient {
+    let g: CanvasGradient;
+    switch (fill.kind) {
+        case "solid":
+            return fill.a;
+        case "horizontal":
+            g = ctx.createLinearGradient(0, 0, size, 0);
+            break;
+        case "vertical":
+            g = ctx.createLinearGradient(0, 0, 0, size);
+            break;
+        case "diagonal":
+            g = ctx.createLinearGradient(0, 0, size, size);
+            break;
+        case "radial":
+            g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size * 0.71);
+            break;
+    }
+    g.addColorStop(0, fill.a);
+    g.addColorStop(1, fill.b);
+    return g;
+}
+
+// the same fill as a CSS background, for swatches and previews
+export function cssFill(fill: Fill): string {
+    switch (fill.kind) {
+        case "solid":
+            return fill.a;
+        case "horizontal":
+            return `linear-gradient(90deg, ${fill.a}, ${fill.b})`;
+        case "vertical":
+            return `linear-gradient(180deg, ${fill.a}, ${fill.b})`;
+        case "diagonal":
+            return `linear-gradient(135deg, ${fill.a}, ${fill.b})`;
+        case "radial":
+            return `radial-gradient(circle, ${fill.a}, ${fill.b})`;
+    }
+}
 
 interface Line {
     text: string;
@@ -172,61 +367,31 @@ interface TextLayout {
     title: { font: string; px: number; lines: Line[]; lead: number; cap: number };
     sub: { font: string; px: number; lines: Line[]; lead: number; cap: number } | null;
     gap: number;
-    box: { x: number; y: number; w: number; h: number };
+    box: Box;
 }
 
-// draws the cover into a size×size context
-export function drawCover(
-    ctx: Ctx,
-    image: CanvasImageSource & { width: number; height: number },
-    state: CoverState,
-    size: number,
-): void {
-    const w = image.width;
-    const h = image.height;
-    const { sx, sy, side } = cropRect(w, h, state);
-
-    ctx.save();
-    ctx.clearRect(0, 0, size, size);
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(image, sx, sy, side, side, 0, 0, size, size);
-
-    const layout = layoutText(ctx, state, size);
-    if (layout) {
-        const color =
-            state.color === "auto" ? autoColor(image, state, layout.box, size) : state.color;
-        const light = luminance(color) > 0.4;
-        if (state.scrim) {
-            drawScrim(ctx, scrimRow(state), layout.box, size, light);
-        }
-        drawText(ctx, state, layout, color, light, size);
-    }
-    ctx.restore();
-}
-
-function layoutText(ctx: Ctx, state: CoverState, size: number): TextLayout | null {
-    const spec = FONTS[state.font];
-    const titleText = transform(state.title.trim(), spec.upper);
-    const subId = spec.sub ?? state.font;
-    const subText = transform(state.sub.trim(), FONTS[subId].upper);
+function layoutText(ctx: Ctx, item: TextItem, size: number): TextLayout | null {
+    const spec = FONTS[item.font];
+    const titleText = transform(item.text.trim(), spec.upper);
+    const subId = spec.sub ?? item.font;
+    const subText = transform(item.sub.trim(), FONTS[subId].upper);
     if (!titleText && !subText) {
         return null;
     }
 
     const margin = size * MARGIN;
-    const col = state.pos === "free" ? null : state.pos[1];
+    const col = item.pos === "free" ? null : item.pos[1];
     // centred text can use the whole width; a corner (or free text) leaves room for the photo
     const maxW = col === "c" ? size - 2 * margin : size * 0.78;
 
-    let px = (size * state.size * spec.scale) / 100;
-    ctx.font = cssFont(state.font, px);
+    let px = (size * item.size * spec.scale) / 100;
+    ctx.font = cssFont(item.font, px);
     let lines = wrap(ctx, titleText, maxW);
     // a single long word: shrink until it fits
     const widest = Math.max(0, ...lines.map((l) => l.width));
     if (widest > maxW) {
         px *= maxW / widest;
-        ctx.font = cssFont(state.font, px);
+        ctx.font = cssFont(item.font, px);
         lines = wrap(ctx, titleText, maxW);
     }
     const cap = titleText ? ctx.measureText("H").actualBoundingBoxAscent : 0;
@@ -256,9 +421,9 @@ function layoutText(ctx: Ctx, state: CoverState, size: number): TextLayout | nul
     );
 
     const { x, y } =
-        state.pos === "free"
-            ? freeOrigin(state.tx, state.ty, boxW, boxH, size)
-            : presetOrigin(state.pos, boxW, boxH, size);
+        item.pos === "free"
+            ? freeOrigin(item.tx, item.ty, boxW, boxH, size)
+            : presetOrigin(item.pos, boxW, boxH, size);
     return { title, sub, gap, box: { x, y, w: boxW, h: boxH } };
 }
 
@@ -293,17 +458,10 @@ function freeOrigin(
     };
 }
 
-export interface Box {
-    x: number;
-    y: number;
-    w: number;
-    h: number;
-}
-
-// where the text is drawn, in pixels of a size×size cover, or null when there is no text
-export function textBox(ctx: Ctx, state: CoverState, size: number): Box | null {
+// where a text item is drawn, in pixels of a size×size cover, or null when it has no text
+export function textBox(ctx: Ctx, item: TextItem, size: number): Box | null {
     ctx.save();
-    const layout = layoutText(ctx, state, size);
+    const layout = layoutText(ctx, item, size);
     ctx.restore();
     return layout?.box ?? null;
 }
@@ -318,27 +476,21 @@ export function presetCentres(box: Box, size: number): { pos: Pos; x: number; y:
     });
 }
 
-function drawText(
-    ctx: Ctx,
-    state: CoverState,
-    layout: TextLayout,
-    color: string,
-    light: boolean,
-    size: number,
-): void {
+function drawText(ctx: Ctx, item: TextItem, layout: TextLayout, color: string, size: number): void {
     const { box, title, sub, gap } = layout;
     const lineX = (w: number) =>
-        state.align === "left"
+        item.align === "left"
             ? box.x
-            : state.align === "center"
+            : item.align === "center"
               ? box.x + (box.w - w) / 2
               : box.x + box.w - w;
 
+    ctx.save();
     ctx.fillStyle = color;
     ctx.textBaseline = "alphabetic";
     ctx.textAlign = "left";
     // light text gets a faint shadow so it holds on busy photos without looking like a sticker
-    if (light) {
+    if (luminance(color) > 0.4) {
         ctx.shadowColor = "rgba(0, 0, 0, 0.28)";
         ctx.shadowBlur = size * 0.012;
         ctx.shadowOffsetY = size * 0.002;
@@ -362,55 +514,50 @@ function drawText(
             baseline += sub.lead;
         }
     }
-    ctx.globalAlpha = 1;
-    ctx.shadowColor = "transparent";
+    ctx.restore();
 }
 
 // which edge the scrim fades from: the preset's row, or for free text the nearer edge
-function scrimRow(state: CoverState): "t" | "m" | "b" {
-    if (state.pos !== "free") {
-        return state.pos[0] as "t" | "m" | "b";
+function scrimRow(item: TextItem): "t" | "m" | "b" {
+    if (item.pos !== "free") {
+        return item.pos[0] as "t" | "m" | "b";
     }
-    return state.ty < 0.4 ? "t" : state.ty > 0.6 ? "b" : "m";
+    return item.ty < 0.4 ? "t" : item.ty > 0.6 ? "b" : "m";
 }
 
-// a gradient from the text's edge of the cover, dark under light text and light under dark
-function drawScrim(
-    ctx: Ctx,
-    row: "t" | "m" | "b",
-    box: TextLayout["box"],
-    size: number,
-    lightText: boolean,
-): void {
+// a gradient from the text's edge of the frame, dark under light text and light under dark
+function drawScrim(ctx: Ctx, row: "t" | "m" | "b", box: Box, frame: Box, lightText: boolean): void {
     const rgb = lightText ? "10, 9, 8" : "250, 248, 244";
     const strong = lightText ? 0.55 : 0.6;
-    const pad = size * 0.12;
+    const pad = Math.max(frame.w, frame.h) * 0.12;
+    const fTop = frame.y;
+    const fBottom = frame.y + frame.h;
     let g: CanvasGradient;
     if (row === "t") {
-        const end = Math.min(size, box.y + box.h + pad * 1.6);
-        g = ctx.createLinearGradient(0, 0, 0, end);
+        const end = Math.min(fBottom, box.y + box.h + pad * 1.6);
+        g = ctx.createLinearGradient(0, fTop, 0, end);
         g.addColorStop(0, `rgba(${rgb}, ${strong})`);
         g.addColorStop(0.55, `rgba(${rgb}, ${strong * 0.6})`);
         g.addColorStop(1, `rgba(${rgb}, 0)`);
         ctx.fillStyle = g;
-        ctx.fillRect(0, 0, size, end);
+        ctx.fillRect(frame.x, fTop, frame.w, end - fTop);
     } else if (row === "b") {
-        const start = Math.max(0, box.y - pad * 1.6);
-        g = ctx.createLinearGradient(0, start, 0, size);
+        const start = Math.max(fTop, box.y - pad * 1.6);
+        g = ctx.createLinearGradient(0, start, 0, fBottom);
         g.addColorStop(0, `rgba(${rgb}, 0)`);
         g.addColorStop(0.45, `rgba(${rgb}, ${strong * 0.6})`);
         g.addColorStop(1, `rgba(${rgb}, ${strong})`);
         ctx.fillStyle = g;
-        ctx.fillRect(0, start, size, size - start);
+        ctx.fillRect(frame.x, start, frame.w, fBottom - start);
     } else {
-        const top = Math.max(0, box.y - pad);
-        const bottom = Math.min(size, box.y + box.h + pad);
+        const top = Math.max(fTop, box.y - pad);
+        const bottom = Math.min(fBottom, box.y + box.h + pad);
         g = ctx.createLinearGradient(0, top, 0, bottom);
         g.addColorStop(0, `rgba(${rgb}, 0)`);
         g.addColorStop(0.5, `rgba(${rgb}, ${strong * 0.75})`);
         g.addColorStop(1, `rgba(${rgb}, 0)`);
         ctx.fillStyle = g;
-        ctx.fillRect(0, top, size, bottom - top);
+        ctx.fillRect(frame.x, top, frame.w, bottom - top);
     }
 }
 
@@ -438,20 +585,29 @@ function transform(s: string, upper?: boolean): string {
     return upper ? s.toUpperCase() : s;
 }
 
-// light or dark text from the photo under the text box. sampled from a fixed 48 px copy of the
-// crop, so the preview and every export size agree
+// light or dark text from what's under the text box: the background and framed photo, drawn
+// into a fixed 48 px square so the preview and every export size agree
 const SAMPLE = 48;
 let sampler: HTMLCanvasElement | OffscreenCanvas | null = null;
 const autoCache = new Map<string, string>();
 
-function autoColor(
-    image: CanvasImageSource & { width: number; height: number },
-    state: CoverState,
-    box: TextLayout["box"],
-    size: number,
-): string {
+function autoColor(image: Image, state: CoverState, box: Box, size: number): string {
     const f = (v: number) => Math.round((v / size) * SAMPLE);
-    const key = [srcKey(image), state.x.toFixed(4), state.y.toFixed(4), state.zoom.toFixed(3)]
+    const { frame, bg } = state;
+    const key = [
+        srcKey(image),
+        state.x.toFixed(4),
+        state.y.toFixed(4),
+        state.zoom.toFixed(3),
+        frame.x,
+        frame.y,
+        frame.w,
+        frame.h,
+        frame.radius,
+        bg.kind,
+        bg.a,
+        bg.b,
+    ]
         .concat([box.x, box.y, box.x + box.w, box.y + box.h].map(f).map(String))
         .join("|");
     const hit = autoCache.get(key);
@@ -466,8 +622,10 @@ function autoColor(
     if (!sctx) {
         return LIGHT;
     }
-    const { sx, sy, side } = cropRect(image.width, image.height, state);
-    sctx.drawImage(image, sx, sy, side, side, 0, 0, SAMPLE, SAMPLE);
+    sctx.save();
+    sctx.clearRect(0, 0, SAMPLE, SAMPLE);
+    drawBase(sctx, image, state, SAMPLE);
+    sctx.restore();
     const x0 = clamp(f(box.x), 0, SAMPLE - 1);
     const y0 = clamp(f(box.y), 0, SAMPLE - 1);
     const x1 = clamp(f(box.x + box.w), x0 + 1, SAMPLE);
@@ -509,11 +667,11 @@ function clampZoom(z: number): number {
     return clamp(Number.isFinite(z) ? z : 1, 1, ZOOM_MAX);
 }
 
-function round(v: number, places: number): number {
+export function round(v: number, places: number): number {
     const f = 10 ** places;
     return Math.round(v * f) / f;
 }
 
-function clamp(v: number, lo: number, hi: number): number {
+export function clamp(v: number, lo: number, hi: number): number {
     return Math.min(hi, Math.max(lo, v));
 }

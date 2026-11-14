@@ -52,7 +52,7 @@ export default function ShareBar({ photo, state, filename, shareUrl }: Props) {
         }
     };
 
-    const stretched = photo ? SIZES.filter((s) => upscales(photo, state.zoom, s)) : [];
+    const stretched = photo ? SIZES.filter((s) => upscales(photo, state, s)) : [];
     // only behind the warning icon: most analogdb photos are smaller than 3000 px
     const note =
         stretched.length === 0

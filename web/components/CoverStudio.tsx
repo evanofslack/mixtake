@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { ActionIcon, Alert, Button, Tooltip } from "@mantine/core";
-import { FiAlertCircle, FiCamera, FiLayers } from "react-icons/fi";
+import { FiAlertCircle, FiCamera, FiCornerUpLeft, FiCornerUpRight, FiLayers } from "react-icons/fi";
 import { MAX_SEED, type Photo, type PhotoSet, type Source } from "../lib/api";
-import { clampCrop, CoverState } from "../lib/canvas";
+import { aspectOf, clampCrop, CoverState, TextItem } from "../lib/canvas";
 import { fetchPhotos, fetchSimilar } from "../lib/client";
 import { RequestError } from "../lib/errors";
 import { editorImageFor, thumbFor, useImage } from "../lib/photos";
 import { mergeQuery, readShared, slug, writeShared } from "../lib/share";
+import { useHistory, useUndoKeys } from "../lib/useHistory";
 import CoverCanvas from "./CoverCanvas";
 import CoverControls from "./CoverControls";
 import Info from "./Info";
@@ -37,7 +38,11 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
     const defaultTitle = source.name ?? "";
     const [initial] = useState(() => readShared(router.query, defaultTitle));
 
-    const [state, setState] = useState<CoverState>(initial.state);
+    const history = useHistory<CoverState>(initial.state);
+    const state = history.value;
+    // corrections the person didn't make (a new photo resets the crop) aren't undo steps
+    const setState = history.replace;
+    useUndoKeys(history.undo, history.redo);
     const [photoId, setPhotoId] = useState<number | null>(initial.photo);
     // false until someone picks a photo (or a link names one): the first photo may then change
     // when the final set arrives
@@ -214,16 +219,18 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         return `${window.location.origin}${window.location.pathname}?${query}`;
     };
 
-    // cropping commits to the photo: it no longer switches when the final set arrives
-    const update = (u: Partial<CoverState>) => setState((s) => ({ ...s, ...u }));
+    // any edit commits to the photo: it no longer switches when the final set arrives
     const change = (fn: (s: CoverState) => CoverState) => {
         setChosen(true);
-        setState(fn);
+        history.set(fn);
     };
-    const zoomTo = (zoom: number) => {
-        setChosen(true);
-        setState((s) => (image ? clampCrop(image.width, image.height, { ...s, zoom }) : s));
-    };
+    const update = (u: Partial<CoverState>) => change((s) => ({ ...s, ...u }));
+    const updateText = (id: string, u: Partial<TextItem>) =>
+        change((s) => ({ ...s, texts: s.texts.map((t) => (t.id === id ? { ...t, ...u } : t)) }));
+    const zoomTo = (zoom: number) =>
+        change((s) =>
+            image ? clampCrop(image.width, image.height, { ...s, zoom }, aspectOf(s.frame)) : s,
+        );
 
     const select = (p: Photo) => {
         setChosen(true);
@@ -342,7 +349,15 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                         state={state}
                         onChange={change}
                     />
-                    {photo && <Credit photo={photo} onMore={moreLike} like={like} />}
+                    <div className="mt-2 flex items-center justify-between gap-2">
+                        {photo ? <Credit photo={photo} onMore={moreLike} like={like} /> : <span />}
+                        <UndoRedo
+                            onUndo={history.undo}
+                            onRedo={history.redo}
+                            canUndo={history.canUndo}
+                            canRedo={history.canRedo}
+                        />
+                    </div>
                     <div className="mt-4">
                         <ShareBar
                             photo={photo}
@@ -357,6 +372,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                     photo={photo}
                     palette={mainSet?.palette ?? []}
                     onChange={update}
+                    onText={updateText}
                     onZoom={zoomTo}
                 />
             </div>
@@ -375,7 +391,7 @@ function Credit({
     like: number | null;
 }) {
     return (
-        <div className="mt-2 flex items-center gap-1">
+        <div className="flex items-center gap-1">
             <Info label="about this photo">
                 <p className="font-medium">{photo.title || "untitled"}</p>
                 {photo.caption && <p className="mt-1 text-muted">{photo.caption}</p>}
@@ -406,6 +422,51 @@ function Credit({
                     className="text-muted"
                 >
                     <FiLayers aria-hidden />
+                </ActionIcon>
+            </Tooltip>
+        </div>
+    );
+}
+
+function UndoRedo({
+    onUndo,
+    onRedo,
+    canUndo,
+    canRedo,
+}: {
+    onUndo: () => void;
+    onRedo: () => void;
+    canUndo: boolean;
+    canRedo: boolean;
+}) {
+    return (
+        <div className="flex items-center gap-1">
+            <Tooltip label="undo" withArrow>
+                <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="sm"
+                    aria-label="undo"
+                    aria-keyshortcuts="Meta+Z Control+Z"
+                    onClick={onUndo}
+                    disabled={!canUndo}
+                    className="text-muted"
+                >
+                    <FiCornerUpLeft aria-hidden />
+                </ActionIcon>
+            </Tooltip>
+            <Tooltip label="redo" withArrow>
+                <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="sm"
+                    aria-label="redo"
+                    aria-keyshortcuts="Meta+Shift+Z Control+Y"
+                    onClick={onRedo}
+                    disabled={!canRedo}
+                    className="text-muted"
+                >
+                    <FiCornerUpRight aria-hidden />
                 </ActionIcon>
             </Tooltip>
         </div>

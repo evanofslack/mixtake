@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Photo, PhotoImage } from "./api";
-import { CoverState, drawCover, loadFont, sourceSide } from "./canvas";
+import { aspectOf, CoverState, drawCover, loadFonts, sourceWidth } from "./canvas";
 
 const ORDER: PhotoImage["resolution"][] = ["low", "medium", "high", "raw"];
 
@@ -22,17 +22,24 @@ export function imageFor(p: Photo, ...prefer: PhotoImage["resolution"][]): Photo
 export const thumbFor = (p: Photo) => imageFor(p, "medium", "low", "high");
 export const editorImageFor = (p: Photo) => imageFor(p, "high", "raw", "medium");
 
-// the smallest image that covers `size` px at this zoom, else the largest there is
-export function exportImageFor(p: Photo, zoom: number, size: number): PhotoImage | undefined {
+type Crop = Pick<CoverState, "zoom" | "frame">;
+
+// how many source pixels of `img` the cover's frame spans, over how many it's drawn at
+function coverage(img: PhotoImage, c: Crop, size: number): number {
+    return sourceWidth(img.width, img.height, c.zoom, aspectOf(c.frame)) / (c.frame.w * size);
+}
+
+// the smallest image that covers the frame at `size` px, else the largest there is
+export function exportImageFor(p: Photo, c: Crop, size: number): PhotoImage | undefined {
     const all = sorted(p).filter((i) => i.resolution === "high" || i.resolution === "raw");
-    const enough = all.find((i) => sourceSide(i.width, i.height, zoom) >= size);
+    const enough = all.find((i) => coverage(i, c, size) >= 1);
     return enough ?? all.at(-1) ?? imageFor(p, "medium");
 }
 
 // true when the export at `size` px stretches the photo
-export function upscales(p: Photo, zoom: number, size: number): boolean {
-    const img = exportImageFor(p, zoom, size);
-    return !!img && sourceSide(img.width, img.height, zoom) < size;
+export function upscales(p: Photo, c: Crop, size: number): boolean {
+    const img = exportImageFor(p, c, size);
+    return !!img && coverage(img, c, size) < 1;
 }
 
 export function loadImage(url: string): Promise<HTMLImageElement> {
@@ -67,11 +74,11 @@ export function useImage(url?: string): { image: HTMLImageElement | null; failed
 
 // the cover as a JPG at size×size, drawn by the same function as the preview
 export async function renderCover(photo: Photo, state: CoverState, size: number): Promise<Blob> {
-    const src = exportImageFor(photo, state.zoom, size);
+    const src = exportImageFor(photo, state, size);
     if (!src) {
         throw new Error("This photo has no image to export.");
     }
-    const [image] = await Promise.all([loadImage(src.url), loadFont(state.font)]);
+    const [image] = await Promise.all([loadImage(src.url), loadFonts(state)]);
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
