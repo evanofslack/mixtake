@@ -300,7 +300,7 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     section (`#how`) shown rather than told: Paste → Listen → Develop tiles that play once when
     scrolled into view, a mood pad (drag a knob over the map and the nearest mock film photo
     crossfades in, with mood and energy gauges; drifts on its own until touched, still under
-    reduced motion) and a one-line credits row with `Info` details
+    reduced motion)
   - `/mix?id=…`: results
   - `/about` redirects (301) to `/#how`
 - Components:
@@ -333,8 +333,8 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - Tooltips and `Info` text are 5–7 words with no commas, semicolons or periods. Controls whose
     effect is plain from using them (text color, shade, the cover panel) get none.
   - The summary's facets and gauges explain themselves from their round icon only.
-  - American spelling in everything a user sees (color, center, analyze). No site footer; credits
-    and licenses live on `/about`.
+  - American spelling in everything a user sees (color, center, analyze). No site footer and no
+    credits page.
   - ShareBar: JPG at 1500 or 3000 px, copy link; a warning icon (details on hover) when the
     crop is smaller than a size and will be upscaled. Zoom is capped at 2.5×.
   - Listen: collapsed Spotify embed player
