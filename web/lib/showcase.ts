@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Showcase } from "./api";
 import { fetchShowcase } from "./client";
+import type { FontId, Pos } from "./canvas";
 import type { Domain } from "./domain";
 import { mockShowcase } from "./mock";
 
@@ -29,6 +30,8 @@ export type ShowcasePhoto = {
     energy: number;
     author: string;
     href: string;
+    // analogdb's colours for the photo, most prominent first
+    colors: { hex: string; percent: number }[];
 };
 
 // a showcase photo's image: medium is plenty for a frame a few hundred pixels wide
@@ -39,7 +42,16 @@ function toShowcase(s: Showcase): ShowcasePhoto[] {
             photo.images.find((i) => i.resolution === "high") ??
             photo.images[0];
         return img
-            ? [{ src: img.url, mood, energy, author: photo.author, href: photo.permalink }]
+            ? [
+                  {
+                      src: img.url,
+                      mood,
+                      energy,
+                      author: photo.author,
+                      href: photo.permalink,
+                      colors: photo.colors ?? [],
+                  },
+              ]
             : [];
     });
 }
@@ -107,4 +119,43 @@ export function scatter(
         x: clamp(mood + (rand() - 0.5) * 2 * spread),
         y: clamp(energy + (rand() - 0.5) * 2 * spread),
     }));
+}
+
+// the front page's hero: four made-up mixes, one in each quadrant, drawn as finished covers from
+// the showcase photos. the fonts and corners vary so the stack shows what the studio can do
+export type HeroCover = {
+    title: string;
+    sub: string;
+    font: FontId;
+    pos: Pos;
+    mood: number;
+    energy: number;
+};
+
+export const HERO_COVERS: HeroCover[] = [
+    { title: "slow sundays", sub: "24 songs", font: "serif", pos: "bl", mood: 0.8, energy: 0.22 },
+    { title: "summer static", sub: "", font: "display", pos: "tl", mood: 0.82, energy: 0.8 },
+    { title: "after the rain", sub: "", font: "script", pos: "bc", mood: 0.2, energy: 0.24 },
+    {
+        title: "night shift",
+        sub: "for the drive home",
+        font: "mono",
+        pos: "tr",
+        mood: 0.2,
+        energy: 0.78,
+    },
+];
+
+// a photo for each cover: the nearest to its point on the map, never the same photo twice (each
+// cover takes its pick in order, from what's left)
+export function pickHeroPhotos(
+    photos: ShowcasePhoto[],
+    covers: { mood: number; energy: number }[],
+): (ShowcasePhoto | undefined)[] {
+    let left = photos;
+    return covers.map((c) => {
+        const p = nearestPhoto(left, c.mood, c.energy) ?? nearestPhoto(photos, c.mood, c.energy);
+        left = left.filter((q) => q !== p);
+        return p;
+    });
 }

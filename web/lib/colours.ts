@@ -62,3 +62,41 @@ export function distance(a: string, b: string): number {
 function rgb(hex: string): [number, number, number] {
     return [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) as [number, number, number];
 }
+
+// three colours from a photo for the light that leaks around it: the most colourful of its
+// distinct colours first, with lightness pulled into a range that glows on the page (a near-black
+// purple comes out as a purple, a near-white as a pale tint) and the hue left as it is
+export function glowColours(colors: { hex: string; percent: number }[], dark: boolean): string[] {
+    const ranked = [...colors].sort(
+        (a, b) => b.percent * (0.25 + chroma(b.hex)) - a.percent * (0.25 + chroma(a.hex)),
+    );
+    const picked = photoColours(ranked, []).slice(0, 3);
+    const [lo, hi] = dark ? [38, 60] : [48, 72];
+    return picked.map((hex) => {
+        const [h, s, l] = hsl(hex);
+        const sat = Math.min(85, s * 1.2);
+        const light = Math.min(hi, Math.max(lo, l));
+        return `hsl(${h.toFixed(0)} ${sat.toFixed(0)}% ${light.toFixed(0)}%)`;
+    });
+}
+
+// how far a colour is from grey, 0 to 1
+function chroma(hex: string): number {
+    const c = rgb(hex);
+    return (Math.max(...c) - Math.min(...c)) / 255;
+}
+
+// hue in degrees, saturation and lightness in percent
+function hsl(hex: string): [number, number, number] {
+    const [r, g, b] = rgb(hex).map((v) => v / 255);
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const l = (max + min) / 2;
+    const d = max - min;
+    if (d === 0) {
+        return [0, 0, l * 100];
+    }
+    const s = d / (1 - Math.abs(2 * l - 1));
+    const h = max === r ? ((g - b) / d + 6) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return [h * 60, s * 100, l * 100];
+}

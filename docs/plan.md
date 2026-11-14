@@ -293,11 +293,18 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   `components` layer. Charts and photos stay flat. Light is the default; dark is a dim warm grey
   rather than black, because emboss needs room for a highlight. A fixed grain overlay adds
   paper texture. This favours the look over contrast, on purpose.
+  Colour comes from content and light rather than surfaces: photos, mood-coloured marks, a soft
+  glow behind the home hero leaking the front cover photo's own colours (through a frosted header), and amber for the primary action
+  (Analyze, filled amber once the input is valid).
   Raised means pressable and pressed means an input, a readout or the current choice (the
   leading search phrase, the status pill, gauge grooves); emboss is never the only sign of a
   state, which also gets amber or an icon. Letterpress text-shadow is for display text only.
 - Pages:
-  - `/`: input, example playlists as cards (name, quadrant, a few dots), then a "how it works"
+  - `/`: a hero with the title, the input and, beside it (above it on small
+    screens), a fanned pile of four example covers, one per quadrant, drawn with the studio's
+    `drawCover` from the showcase photos; the front print changes every 5s (paused on hover or
+    focus, still under reduced motion) and the glow behind the hero takes up to three of its photo's colours (`glowColours`). Then
+    example playlists as cards (name, quadrant, a few dots), then a "how it works"
     section (`#how`) shown rather than told: Paste → Listen → Develop tiles that play once when
     scrolled into view, a mood pad (drag a knob over the map and the nearest showcase photo
     crossfades in, credited to its photographer, with mood and energy gauges; drifts on its own until touched, still under

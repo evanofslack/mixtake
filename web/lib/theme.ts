@@ -58,6 +58,16 @@ const variantColorResolver: VariantColorsResolver = (input) => {
     if (input.variant === "filled" && color === "ink") {
         return { ...colors, color: "var(--mantine-primary-color-contrast)" };
     }
+    // the primary action: the page's amber in either scheme, rather than a shade picked by
+    // primaryShade (which would give amber's darkest in light and its lightest in dark)
+    if (input.variant === "filled" && color === "amber") {
+        return {
+            ...colors,
+            background: "var(--mix-accent)",
+            hover: "color-mix(in srgb, var(--mix-accent) 88%, black)",
+            color: "var(--mix-accent-contrast)",
+        };
+    }
     return colors;
 };
 
