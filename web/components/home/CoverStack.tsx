@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@mantine/hooks";
-import { DEFAULT_STATE, drawCover, loadFont } from "../../lib/canvas";
+import { alignFor, drawCover, loadFont, simpleCover } from "../../lib/canvas";
 import { HeroCover, quadrantAt, ShowcasePhoto } from "../../lib/showcase";
 import { useWidth } from "../../lib/useWidth";
 
@@ -105,19 +105,16 @@ function Print({ cover, photo }: { cover: HeroCover; photo?: ShowcasePhoto }) {
         if (!ctx) {
             return;
         }
-        const col = cover.pos[1];
         drawCover(
             ctx,
             image,
-            {
-                ...DEFAULT_STATE,
-                title: cover.title,
-                sub: cover.sub,
+            simpleCover({
+                text: cover.title,
                 font: cover.font,
                 pos: cover.pos,
-                align: col === "l" ? "left" : col === "c" ? "center" : "right",
+                align: alignFor(cover.pos, "left"),
                 size: 12,
-            },
+            }),
             px,
         );
         setDrawn(true);

@@ -329,13 +329,20 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     scores at least 0.2.
   - Song dots and the track list's mood bars are coloured with TargetPalette's hue rule
     (`lib/moodColour.ts`), so the charts preview the cover's palette.
-  - CoverStudio: photo strip with shuffle, more-like-this, pan-to-crop canvas, text overlay (4–5
-    self-hosted fonts; drag the text anywhere or pick one of 3×3 presets; colours from the
-    photo, the mix palette or a picker)
+  - CoverStudio sits right under the summary and Listen, above the charts: photo strip with
+    shuffle, more-like-this (on the preview and on each thumbnail), pan-to-crop canvas, text overlay (4–5
+    self-hosted fonts; drag the text anywhere or pick one of 3×3 presets by its
+    horizontal and vertical place). Every color setting is one row of swatches: white, black (and
+    auto for text), three of the photo's colors, three of the mix's, then an eyedropper that opens
+    a picker with a hex field and, where the browser has one, a screen eyedropper. The preview stays in view while the controls scroll:
+    the whole column beside them on wide screens, a smaller preview pinned under the header on
+    phones.
   - Dragging text: a pointer-down inside the text's box (`textBox` in `lib/canvas.ts`) moves the
     text, anywhere else pans the photo. Within 3% of a preset's centre the text snaps to it and
-    `pos` becomes that preset; elsewhere `pos` is `free` with the box centred on `tx`, `ty`. Snap
-    guides are an SVG overlay on the preview, never drawn into the export.
+    `pos` becomes that preset; elsewhere `pos` is `free` with the box centred on `tx`, `ty`. A drag
+    that starts within 3% of a preset doesn't snap to it until it has left, so a second drag can
+    place text by hand beside a preset; Alt turns snapping off. Snap guides are an SVG overlay on
+    the preview, never drawn into the export.
 - Text is kept short: labels and numbers on the page, explanations behind `Info` icons (Mantine
   popover on hover, focus or tap) and tooltips. Full sentences are kept for errors.
   - Tooltips and `Info` text are 5–7 words with no commas, semicolons or periods. Controls whose
@@ -344,21 +351,70 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - American spelling in everything a user sees (color, center, analyze). No site footer and no
     credits page: the Listen step's (i) credits Essentia and its license, and the mood pad
     credits each photo's author behind a camera icon.
-  - ShareBar: JPG at 1500 or 3000 px, copy link; a warning icon (details on hover) when the
-    crop is smaller than a size and will be upscaled. Zoom is capped at 2.5×.
+  - ShareBar: one Download button with a size menu (3000, 1500 or 640 px JPG), copy link; a
+    warning icon (details on hover) when the crop is smaller than the chosen size and will be
+    upscaled, and "soft" beside those sizes in the menu. Zoom is capped at 2.5×.
   - Listen: collapsed Spotify embed player
 - Cover studio:
   - `lib/canvas.ts` `drawCover` draws both the preview and the export. Crop, text and colour are
     fractions of the square, so the output doesn't depend on its size.
-  - Fonts (Instrument Serif, Space Grotesk, Bebas Neue, IBM Plex Mono, Caveat) are woff2 files in
-    `public/fonts` with `@font-face`, not `next/font`, so the build needs no network and the canvas
-    knows the family names.
+  - Fonts are variable latin subsets (Fraunces, Bricolage Grotesque, Anybody, Unbounded, Martian
+    Mono, Caveat) in `public/fonts` with `@font-face` weight and stretch ranges, not `next/font`, so
+    the build needs no network and the canvas knows the family names. Each face has a usual weight
+    and width; picking a face resets the item to them.
+  - Type controls per text item, one row each: face, size (S/M/L/XL: 5, 8, 11, 15%), weight (the
+    face's range), place (left/center/right and top/middle/bottom, which set the preset and its
+    alignment; text dragged off the presets shows neither until one is picked), turn (up,
+    across, down), color, and backing. Under "Fine-tune": exact size, width (50–150%), slant
+    (±20°), spacing, fine rotation, outline width or badge corners, and shadow.
+  - A backing keeps text readable on the photo: none, a shade (soft gradient on the photo), a
+    badge (a filled box) or an outline. One at a time (`withBacking` in `lib/texts.ts`); a link
+    with several keeps the strongest (badge, then outline, then shade). There is no subtitle:
+    another text item does that job, and old links' subtitles are dropped. Canvas has no `font-variation-settings`, so width uses the nearest
+    `ctx.fontStretch` keyword the face's axis covers plus a horizontal scale for the rest, slant
+    is a shear, and spacing uses `ctx.letterSpacing`. Whether the browser honours fontStretch and
+    letterSpacing is measured once; without them width is all scale and letters are drawn one by
+    one. Rotated text is placed by its rotated bounds, which also serve hit tests and auto color.
   - The photographer's credit stays on the page and is never drawn on the image.
-  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source), `seed`
-    (shuffle), `x`, `y`, `zoom`, `title`, `sub`, `font`, `pos`, `tx`, `ty` (only when
-    `pos=free`), `align`, `color`, `size`, `scrim` (defaults are omitted). A link refetches the mix's set with `vibe` and the `like` set, then looks up `photo`
-    in them. If the photo isn't in either, the studio shows the first photo with the same text and
-    says so.
+  - A cover is three layers (`CoverState`): a background `Fill` (solid or a two-color
+    horizontal, vertical, radial or diagonal gradient), the photo in a `Frame` (centre, size and
+    corner radius as fractions; by default inset at 88% with square corners on a white
+    background, so the default title at a 7% margin lands inside the photo) and a list of
+    `TextItem`s drawn in order. Text presets place a box on the whole cover, not the frame, so
+    text can sit on the background beside an inset photo. Auto text color samples the background
+    and photo together.
+  - Share links: `photo`, `vibe` (re-search words), `like` ("more like this" source) and `seed`
+    (shuffle) stay readable params, since they choose the photos. The cover is one `c` param:
+    short-key JSON (`v: 2`), base64url, with values equal to the defaults left out; the first text
+    item's text defaults to the playlist's name. Old links with one param per setting (`x`,
+    `title`, `font`, …) are still read and rewritten as `c`. A link refetches the mix's set with
+    `vibe` and the `like` set, then looks up `photo` in them. If the photo isn't in either, the
+    studio shows the first photo with the same text and says so.
+  - The controls have two modes, switched at the top or by clicking the preview. **Cover**
+    (`components/cover/CoverPanel.tsx`) is three folds: **Layout** presets (Full, Inset,
+    Poster, Polaroid, Band) that set the frame and where the title goes; **Photo**: zoom and
+    reset crop, and while the photo is inset its shape (square, 4:3, 3:4, 2:1), place, size and
+    corners (`lib/layouts.ts`); **Background**, shown only while the photo is inset: solid or one
+    of four gradients, colors from the photo and the mix or any hex, swap, and shuffle
+    (`pickPair` in `lib/colours.ts`). An anchored frame's longer side gets equal margins, so it
+    only moves along its shorter side: Place is top/middle/bottom for a wide frame,
+    left/center/right for a tall one, and absent for a square. Picking a preset keeps the
+    background. **Text**: a list of layers
+    (`components/cover/TextLayers.tsx`), the top of the stack first, each row its text edited in
+    place; the selected row holds its actions and opens its settings beneath it.
+    Dragging pans the photo only when it starts inside the frame.
+  - A cover has up to six text items (`lib/texts.ts`): a row in Text mode selects
+    one, with add, duplicate, bring forward, send back and delete. The first item is the title
+    (its text defaults to the playlist's name); the rest start as small centred text. Clicking
+    text on the preview selects it and opens Text mode, where the selected item gets a dashed
+    outline (preview only); a click (not a pan) on the photo opens Cover mode at Photo, on the
+    background at Background. Delete removes the selected text while the preview has focus. A badge is a filled
+    rounded box behind an item, padded by 0.4 em; auto text color on a badge contrasts with it.
+  - Every colour setting is one swatch (`ColourDot` in `components/cover/ui.tsx`) that opens a
+    small panel: auto where it applies, white and black, the photo's colours, the mix's, and a
+    folded "Custom" picker with a hex field and the browser's eyedropper where it has one.
+  - Undo and redo (⌘Z, ⇧⌘Z, or the arrows under the preview) cover every edit; edits within
+    600 ms are one step, so a slider drag undoes at once. Picking a photo isn't a step.
   - Mock mode serves 12 generated scenes from `public/mock`.
 
 ## Tooling

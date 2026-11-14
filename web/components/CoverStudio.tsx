@@ -1,15 +1,18 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { ActionIcon, Alert, Button, Tooltip } from "@mantine/core";
-import { FiAlertCircle, FiCamera, FiLayers } from "react-icons/fi";
+import { FiAlertCircle, FiCamera, FiCornerUpLeft, FiCornerUpRight, FiLayers } from "react-icons/fi";
 import { MAX_SEED, type Photo, type PhotoSet, type Source } from "../lib/api";
-import { clampCrop, CoverState } from "../lib/canvas";
+import { aspectOf, clampCrop, CoverState } from "../lib/canvas";
 import { fetchPhotos, fetchSimilar } from "../lib/client";
 import { RequestError } from "../lib/errors";
 import { editorImageFor, thumbFor, useImage } from "../lib/photos";
 import { mergeQuery, readShared, slug, writeShared } from "../lib/share";
+import { removeText } from "../lib/texts";
+import { useHistory, useUndoKeys } from "../lib/useHistory";
 import CoverCanvas from "./CoverCanvas";
-import CoverControls from "./CoverControls";
+import CoverControls, { Mode } from "./CoverControls";
+import type { Reveal } from "./cover/CoverPanel";
 import Info from "./Info";
 import Panel, { Waiting } from "./Panel";
 import PhotoStrip from "./PhotoStrip";
@@ -37,7 +40,19 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
     const defaultTitle = source.name ?? "";
     const [initial] = useState(() => readShared(router.query, defaultTitle));
 
-    const [state, setState] = useState<CoverState>(initial.state);
+    const history = useHistory<CoverState>(initial.state);
+    const state = history.value;
+    // the open mode, the Cover section a preview click asked for, and the text item being edited;
+    // an undone item falls back to the first
+    const [mode, setMode] = useState<Mode>("text");
+    const [reveal, setReveal] = useState<Reveal | null>(null);
+    const [picked, setPicked] = useState<string | null>(initial.state.texts[0]?.id ?? null);
+    const selected = state.texts.some((t) => t.id === picked)
+        ? picked
+        : (state.texts[0]?.id ?? null);
+    // corrections the person didn't make (a new photo resets the crop) aren't undo steps
+    const setState = history.replace;
+    useUndoKeys(history.undo, history.redo);
     const [photoId, setPhotoId] = useState<number | null>(initial.photo);
     // false until someone picks a photo (or a link names one): the first photo may then change
     // when the final set arrives
@@ -214,15 +229,16 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         return `${window.location.origin}${window.location.pathname}?${query}`;
     };
 
-    // cropping commits to the photo: it no longer switches when the final set arrives
-    const update = (u: Partial<CoverState>) => setState((s) => ({ ...s, ...u }));
+    // any edit commits to the photo: it no longer switches when the final set arrives. The crop
+    // is kept inside the photo for the frame's shape after every edit.
     const change = (fn: (s: CoverState) => CoverState) => {
         setChosen(true);
-        setState(fn);
-    };
-    const zoomTo = (zoom: number) => {
-        setChosen(true);
-        setState((s) => (image ? clampCrop(image.width, image.height, { ...s, zoom }) : s));
+        history.set((s) => {
+            const next = fn(s);
+            return image && next !== s
+                ? clampCrop(image.width, image.height, next, aspectOf(next.frame))
+                : next;
+        });
     };
 
     const select = (p: Photo) => {
@@ -233,13 +249,14 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
             setState((s) => ({ ...s, x: 0.5, y: 0.5, zoom: 1 }));
         }
     };
-    const moreLike = () => {
-        if (!photo) {
+    // the photos like p, with p chosen so it leads its strip
+    const moreLike = (p: Photo | null) => {
+        if (!p) {
             return;
         }
-        setChosen(true);
+        select(p);
         setLikeSet(null);
-        setLike(photo.id);
+        setLike(p.id);
     };
     const research = (v: string) => {
         setVibe(v);
@@ -319,6 +336,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                 like={likePhoto}
                 vibe={vibe}
                 onSelect={select}
+                onMore={moreLike}
                 onVibe={research}
                 onShuffle={shuffle}
                 onBack={back}
@@ -334,16 +352,56 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                 </p>
             )}
 
+            {/* the preview stays in view while the controls scroll: the whole column beside them
+                on wide screens, and on phones (where the column dissolves into the grid, so the
+                sticky part can span it) a smaller preview pinned under the header */}
             <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,32rem)_minmax(0,1fr)] lg:gap-8">
-                <div className="min-w-0">
-                    <CoverCanvas
-                        image={image}
-                        loading={!!photo && !full.image && !full.failed}
-                        state={state}
-                        onChange={change}
-                    />
-                    {photo && <Credit photo={photo} onMore={moreLike} like={like} />}
-                    <div className="mt-4">
+                <div className="min-w-0 max-lg:contents lg:sticky lg:top-[4.5rem] lg:self-start">
+                    <div className="sticky top-14 z-10 -mx-5 bg-surface px-5 pt-2 pb-3 shadow-[0_10px_10px_-10px_var(--mix-lo)] sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0 lg:shadow-none">
+                        <div className="mx-auto max-w-[42svh] lg:max-w-none">
+                            <CoverCanvas
+                                image={image}
+                                loading={!!photo && !full.image && !full.failed}
+                                state={state}
+                                onChange={change}
+                                selected={selected}
+                                showSelection={mode === "text"}
+                                onPick={(target, id) => {
+                                    if (target === "text") {
+                                        setMode("text");
+                                        if (id) {
+                                            setPicked(id);
+                                        }
+                                    } else {
+                                        setMode("cover");
+                                        setReveal((r) => ({
+                                            section: target,
+                                            n: (r?.n ?? 0) + 1,
+                                        }));
+                                    }
+                                }}
+                                onDelete={(id) => change((s) => removeText(s, id))}
+                            />
+                            <div className="mt-2 flex items-center justify-between gap-2">
+                                {photo ? (
+                                    <Credit
+                                        photo={photo}
+                                        onMore={() => moreLike(photo)}
+                                        like={like}
+                                    />
+                                ) : (
+                                    <span />
+                                )}
+                                <UndoRedo
+                                    onUndo={history.undo}
+                                    onRedo={history.redo}
+                                    canUndo={history.canUndo}
+                                    canRedo={history.canRedo}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="lg:mt-4">
                         <ShareBar
                             photo={photo}
                             state={state}
@@ -356,8 +414,12 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                     state={state}
                     photo={photo}
                     palette={mainSet?.palette ?? []}
-                    onChange={update}
-                    onZoom={zoomTo}
+                    onEdit={change}
+                    mode={mode}
+                    onMode={setMode}
+                    reveal={reveal}
+                    selected={selected}
+                    onSelect={setPicked}
                 />
             </div>
         </Panel>
@@ -375,7 +437,7 @@ function Credit({
     like: number | null;
 }) {
     return (
-        <div className="mt-2 flex items-center gap-1">
+        <div className="flex items-center gap-1">
             <Info label="about this photo">
                 <p className="font-medium">{photo.title || "untitled"}</p>
                 {photo.caption && <p className="mt-1 text-muted">{photo.caption}</p>}
@@ -406,6 +468,51 @@ function Credit({
                     className="text-muted"
                 >
                     <FiLayers aria-hidden />
+                </ActionIcon>
+            </Tooltip>
+        </div>
+    );
+}
+
+function UndoRedo({
+    onUndo,
+    onRedo,
+    canUndo,
+    canRedo,
+}: {
+    onUndo: () => void;
+    onRedo: () => void;
+    canUndo: boolean;
+    canRedo: boolean;
+}) {
+    return (
+        <div className="flex items-center gap-1">
+            <Tooltip label="undo" withArrow>
+                <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="sm"
+                    aria-label="undo"
+                    aria-keyshortcuts="Meta+Z Control+Z"
+                    onClick={onUndo}
+                    disabled={!canUndo}
+                    className="text-muted"
+                >
+                    <FiCornerUpLeft aria-hidden />
+                </ActionIcon>
+            </Tooltip>
+            <Tooltip label="redo" withArrow>
+                <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="sm"
+                    aria-label="redo"
+                    aria-keyshortcuts="Meta+Shift+Z Control+Y"
+                    onClick={onRedo}
+                    disabled={!canRedo}
+                    className="text-muted"
+                >
+                    <FiCornerUpRight aria-hidden />
                 </ActionIcon>
             </Tooltip>
         </div>

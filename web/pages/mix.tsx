@@ -102,14 +102,6 @@ export default function MixPage() {
             </div>
             <HighlightProvider tracks={tracks}>
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-                    <MoodMap tracks={tracks} />
-                    <Sound profile={profile} tracks={tracks} />
-                    <EnergyArc
-                        trackIds={mix.track_ids}
-                        tracks={tracks}
-                        sort={sort}
-                        onSort={setSort}
-                    />
                     <CoverStudio
                         key={mix.id}
                         mixId={mix.id}
@@ -117,6 +109,14 @@ export default function MixPage() {
                         source={mix.source}
                         analysed={coverage.done}
                         finished={finished}
+                    />
+                    <MoodMap tracks={tracks} />
+                    <Sound profile={profile} tracks={tracks} />
+                    <EnergyArc
+                        trackIds={mix.track_ids}
+                        tracks={tracks}
+                        sort={sort}
+                        onSort={setSort}
                     />
                     <TrackList
                         trackIds={mix.track_ids}
