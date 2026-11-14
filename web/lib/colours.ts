@@ -100,3 +100,18 @@ function hsl(hex: string): [number, number, number] {
     const h = max === r ? ((g - b) / d + 6) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
     return [h * 60, s * 100, l * 100];
 }
+
+// two colours for a background from a photo's and a mix's colours: `a` at random, and `b` one
+// that differs enough to read as a gradient, or a lighter or darker shade of `a` when none does
+export function pickPair(colours: string[], rand: () => number = Math.random): [string, string] {
+    const pool = [...new Set(colours.map((c) => c.toLowerCase()))];
+    if (pool.length === 0) {
+        return ["#f7f4ee", "#141210"];
+    }
+    const a = pool[Math.floor(rand() * pool.length)];
+    const others = pool.filter((c) => distance(a, c) > 60);
+    const b = others.length
+        ? others[Math.floor(rand() * others.length)]
+        : mix(a, rgb(a).reduce((s, v) => s + v, 0) / 765 > 0.55 ? -0.4 : 0.4);
+    return [a, b];
+}

@@ -8,6 +8,7 @@ import {
     CoverState,
     drawCover,
     fontsLoaded,
+    Frame,
     loadFonts,
     panBy,
     Pos,
@@ -125,7 +126,7 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
                 dy: p.y - (b.y + b.h / 2),
             };
             setGuides({ targets: presetCentres(b, 1), snapped: null });
-        } else {
+        } else if (inside(frameFraction(state.frame), p)) {
             drag.current = { kind: "photo", id: e.pointerId, x: e.clientX, y: e.clientY };
         }
     };
@@ -265,4 +266,9 @@ function Guides({
 // four decimals, as the share link writes them
 function round(v: number): number {
     return Math.round(v * 10000) / 10000;
+}
+
+// the frame as a box in fractions of the side
+function frameFraction(f: Frame): Box {
+    return { x: f.x - f.w / 2, y: f.y - f.h / 2, w: f.w, h: f.h };
 }

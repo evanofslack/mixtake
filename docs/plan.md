@@ -367,6 +367,14 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     `title`, `font`, …) are still read and rewritten as `c`. A link refetches the mix's set with
     `vibe` and the `like` set, then looks up `photo` in them. If the photo isn't in either, the
     studio shows the first photo with the same text and says so.
+  - The controls are three tabs. **Layout**: presets (Full bleed, Inset, Poster, Polaroid,
+    Band) that set the frame and where the title goes, then the photo's position (3×3), shape
+    (square, 4:3, 3:4, 2:1), size and corners, then zoom (`lib/layouts.ts`). An anchored frame's
+    longer side gets equal margins. **Background**: solid or one of four gradients, colors from the
+    photo and the mix or any hex, swap, and shuffle (`pickPair` in `lib/colours.ts`). Picking a
+    framed preset while the background is still the default takes its colors from the photo.
+    **Text**: the title and subtitle, typeface, position, alignment, size, color and shade.
+    Dragging pans the photo only when it starts inside the frame.
   - Undo and redo (⌘Z, ⇧⌘Z, or the arrows under the preview) cover every edit; edits within
     600 ms are one step, so a slider drag undoes at once. Picking a photo isn't a step.
   - Mock mode serves 12 generated scenes from `public/mock`.

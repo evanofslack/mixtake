@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { ActionIcon, Alert, Button, Tooltip } from "@mantine/core";
 import { FiAlertCircle, FiCamera, FiCornerUpLeft, FiCornerUpRight, FiLayers } from "react-icons/fi";
 import { MAX_SEED, type Photo, type PhotoSet, type Source } from "../lib/api";
-import { aspectOf, clampCrop, CoverState, TextItem } from "../lib/canvas";
+import { aspectOf, clampCrop, CoverState } from "../lib/canvas";
 import { fetchPhotos, fetchSimilar } from "../lib/client";
 import { RequestError } from "../lib/errors";
 import { editorImageFor, thumbFor, useImage } from "../lib/photos";
@@ -219,18 +219,17 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
         return `${window.location.origin}${window.location.pathname}?${query}`;
     };
 
-    // any edit commits to the photo: it no longer switches when the final set arrives
+    // any edit commits to the photo: it no longer switches when the final set arrives. The crop
+    // is kept inside the photo for the frame's shape after every edit.
     const change = (fn: (s: CoverState) => CoverState) => {
         setChosen(true);
-        history.set(fn);
+        history.set((s) => {
+            const next = fn(s);
+            return image && next !== s
+                ? clampCrop(image.width, image.height, next, aspectOf(next.frame))
+                : next;
+        });
     };
-    const update = (u: Partial<CoverState>) => change((s) => ({ ...s, ...u }));
-    const updateText = (id: string, u: Partial<TextItem>) =>
-        change((s) => ({ ...s, texts: s.texts.map((t) => (t.id === id ? { ...t, ...u } : t)) }));
-    const zoomTo = (zoom: number) =>
-        change((s) =>
-            image ? clampCrop(image.width, image.height, { ...s, zoom }, aspectOf(s.frame)) : s,
-        );
 
     const select = (p: Photo) => {
         setChosen(true);
@@ -371,9 +370,7 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                     state={state}
                     photo={photo}
                     palette={mainSet?.palette ?? []}
-                    onChange={update}
-                    onText={updateText}
-                    onZoom={zoomTo}
+                    onEdit={change}
                 />
             </div>
         </Panel>
