@@ -165,7 +165,8 @@
 
 /* the hero's glow: light leaking out of the front cover's photo. the colours are registered, so
    a new cover fades them rather than switching. a large pool behind the covers (at --gx, --gy) and
-   two along the top, blurred so they melt into each other and read through the frosted header */
+   two along the top (in rem from the layer's top, which sits 7rem above the page so the blur
+   doesn't fade out under the header), blurred so they melt into each other and read through the frosted header */
 @property --glow-a {
     syntax: "<color>";
     inherits: false;
@@ -193,13 +194,13 @@
             transparent 70%
         ),
         radial-gradient(
-            ellipse 45% 30% at 70% 0%,
-            color-mix(in srgb, var(--glow-b) calc(var(--k) * 0.8), transparent),
+            ellipse 50% 11rem at 80% 8rem,
+            color-mix(in srgb, var(--glow-b) calc(var(--k) * 0.9), transparent),
             transparent 70%
         ),
         radial-gradient(
-            ellipse 40% 32% at 10% 2%,
-            color-mix(in srgb, var(--glow-c) calc(var(--k) * 0.7), transparent),
+            ellipse 42% 10rem at 12% 8rem,
+            color-mix(in srgb, var(--glow-c) calc(var(--k) * 0.75), transparent),
             transparent 70%
         );
     filter: blur(40px);
