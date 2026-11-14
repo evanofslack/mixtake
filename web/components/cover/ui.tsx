@@ -1,6 +1,7 @@
 // Small pieces shared by the cover studio's tabs.
 import { PointerEvent, ReactNode, useEffect, useId, useState } from "react";
 import {
+    Accordion,
     ActionIcon,
     ColorPicker,
     Popover,
@@ -9,7 +10,7 @@ import {
     Tooltip,
     UnstyledButton,
 } from "@mantine/core";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiShuffle } from "react-icons/fi";
 import { LuPipette } from "react-icons/lu";
 import { DARK, LIGHT } from "../../lib/canvas";
 
@@ -58,13 +59,7 @@ export function Dot({ hex }: { hex: string }) {
     );
 }
 
-export function SectionTitle({ children }: { children: ReactNode }) {
-    return (
-        <h3 className="mb-2 text-xs font-medium tracking-wider text-muted uppercase">{children}</h3>
-    );
-}
-
-// a labelled slider that shows its value; double-clicking the label resets it
+// a slider in a row, with its value on the right; double-clicking the label resets it
 export function SliderField({
     label,
     value,
@@ -74,6 +69,7 @@ export function SliderField({
     format,
     onChange,
     reset,
+    extra,
 }: {
     label: string;
     value: number;
@@ -83,22 +79,25 @@ export function SliderField({
     format: (v: number) => string;
     onChange: (v: number) => void;
     reset?: number;
+    // beside the value, e.g. a reset button
+    extra?: ReactNode;
 }) {
     const id = useId();
     return (
-        <div>
-            <div className="mb-1 flex items-baseline justify-between gap-2">
-                <p
-                    className="text-sm font-medium select-none"
+        <Row
+            label={
+                <span
+                    className="select-none"
                     id={id}
                     onDoubleClick={reset !== undefined ? () => onChange(reset) : undefined}
                     title={reset !== undefined ? "double-click to reset" : undefined}
                 >
                     {label}
-                </p>
-                <span className="text-xs text-muted tabular-nums">{format(value)}</span>
-            </div>
+                </span>
+            }
+        >
             <Slider
+                className="grow"
                 aria-labelledby={id}
                 thumbLabel={label.toLowerCase()}
                 min={min}
@@ -109,9 +108,58 @@ export function SliderField({
                 label={format}
                 color="var(--mix-ink)"
             />
-        </div>
+            <span className="w-10 shrink-0 text-right text-xs text-muted tabular-nums">
+                {format(value)}
+            </span>
+            {extra}
+        </Row>
     );
 }
+
+// a fold of the cover panel: a plain heading with a hairline above, and an optional shuffle
+export function Section({
+    value,
+    title,
+    onShuffle,
+    children,
+}: {
+    value: string;
+    title: string;
+    onShuffle?: () => void;
+    children: ReactNode;
+}) {
+    return (
+        <Accordion.Item value={value} id={`cover-section-${value}`}>
+            <div className="flex items-center gap-1">
+                <Accordion.Control className="flex-1">{title}</Accordion.Control>
+                {onShuffle && (
+                    <Tooltip label={`shuffle ${title.toLowerCase()}`} withArrow>
+                        <ActionIcon
+                            variant="subtle"
+                            color="gray"
+                            aria-label={`shuffle ${title.toLowerCase()}`}
+                            onClick={onShuffle}
+                        >
+                            <FiShuffle size="0.9rem" aria-hidden />
+                        </ActionIcon>
+                    </Tooltip>
+                )}
+            </div>
+            <Accordion.Panel>
+                <div className="flex flex-col gap-3 pb-3">{children}</div>
+            </Accordion.Panel>
+        </Accordion.Item>
+    );
+}
+
+// the classes for an Accordion of Sections: plain headings split by engraved rules
+export const SECTIONS_CLASSES = {
+    control: "bg-transparent px-0 font-semibold hover:bg-transparent",
+    chevron: "text-muted",
+    label: "py-3 text-sm",
+    content: "px-0",
+    item: "groove-t border-b-0",
+};
 
 // one setting: its label in a narrow column on the left, the control filling the rest, so every
 // setting in the panel lines up the same way

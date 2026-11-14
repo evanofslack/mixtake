@@ -1,14 +1,14 @@
-import { Tabs } from "@mantine/core";
+import { SegmentedControl } from "@mantine/core";
 import type { Photo } from "../lib/api";
 import { CoverState, DARK, DEFAULT_FILL, Fill, LIGHT, TextItem } from "../lib/canvas";
 import { photoColours, pickPair } from "../lib/colours";
 import { LayoutId, LAYOUTS } from "../lib/layouts";
-import BackgroundTab from "./cover/BackgroundTab";
-import LayoutTab from "./cover/LayoutTab";
+import CoverPanel, { Reveal } from "./cover/CoverPanel";
 import TextList from "./cover/TextList";
 import TextTab from "./cover/TextTab";
 
-export type Tab = "layout" | "background" | "text";
+// the cover as a whole (layout, photo, background), or its text items
+export type Mode = "cover" | "text";
 
 type Props = {
     state: CoverState;
@@ -17,21 +17,24 @@ type Props = {
     palette: string[];
     // every edit goes through here, so the studio can keep the crop inside the photo
     onEdit: (fn: (s: CoverState) => CoverState) => void;
-    tab: Tab;
-    onTab: (tab: Tab) => void;
+    mode: Mode;
+    onMode: (mode: Mode) => void;
+    // a section of the Cover mode that a click on the preview asked for
+    reveal: Reveal | null;
     // the text item the Text tab edits
     selected: string | null;
     onSelect: (id: string) => void;
 };
 
-// the editor's settings, in three tabs: the layout and photo, the background, the text
+// the editor's settings, in two modes: the cover as a whole, and its text items
 export default function CoverControls({
     state,
     photo,
     palette,
     onEdit,
-    tab,
-    onTab,
+    mode,
+    onMode,
+    reveal,
     selected,
     onSelect,
 }: Props) {
@@ -72,50 +75,51 @@ export default function CoverControls({
     };
 
     return (
-        <Tabs value={tab} onChange={(v) => v && onTab(v as Tab)} keepMounted={false}>
-            <Tabs.List grow className="mb-4">
-                <Tabs.Tab value="layout">Layout</Tabs.Tab>
-                <Tabs.Tab value="background">Background</Tabs.Tab>
-                <Tabs.Tab value="text">Text</Tabs.Tab>
-            </Tabs.List>
-            <Tabs.Panel value="layout">
-                <LayoutTab
+        <div>
+            <SegmentedControl
+                aria-label="edit"
+                fullWidth
+                className="mb-4"
+                value={mode}
+                onChange={(v) => onMode(v as Mode)}
+                data={[
+                    { value: "cover", label: "Cover" },
+                    { value: "text", label: "Text" },
+                ]}
+            />
+            {mode === "cover" ? (
+                <CoverPanel
                     state={state}
                     onLayout={applyLayout}
                     onFrame={(frame) => onEdit((s) => ({ ...s, frame }))}
                     onZoom={(zoom) => onEdit((s) => ({ ...s, zoom }))}
                     onResetCrop={() => onEdit((s) => ({ ...s, x: 0.5, y: 0.5, zoom: 1 }))}
-                />
-            </Tabs.Panel>
-            <Tabs.Panel value="background">
-                <BackgroundTab
-                    bg={state.bg}
-                    frame={state.frame}
-                    onChange={(bg) => onEdit((s) => ({ ...s, bg }))}
-                    onShuffle={() => onEdit((s) => ({ ...s, bg: shuffled(s.bg) }))}
-                    onInset={() => applyLayout("inset")}
+                    onFill={(bg) => onEdit((s) => ({ ...s, bg }))}
+                    onShuffleFill={() => onEdit((s) => ({ ...s, bg: shuffled(s.bg) }))}
+                    reveal={reveal}
                     photo={fromPhoto}
                     palette={mixColours}
                 />
-            </Tabs.Panel>
-            <Tabs.Panel value="text">
-                <TextList
-                    texts={state.texts}
-                    selected={item?.id ?? null}
-                    onSelect={onSelect}
-                    onEdit={onEdit}
-                />
-                {item && (
-                    <TextTab
-                        key={item.id}
-                        item={item}
-                        first={index === 0}
-                        onChange={onItem}
-                        photo={fromPhoto}
-                        palette={mixColours}
+            ) : (
+                <>
+                    <TextList
+                        texts={state.texts}
+                        selected={item?.id ?? null}
+                        onSelect={onSelect}
+                        onEdit={onEdit}
                     />
-                )}
-            </Tabs.Panel>
-        </Tabs>
+                    {item && (
+                        <TextTab
+                            key={item.id}
+                            item={item}
+                            first={index === 0}
+                            onChange={onItem}
+                            photo={fromPhoto}
+                            palette={mixColours}
+                        />
+                    )}
+                </>
+            )}
+        </div>
     );
 }

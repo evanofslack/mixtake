@@ -18,7 +18,6 @@ import {
     ZOOM_MAX,
 } from "../lib/canvas";
 import { useWidth } from "../lib/useWidth";
-import type { Tab } from "./CoverControls";
 
 type Props = {
     image: HTMLImageElement | null;
@@ -29,7 +28,7 @@ type Props = {
     selected: string | null;
     showSelection: boolean;
     // a click on text selects it; a click on the photo or background opens that tab
-    onPick: (tab: Tab, id?: string) => void;
+    onPick: (target: "text" | "photo" | "background", id?: string) => void;
     onDelete: (id: string) => void;
 };
 
@@ -209,7 +208,7 @@ export default function CoverCanvas({
         const d = drag.current;
         // a click (not a pan) on the photo or the background opens its tab
         if (d && !d.moved && d.kind !== "text") {
-            onPick(d.kind === "photo" ? "layout" : "background");
+            onPick(d.kind);
         }
         drag.current = null;
         setGuides(null);

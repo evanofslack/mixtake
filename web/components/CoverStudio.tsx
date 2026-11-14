@@ -11,7 +11,8 @@ import { mergeQuery, readShared, slug, writeShared } from "../lib/share";
 import { removeText } from "../lib/texts";
 import { useHistory, useUndoKeys } from "../lib/useHistory";
 import CoverCanvas from "./CoverCanvas";
-import CoverControls, { Tab } from "./CoverControls";
+import CoverControls, { Mode } from "./CoverControls";
+import type { Reveal } from "./cover/CoverPanel";
 import Info from "./Info";
 import Panel, { Waiting } from "./Panel";
 import PhotoStrip from "./PhotoStrip";
@@ -41,8 +42,10 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
 
     const history = useHistory<CoverState>(initial.state);
     const state = history.value;
-    // the open tab and the text item it edits; an undone item falls back to the first
-    const [tab, setTab] = useState<Tab>("text");
+    // the open mode, the Cover section a preview click asked for, and the text item being edited;
+    // an undone item falls back to the first
+    const [mode, setMode] = useState<Mode>("text");
+    const [reveal, setReveal] = useState<Reveal | null>(null);
     const [picked, setPicked] = useState<string | null>(initial.state.texts[0]?.id ?? null);
     const selected = state.texts.some((t) => t.id === picked)
         ? picked
@@ -360,11 +363,19 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                                 state={state}
                                 onChange={change}
                                 selected={selected}
-                                showSelection={tab === "text"}
-                                onPick={(t, id) => {
-                                    setTab(t);
-                                    if (id) {
-                                        setPicked(id);
+                                showSelection={mode === "text"}
+                                onPick={(target, id) => {
+                                    if (target === "text") {
+                                        setMode("text");
+                                        if (id) {
+                                            setPicked(id);
+                                        }
+                                    } else {
+                                        setMode("cover");
+                                        setReveal((r) => ({
+                                            section: target,
+                                            n: (r?.n ?? 0) + 1,
+                                        }));
                                     }
                                 }}
                                 onDelete={(id) => change((s) => removeText(s, id))}
@@ -398,8 +409,9 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                     photo={photo}
                     palette={mainSet?.palette ?? []}
                     onEdit={change}
-                    tab={tab}
-                    onTab={setTab}
+                    mode={mode}
+                    onMode={setMode}
+                    reveal={reveal}
                     selected={selected}
                     onSelect={setPicked}
                 />

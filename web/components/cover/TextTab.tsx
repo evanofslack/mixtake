@@ -19,7 +19,7 @@ import {
     WIDTH_MIN,
 } from "../../lib/canvas";
 import Info from "../Info";
-import { Choice, ColourDot, Row, SectionTitle, SliderField } from "./ui";
+import { Choice, ColourDot, Row, SliderField } from "./ui";
 
 type Props = {
     item: TextItem;
@@ -67,7 +67,6 @@ export default function TextTab({ item, first, onChange, photo, palette }: Props
             </section>
 
             <section aria-label="Type">
-                <SectionTitle>Type</SectionTitle>
                 <fieldset>
                     <legend className="mb-1.5 text-sm font-medium">Typeface</legend>
                     <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-6">

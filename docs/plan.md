@@ -377,20 +377,24 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     `title`, `font`, …) are still read and rewritten as `c`. A link refetches the mix's set with
     `vibe` and the `like` set, then looks up `photo` in them. If the photo isn't in either, the
     studio shows the first photo with the same text and says so.
-  - The controls are three tabs. **Layout**: presets (Full bleed, Inset, Poster, Polaroid,
-    Band) that set the frame and where the title goes, then the photo's position (3×3), shape
-    (square, 4:3, 3:4, 2:1), size and corners, then zoom (`lib/layouts.ts`). An anchored frame's
-    longer side gets equal margins. **Background**: solid or one of four gradients, colors from the
-    photo and the mix or any hex, swap, and shuffle (`pickPair` in `lib/colours.ts`). Picking a
-    framed preset while the background is still the default takes its colors from the photo.
-    **Text**: the title and subtitle, type (below), position, alignment, color and shade.
+  - The controls have two modes, switched at the top or by clicking the preview. **Cover**
+    (`components/cover/CoverPanel.tsx`) is three folds: **Layout** presets (Full bleed, Inset,
+    Poster, Polaroid, Band) that set the frame and where the title goes; **Photo**: zoom and
+    reset crop, and while the photo is inset its shape (square, 4:3, 3:4, 2:1), place, size and
+    corners (`lib/layouts.ts`); **Background**, shown only while the photo is inset: solid or one
+    of four gradients, colors from the photo and the mix or any hex, swap, and shuffle
+    (`pickPair` in `lib/colours.ts`). An anchored frame's longer side gets equal margins, so it
+    only moves along its shorter side: Place is top/middle/bottom for a wide frame,
+    left/center/right for a tall one, and absent for a square. Picking a framed preset while the
+    background is still the default takes its colors from the photo. **Text**: the text items
+    and the selected one's type, position, alignment and color.
     Dragging pans the photo only when it starts inside the frame.
-  - A cover has up to six text items (`lib/texts.ts`): chips at the top of the Text tab select
+  - A cover has up to six text items (`lib/texts.ts`): chips at the top of Text mode select
     one, with add, duplicate, bring forward, send back and delete. The first item is the title
     (its text defaults to the playlist's name); the rest start as small centred text. Clicking
-    text on the preview selects it and opens the Text tab, where the selected item gets a dashed
-    outline (preview only); a click (not a pan) on the photo opens Layout, on the background
-    Background. Delete removes the selected text while the preview has focus. A badge is a filled
+    text on the preview selects it and opens Text mode, where the selected item gets a dashed
+    outline (preview only); a click (not a pan) on the photo opens Cover mode at Photo, on the
+    background at Background. Delete removes the selected text while the preview has focus. A badge is a filled
     rounded box behind an item, padded by 0.4 em; auto text color on a badge contrasts with it.
   - Every colour setting is one swatch (`ColourDot` in `components/cover/ui.tsx`) that opens a
     small panel: auto where it applies, white and black, the photo's colours, the mix's, and a
