@@ -157,11 +157,11 @@ func TestRankPhotos(t *testing.T) {
 			{photo(1, 1440, 1080, orange), photo(2, 800, 600, orange), gray},
 			{photo(1, 1440, 1080, orange), photo(4, 1080, 1440, orange)},
 		}
-		if got := ids(RankPhotos(queries, results, warm, "m", 12)); !slices.Equal(got, []int{1, 4}) {
+		if got := ids(RankPhotos(queries, results, warm, TargetPalette(warm.Averages), "m", 12)); !slices.Equal(got, []int{1, 4}) {
 			t.Errorf("got %v", got)
 		}
 		sad := Profile{Quadrant: QuadrantSadCalm, Averages: Averages{Mood: 0.2, Energy: 0.2}}
-		if got := ids(RankPhotos(queries, results, sad, "m", 12)); !slices.Contains(got, 3) {
+		if got := ids(RankPhotos(queries, results, sad, TargetPalette(sad.Averages), "m", 12)); !slices.Contains(got, 3) {
 			t.Errorf("sad calm should keep grayscale: %v", got)
 		}
 	})
@@ -169,11 +169,11 @@ func TestRankPhotos(t *testing.T) {
 	t.Run("colour breaks a rank tie", func(t *testing.T) {
 		results := [][]Photo{{photo(1, 1440, 1080, blue)}, {photo(2, 1440, 1080, orange)}}
 		same := []SceneQuery{{Text: "a", Weight: 1}, {Text: "b", Weight: 1}}
-		if got := ids(RankPhotos(same, results, warm, "m", 12)); got[0] != 2 {
+		if got := ids(RankPhotos(same, results, warm, TargetPalette(warm.Averages), "m", 12)); got[0] != 2 {
 			t.Errorf("warm profile ranked %v", got)
 		}
 		cool := Profile{Quadrant: QuadrantSadCalm, Averages: Averages{Mood: 0.2, Energy: 0.3}}
-		if got := ids(RankPhotos(same, results, cool, "m", 12)); got[0] != 1 {
+		if got := ids(RankPhotos(same, results, cool, TargetPalette(cool.Averages), "m", 12)); got[0] != 1 {
 			t.Errorf("cool profile ranked %v", got)
 		}
 	})
@@ -183,7 +183,7 @@ func TestRankPhotos(t *testing.T) {
 		for i := range 30 {
 			ps = append(ps, photo(i+1, 1440, 1080, orange))
 		}
-		got := ids(RankPhotos(queries[:1], [][]Photo{ps}, warm, "m", 12))
+		got := ids(RankPhotos(queries[:1], [][]Photo{ps}, warm, TargetPalette(warm.Averages), "m", 12))
 		if len(got) != 12 || slices.Contains(got, 30) || !slices.Contains(got, 1) {
 			t.Errorf("got %v", got)
 		}
@@ -198,11 +198,11 @@ func TestRankPhotos(t *testing.T) {
 		slices.Reverse(ps2)
 		results := [][]Photo{ps, ps2} // equal rank weights, so jitter decides
 		same := []SceneQuery{{Text: "a", Weight: 1}, {Text: "b", Weight: 1}}
-		a := ids(RankPhotos(same, results, warm, "mix-a", 12))
-		if again := ids(RankPhotos(same, results, warm, "mix-a", 12)); !slices.Equal(a, again) {
+		a := ids(RankPhotos(same, results, warm, TargetPalette(warm.Averages), "mix-a", 12))
+		if again := ids(RankPhotos(same, results, warm, TargetPalette(warm.Averages), "mix-a", 12)); !slices.Equal(a, again) {
 			t.Errorf("not deterministic: %v vs %v", a, again)
 		}
-		if b := ids(RankPhotos(same, results, warm, "mix-b", 12)); slices.Equal(a, b) {
+		if b := ids(RankPhotos(same, results, warm, TargetPalette(warm.Averages), "mix-b", 12)); slices.Equal(a, b) {
 			t.Errorf("different mixes got the same order %v", a)
 		}
 	})

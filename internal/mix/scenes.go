@@ -1,6 +1,7 @@
 package mix
 
 import (
+	"cmp"
 	_ "embed"
 	"encoding/json"
 	"hash/fnv"
@@ -18,6 +19,7 @@ const (
 	LensAbstract = "abstract" // light, texture, colour fields, blur, reflections, silhouettes
 	LensWords    = "words"    // an evocative word from the track titles or the playlist name
 	LensColor    = "color"    // photos with the target palette's colour and a keyword
+	LensIdea     = "idea"     // a query an LLM wrote for this mix (see Ideas)
 )
 
 // Sources of literal scenes.
@@ -46,6 +48,9 @@ type SceneQuery struct {
 	Weight float64
 	// Color and Keyword are set for LensColor queries, which list photos by colour.
 	Color, Keyword string
+	// Cap is how many photos the query may give while others have photos left; 0 is
+	// maxPerQuery.
+	Cap int
 }
 
 //go:embed scenes.json
@@ -217,6 +222,56 @@ func Scenes(p Profile, key, vibe string, words []string) []SceneQuery {
 			literal(0.8)
 		} else {
 			abstract(0.8)
+		}
+	}
+	return qs
+}
+
+// Idea sets: up to maxIdeaQueries searches besides the vibe. The first heroIdeas lead the set
+// and may give heroCap photos each (so a few strong queries can fill half the covers); the rest
+// give one each while others have photos left.
+const (
+	maxIdeaQueries = 10
+	heroIdeas      = 3
+	heroCap        = 2
+	supportCap     = 1
+)
+
+// IdeaScenes picks the searches for a mix's covers when an LLM has written ideas for it: the
+// vibe, then up to maxIdeaQueries ideas. Seed 0 keeps the model's order, so its best queries are
+// the heroes; a shuffle (shuffled true, key including the seed) reorders them by a seeded hash,
+// so other queries lead. Each idea's angle is its Source, which Diversify treats as its lens.
+func IdeaScenes(ideas Ideas, key, vibe string, shuffled bool) []SceneQuery {
+	var qs []SceneQuery
+	add := func(q SceneQuery) bool {
+		if q.Text == "" || slices.ContainsFunc(qs, func(o SceneQuery) bool {
+			return strings.EqualFold(o.Text, q.Text)
+		}) {
+			return false
+		}
+		qs = append(qs, q)
+		return true
+	}
+	if vibe = strings.TrimSpace(vibe); vibe != "" {
+		add(SceneQuery{Text: vibe, Lens: LensVibe, Weight: 1.2})
+	}
+	chosen := slices.Clone(ideas.Queries)
+	if shuffled {
+		slices.SortStableFunc(chosen, func(a, b Idea) int {
+			return cmp.Compare(hash(key+"|idea|"+a.Text), hash(key+"|idea|"+b.Text))
+		})
+	}
+	n := 0
+	for _, idea := range chosen {
+		if n == maxIdeaQueries {
+			break
+		}
+		q := SceneQuery{Text: idea.Text, Lens: LensIdea, Source: idea.Angle, Weight: 0.85, Cap: supportCap}
+		if n < heroIdeas {
+			q.Weight, q.Cap = 1-0.03*float64(n), heroCap
+		}
+		if add(q) {
+			n++
 		}
 	}
 	return qs

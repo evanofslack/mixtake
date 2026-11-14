@@ -27,7 +27,10 @@ const (
 	votesWeight  = 0.1
 	jitterWeight = 0.05
 	votesCap     = 3000 // upvotes beyond this don't count for more
-	colourScale  = 30   // ΔE at which colour similarity falls to 1/e
+	// portraitPenalty is taken off photos whose caption is about a person when the query that
+	// found them didn't ask for one: object and clothing queries otherwise find fashion portraits.
+	portraitPenalty = 0.15
+	colourScale     = 30 // ΔE at which colour similarity falls to 1/e
 )
 
 // imageName matches analogdb image file names: a uuid, or (older posts) 24 hex digits and the
@@ -83,12 +86,12 @@ func FilterPhotos(ps []Photo, allowGray bool, n int) []Photo {
 }
 
 // RankPhotos merges the results of each query (results[i] answered queries[i]), keeps usable
-// photos, scores them by search rank, closeness to the profile's palette and upvotes, plus a
+// photos, scores them by search rank, closeness to the target palette and upvotes, plus a
 // little jitter seeded by key so mixes with the same queries still differ, then picks at most n
 // with Diversify. Grayscale photos are only kept for calm, sad mixes.
-func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, key string, n int) []Candidate {
+func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, palette []string, key string, n int) []Candidate {
 	allowGray := p.Quadrant == QuadrantSadCalm
-	targets := labs(TargetPalette(p.Averages))
+	targets := labs(palette)
 	type entry struct {
 		photo Photo
 		rank  float64
@@ -122,12 +125,41 @@ func RankPhotos(queries []SceneQuery, results [][]Photo, p Profile, key string, 
 		votes := min(1, math.Log1p(float64(max(e.photo.Score, 0)))/math.Log1p(votesCap))
 		score := rankWeight*rank + colourWeight*colourSimilarity(e.photo.Colors, targets) +
 			votesWeight*votes + jitterWeight*jitter(key, e.photo.ID)
+		if e.query < len(queries) && portrait(e.photo.Caption) && !mentionsPeople(queries[e.query].Text) {
+			score -= portraitPenalty
+		}
 		out = append(out, Candidate{Photo: e.photo, Score: score, Query: e.query})
 	}
 	slices.SortFunc(out, func(a, b Candidate) int {
 		return cmp.Or(cmp.Compare(b.Score, a.Score), cmp.Compare(a.Photo.ID, b.Photo.ID))
 	})
 	return Diversify(out, queries, n)
+}
+
+// personWords are subjects that make a photo, or a query, about people.
+var personWords = set([]string{
+	"woman", "women", "man", "men", "girl", "girls", "boy", "boys", "person", "people", "couple",
+	"child", "children", "kid", "kids", "lady", "guy", "figure", "figures", "silhouette",
+	"teenager", "teenagers", "friends", "crowd", "model", "portrait", "someone", "her", "his",
+})
+
+// portrait reports whether a caption is about a person: one of personWords within its first
+// four words ("A young woman sits…", "Portrait of a man…").
+func portrait(caption string) bool {
+	words := strings.Fields(strings.ToLower(caption))
+	for _, w := range words[:min(len(words), 4)] {
+		if personWords[strings.Trim(w, ",.;:'\"")] {
+			return true
+		}
+	}
+	return false
+}
+
+// mentionsPeople reports whether a query asks for people.
+func mentionsPeople(query string) bool {
+	return slices.ContainsFunc(strings.Fields(strings.ToLower(query)), func(w string) bool {
+		return personWords[strings.Trim(w, ",.;:'\"")]
+	})
 }
 
 // Diversity rules for a set of covers, so it spans queries and lenses instead of the best dozen
@@ -153,10 +185,14 @@ const (
 // interleaves lenses.
 func Diversify(cs []Candidate, queries []SceneQuery, n int) []Candidate {
 	lens := func(c Candidate) string {
-		if c.Query >= 0 && c.Query < len(queries) {
-			return queries[c.Query].Lens
+		if c.Query < 0 || c.Query >= len(queries) {
+			return ""
 		}
-		return ""
+		// an idea's kind is its lens, so a set of mostly ideas isn't penalised as one lens
+		if q := queries[c.Query]; q.Lens == LensIdea {
+			return q.Lens + ":" + q.Source
+		}
+		return queries[c.Query].Lens
 	}
 	palettes := make([][][3]float64, len(cs))
 	for i, c := range cs {
@@ -171,12 +207,19 @@ func Diversify(cs []Candidate, queries []SceneQuery, n int) []Candidate {
 	perQuery, perLens, perAuthor := map[int]int{}, map[string]int{}, map[string]int{}
 	// the vibe's photos first, then everything under the usual rules
 	vibe := min(n, vibePhotos)
-	for capacity := maxPerQuery; len(picked) < min(n, len(cs)); {
+	// limit is how many photos a query may give before every query is full
+	limit := func(q int) int {
+		if q >= 0 && q < len(queries) && queries[q].Cap > 0 {
+			return queries[q].Cap
+		}
+		return maxPerQuery
+	}
+	for extra := 0; len(picked) < min(n, len(cs)); {
 		leading := perLens[LensVibe] < vibe
 		best, bestScore := -1, math.Inf(-1)
 		for i, c := range cs {
 			if taken[i] || (leading && lens(c) != LensVibe) ||
-				(!leading && perQuery[c.Query] >= capacity) {
+				(!leading && perQuery[c.Query] >= limit(c.Query)+extra) {
 				continue
 			}
 			s := c.Score - queryPenalty*float64(perQuery[c.Query]) - lensPenalty*float64(perLens[lens(c)])
@@ -198,7 +241,7 @@ func Diversify(cs []Candidate, queries []SceneQuery, n int) []Candidate {
 			if leading {
 				vibe = perLens[LensVibe] // no more vibe photos
 			} else {
-				capacity++ // every query left is full
+				extra++ // every query left is full
 			}
 			continue
 		}

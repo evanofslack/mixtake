@@ -1,6 +1,13 @@
 import { FormEvent, useState } from "react";
 import { ActionIcon, Button, CopyButton, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
-import { FiArrowLeft, FiDroplet, FiLayers, FiSearch, FiShuffle } from "react-icons/fi";
+import {
+    FiArrowLeft,
+    FiChevronDown,
+    FiDroplet,
+    FiLayers,
+    FiSearch,
+    FiShuffle,
+} from "react-icons/fi";
 import type { Photo, PhotoSet } from "../lib/api";
 import { thumbFor } from "../lib/photos";
 
@@ -134,7 +141,7 @@ function Thumb({
     );
 }
 
-// the searches as pills (tap one to search only that) and the colours the ranking aimed for
+// the searches as pills behind a one-line toggle (tap one to lead with it) and the colours the ranking aimed for
 function Why({
     set,
     like,
@@ -150,6 +157,8 @@ function Why({
     onBack: () => void;
     onVibe: (vibe: string) => void;
 }) {
+    // the searches are long sentences, so they sit behind a one-line summary until asked for
+    const [open, setOpen] = useState(false);
     if (like) {
         return (
             <Button
@@ -179,44 +188,73 @@ function Why({
                             <FiSearch aria-hidden className="size-3.5" />
                         </span>
                     </Tooltip>
-                    <ul
-                        className="flex min-w-0 flex-wrap gap-x-1.5 gap-y-2"
-                        aria-label="analogdb searches"
-                    >
-                        {set.queries.map((q) => {
-                            // the search leading the set sits pressed in, the rest are raised
-                            const on = vibe.trim().toLowerCase() === q.toLowerCase();
-                            return (
-                                <li key={q}>
-                                    <Tooltip
-                                        label={on ? "leading the search" : "lead with this search"}
-                                        withArrow
-                                        openDelay={300}
-                                    >
-                                        <UnstyledButton
-                                            onClick={() => onVibe(q)}
-                                            aria-pressed={on}
-                                            className={`group relative rounded-full py-1 pr-3 pl-4.5 font-mono text-xs leading-snug text-ink transition-shadow duration-150 motion-reduce:transition-none ${
-                                                on
-                                                    ? "shadow-pressed-xs"
-                                                    : "shadow-raised-xs hover:shadow-raised-sm active:shadow-pressed-xs"
-                                            }`}
-                                        >
-                                            <span
-                                                aria-hidden
-                                                className={`absolute top-1/2 left-2 h-3 w-0.5 -translate-y-1/2 rounded-full transition-colors ${
+                    <div className="flex min-w-0 flex-col items-start gap-2">
+                        <UnstyledButton
+                            onClick={() => setOpen((o) => !o)}
+                            aria-expanded={open}
+                            aria-controls="photo-searches"
+                            className="flex max-w-full min-w-0 items-center gap-1.5 py-0.5 text-xs text-muted hover:text-ink"
+                        >
+                            <span className="shrink-0">
+                                {set.queries.length}{" "}
+                                {set.queries.length === 1 ? "search" : "searches"}
+                            </span>
+                            {!open && (
+                                <span className="min-w-0 truncate font-mono text-ink">
+                                    · {set.queries[0]}
+                                </span>
+                            )}
+                            <FiChevronDown
+                                aria-hidden
+                                className={`size-3.5 shrink-0 transition-transform motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
+                            />
+                        </UnstyledButton>
+                        {open && (
+                            <ul
+                                id="photo-searches"
+                                className="flex min-w-0 flex-wrap gap-x-1.5 gap-y-2"
+                                aria-label="analogdb searches"
+                            >
+                                {set.queries.map((q) => {
+                                    // the search leading the set sits pressed in, the rest are raised
+                                    const on = vibe.trim().toLowerCase() === q.toLowerCase();
+                                    return (
+                                        <li key={q}>
+                                            <Tooltip
+                                                label={
                                                     on
-                                                        ? "bg-accent"
-                                                        : "bg-accent/40 group-hover:bg-accent"
-                                                }`}
-                                            />
-                                            {q}
-                                        </UnstyledButton>
-                                    </Tooltip>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                                                        ? "leading the search"
+                                                        : "lead with this search"
+                                                }
+                                                withArrow
+                                                openDelay={300}
+                                            >
+                                                <UnstyledButton
+                                                    onClick={() => onVibe(q)}
+                                                    aria-pressed={on}
+                                                    className={`group relative rounded-full py-1 pr-3 pl-4.5 font-mono text-xs leading-snug text-ink transition-shadow duration-150 motion-reduce:transition-none ${
+                                                        on
+                                                            ? "shadow-pressed-xs"
+                                                            : "shadow-raised-xs hover:shadow-raised-sm active:shadow-pressed-xs"
+                                                    }`}
+                                                >
+                                                    <span
+                                                        aria-hidden
+                                                        className={`absolute top-1/2 left-2 h-3 w-0.5 -translate-y-1/2 rounded-full transition-colors ${
+                                                            on
+                                                                ? "bg-accent"
+                                                                : "bg-accent/40 group-hover:bg-accent"
+                                                        }`}
+                                                    />
+                                                    {q}
+                                                </UnstyledButton>
+                                            </Tooltip>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
+                    </div>
                 </div>
             )}
             {set.palette.length > 0 && (
