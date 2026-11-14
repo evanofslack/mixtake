@@ -18,31 +18,51 @@ import {
     ZOOM_MAX,
 } from "../lib/canvas";
 import { useWidth } from "../lib/useWidth";
+import type { Tab } from "./CoverControls";
 
 type Props = {
     image: HTMLImageElement | null;
     loading: boolean;
     state: CoverState;
     onChange: (update: (s: CoverState) => CoverState) => void;
+    // the text item the Text tab edits, outlined on the preview while that tab is open
+    selected: string | null;
+    showSelection: boolean;
+    // a click on text selects it; a click on the photo or background opens that tab
+    onPick: (tab: Tab, id?: string) => void;
+    onDelete: (id: string) => void;
 };
 
 // how near (as a fraction of the side) the text's centre must come to a preset to snap to it
 const SNAP = 0.03;
+// how far (in px) a pointer may move and still count as a click
+const CLICK = 4;
 
-type Drag =
-    | { kind: "photo"; id: number; x: number; y: number }
+type Drag = { id: number; startX: number; startY: number; moved: boolean } & (
+    | { kind: "photo"; x: number; y: number }
     // the pointer's offset from the text's centre, in fractions of the side
-    | { kind: "text"; id: number; dx: number; dy: number };
+    | { kind: "text"; item: string; dx: number; dy: number }
+    | { kind: "background" }
+);
 
-// the square preview: drag the text to move it (it snaps to the nine presets), drag elsewhere
-// (or use the arrow keys) to move the photo, +/- to zoom
-export default function CoverCanvas({ image, loading, state, onChange }: Props) {
+// the square preview: drag a text item to move it (it snaps to the nine presets), drag the photo
+// (or use the arrow keys) to move it, +/- to zoom, Delete removes the selected text
+export default function CoverCanvas({
+    image,
+    loading,
+    state,
+    onChange,
+    selected,
+    showSelection,
+    onPick,
+    onDelete,
+}: Props) {
     const [boxRef, width] = useWidth<HTMLDivElement>();
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const drag = useRef<Drag | null>(null);
     const [, setFontTick] = useState(0);
     const [overText, setOverText] = useState(false);
-    // while the text is dragged: the snap targets, and the one it is snapped to
+    // while text is dragged: the snap targets, and the one it is snapped to
     const [guides, setGuides] = useState<{
         targets: { pos: Pos; x: number; y: number }[];
         snapped: Pos | null;
@@ -85,15 +105,13 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
                 aspectOf(s.frame),
             ),
         );
-    // the text item that dragging moves
-    const item = state.texts[0];
-    const updateItem = (s: CoverState, u: Partial<TextItem>): CoverState => ({
+    const updateItem = (s: CoverState, id: string, u: Partial<TextItem>): CoverState => ({
         ...s,
-        texts: s.texts.map((t) => (t.id === item?.id ? { ...t, ...u } : t)),
+        texts: s.texts.map((t) => (t.id === id ? { ...t, ...u } : t)),
     });
 
-    // the text's box as fractions of the side, measured the way drawCover lays it out
-    const measure = (): Box | null => {
+    // an item's box as fractions of the side, measured the way drawCover lays it out
+    const measure = (item: TextItem | undefined): Box | null => {
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext("2d");
         if (!canvas || !ctx || canvas.width === 0 || !item) {
@@ -103,13 +121,21 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
         const f = canvas.width;
         return b && { x: b.x / f, y: b.y / f, w: b.w / f, h: b.h / f };
     };
+    // the topmost item under a point
+    const hit = (p: { x: number; y: number }): { item: TextItem; box: Box } | null => {
+        for (let i = state.texts.length - 1; i >= 0; i--) {
+            const box = measure(state.texts[i]);
+            if (box && inside(box, p)) {
+                return { item: state.texts[i], box };
+            }
+        }
+        return null;
+    };
     // the pointer as fractions of the side
     const at = (e: PointerEvent<HTMLCanvasElement>) => {
         const r = e.currentTarget.getBoundingClientRect();
         return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height };
     };
-    const inside = (b: Box | null, p: { x: number; y: number }) =>
-        !!b && p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h;
 
     const onPointerDown = (e: PointerEvent<HTMLCanvasElement>) => {
         if (e.button !== 0 || !image) {
@@ -117,25 +143,36 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
         }
         e.currentTarget.setPointerCapture(e.pointerId);
         const p = at(e);
-        const b = measure();
-        if (b && inside(b, p)) {
+        const base = { id: e.pointerId, startX: e.clientX, startY: e.clientY, moved: false };
+        const h = hit(p);
+        if (h) {
+            onPick("text", h.item.id);
             drag.current = {
+                ...base,
                 kind: "text",
-                id: e.pointerId,
-                dx: p.x - (b.x + b.w / 2),
-                dy: p.y - (b.y + b.h / 2),
+                item: h.item.id,
+                dx: p.x - (h.box.x + h.box.w / 2),
+                dy: p.y - (h.box.y + h.box.h / 2),
             };
-            setGuides({ targets: presetCentres(b, 1), snapped: null });
+            setGuides({ targets: presetCentres(h.box, 1), snapped: null });
         } else if (inside(frameFraction(state.frame), p)) {
-            drag.current = { kind: "photo", id: e.pointerId, x: e.clientX, y: e.clientY };
+            drag.current = { ...base, kind: "photo", x: e.clientX, y: e.clientY };
+        } else {
+            drag.current = { ...base, kind: "background" };
         }
     };
     const onPointerMove = (e: PointerEvent<HTMLCanvasElement>) => {
         const d = drag.current;
         if (!d || d.id !== e.pointerId || width === 0) {
             if (!d && image) {
-                setOverText(inside(measure(), at(e)));
+                setOverText(!!hit(at(e)));
             }
+            return;
+        }
+        if (Math.hypot(e.clientX - d.startX, e.clientY - d.startY) > CLICK) {
+            d.moved = true;
+        }
+        if (d.kind === "background") {
             return;
         }
         if (d.kind === "photo") {
@@ -145,16 +182,21 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
             drag.current = { ...d, x: e.clientX, y: e.clientY };
             return;
         }
+        if (!d.moved) {
+            return;
+        }
         const p = at(e);
         const cx = p.x - d.dx;
         const cy = p.y - d.dy;
         const near = guides?.targets.find((t) => Math.hypot(t.x - cx, t.y - cy) < SNAP);
         if (near) {
             // a preset keeps links short; the alignment follows its column, as the grid does
-            onChange((s) => updateItem(s, { pos: near.pos, align: alignFor(near.pos, "left") }));
+            onChange((s) =>
+                updateItem(s, d.item, { pos: near.pos, align: alignFor(near.pos, "left") }),
+            );
         } else {
             onChange((s) =>
-                updateItem(s, {
+                updateItem(s, d.item, {
                     pos: "free",
                     tx: round(Math.min(1, Math.max(0, cx))),
                     ty: round(Math.min(1, Math.max(0, cy))),
@@ -164,6 +206,11 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
         setGuides((g) => g && { ...g, snapped: near?.pos ?? null });
     };
     const onPointerUp = () => {
+        const d = drag.current;
+        // a click (not a pan) on the photo or the background opens its tab
+        if (d && !d.moved && d.kind !== "text") {
+            onPick(d.kind === "photo" ? "layout" : "background");
+        }
         drag.current = null;
         setGuides(null);
     };
@@ -184,12 +231,19 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
             zoom(-0.1);
         } else if (e.key === "0") {
             onChange((s) => ({ ...s, x: 0.5, y: 0.5, zoom: 1 }));
+        } else if ((e.key === "Delete" || e.key === "Backspace") && selected && showSelection) {
+            onDelete(selected);
         } else {
             return;
         }
         e.preventDefault();
     };
 
+    const title = state.texts[0]?.text;
+    const outlined =
+        showSelection && state.texts.length > 1 && !guides
+            ? measure(state.texts.find((t) => t.id === selected))
+            : null;
     return (
         <div
             ref={boxRef}
@@ -199,8 +253,8 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
                 ref={canvasRef}
                 tabIndex={0}
                 role="img"
-                aria-label={`Cover preview${item?.text ? `: ${item.text}` : ""}. Drag the text to move it. Drag or use the arrow keys to move the photo, plus and minus to zoom, 0 to reset.`}
-                aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown + - 0"
+                aria-label={`Cover preview${title ? `: ${title}` : ""}. Drag text to move it. Drag or use the arrow keys to move the photo, plus and minus to zoom, 0 to reset, Delete to remove the selected text.`}
+                aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown + - 0 Delete"
                 className={`block size-full touch-none select-none ${
                     !image
                         ? ""
@@ -215,6 +269,7 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
                 onKeyDown={onKeyDown}
             />
             {guides && <Guides {...guides} />}
+            {outlined && <Selection box={outlined} />}
             {(loading || !image) && (
                 <div className="absolute inset-0 flex items-center justify-center" role="status">
                     <Loader size="sm" color="var(--mix-accent)" aria-label="loading the photo" />
@@ -224,7 +279,34 @@ export default function CoverCanvas({ image, loading, state, onChange }: Props) 
     );
 }
 
-// the snap targets while the text is dragged, drawn over the preview only, never into the export
+// a dashed box around the selected text, over the preview only, never in the export
+function Selection({ box }: { box: Box }) {
+    const pad = 0.012;
+    return (
+        <svg
+            aria-hidden
+            className="pointer-events-none absolute inset-0 size-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+        >
+            <rect
+                x={(box.x - pad) * 100}
+                y={(box.y - pad) * 100}
+                width={(box.w + 2 * pad) * 100}
+                height={(box.h + 2 * pad) * 100}
+                fill="none"
+                stroke="white"
+                strokeOpacity={0.85}
+                strokeWidth={0.3}
+                strokeDasharray="1.2 0.8"
+                vectorEffect="non-scaling-stroke"
+                style={{ filter: "drop-shadow(0 0 1px rgb(0 0 0 / 0.6))" }}
+            />
+        </svg>
+    );
+}
+
+// the snap targets while text is dragged, drawn over the preview only, never into the export
 function Guides({
     targets,
     snapped,
@@ -263,12 +345,16 @@ function Guides({
     );
 }
 
-// four decimals, as the share link writes them
-function round(v: number): number {
-    return Math.round(v * 10000) / 10000;
+function inside(b: Box | null, p: { x: number; y: number }): boolean {
+    return !!b && p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h;
 }
 
 // the frame as a box in fractions of the side
 function frameFraction(f: Frame): Box {
     return { x: f.x - f.w / 2, y: f.y - f.h / 2, w: f.w, h: f.h };
+}
+
+// four decimals, as the share link writes them
+function round(v: number): number {
+    return Math.round(v * 10000) / 10000;
 }

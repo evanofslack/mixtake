@@ -8,9 +8,10 @@ import { fetchPhotos, fetchSimilar } from "../lib/client";
 import { RequestError } from "../lib/errors";
 import { editorImageFor, thumbFor, useImage } from "../lib/photos";
 import { mergeQuery, readShared, slug, writeShared } from "../lib/share";
+import { removeText } from "../lib/texts";
 import { useHistory, useUndoKeys } from "../lib/useHistory";
 import CoverCanvas from "./CoverCanvas";
-import CoverControls from "./CoverControls";
+import CoverControls, { Tab } from "./CoverControls";
 import Info from "./Info";
 import Panel, { Waiting } from "./Panel";
 import PhotoStrip from "./PhotoStrip";
@@ -40,6 +41,12 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
 
     const history = useHistory<CoverState>(initial.state);
     const state = history.value;
+    // the open tab and the text item it edits; an undone item falls back to the first
+    const [tab, setTab] = useState<Tab>("text");
+    const [picked, setPicked] = useState<string | null>(initial.state.texts[0]?.id ?? null);
+    const selected = state.texts.some((t) => t.id === picked)
+        ? picked
+        : (state.texts[0]?.id ?? null);
     // corrections the person didn't make (a new photo resets the crop) aren't undo steps
     const setState = history.replace;
     useUndoKeys(history.undo, history.redo);
@@ -347,6 +354,15 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                         loading={!!photo && !full.image && !full.failed}
                         state={state}
                         onChange={change}
+                        selected={selected}
+                        showSelection={tab === "text"}
+                        onPick={(t, id) => {
+                            setTab(t);
+                            if (id) {
+                                setPicked(id);
+                            }
+                        }}
+                        onDelete={(id) => change((s) => removeText(s, id))}
                     />
                     <div className="mt-2 flex items-center justify-between gap-2">
                         {photo ? <Credit photo={photo} onMore={moreLike} like={like} /> : <span />}
@@ -371,6 +387,10 @@ export default function CoverStudio({ mixId, mock, source, analysed, finished }:
                     photo={photo}
                     palette={mainSet?.palette ?? []}
                     onEdit={change}
+                    tab={tab}
+                    onTab={setTab}
+                    selected={selected}
+                    onSelect={setPicked}
                 />
             </div>
         </Panel>

@@ -383,6 +383,13 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
     framed preset while the background is still the default takes its colors from the photo.
     **Text**: the title and subtitle, type (below), position, alignment, color and shade.
     Dragging pans the photo only when it starts inside the frame.
+  - A cover has up to six text items (`lib/texts.ts`): chips at the top of the Text tab select
+    one, with add, duplicate, bring forward, send back and delete. The first item is the title
+    (its text defaults to the playlist's name); the rest start as small centred text. Clicking
+    text on the preview selects it and opens the Text tab, where the selected item gets a dashed
+    outline (preview only); a click (not a pan) on the photo opens Layout, on the background
+    Background. Delete removes the selected text while the preview has focus. A badge is a filled
+    rounded box behind an item, padded by 0.4 em; auto text color on a badge contrasts with it.
   - Undo and redo (⌘Z, ⇧⌘Z, or the arrows under the preview) cover every edit; edits within
     600 ms are one step, so a slider drag undoes at once. Picking a photo isn't a step.
   - Mock mode serves 12 generated scenes from `public/mock`.

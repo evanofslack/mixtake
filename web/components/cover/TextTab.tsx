@@ -23,6 +23,8 @@ import { Choice, ColourRow, SectionTitle, SliderField } from "./ui";
 
 type Props = {
     item: TextItem;
+    // the first item is the cover's title
+    first?: boolean;
     onChange: (update: Partial<TextItem>) => void;
     // the photo's colours and the mix's
     photo: string[];
@@ -41,21 +43,21 @@ export const POS_LABEL: Record<Pos, string> = {
     br: "bottom right",
 };
 
-export default function TextTab({ item, onChange, photo, palette }: Props) {
+export default function TextTab({ item, first, onChange, photo, palette }: Props) {
     const spec = FONTS[item.font];
     return (
         <div className="flex flex-col gap-5">
             <section aria-label="Text">
                 <div className="flex flex-col gap-3">
                     <TextInput
-                        label="Title"
+                        label={first ? "Title" : "Text"}
                         value={item.text}
                         maxLength={120}
-                        placeholder="no title"
+                        placeholder={first ? "no title" : "no text"}
                         onChange={(e) => onChange({ text: e.currentTarget.value })}
                     />
                     <TextInput
-                        label="Subtitle"
+                        label={first ? "Subtitle" : "Second line"}
                         value={item.sub}
                         maxLength={160}
                         placeholder="optional"
@@ -204,6 +206,44 @@ export default function TextTab({ item, onChange, photo, palette }: Props) {
                     onChange={(e) => onChange({ scrim: e.currentTarget.checked })}
                     color="var(--mix-ink)"
                 />
+            </section>
+
+            <section aria-label="Badge">
+                <div className="flex items-center justify-between">
+                    <SectionTitle>Badge</SectionTitle>
+                    <Switch
+                        aria-label="badge behind the text"
+                        checked={!!item.badge}
+                        onChange={(e) =>
+                            onChange({
+                                badge: e.currentTarget.checked ? (photo[0] ?? "#f7f4ee") : "",
+                            })
+                        }
+                        color="var(--mix-ink)"
+                    />
+                </div>
+                {item.badge && (
+                    <div className="mt-1 flex flex-col gap-3">
+                        <ColourRow
+                            name="cover-badge"
+                            label="Badge color"
+                            value={item.badge}
+                            onChange={(badge) => onChange({ badge })}
+                            photo={photo}
+                            palette={palette}
+                        />
+                        <SliderField
+                            label="Corners"
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            value={item.badgeRadius}
+                            format={(v) => `${Math.round(v * 100)}%`}
+                            onChange={(v) => onChange({ badgeRadius: v })}
+                            reset={0.3}
+                        />
+                    </div>
+                )}
             </section>
         </div>
     );

@@ -60,6 +60,10 @@ export interface TextItem {
     outlineColor: string;
     // a soft shadow under the letters
     shadow: boolean;
+    // a filled box behind the text, "#rrggbb", or "" for none
+    badge: string;
+    // the badge's corner radius, 0 square to 1 fully round
+    badgeRadius: number;
 }
 
 export interface CoverState {
@@ -101,6 +105,8 @@ export const DEFAULT_TEXT: Omit<TextItem, "id" | "text"> = {
     outline: 0,
     outlineColor: "#141210",
     shadow: true,
+    badge: "",
+    badgeRadius: 0.3,
 };
 
 export const WIDTH_MIN = 50;
@@ -354,7 +360,11 @@ export function drawCover(ctx: Ctx, image: Image, state: CoverState, size: numbe
         !layout
             ? LIGHT
             : item.color === "auto"
-              ? autoColor(image, state, layout.bounds, size)
+              ? item.badge
+                  ? luminance(item.badge) > 0.24
+                      ? DARK
+                      : LIGHT
+                  : autoColor(image, state, layout.bounds, size)
               : item.color,
     );
     // scrims sit on the photo, under every item's text
@@ -473,7 +483,9 @@ interface TextLayout {
     title: Block;
     sub: Block | null;
     gap: number;
-    // the text box before rotation
+    // the badge's padding around the text, in px; 0 without a badge
+    pad: number;
+    // the text box before rotation, padding included
     box: Box;
     // the rotated box's bounds: what's placed, hit-tested and sampled for auto color
     bounds: Box;
@@ -655,8 +667,11 @@ function layoutText(ctx: Ctx, item: TextItem, size: number): TextLayout | null {
     const gap = titleText && sub ? Math.max(sub.px * 0.9, px * 0.28) : 0;
     const titleH = lines.length ? cap + (lines.length - 1) * title.lead : 0;
     const subH = sub ? sub.cap + (sub.lines.length - 1) * sub.lead : 0;
-    const w = Math.max(0, ...lines.map((l) => l.width), ...(sub?.lines ?? []).map((l) => l.width));
-    const h = titleH + gap + subH;
+    const pad = item.badge ? (titleText ? px : (sub?.px ?? px)) * 0.4 : 0;
+    const w =
+        Math.max(0, ...lines.map((l) => l.width), ...(sub?.lines ?? []).map((l) => l.width)) +
+        2 * pad;
+    const h = titleH + gap + subH + 2 * pad;
 
     // place the rotated box's bounds, then centre the upright box in them
     const rad = (item.rotate * Math.PI) / 180;
@@ -674,6 +689,7 @@ function layoutText(ctx: Ctx, item: TextItem, size: number): TextLayout | null {
         title,
         sub,
         gap,
+        pad,
         box: { x: cx - w / 2, y: cy - h / 2, w, h },
         bounds: { x: o.x, y: o.y, w: bw, h: bh },
     };
@@ -729,17 +745,17 @@ export function presetCentres(box: Box, size: number): { pos: Pos; x: number; y:
 }
 
 function drawText(ctx: Ctx, item: TextItem, layout: TextLayout, color: string, size: number): void {
-    const { box, title, sub, gap } = layout;
+    const { box, title, sub, gap, pad } = layout;
     const lineX = (w: number) =>
         item.align === "left"
-            ? box.x
+            ? box.x + pad
             : item.align === "center"
               ? box.x + (box.w - w) / 2
-              : box.x + box.w - w;
+              : box.x + box.w - pad - w;
 
     // every line as a run, so the outline pass and the fill pass agree
     const runs: { block: Block; line: Line; y: number; alpha: number }[] = [];
-    let baseline = box.y + title.cap;
+    let baseline = box.y + pad + title.cap;
     for (const line of title.lines) {
         runs.push({ block: title, line, y: baseline, alpha: 1 });
         baseline += title.lead;
@@ -764,6 +780,18 @@ function drawText(ctx: Ctx, item: TextItem, layout: TextLayout, color: string, s
     ctx.textBaseline = "alphabetic";
     ctx.textAlign = "left";
     ctx.lineJoin = "round";
+    if (item.badge) {
+        ctx.fillStyle = item.badge;
+        ctx.beginPath();
+        ctx.roundRect(
+            box.x,
+            box.y,
+            box.w,
+            box.h,
+            (clamp(item.badgeRadius, 0, 1) * Math.min(box.w, box.h)) / 2,
+        );
+        ctx.fill();
+    }
     // a faint shadow holds text on busy photos without looking like a sticker: dark under light
     // text, a soft light one under dark text
     const shadow = () => {

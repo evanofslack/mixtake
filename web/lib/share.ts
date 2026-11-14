@@ -3,6 +3,7 @@
 // `c` param: short-key JSON, base64url, with values that match the defaults left out. Links from
 // before `c` (one param per setting) are still read.
 import { MAX_SEED } from "./api";
+import { MAX_TEXTS } from "./texts";
 import {
     Align,
     clamp,
@@ -61,8 +62,6 @@ const LEGACY_KEYS = [
 
 export const SHARE_KEYS = ["photo", "vibe", "like", "seed", "c", ...LEGACY_KEYS] as const;
 
-// the most text items a cover keeps
-export const MAX_TEXTS = 6;
 const FORMAT = 2;
 
 type Query = Record<string, string | string[] | undefined>;
@@ -135,6 +134,8 @@ const TEXT: Schema<TextItem> = {
     outline: ["o", numIn(0, OUTLINE_MAX)],
     outlineColor: ["q", hex],
     shadow: ["h", bool],
+    badge: ["b", (v) => (v === "" ? "" : hex(v))],
+    badgeRadius: ["u", numIn(0, 1)],
 };
 
 const CROP: Schema<Pick<CoverState, "x" | "y" | "zoom">> = {

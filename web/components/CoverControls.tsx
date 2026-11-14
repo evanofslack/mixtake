@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Tabs } from "@mantine/core";
 import type { Photo } from "../lib/api";
 import { CoverState, DARK, DEFAULT_FILL, Fill, LIGHT, TextItem } from "../lib/canvas";
@@ -6,6 +5,7 @@ import { photoColours, pickPair } from "../lib/colours";
 import { LayoutId, LAYOUTS } from "../lib/layouts";
 import BackgroundTab from "./cover/BackgroundTab";
 import LayoutTab from "./cover/LayoutTab";
+import TextList from "./cover/TextList";
 import TextTab from "./cover/TextTab";
 
 export type Tab = "layout" | "background" | "text";
@@ -17,15 +17,29 @@ type Props = {
     palette: string[];
     // every edit goes through here, so the studio can keep the crop inside the photo
     onEdit: (fn: (s: CoverState) => CoverState) => void;
+    tab: Tab;
+    onTab: (tab: Tab) => void;
+    // the text item the Text tab edits
+    selected: string | null;
+    onSelect: (id: string) => void;
 };
 
 // the editor's settings, in three tabs: the layout and photo, the background, the text
-export default function CoverControls({ state, photo, palette, onEdit }: Props) {
-    const [tab, setTab] = useState<Tab>("text");
+export default function CoverControls({
+    state,
+    photo,
+    palette,
+    onEdit,
+    tab,
+    onTab,
+    selected,
+    onSelect,
+}: Props) {
     const fromPhoto = photoColours(photo?.colors ?? [], [LIGHT, DARK]);
     const mixColours = palette.map((h) => h.toLowerCase());
     const pool = [...fromPhoto, ...mixColours];
-    const item = state.texts[0];
+    const index = state.texts.findIndex((t) => t.id === selected);
+    const item = state.texts[index];
 
     const onItem = (u: Partial<TextItem>) =>
         item &&
@@ -58,7 +72,7 @@ export default function CoverControls({ state, photo, palette, onEdit }: Props) 
     };
 
     return (
-        <Tabs value={tab} onChange={(v) => v && setTab(v as Tab)} keepMounted={false}>
+        <Tabs value={tab} onChange={(v) => v && onTab(v as Tab)} keepMounted={false}>
             <Tabs.List grow className="mb-4">
                 <Tabs.Tab value="layout">Layout</Tabs.Tab>
                 <Tabs.Tab value="background">Background</Tabs.Tab>
@@ -85,8 +99,21 @@ export default function CoverControls({ state, photo, palette, onEdit }: Props) 
                 />
             </Tabs.Panel>
             <Tabs.Panel value="text">
+                <TextList
+                    texts={state.texts}
+                    selected={item?.id ?? null}
+                    onSelect={onSelect}
+                    onEdit={onEdit}
+                />
                 {item && (
-                    <TextTab item={item} onChange={onItem} photo={fromPhoto} palette={mixColours} />
+                    <TextTab
+                        key={item.id}
+                        item={item}
+                        first={index === 0}
+                        onChange={onItem}
+                        photo={fromPhoto}
+                        palette={mixColours}
+                    />
                 )}
             </Tabs.Panel>
         </Tabs>
