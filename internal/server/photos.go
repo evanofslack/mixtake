@@ -13,6 +13,8 @@ const (
 	msgTooFew      = "Not enough songs analyzed yet."
 	msgPhotosError = "analogdb didn't respond. Try again in a moment."
 	imageCache     = "public, max-age=31536000, immutable"
+	// the showcase changes daily and is cached for hours on the server
+	showcaseCache = "public, max-age=3600"
 )
 
 // mixPhotos handles GET /api/mixes/{id}/photos?vibe=&seed=: ranked cover photos for the mix's
@@ -51,6 +53,22 @@ func (s *Server) similarPhotos(w http.ResponseWriter, r *http.Request) {
 	}
 	set, err := s.deps.Covers.Similar(r.Context(), id)
 	s.writePhotos(w, r, set, err)
+}
+
+// showcase handles GET /api/showcase: real analogdb photos placed on the mood map, for the front
+// page's demo.
+func (s *Server) showcase(w http.ResponseWriter, r *http.Request) {
+	set, err := s.deps.Covers.Showcase(r.Context())
+	switch {
+	case err == nil:
+		w.Header().Set("Cache-Control", showcaseCache)
+		writeJSON(w, http.StatusOK, set)
+	case errors.Is(err, mix.ErrUpstream):
+		s.deps.Log.WarnContext(r.Context(), "showcase", "error", err)
+		writeError(w, http.StatusBadGateway, msgPhotosError)
+	default:
+		s.internalError(w, r, err)
+	}
 }
 
 func (s *Server) writePhotos(w http.ResponseWriter, r *http.Request, set mix.PhotoSet, err error) {

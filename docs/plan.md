@@ -136,6 +136,7 @@ with fakes of these four.
 | `GET /api/mixes/{id}/photos?vibe=&seed=` | `200 PhotoSet {queries, palette, photos}`: about 12 ranked analogdb photos for the current profile, plus the queries (all of them, every lens) and target palette used. `vibe` (≤200 characters) overrides the mix's vibe for this search only. `seed` (optional whole number, 0–1000000000) shuffles: 0 or absent is the mix's usual set, any other value picks different sentences, title words and colour page, so a "shuffle" button can send a new random seed each click; the same seed always gives the same set. 404 unknown mix; 409 until 10 tracks are analysed (or the job finished with fewer, for short albums); 400 long vibe or bad seed; 502 only when every analogdb search failed. |
 | `GET /api/photos/{id}/similar` | `200 PhotoSet` with empty `queries` and `palette`: analogdb's similar photos, filtered, in analogdb's order, without the photo itself. 404 unknown photo (or one without a similarity embedding); 502 analogdb failed. |
 | `GET /api/img/{name}` | Streams an `i.analogdb.com` image with `Cache-Control: public, max-age=31536000, immutable`. Only analogdb file names are served (404 otherwise): a uuid, or the older `<24 hex>-<low\|medium\|high\|raw>`, with `.jpeg`, `.jpg` or `.png`. 502 analogdb failed. |
+| `GET /api/showcase` | `200 {photos: [{mood, energy, photo}]}` with `Cache-Control: public, max-age=3600`: one real analogdb photo for each of 12 fixed points on the mood map (3 per quadrant), for the front page demo. Each quadrant gets one literal and one abstract search from its scene list, picked by the UTC date so the set changes daily; each point takes the best photo for its own palette (`RankPhotos`) not used by another point. Cached in memory for 6 hours, one fetch at a time; failures are remembered for a minute. 502 when every search failed (the page then falls back to the mock placeholders, without credits). |
 | `GET /api/health` | Health check. Metrics are served on `METRICS_PORT` at `/metrics`. |
 
 Errors are JSON `{"error": "<message to show the user>"}`. `POST /api/mixes` returns:
@@ -296,9 +297,13 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   leading search phrase, the status pill, gauge grooves); emboss is never the only sign of a
   state, which also gets amber or an icon. Letterpress text-shadow is for display text only.
 - Pages:
-  - `/`: input and example playlists
+  - `/`: input, example playlists as cards (name, quadrant, a few dots), then a "how it works"
+    section (`#how`) shown rather than told: Paste → Listen → Develop tiles that play once when
+    scrolled into view, a mood pad (drag a knob over the map and the nearest showcase photo
+    crossfades in, credited to its photographer, with mood and energy gauges; drifts on its own until touched, still under
+    reduced motion)
   - `/mix?id=…`: results
-  - `/about`: credits
+  - `/about` redirects (301) to `/#how`
 - Components:
   - InputBox: detects a link or a paste; explains private playlists
   - ProgressHeader
@@ -329,8 +334,9 @@ The tune CLI runs links one at a time to stay under analogdb's rate limit.
   - Tooltips and `Info` text are 5–7 words with no commas, semicolons or periods. Controls whose
     effect is plain from using them (text color, shade, the cover panel) get none.
   - The summary's facets and gauges explain themselves from their round icon only.
-  - American spelling in everything a user sees (color, center, analyze). No site footer; credits
-    and licenses live on `/about`.
+  - American spelling in everything a user sees (color, center, analyze). No site footer and no
+    credits page: the Listen step's (i) credits Essentia and its license, and the mood pad
+    credits each photo's author behind a camera icon.
   - ShareBar: JPG at 1500 or 3000 px, copy link; a warning icon (details on hover) when the
     crop is smaller than a size and will be upscaled. Zoom is capped at 2.5×.
   - Listen: collapsed Spotify embed player

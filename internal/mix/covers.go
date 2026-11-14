@@ -42,6 +42,8 @@ type Covers struct {
 
 	mu    sync.Mutex
 	cache map[string]cached
+
+	showcase showcaseCache
 }
 
 type cached struct {

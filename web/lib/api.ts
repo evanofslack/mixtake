@@ -190,3 +190,9 @@ export interface PhotoSet {
     palette: string[]; // target colours "#rrggbb" the ranking aimed for
     photos: Photo[];
 }
+
+// GET /api/showcase: real analogdb photos, each placed at a point on the mood map, for the front
+// page's demo. Image URLs are /api/img/{name} proxy paths.
+export interface Showcase {
+    photos: { mood: number; energy: number; photo: Photo }[];
+}

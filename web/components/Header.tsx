@@ -1,5 +1,5 @@
 import { useWindowScroll } from "@mantine/hooks";
-import { FiGithub, FiInfo } from "react-icons/fi";
+import { FiGithub } from "react-icons/fi";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
@@ -17,16 +17,6 @@ export default function Header() {
                     mixtake
                 </a>
                 <nav aria-label="main" className="flex items-center gap-0.5 sm:gap-2">
-                    <a
-                        href="/about"
-                        aria-label="about"
-                        className="flex h-9 items-center rounded-sm px-2 text-sm text-muted transition-colors hover:text-ink"
-                    >
-                        <span className="hidden sm:inline">about</span>
-                        <span className="sm:hidden" aria-hidden>
-                            <FiInfo size="1.1rem" />
-                        </span>
-                    </a>
                     <a
                         href="https://github.com/evanofslack/mixtake"
                         aria-label="source on GitHub"

@@ -48,7 +48,6 @@ func TestStatic(t *testing.T) {
 		"mix.html":              {Data: []byte("mix page")},
 		"404.html":              {Data: []byte("missing")},
 		"_next/static/chunk.js": {Data: []byte("js")},
-		"about/index.html":      {Data: []byte("about")},
 		"images/cover.webp":     {Data: []byte("img")},
 	}
 	h := newTestServer(static).Handler()
@@ -58,7 +57,6 @@ func TestStatic(t *testing.T) {
 	}{
 		{"/", "home", "no-cache", 200},
 		{"/mix?id=abc", "mix page", "no-cache", 200},
-		{"/about", "about", "no-cache", 200},
 		{"/_next/static/chunk.js", "js", "public, max-age=31536000, immutable", 200},
 		{"/images/cover.webp", "img", "no-cache", 200},
 		{"/nope", "missing", "no-cache", 404},
@@ -74,6 +72,10 @@ func TestStatic(t *testing.T) {
 				t.Errorf("Cache-Control = %q, want %q", got, tt.cache)
 			}
 		})
+	}
+	if rec := do(h, "GET", "/about"); rec.Code != http.StatusMovedPermanently ||
+		rec.Header().Get("Location") != "/#how" {
+		t.Errorf("GET /about = %d %q, want a redirect to /#how", rec.Code, rec.Header().Get("Location"))
 	}
 	if rec := do(h, "POST", "/"); rec.Code != http.StatusMethodNotAllowed {
 		t.Errorf("POST / = %d", rec.Code)

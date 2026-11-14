@@ -1,6 +1,6 @@
-import type { ApiError, PhotoSet } from "./api";
+import type { ApiError, PhotoSet, Showcase } from "./api";
 import { RequestError } from "./errors";
-import { mockCreateMix, mockPhotos, mockSimilar } from "./mock";
+import { mockCreateMix, mockPhotos, mockShowcase, mockSimilar } from "./mock";
 
 // mock mode replaces the backend with a fake event stream: ?mock=1, or NEXT_PUBLIC_MOCK=1
 export function isMockMode(query?: Record<string, unknown>): boolean {
@@ -65,6 +65,14 @@ export async function fetchSimilar(photoId: number, mock: boolean): Promise<Phot
         return mockSimilar(photoId);
     }
     return getJSON(`/api/photos/${photoId}/similar`);
+}
+
+// real analogdb photos placed on the mood map, for the front page
+export async function fetchShowcase(mock: boolean): Promise<Showcase> {
+    if (mock) {
+        return mockShowcase();
+    }
+    return getJSON("/api/showcase");
 }
 
 async function getJSON<T>(url: string): Promise<T> {

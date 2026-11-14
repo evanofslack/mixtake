@@ -6,6 +6,7 @@
 // https://open.spotify.com/playlist/privateAAAAAAAAAAAAAAA
 import type {
     Coverage,
+    Showcase,
     Features,
     Genre,
     MixEvent,
@@ -38,24 +39,24 @@ const EXAMPLE_CHARACTERS: Character[] = [
     {
         name: "Today's Top Hits",
         subtitle: "The hottest 50. Cover: a pop star",
-        mood: 0.62,
-        energy: 0.64,
+        mood: EXAMPLES[0].mood,
+        energy: EXAMPLES[0].energy,
         families: ["pop", "hiphop", "electronic"],
         palette: ["#1f3b57", "#e86a5c", "#f4d7b5"],
     },
     {
         name: "lofi beats",
         subtitle: "chill beats, lofi vibes, new tracks every week",
-        mood: 0.42,
-        energy: 0.24,
+        mood: EXAMPLES[1].mood,
+        energy: EXAMPLES[1].energy,
         families: ["hiphop", "jazz", "electronic"],
         palette: ["#2e3a4f", "#8a6f9e", "#f2c3a7"],
     },
     {
         name: "All Out 80s",
         subtitle: "The biggest songs of the 1980s.",
-        mood: 0.66,
-        energy: 0.6,
+        mood: EXAMPLES[2].mood,
+        energy: EXAMPLES[2].energy,
         families: ["rock", "pop", "electronic"],
         palette: ["#3b1f4a", "#e2497a", "#f6d26b"],
     },
@@ -469,7 +470,7 @@ type MockScene = {
 };
 
 // prettier-ignore
-const SCENES: MockScene[] = [
+const MOCK_SCENES: MockScene[] = [
     { file: "dusk-water", w: 1200, h: 800, title: "last ferry home", author: "halide_and_salt", caption: "Portra 400, Olympus XA", gray: false, colors: [["#332c42", 0.285], ["#1b1d30", 0.245], ["#6f4653", 0.185], ["#b86766", 0.161], ["#db967c", 0.124]] },
     { file: "forest-fog", w: 800, h: 1200, title: "fog on the ridge trail", author: "slow_shutter", caption: "Fuji Superia 400", gray: false, colors: [["#6a746c", 0.258], ["#48524a", 0.234], ["#858e87", 0.216], ["#929c94", 0.154], ["#9ca69e", 0.137]] },
     { file: "rain-window", w: 1200, h: 800, title: "rain on the bus window", author: "nightbus", caption: "Cinestill 800T", gray: false, colors: [["#17212e", 0.231], ["#554d3e", 0.221], ["#222b34", 0.213], ["#0e1521", 0.194], ["#131d2a", 0.141]] },
@@ -499,7 +500,7 @@ const PHOTO_BASE = 9000;
 // every resolution is the same small file with its real size, so the upscale warning and the
 // export behave as they would with a small analogdb photo
 function mockPhoto(i: number, score: number): Photo {
-    const s = SCENES[i];
+    const s = MOCK_SCENES[i];
     const url = `/mock/${s.file}.jpg`;
     return {
         id: PHOTO_BASE + i,
@@ -520,6 +521,35 @@ function mockPhoto(i: number, score: number): Photo {
     };
 }
 
+// where each mock photo sits on the mood map, placed by eye: warm and bright to the right, cool and
+// dark to the left, busy at the top
+const PLACES: Record<string, [number, number]> = {
+    "neon-bokeh": [0.72, 0.86],
+    "hill-sunset": [0.84, 0.62],
+    "desert-dunes": [0.6, 0.72],
+    "golden-field": [0.82, 0.3],
+    "pastel-morning": [0.66, 0.14],
+    "snow-trees": [0.56, 0.1],
+    "grey-beach": [0.32, 0.16],
+    "forest-fog": [0.16, 0.32],
+    "alpine-lake": [0.38, 0.42],
+    "rain-window": [0.12, 0.58],
+    "dusk-water": [0.34, 0.7],
+    "bw-street": [0.18, 0.88],
+};
+
+// GET /api/showcase
+export async function mockShowcase(): Promise<Showcase> {
+    await sleep(300);
+    return {
+        photos: MOCK_SCENES.map((s, i) => ({
+            mood: PLACES[s.file]?.[0] ?? 0.5,
+            energy: PLACES[s.file]?.[1] ?? 0.5,
+            photo: mockPhoto(i, 1),
+        })),
+    };
+}
+
 // GET /api/mixes/{id}/photos?vibe=
 export async function mockPhotos(id: string, vibe: string, seed = 0): Promise<PhotoSet> {
     await sleep(450);
@@ -529,7 +559,7 @@ export async function mockPhotos(id: string, vibe: string, seed = 0): Promise<Ph
     const words = vibe.trim().toLowerCase();
     const rand = rng(hash(`${id}\n${words}\n${seed}`));
     const order = shuffle(
-        SCENES.map((_, i) => i),
+        MOCK_SCENES.map((_, i) => i),
         rand,
     );
     const queries = words
@@ -545,7 +575,7 @@ const MOCK_PALETTE = ["#1a2230", "#2f3d52", "#4b5f7a", "#7287a3", "#a3b3c8"];
 // GET /api/photos/{id}/similar: the nearest scenes by colour, without the photo itself
 export async function mockSimilar(photoId: number): Promise<PhotoSet> {
     await sleep(350);
-    const src = SCENES[photoId - PHOTO_BASE];
+    const src = MOCK_SCENES[photoId - PHOTO_BASE];
     if (!src) {
         throw new RequestError("photo not found", 404);
     }
@@ -554,7 +584,7 @@ export async function mockSimilar(photoId: number): Promise<PhotoSet> {
             const near = Math.min(...src.colors.map(([h]) => rgbDistance(hex, h)));
             return sum + near * pct;
         }, 0);
-    const photos = SCENES.map((s, i) => ({ i, d: dist(s) }))
+    const photos = MOCK_SCENES.map((s, i) => ({ i, d: dist(s) }))
         .filter(({ i }) => i !== photoId - PHOTO_BASE)
         .sort((a, b) => a.d - b.d)
         .slice(0, 8)
