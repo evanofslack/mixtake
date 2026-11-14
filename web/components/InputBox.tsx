@@ -1,21 +1,18 @@
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Alert, Button, Collapse, Textarea, TextInput, UnstyledButton } from "@mantine/core";
-import { FiAlertCircle, FiArrowRight, FiCheck, FiChevronDown } from "react-icons/fi";
+import { FiAlertCircle, FiArrowRight, FiCheck, FiChevronDown, FiPlus } from "react-icons/fi";
 import { createMix } from "../lib/client";
 import { RequestError } from "../lib/errors";
 import { canSubmit, Detected, detectInput, MAX_TRACKS } from "../lib/input";
-import { EXAMPLES } from "../lib/examples";
 import { plural } from "../lib/format";
-import { moodColour } from "../lib/moodColour";
-import { quadrantAt, scatter } from "../lib/showcase";
-import { useDark } from "../lib/useDark";
 
 type Props = {
     mock: boolean;
 };
 
-// the paste box on the front page: a link or a list of tracks, plus an optional vibe
+// the paste box on the front page: a link or a list of tracks, plus an optional vibe behind a
+// link
 export default function InputBox({ mock }: Props) {
     const router = useRouter();
     const [input, setInput] = useState("");
@@ -23,6 +20,9 @@ export default function InputBox({ mock }: Props) {
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState<RequestError | null>(null);
     const [helpOpen, setHelpOpen] = useState(false);
+    // the vibe is optional, so it stays out of the way until asked for
+    const [vibeOpen, setVibeOpen] = useState(false);
+    const vibeRef = useRef<HTMLInputElement>(null);
     const detected = useMemo(() => detectInput(input), [input]);
 
     const submit = async (text: string) => {
@@ -71,15 +71,36 @@ export default function InputBox({ mock }: Props) {
                 />
                 <Hint id="input-hint" detected={detected} />
 
-                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+                <Collapse expanded={vibeOpen}>
                     <TextInput
-                        className="grow"
+                        mt="md"
                         label="Vibe"
-                        placeholder="optional, e.g. rainy night drive"
+                        description="words to steer the cover photos"
+                        placeholder="e.g. rainy night drive"
                         maxLength={80}
                         value={vibe}
                         onChange={(e) => setVibe(e.currentTarget.value)}
+                        ref={vibeRef}
+                        tabIndex={vibeOpen ? 0 : -1}
                     />
+                </Collapse>
+                <div className="mt-4 flex items-center justify-between gap-3">
+                    {vibeOpen ? (
+                        <span />
+                    ) : (
+                        <UnstyledButton
+                            onClick={() => {
+                                setVibeOpen(true);
+                                // focus once the field is in the layout
+                                requestAnimationFrame(() => vibeRef.current?.focus());
+                            }}
+                            aria-expanded={false}
+                            className="flex items-center gap-1 text-sm text-muted transition-colors hover:text-ink"
+                        >
+                            <FiPlus aria-hidden />
+                            add a vibe
+                        </UnstyledButton>
+                    )}
                     <Button
                         type="submit"
                         color="amber"
@@ -95,27 +116,7 @@ export default function InputBox({ mock }: Props) {
                 {error && <ErrorAlert error={error} onClose={() => setError(null)} />}
             </form>
 
-            <div className="mt-5">
-                <p className="mb-2 text-xs text-muted">or try</p>
-                <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-3">
-                    {EXAMPLES.map((ex, i) => (
-                        <ExampleCard
-                            key={ex.url}
-                            label={ex.label}
-                            mood={ex.mood}
-                            energy={ex.energy}
-                            seed={i + 1}
-                            disabled={busy}
-                            onClick={() => {
-                                setInput(ex.url);
-                                submit(ex.url);
-                            }}
-                        />
-                    ))}
-                </div>
-            </div>
-
-            <div className="mt-6 pt-4 text-sm groove-t">
+            <div className="mt-5 pt-4 text-sm groove-t">
                 <UnstyledButton
                     onClick={() => setHelpOpen((o) => !o)}
                     aria-expanded={helpOpen}
@@ -145,70 +146,6 @@ export default function InputBox({ mock }: Props) {
                 </Collapse>
             </div>
         </div>
-    );
-}
-
-// an example playlist as a small raised card: its name, its corner of the mood map and a few dots
-// where its songs roughly land
-function ExampleCard({
-    label,
-    mood,
-    energy,
-    seed,
-    disabled,
-    onClick,
-}: {
-    label: string;
-    mood: number;
-    energy: number;
-    seed: number;
-    disabled: boolean;
-    onClick: () => void;
-}) {
-    const dark = useDark();
-    const dots = useMemo(() => scatter(mood, energy, 6, 0.14, seed), [mood, energy, seed]);
-    return (
-        <UnstyledButton
-            onClick={onClick}
-            disabled={disabled}
-            className="group flex items-center gap-3 rounded-xl p-2.5 text-left shadow-raised-sm transition-shadow active:shadow-pressed-sm disabled:opacity-60 disabled:shadow-pressed-sm"
-        >
-            <svg
-                viewBox="0 0 40 40"
-                className="size-10 shrink-0 rounded-md shadow-pressed-xs"
-                aria-hidden
-            >
-                <line
-                    x1="20"
-                    x2="20"
-                    y1="4"
-                    y2="36"
-                    stroke="var(--mix-line-strong)"
-                    strokeDasharray="1.5 2"
-                />
-                <line
-                    x1="4"
-                    x2="36"
-                    y1="20"
-                    y2="20"
-                    stroke="var(--mix-line-strong)"
-                    strokeDasharray="1.5 2"
-                />
-                {dots.map((d, i) => (
-                    <circle
-                        key={i}
-                        cx={4 + d.x * 32}
-                        cy={36 - d.y * 32}
-                        r={2.2}
-                        fill={moodColour(d.x, d.y, dark)}
-                    />
-                ))}
-            </svg>
-            <span className="min-w-0 leading-tight">
-                <span className="block truncate text-sm font-medium">{label}</span>
-                <span className="block text-xs text-muted">{quadrantAt(mood, energy)}</span>
-            </span>
-        </UnstyledButton>
     );
 }
 

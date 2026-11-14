@@ -35,32 +35,26 @@ interface Character {
     palette: string[];
 }
 
-const EXAMPLE_CHARACTERS: Character[] = [
-    {
-        name: "Today's Top Hits",
-        subtitle: "The hottest 50. Cover: a pop star",
-        mood: EXAMPLES[0].mood,
-        energy: EXAMPLES[0].energy,
-        families: ["pop", "hiphop", "electronic"],
-        palette: ["#1f3b57", "#e86a5c", "#f4d7b5"],
-    },
-    {
-        name: "lofi beats",
-        subtitle: "chill beats, lofi vibes, new tracks every week",
-        mood: EXAMPLES[1].mood,
-        energy: EXAMPLES[1].energy,
-        families: ["hiphop", "jazz", "electronic"],
-        palette: ["#2e3a4f", "#8a6f9e", "#f2c3a7"],
-    },
-    {
-        name: "All Out 80s",
-        subtitle: "The biggest songs of the 1980s.",
-        mood: EXAMPLES[2].mood,
-        energy: EXAMPLES[2].energy,
-        families: ["rock", "pop", "electronic"],
-        palette: ["#3b1f4a", "#e2497a", "#f6d26b"],
-    },
+// the front page's examples, in mock mode: their names and corners of the map, with made-up songs.
+// families is a rough guess from each example's genre line
+const FAMILY_WORDS: [RegExp, Family][] = [
+    [/jazz|soul|funk|bossa|mpb|highlife|afro/i, "jazz"],
+    [/hip.?hop|rap|r&b/i, "hiphop"],
+    [/house|techno|electro|jungle|drum|garage|ambient|club/i, "electronic"],
+    [/rock|punk|metal|grunge|indie/i, "rock"],
+    [/folk|country|americana|acoustic|piano|classical/i, "folk"],
 ];
+const EXAMPLE_CHARACTERS: Character[] = EXAMPLES.map((ex) => {
+    const families = FAMILY_WORDS.filter(([re]) => re.test(ex.genre)).map(([, f]) => f);
+    return {
+        name: ex.name,
+        subtitle: ex.owner,
+        mood: ex.mood,
+        energy: ex.energy,
+        families: families.length ? families : ["pop", "electronic"],
+        palette: ex.colors.slice(0, 3).map((c) => c.hex),
+    };
+});
 
 const NAMES = [
     "late trains",
@@ -228,6 +222,12 @@ interface MockSpec {
     seed: number;
 }
 
+// a mock mix for the front page's ith example, the same one every time
+export function mockExampleId(i: number): string {
+    const ex = EXAMPLES[i];
+    return encodeId({ kind: "playlist", example: i, count: 60, seed: hash(ex.spotify) });
+}
+
 function encodeId(s: MockSpec): string {
     return `m${KIND_CHAR[s.kind]}${s.example ?? "x"}${s.count.toString(36).padStart(2, "0")}${s.seed.toString(36)}`;
 }
@@ -265,7 +265,7 @@ export async function mockCreateMix(input: string, vibe: string): Promise<string
     switch (d.kind) {
         case "playlist":
         case "album": {
-            const example = EXAMPLES.findIndex((e) => e.url.endsWith(d.id));
+            const example = EXAMPLES.findIndex((e) => e.spotify.endsWith(d.id));
             const count =
                 d.kind === "album" ? 9 + Math.floor(rand() * 8) : 52 + Math.floor(rand() * 40);
             return encodeId({ kind: d.kind, example: example < 0 ? null : example, count, seed });
