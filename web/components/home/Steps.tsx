@@ -2,14 +2,16 @@ import { ReactNode, useEffect, useState } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { FiArrowRight } from "react-icons/fi";
 import { moodColour } from "../../lib/moodColour";
+import Info from "../Info";
 import { scatter } from "../../lib/showcase";
 import { useDark } from "../../lib/useDark";
 
 // the songs that land on the little map in the middle step
 const SONGS = scatter(0.62, 0.36, 7, 0.22, 7);
 
-// what happens to a paste, as three small pictures: the link, the songs on the map, the photo
-export default function Steps() {
+// what happens to a paste, as three small pictures: the link, the songs on the map, the photo.
+// photo is a showcase image for the last step, once loaded
+export default function Steps({ photo }: { photo?: string }) {
     const { ref, entry } = useIntersection<HTMLOListElement>({ threshold: 0.4 });
     const [play, setPlay] = useState(false);
     useEffect(() => {
@@ -32,7 +34,20 @@ export default function Steps() {
                 </div>
             </Step>
             <Arrow />
-            <Step n={2} word="Listen" caption="Essentia hears each song">
+            <Step
+                n={2}
+                word="Listen"
+                caption="Essentia hears each song"
+                info={
+                    <>
+                        Analysis by{" "}
+                        <a href="https://essentia.upf.edu" className="underline">
+                            Essentia
+                        </a>{" "}
+                        under CC BY-NC-SA
+                    </>
+                }
+            >
                 <svg viewBox="0 0 100 60" className="size-full" aria-hidden>
                     <line
                         x1="50"
@@ -65,14 +80,16 @@ export default function Steps() {
             </Step>
             <Arrow />
             <Step n={3} word="Develop" caption="a film photo to match">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    src="/mock/golden-field.jpg"
-                    alt=""
-                    loading="lazy"
-                    className={`print ${held} size-full rounded-md object-cover`}
-                    style={{ animationDelay: "2200ms" }}
-                />
+                {photo && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={photo}
+                        alt=""
+                        loading="lazy"
+                        className={`print ${held} size-full rounded-md object-cover`}
+                        style={{ animationDelay: "2200ms" }}
+                    />
+                )}
             </Step>
         </ol>
     );
@@ -82,11 +99,13 @@ function Step({
     n,
     word,
     caption,
+    info,
     children,
 }: {
     n: number;
     word: string;
     caption: string;
+    info?: ReactNode;
     children: ReactNode;
 }) {
     return (
@@ -95,10 +114,11 @@ function Step({
                 {children}
             </div>
             <div className="min-w-0 leading-tight">
-                <p className="text-sm font-semibold tracking-tight">
-                    <span className="mr-1.5 text-xs font-normal text-muted tabular-nums">{n}</span>
+                <div className="flex min-h-6 items-center gap-1 text-sm font-semibold tracking-tight">
+                    <span className="mr-0.5 text-xs font-normal text-muted tabular-nums">{n}</span>
                     {word}
-                </p>
+                    {info && <Info label={`about ${word.toLowerCase()}`}>{info}</Info>}
+                </div>
                 <p className="mt-0.5 text-xs text-muted">{caption}</p>
             </div>
         </li>

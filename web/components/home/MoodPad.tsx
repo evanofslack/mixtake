@@ -2,7 +2,7 @@ import { KeyboardEvent, PointerEvent, useEffect, useRef, useState } from "react"
 import { useReducedMotion } from "@mantine/hooks";
 import { FiMove } from "react-icons/fi";
 import { moodColour } from "../../lib/moodColour";
-import { nearestPhoto, QUADRANTS, quadrantAt, SHOWCASE_PHOTOS } from "../../lib/showcase";
+import { nearestPhoto, QUADRANTS, quadrantAt, ShowcasePhoto } from "../../lib/showcase";
 import { useDark } from "../../lib/useDark";
 
 type Point = { mood: number; energy: number };
@@ -21,17 +21,16 @@ function drift(t: number): Point {
 }
 
 // the front page's demo: drag a knob around the mood map and the photo that fits that spot
-// develops in beside it, the same idea as a mix's cover, in miniature
-export default function MoodPad() {
+// develops in beside it, the same idea as a mix's cover, in miniature. photos is null while the
+// showcase loads
+export default function MoodPad({ photos }: { photos: ShowcasePhoto[] | null }) {
     const dark = useDark();
     const reduced = useReducedMotion();
     const [p, setP] = useState<Point>(START);
     const [touched, setTouched] = useState(false);
     const [dragging, setDragging] = useState(false);
     // photos mount the first time they're shown, so the page doesn't fetch all of them up front
-    const [seen, setSeen] = useState<Set<string>>(
-        () => new Set([nearestPhoto(START.mood, START.energy).file]),
-    );
+    const [seen, setSeen] = useState<Set<string>>(() => new Set());
     const well = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -48,10 +47,14 @@ export default function MoodPad() {
         return () => cancelAnimationFrame(frame);
     }, [touched, reduced]);
 
-    const photo = nearestPhoto(p.mood, p.energy);
+    const list = photos ?? [];
+    const photo = nearestPhoto(list, p.mood, p.energy);
+    const current = photo?.src;
     useEffect(() => {
-        setSeen((s) => (s.has(photo.file) ? s : new Set(s).add(photo.file)));
-    }, [photo.file]);
+        if (current) {
+            setSeen((s) => (s.has(current) ? s : new Set(s).add(current)));
+        }
+    }, [current]);
 
     const quadrant = quadrantAt(p.mood, p.energy);
     const colour = moodColour(p.mood, p.energy, dark);
@@ -143,11 +146,11 @@ export default function MoodPad() {
                     </Edge>
 
                     {/* every photo the demo knows, as a dot where it sits; the nearest one is lit */}
-                    {SHOWCASE_PHOTOS.map((ph) => {
-                        const on = ph.file === photo.file;
+                    {list.map((ph) => {
+                        const on = ph.src === current;
                         return (
                             <span
-                                key={ph.file}
+                                key={ph.src}
                                 aria-hidden
                                 className={`pointer-events-none absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-[opacity,transform] duration-300 ${
                                     on ? "scale-150 opacity-100" : "opacity-45"
@@ -193,24 +196,23 @@ export default function MoodPad() {
             <div className="flex min-w-0 flex-col gap-4">
                 <div className="rounded-xl p-2 shadow-pressed">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sunk">
-                        {SHOWCASE_PHOTOS.filter((ph) => seen.has(ph.file)).map((ph) => (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                                key={ph.file}
-                                src={ph.file}
-                                alt={
-                                    ph.file === photo.file
-                                        ? `example film photo, ${ph.caption}`
-                                        : ""
-                                }
-                                aria-hidden={ph.file !== photo.file}
-                                className={`absolute inset-0 size-full object-cover transition-[opacity,filter] duration-700 motion-reduce:transition-none ${
-                                    ph.file === photo.file
-                                        ? "opacity-100"
-                                        : "opacity-0 blur-[2px] sepia"
-                                }`}
-                            />
-                        ))}
+                        {!photos && <div className="breathe size-full bg-sunk" />}
+                        {list
+                            .filter((ph) => seen.has(ph.src))
+                            .map((ph) => (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                    key={ph.src}
+                                    src={ph.src}
+                                    alt={ph.src === current ? `a ${quadrant} film photo` : ""}
+                                    aria-hidden={ph.src !== current}
+                                    className={`absolute inset-0 size-full object-cover transition-[opacity,filter] duration-700 motion-reduce:transition-none ${
+                                        ph.src === current
+                                            ? "opacity-100"
+                                            : "opacity-0 blur-[2px] sepia"
+                                    }`}
+                                />
+                            ))}
                     </div>
                 </div>
                 <div className="flex items-baseline justify-between gap-3">
@@ -220,7 +222,14 @@ export default function MoodPad() {
                     >
                         {quadrant}
                     </p>
-                    <p className="truncate text-xs text-muted">{photo.caption}</p>
+                    {photo?.author && (
+                        <a
+                            href={photo.href}
+                            className="truncate text-xs text-muted transition-colors hover:text-ink"
+                        >
+                            photo by {photo.author}
+                        </a>
+                    )}
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                     <MiniGauge label="mood" value={p.mood} ends={["sad", "happy"]} />

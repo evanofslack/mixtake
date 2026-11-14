@@ -182,6 +182,44 @@ func TestSimilarPhotos(t *testing.T) {
 	}
 }
 
+func TestShowcase(t *testing.T) {
+	ok := newMixServer(t, 0, Limits{}, mix.RunnerConfig{}).Handler()
+	broken := newServerWith(t, 0, Limits{}, mix.RunnerConfig{}, &testPhotos{fail: true}).Handler()
+	tests := []struct {
+		name  string
+		h     http.Handler
+		code  int
+		cache string
+	}{
+		{"ok", ok, 200, "public, max-age=3600"},
+		{"upstream", broken, 502, ""},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			rec := do(tt.h, "GET", "/api/showcase")
+			if rec.Code != tt.code {
+				t.Fatalf("got %d %s", rec.Code, rec.Body)
+			}
+			if got := rec.Header().Get("Cache-Control"); got != tt.cache {
+				t.Errorf("Cache-Control = %q, want %q", got, tt.cache)
+			}
+			if tt.code != 200 {
+				return
+			}
+			var set mix.Showcase
+			if err := json.Unmarshal(rec.Body.Bytes(), &set); err != nil || len(set.Photos) == 0 {
+				t.Fatalf("body = %s", rec.Body)
+			}
+			for _, p := range set.Photos {
+				if p.Mood < 0 || p.Mood > 1 || p.Energy < 0 || p.Energy > 1 ||
+					!strings.HasPrefix(p.Photo.Images[0].URL, "/api/img/") {
+					t.Errorf("photo = %+v", p)
+				}
+			}
+		})
+	}
+}
+
 func TestImage(t *testing.T) {
 	ok := newMixServer(t, 0, Limits{}, mix.RunnerConfig{}).Handler()
 	broken := newServerWith(t, 0, Limits{}, mix.RunnerConfig{}, &testPhotos{fail: true}).Handler()

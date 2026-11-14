@@ -5,10 +5,14 @@ import InputBox from "../components/InputBox";
 import Steps from "../components/home/Steps";
 import MoodPad from "../components/home/MoodPad";
 import { isMockMode } from "../lib/client";
+import { nearestPhoto, useShowcase } from "../lib/showcase";
 
 export default function IndexPage() {
     const router = useRouter();
     const mock = router.isReady && isMockMode(router.query);
+    const photos = useShowcase(mock, router.isReady);
+    // the develop step shows a calm, happy photo: warm and easy to read at thumbnail size
+    const develop = photos ? nearestPhoto(photos, 0.82, 0.3)?.src : undefined;
 
     return (
         <Layout>
@@ -35,8 +39,8 @@ export default function IndexPage() {
                 aria-label="how it works"
                 className="mx-auto mt-16 max-w-4xl scroll-mt-20 space-y-8 px-4 sm:mt-24 sm:px-6"
             >
-                <Steps />
-                <MoodPad />
+                <Steps photo={develop} />
+                <MoodPad photos={photos} />
             </section>
         </Layout>
     );

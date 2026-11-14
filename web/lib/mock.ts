@@ -6,6 +6,7 @@
 // https://open.spotify.com/playlist/privateAAAAAAAAAAAAAAA
 import type {
     Coverage,
+    Showcase,
     Features,
     Genre,
     MixEvent,
@@ -469,7 +470,7 @@ type MockScene = {
 };
 
 // prettier-ignore
-export const MOCK_SCENES: MockScene[] = [
+const MOCK_SCENES: MockScene[] = [
     { file: "dusk-water", w: 1200, h: 800, title: "last ferry home", author: "halide_and_salt", caption: "Portra 400, Olympus XA", gray: false, colors: [["#332c42", 0.285], ["#1b1d30", 0.245], ["#6f4653", 0.185], ["#b86766", 0.161], ["#db967c", 0.124]] },
     { file: "forest-fog", w: 800, h: 1200, title: "fog on the ridge trail", author: "slow_shutter", caption: "Fuji Superia 400", gray: false, colors: [["#6a746c", 0.258], ["#48524a", 0.234], ["#858e87", 0.216], ["#929c94", 0.154], ["#9ca69e", 0.137]] },
     { file: "rain-window", w: 1200, h: 800, title: "rain on the bus window", author: "nightbus", caption: "Cinestill 800T", gray: false, colors: [["#17212e", 0.231], ["#554d3e", 0.221], ["#222b34", 0.213], ["#0e1521", 0.194], ["#131d2a", 0.141]] },
@@ -517,6 +518,35 @@ function mockPhoto(i: number, score: number): Photo {
         })),
         colors: s.colors.map(([hex, percent]) => ({ hex, percent })),
         keywords: s.title.split(/[ ,]+/),
+    };
+}
+
+// where each mock photo sits on the mood map, placed by eye: warm and bright to the right, cool and
+// dark to the left, busy at the top
+const PLACES: Record<string, [number, number]> = {
+    "neon-bokeh": [0.72, 0.86],
+    "hill-sunset": [0.84, 0.62],
+    "desert-dunes": [0.6, 0.72],
+    "golden-field": [0.82, 0.3],
+    "pastel-morning": [0.66, 0.14],
+    "snow-trees": [0.56, 0.1],
+    "grey-beach": [0.32, 0.16],
+    "forest-fog": [0.16, 0.32],
+    "alpine-lake": [0.38, 0.42],
+    "rain-window": [0.12, 0.58],
+    "dusk-water": [0.34, 0.7],
+    "bw-street": [0.18, 0.88],
+};
+
+// GET /api/showcase
+export async function mockShowcase(): Promise<Showcase> {
+    await sleep(300);
+    return {
+        photos: MOCK_SCENES.map((s, i) => ({
+            mood: PLACES[s.file]?.[0] ?? 0.5,
+            energy: PLACES[s.file]?.[1] ?? 0.5,
+            photo: mockPhoto(i, 1),
+        })),
     };
 }
 
