@@ -7,6 +7,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"image"
@@ -22,6 +23,7 @@ import (
 	"github.com/evanofslack/mixtake/internal/analogdb"
 	"github.com/evanofslack/mixtake/internal/analyzer"
 	"github.com/evanofslack/mixtake/internal/config"
+	"github.com/evanofslack/mixtake/internal/examples"
 	"github.com/evanofslack/mixtake/internal/llm"
 	"github.com/evanofslack/mixtake/internal/metrics"
 	"github.com/evanofslack/mixtake/internal/mix"
@@ -36,18 +38,19 @@ func main() {
 	sheet := flag.String("sheet", "", "write a contact sheet JPEG of the picks to this path")
 	seed := flag.Int("seed", 0, "shuffle seed; 0 is the usual set")
 	brief := flag.Bool("brief", false, "print the brief sent to the LLM")
+	export := flag.String("export", "", "write the mix and its photo set as a front page example to this JSON path")
 	flag.Parse()
 	if *link == "" {
-		fmt.Fprintln(os.Stderr, "usage: tune -link <spotify link> [-vibe text] [-n 5] [-seed 0] [-sheet out.jpg]")
+		fmt.Fprintln(os.Stderr, "usage: tune -link <spotify link> [-vibe text] [-n 5] [-seed 0] [-sheet out.jpg] [-export example.json]")
 		os.Exit(2)
 	}
-	if err := run(*link, *vibe, *seed, *top, *sheet, *brief, os.Stdout); err != nil {
+	if err := run(*link, *vibe, *seed, *top, *sheet, *export, *brief, os.Stdout); err != nil {
 		fmt.Fprintln(os.Stderr, "tune:", err)
 		os.Exit(1)
 	}
 }
 
-func run(link, vibe string, seed, top int, sheet string, brief bool, out io.Writer) error {
+func run(link, vibe string, seed, top int, sheet, export string, brief bool, out io.Writer) error {
 	cfg, err := config.Load()
 	if err != nil {
 		return err
@@ -123,6 +126,14 @@ func run(link, vibe string, seed, top int, sheet string, brief bool, out io.Writ
 		return err
 	}
 	print(out, snap, p, top, orDefault(cfg.AnalyzerURL, "fake"), museName)
+	if export != "" {
+		// the set is pinned as the mix's usual one, so a shuffled pick becomes what the example
+		// opens on without a seed
+		if err := writeExample(export, examples.New(snap, an.ModelVersion(), p.Set())); err != nil {
+			return err
+		}
+		fmt.Fprintf(out, "  exported %s\n", export)
+	}
 	if sheet == "" {
 		return nil
 	}
@@ -199,4 +210,12 @@ func orDefault(v, fallback string) string {
 		return fallback
 	}
 	return v
+}
+
+func writeExample(path string, ex examples.Example) error {
+	b, err := json.MarshalIndent(ex, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, append(b, '\n'), 0o644)
 }

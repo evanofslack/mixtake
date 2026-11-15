@@ -53,6 +53,8 @@ type Covers struct {
 	mu    sync.Mutex
 	cache map[string]cached
 	ideas map[string]cachedIdeas
+	// pinned sets are a mix's usual set, fixed for good (the front page's examples)
+	pinned map[string]PhotoSet
 
 	showcase showcaseCache
 }
@@ -72,7 +74,16 @@ func NewCovers(photos Photos, ttl time.Duration) *Covers {
 	if ttl <= 0 {
 		ttl = 30 * time.Minute
 	}
-	return &Covers{photos: photos, ttl: ttl, cache: map[string]cached{}, ideas: map[string]cachedIdeas{}}
+	return &Covers{photos: photos, ttl: ttl, cache: map[string]cached{}, ideas: map[string]cachedIdeas{},
+		pinned: map[string]PhotoSet{}}
+}
+
+// Pin fixes a mix's usual set (its own vibe, seed 0) to set, so a baked example always opens on
+// the photos it was made from. Other vibes and seeds still search.
+func (c *Covers) Pin(mixID string, set PhotoSet) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.pinned[mixID] = set
 }
 
 // UseMuse makes covers search for ideas an LLM writes from a brief about each mix, with prompt
@@ -125,15 +136,24 @@ func CoverSeed(s string) (int, error) {
 
 // ForMix returns about CoverCount cover photos for a mix, with image URLs rewritten to the
 // /api/img proxy. vibe overrides the mix's own vibe when set; seed 0 is the mix's usual set and
-// any other seed shuffles to a different one. It returns ErrTooFew until MinCoverTracks tracks
-// are analysed (or the job has finished with at least one), and ErrUpstream if every analogdb
-// search fails. Results are cached per mix, vibe, seed and ten tracks of coverage.
+// any other seed shuffles to a different one. A pinned set (see Pin) answers for the usual set.
+// It returns ErrTooFew until MinCoverTracks tracks are analysed (or the job has finished with at
+// least one), and ErrUpstream if every analogdb search fails. Results are cached per mix, vibe,
+// seed and ten tracks of coverage.
 func (c *Covers) ForMix(ctx context.Context, snap Snapshot, vibe string, seed int) (PhotoSet, error) {
 	if !ready(snap) {
 		return PhotoSet{}, ErrTooFew
 	}
 	if vibe == "" {
 		vibe = snap.Mix.Vibe
+	}
+	if vibe == snap.Mix.Vibe && seed == 0 {
+		c.mu.Lock()
+		set, ok := c.pinned[snap.Mix.ID]
+		c.mu.Unlock()
+		if ok {
+			return set, nil
+		}
 	}
 	key := fmt.Sprintf("mix|%s|%d|%d|%s", snap.Mix.ID, snap.Profile.Coverage.Done/10, seed, vibe)
 	if set, ok := c.cached(key); ok {
@@ -143,6 +163,13 @@ func (c *Covers) ForMix(ctx context.Context, snap Snapshot, vibe string, seed in
 	if err != nil {
 		return PhotoSet{}, err
 	}
+	set := p.Set()
+	c.store(key, set)
+	return set, nil
+}
+
+// Set is the photo set the API serves for a pick, with image URLs rewritten to the proxy.
+func (p Pick) Set() PhotoSet {
 	set := PhotoSet{Queries: []string{}, Palette: p.Palette, Photos: make([]Photo, 0, len(p.Candidates))}
 	for _, q := range p.Queries {
 		set.Queries = append(set.Queries, q.Text)
@@ -150,8 +177,7 @@ func (c *Covers) ForMix(ctx context.Context, snap Snapshot, vibe string, seed in
 	for _, cand := range p.Candidates {
 		set.Photos = append(set.Photos, proxied(cand.Photo))
 	}
-	c.store(key, set)
-	return set, nil
+	return set
 }
 
 func ready(snap Snapshot) bool {

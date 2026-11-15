@@ -1,0 +1,5023 @@
+{
+  "mix": {
+    "id": "53ko2kkcyqmj",
+    "source": {
+      "kind": "playlist",
+      "spotify_id": "0VEDG29vrWB5GlaeqIZeqv",
+      "name": "Best of Ethio-Jazz",
+      "subtitle": "volt.fm",
+      "cover": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8456633d6eb27e436853ae18b0",
+      "palette": [
+        "#575500",
+        "#363400",
+        "#ffffff",
+        "#d1d284"
+      ]
+    },
+    "track_ids": [
+      "7JPNvoMjoIXkTDAMx9Aajj",
+      "0fxjsll9jmmRgMFbwdp4Xg",
+      "414J8tKHbtF16XOiHGBEso",
+      "185EiYT58r61hdnHxjKVzT",
+      "2YfRKF4sWeV1t1NqBoUgxH",
+      "71dfXu1LwSqdzSDKGn9Fzp",
+      "4CwAgkBoKAGT6UMas89F0v",
+      "0szihfA0S1MfsKOpDfb3lZ",
+      "4Ic3yQiH5UmyyevTsp08tY",
+      "5SnYnqM27WNCTN8siQqtbv",
+      "7Ihi6UcJKndJKlsm0A4hjZ",
+      "6MMXwZyjQhw6HaIwFGW0JI",
+      "5VWm9OgwSJYcfE8lj2j2TM",
+      "6T18Yu2xPqy6NAhylfjQYO",
+      "4hVZKH4EVNP3iLyaDLA3Eq",
+      "5P8UnnGI08TcPqxAD2T84C",
+      "1NUdV2Lc7e2sbC14T7kG4q",
+      "24VYlFVsEZ1ARpoVr3D5kB",
+      "4eGHUzBXywhXqv6QS9kC2h",
+      "2QN3tq8gE5Gor4dgEjXREn",
+      "5YIWgJ8jw8TySbwa3Yi70q",
+      "1lMTIawvF1WUSz7KTMLahS",
+      "6NcVa610yPKAg5DVLypHKt",
+      "0idHXQLOjIxCcbxoGytMs7",
+      "2pYlfyJ8RJBKPoTfXQ5pjw",
+      "5ofN2feIdOF6D7bMb9fP07",
+      "2wMmUvfrkpFJ4ovjpMNVmL",
+      "3IJOlBSUMtJ2xfedPGLcLO",
+      "6TRYv8brfH12SfgV8lMraP",
+      "6UWejXUFshPOhllwXquG9l",
+      "24HaCwPRdVJGR8XW4kClsm",
+      "3vgrUEcng3pYwPoEFlxfxu",
+      "63fe9UtiVSARFD3puLc5DI",
+      "3TLUXlQmfTboGRlH5AtBmF",
+      "1SX67Tr9tUsppN6jbdtyTt",
+      "6Ly0sqkCDbtPOKV7YIuRYb",
+      "2jw4fQLoFqV6K8hoKKgHBT",
+      "26YMZ2S61ItkKS1w3gdaDo",
+      "6DJ5dm6aDeobMcFq1WWj18",
+      "2jpgGj8Qfaq6v912XfsWTR",
+      "3C8dYhf2xxwzyDpogixfMn",
+      "5Je0EwDYS1h4SX9Ctrx1gL",
+      "5sm764z5YSke3IHpNHdDY9",
+      "7qkpusIfaVu4mXz3071Fgs",
+      "6k6JSwl4Xs9goFC8VZ098l",
+      "1BwVe23uLcEpTazi6w9pdD",
+      "0oFChZRso5GydtIoSCv9Kz",
+      "5zT90TuQxAfAfwjKf8gxQX",
+      "11SX5btUQnQ6LWJW3jFJTM",
+      "4XJSr0kxEDBe3sJ0CFDrNt",
+      "2UhfK3AeNzitpOySbMeuVW",
+      "3XOec2MpjnMFX2qr7sUpaR",
+      "38CgHJxy5EnpF0Y0FrMCYK",
+      "5dkCbFyJIZmaRst8E2eggt",
+      "0nIfIiTrlOeiFEYpVCJZtY",
+      "6eNOgE9gdpOx8Tztf4tbCF",
+      "0pUqnKg1SUbfWciG9TW6jw",
+      "3UZOhC2yRQeCcM5ebQJq9K",
+      "7GhLLvuZCxHvNNob5dxlBY",
+      "0opGB7qbGoEtwrlDQpa3R7",
+      "3wH9uWGiRgR3P4Z55P0Tmp",
+      "2GB7ikYE06DRBCPU9YhvDI",
+      "44MktG3yECrGmoOVz755ug",
+      "0g5B9kJUNdPzHFzEmrQiGT",
+      "1QyJdEGOXZByttBKlkrlTP",
+      "4N5jzXI0jt9YikGROIdIOR",
+      "47crGzdCxVt3SjluOfQrdm",
+      "6mEmDuqv1cpkaVIt8bJIli",
+      "0GpWCWDtpqwEdE4Y4VW5ic",
+      "7pOMusHWdqleOY44pYvw8D",
+      "2jVYeCPY3C3w3LMizJRJbG",
+      "1KqYNkaPfv8Ialq9swkNR9",
+      "7zBE2TjbN6cushu1dvtYBf",
+      "0q0b9pvUgnwlNFsxnIt3D5",
+      "5vKrqEL5TM8VYxA2L4Ddog",
+      "6KBwgwwhbfwEp3kBOwKFdw",
+      "3uopf4jk0qrwMwYhylAgKf",
+      "4DNWIsZplL04SJqDLahbmL",
+      "3hEjmIMc6lUHb7Mca2QiXs",
+      "1YEVpaDDxCaELPzugWCfrr",
+      "547fHlns6D8pUibw6C1sJd",
+      "5hMQwhil4L3uSsVw7j5zG6",
+      "6ceCZzte2u6jbrEkYrk4ll",
+      "4MpyYQeDHw3wHb4VNTbWQY",
+      "1Rs3d222xwyNcB4PrrAtYa",
+      "329r9NIuB7zRHO7GKM1aIL",
+      "004TG0nRHejwSKisvwTcAB",
+      "102QtjqYWeIQ0tgysjsCj1",
+      "74EsUYIy1ypAf6y4g4UsfD",
+      "6iDSWqoyTnatdDoDmjypPN",
+      "71lRS8dzEyowlY06JpCsuN",
+      "6EjgQTUDG3MQhU3zrb5w6g",
+      "4fKRW54WF14rVpyKdFvkqi",
+      "6vSY1FnuOXKtdKgNjjMCKl",
+      "6nUD0qAsRUWiJWEPCYLaXj",
+      "5tpY7Uhgp4IFeoJWTyQWFl",
+      "2TK4UhQQvixKriqZIBBeJq",
+      "1hUzmeIXldvbBLJdxYPBvI",
+      "3MEmqcqzlW5Y4Ii1lg2h0O"
+    ],
+    "created_at": "2026-11-14T21:54:59.706406Z"
+  },
+  "tracks": [
+    {
+      "id": "7JPNvoMjoIXkTDAMx9Aajj",
+      "title": "Tezeta",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 368539,
+      "explicit": false
+    },
+    {
+      "id": "0fxjsll9jmmRgMFbwdp4Xg",
+      "title": "Yègellé Tezeta",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 194293,
+      "explicit": false
+    },
+    {
+      "id": "414J8tKHbtF16XOiHGBEso",
+      "title": "Tezeta (Nostalgia)",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 376640,
+      "explicit": false
+    },
+    {
+      "id": "185EiYT58r61hdnHxjKVzT",
+      "title": "Song of Abayi",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 193413,
+      "explicit": false
+    },
+    {
+      "id": "2YfRKF4sWeV1t1NqBoUgxH",
+      "title": "Anchin Kfu Ayinkash",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 324880,
+      "explicit": false
+    },
+    {
+      "id": "71dfXu1LwSqdzSDKGn9Fzp",
+      "title": "Ené Alantchie Alnorem",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 299333,
+      "explicit": false
+    },
+    {
+      "id": "4CwAgkBoKAGT6UMas89F0v",
+      "title": "Yèkèrmo Sèw",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 253386,
+      "explicit": false
+    },
+    {
+      "id": "0szihfA0S1MfsKOpDfb3lZ",
+      "title": "Muziqa heywete",
+      "artists": [
+        {
+          "name": "Getatchew Mekurya"
+        }
+      ],
+      "duration_ms": 190080,
+      "explicit": false
+    },
+    {
+      "id": "4Ic3yQiH5UmyyevTsp08tY",
+      "title": "Anbessa",
+      "artists": [
+        {
+          "name": "Akalé Wubé"
+        },
+        {
+          "name": "Manu Dibango"
+        }
+      ],
+      "duration_ms": 221720,
+      "explicit": false
+    },
+    {
+      "id": "5SnYnqM27WNCTN8siQqtbv",
+      "title": "Mother's Love",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 219146,
+      "explicit": false
+    },
+    {
+      "id": "7Ihi6UcJKndJKlsm0A4hjZ",
+      "title": "Wede Harer Guzo",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 395706,
+      "explicit": false
+    },
+    {
+      "id": "6MMXwZyjQhw6HaIwFGW0JI",
+      "title": "Enkèn Yèlélèbesh",
+      "artists": [
+        {
+          "name": "Girma Bèyènè"
+        },
+        {
+          "name": "Akalé Wubé"
+        }
+      ],
+      "duration_ms": 238440,
+      "explicit": false
+    },
+    {
+      "id": "5VWm9OgwSJYcfE8lj2j2TM",
+      "title": "Homesickness",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 231880,
+      "explicit": false
+    },
+    {
+      "id": "6T18Yu2xPqy6NAhylfjQYO",
+      "title": "Cha Cha",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        },
+        {
+          "name": "The Heliocentrics"
+        }
+      ],
+      "duration_ms": 275373,
+      "explicit": false
+    },
+    {
+      "id": "4hVZKH4EVNP3iLyaDLA3Eq",
+      "title": "Mascaram Setaba - Stereo Master",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 167933,
+      "explicit": false
+    },
+    {
+      "id": "5P8UnnGI08TcPqxAD2T84C",
+      "title": "The Homeless Wanderer",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 424723,
+      "explicit": false
+    },
+    {
+      "id": "1NUdV2Lc7e2sbC14T7kG4q",
+      "title": "The Homeless Wanderer",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 427840,
+      "explicit": false
+    },
+    {
+      "id": "24VYlFVsEZ1ARpoVr3D5kB",
+      "title": "Kasalefkut-hulu - Stereo Master",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 146253,
+      "explicit": false
+    },
+    {
+      "id": "4eGHUzBXywhXqv6QS9kC2h",
+      "title": "Evening Breeze",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 171586,
+      "explicit": false
+    },
+    {
+      "id": "2QN3tq8gE5Gor4dgEjXREn",
+      "title": "Asmarina",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        },
+        {
+          "name": "Feqadu Amde-mesqel"
+        }
+      ],
+      "duration_ms": 298573,
+      "explicit": false
+    },
+    {
+      "id": "5YIWgJ8jw8TySbwa3Yi70q",
+      "title": "Almaz Yèharèrwa",
+      "artists": [
+        {
+          "name": "Getatchew Mekurya"
+        }
+      ],
+      "duration_ms": 229333,
+      "explicit": false
+    },
+    {
+      "id": "1lMTIawvF1WUSz7KTMLahS",
+      "title": "Tezetayé Antchi Lidj",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 364386,
+      "explicit": false
+    },
+    {
+      "id": "6NcVa610yPKAg5DVLypHKt",
+      "title": "Munaye",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 303293,
+      "explicit": false
+    },
+    {
+      "id": "0idHXQLOjIxCcbxoGytMs7",
+      "title": "Heywèté",
+      "artists": [
+        {
+          "name": "Tesfa-maryam Kidane"
+        }
+      ],
+      "duration_ms": 316933,
+      "explicit": false
+    },
+    {
+      "id": "2pYlfyJ8RJBKPoTfXQ5pjw",
+      "title": "Yefkir Engurguro - Mixed",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        }
+      ],
+      "duration_ms": 224720,
+      "explicit": false
+    },
+    {
+      "id": "5ofN2feIdOF6D7bMb9fP07",
+      "title": "Dou Coula",
+      "artists": [
+        {
+          "name": "Arat Kilo"
+        },
+        {
+          "name": "Mamani Keïta"
+        },
+        {
+          "name": "Mike Ladd"
+        }
+      ],
+      "duration_ms": 283080,
+      "explicit": false
+    },
+    {
+      "id": "2wMmUvfrkpFJ4ovjpMNVmL",
+      "title": "Sintayehu",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 408280,
+      "explicit": false
+    },
+    {
+      "id": "3IJOlBSUMtJ2xfedPGLcLO",
+      "title": "Tezeta",
+      "artists": [
+        {
+          "name": "Mahmoud Ahmed"
+        }
+      ],
+      "duration_ms": 345386,
+      "explicit": false
+    },
+    {
+      "id": "6TRYv8brfH12SfgV8lMraP",
+      "title": "Mata",
+      "artists": [
+        {
+          "name": "Akalé Wubé"
+        }
+      ],
+      "duration_ms": 230853,
+      "explicit": false
+    },
+    {
+      "id": "6UWejXUFshPOhllwXquG9l",
+      "title": "Blue Nile",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        },
+        {
+          "name": "The Heliocentrics"
+        }
+      ],
+      "duration_ms": 192573,
+      "explicit": false
+    },
+    {
+      "id": "24HaCwPRdVJGR8XW4kClsm",
+      "title": "Migibima Moltual",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 386760,
+      "explicit": false
+    },
+    {
+      "id": "3vgrUEcng3pYwPoEFlxfxu",
+      "title": "Yefikir Tizita",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 247746,
+      "explicit": false
+    },
+    {
+      "id": "63fe9UtiVSARFD3puLc5DI",
+      "title": "The Story of the Wind",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 166853,
+      "explicit": false
+    },
+    {
+      "id": "3TLUXlQmfTboGRlH5AtBmF",
+      "title": "Emnete",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 209600,
+      "explicit": false
+    },
+    {
+      "id": "1SX67Tr9tUsppN6jbdtyTt",
+      "title": "Munayé (My Muna)",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 303293,
+      "explicit": false
+    },
+    {
+      "id": "6Ly0sqkCDbtPOKV7YIuRYb",
+      "title": "Opening Titles",
+      "artists": [
+        {
+          "name": "The Sorcerers"
+        }
+      ],
+      "duration_ms": 289784,
+      "explicit": false
+    },
+    {
+      "id": "2jw4fQLoFqV6K8hoKKgHBT",
+      "title": "Minlbelesh",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 357906,
+      "explicit": false
+    },
+    {
+      "id": "26YMZ2S61ItkKS1w3gdaDo",
+      "title": "I Faram Gami I Faram",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 139600,
+      "explicit": false
+    },
+    {
+      "id": "6DJ5dm6aDeobMcFq1WWj18",
+      "title": "Tezeta",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "The Walias"
+        }
+      ],
+      "duration_ms": 270648,
+      "explicit": false
+    },
+    {
+      "id": "2jpgGj8Qfaq6v912XfsWTR",
+      "title": "Ballad of the Spirits",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 355946,
+      "explicit": false
+    },
+    {
+      "id": "3C8dYhf2xxwzyDpogixfMn",
+      "title": "Musika Hiwote",
+      "artists": [
+        {
+          "name": "Getatchew Mekurya"
+        }
+      ],
+      "duration_ms": 190080,
+      "explicit": false
+    },
+    {
+      "id": "5Je0EwDYS1h4SX9Ctrx1gL",
+      "title": "Yefikir Engurguro",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        }
+      ],
+      "duration_ms": 375640,
+      "explicit": false
+    },
+    {
+      "id": "5sm764z5YSke3IHpNHdDY9",
+      "title": "Embuwa Bey Lamitu",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 365413,
+      "explicit": false
+    },
+    {
+      "id": "7qkpusIfaVu4mXz3071Fgs",
+      "title": "The Last Tears of a Deceased",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 509026,
+      "explicit": false
+    },
+    {
+      "id": "6k6JSwl4Xs9goFC8VZ098l",
+      "title": "Kilimanjaro",
+      "artists": [
+        {
+          "name": "The Shaolin Afronauts"
+        }
+      ],
+      "duration_ms": 386746,
+      "explicit": false
+    },
+    {
+      "id": "1BwVe23uLcEpTazi6w9pdD",
+      "title": "The Song of the Sea",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 572520,
+      "explicit": false
+    },
+    {
+      "id": "0oFChZRso5GydtIoSCv9Kz",
+      "title": "Yèkèrmo Sèw",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 483946,
+      "explicit": false
+    },
+    {
+      "id": "5zT90TuQxAfAfwjKf8gxQX",
+      "title": "Summoning the Monkey God",
+      "artists": [
+        {
+          "name": "The Sorcerers"
+        }
+      ],
+      "duration_ms": 268475,
+      "explicit": false
+    },
+    {
+      "id": "11SX5btUQnQ6LWJW3jFJTM",
+      "title": "Kid Mahout",
+      "artists": [
+        {
+          "name": "The Sorcerers"
+        }
+      ],
+      "duration_ms": 213500,
+      "explicit": false
+    },
+    {
+      "id": "4XJSr0kxEDBe3sJ0CFDrNt",
+      "title": "Yene Nesh Wey (Amalele)",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 278346,
+      "explicit": false
+    },
+    {
+      "id": "2UhfK3AeNzitpOySbMeuVW",
+      "title": "Endegena",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "The Walias"
+        }
+      ],
+      "duration_ms": 300720,
+      "explicit": false
+    },
+    {
+      "id": "3XOec2MpjnMFX2qr7sUpaR",
+      "title": "The Jordan River Song",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 157773,
+      "explicit": false
+    },
+    {
+      "id": "38CgHJxy5EnpF0Y0FrMCYK",
+      "title": "Presentiment",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 223200,
+      "explicit": false
+    },
+    {
+      "id": "5dkCbFyJIZmaRst8E2eggt",
+      "title": "Mulatu",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        },
+        {
+          "name": "Black Jesus Experience"
+        }
+      ],
+      "duration_ms": 380419,
+      "explicit": false
+    },
+    {
+      "id": "0nIfIiTrlOeiFEYpVCJZtY",
+      "title": "Yègellé Tezeta (My Own Memory)",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 198120,
+      "explicit": false
+    },
+    {
+      "id": "6eNOgE9gdpOx8Tztf4tbCF",
+      "title": "Yèkèrmo Sèw (A Man of Experience and Wisdom)",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 255560,
+      "explicit": false
+    },
+    {
+      "id": "0pUqnKg1SUbfWciG9TW6jw",
+      "title": "Mama",
+      "artists": [
+        {
+          "name": "Dexter Story"
+        },
+        {
+          "name": "Sudan Archives"
+        },
+        {
+          "name": "Kamasi Washington"
+        }
+      ],
+      "duration_ms": 220645,
+      "explicit": false
+    },
+    {
+      "id": "3UZOhC2yRQeCcM5ebQJq9K",
+      "title": "Who Is the Hunter, Who Is the Prey?",
+      "artists": [
+        {
+          "name": "The Sorcerers"
+        },
+        {
+          "name": "Chip Wickham"
+        }
+      ],
+      "duration_ms": 74578,
+      "explicit": false
+    },
+    {
+      "id": "7GhLLvuZCxHvNNob5dxlBY",
+      "title": "Akalé Wubé",
+      "artists": [
+        {
+          "name": "Getatchew Mekurya"
+        }
+      ],
+      "duration_ms": 251946,
+      "explicit": false
+    },
+    {
+      "id": "0opGB7qbGoEtwrlDQpa3R7",
+      "title": "Motherland",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 266533,
+      "explicit": false
+    },
+    {
+      "id": "3wH9uWGiRgR3P4Z55P0Tmp",
+      "title": "Yemanesh Ayinama",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        },
+        {
+          "name": "Dahlak Band"
+        }
+      ],
+      "duration_ms": 431386,
+      "explicit": false
+    },
+    {
+      "id": "2GB7ikYE06DRBCPU9YhvDI",
+      "title": "Masenqo",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        },
+        {
+          "name": "The Heliocentrics"
+        }
+      ],
+      "duration_ms": 383853,
+      "explicit": false
+    },
+    {
+      "id": "44MktG3yECrGmoOVz755ug",
+      "title": "Tezetayé Antchi Lidj (Baby, My Unforgettable Remembrance)",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 364386,
+      "explicit": false
+    },
+    {
+      "id": "0g5B9kJUNdPzHFzEmrQiGT",
+      "title": "Tenkou Why Feel Sorry",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 123573,
+      "explicit": false
+    },
+    {
+      "id": "1QyJdEGOXZByttBKlkrlTP",
+      "title": "Esketa Dance",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        },
+        {
+          "name": "The Heliocentrics"
+        }
+      ],
+      "duration_ms": 249306,
+      "explicit": false
+    },
+    {
+      "id": "4N5jzXI0jt9YikGROIdIOR",
+      "title": "Jawa Jawa",
+      "artists": [
+        {
+          "name": "Akalé Wubé"
+        }
+      ],
+      "duration_ms": 343653,
+      "explicit": false
+    },
+    {
+      "id": "47crGzdCxVt3SjluOfQrdm",
+      "title": "A Young Girl's Complaint",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 370666,
+      "explicit": false
+    },
+    {
+      "id": "6mEmDuqv1cpkaVIt8bJIli",
+      "title": "The Mad Man's Laughter",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 237613,
+      "explicit": false
+    },
+    {
+      "id": "0GpWCWDtpqwEdE4Y4VW5ic",
+      "title": "Mama",
+      "artists": [
+        {
+          "name": "Dexter Story"
+        },
+        {
+          "name": "Sudan Archives"
+        },
+        {
+          "name": "Kamasi Washington"
+        }
+      ],
+      "duration_ms": 220645,
+      "explicit": false
+    },
+    {
+      "id": "7pOMusHWdqleOY44pYvw8D",
+      "title": "Mètché Dershé",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 240186,
+      "explicit": false
+    },
+    {
+      "id": "2jVYeCPY3C3w3LMizJRJbG",
+      "title": "In Pursuit Of Shai Hulud",
+      "artists": [
+        {
+          "name": "The Sorcerers"
+        }
+      ],
+      "duration_ms": 219755,
+      "explicit": false
+    },
+    {
+      "id": "1KqYNkaPfv8Ialq9swkNR9",
+      "title": "The Last Tears of the Deceased",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 505693,
+      "explicit": false
+    },
+    {
+      "id": "7zBE2TjbN6cushu1dvtYBf",
+      "title": "Mulatu",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 301746,
+      "explicit": false
+    },
+    {
+      "id": "0q0b9pvUgnwlNFsxnIt3D5",
+      "title": "Lanchi Biye with Tilahun Gessesse",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 188320,
+      "explicit": false
+    },
+    {
+      "id": "5vKrqEL5TM8VYxA2L4Ddog",
+      "title": "Ancestral Machines",
+      "artists": [
+        {
+          "name": "The Sorcerers"
+        }
+      ],
+      "duration_ms": 217400,
+      "explicit": false
+    },
+    {
+      "id": "6KBwgwwhbfwEp3kBOwKFdw",
+      "title": "Ewnèt yèt lagegnesh",
+      "artists": [
+        {
+          "name": "Girma Bèyènè"
+        },
+        {
+          "name": "Tèklè Adhanom"
+        },
+        {
+          "name": "Haylu Kèbèdè"
+        },
+        {
+          "name": "Girmay Asmarom"
+        },
+        {
+          "name": "Tesfa-maryam Kidane"
+        }
+      ],
+      "duration_ms": 166800,
+      "explicit": false
+    },
+    {
+      "id": "3uopf4jk0qrwMwYhylAgKf",
+      "title": "Dia Barani",
+      "artists": [
+        {
+          "name": "Arat Kilo"
+        },
+        {
+          "name": "Mamani Keïta"
+        },
+        {
+          "name": "Mike Ladd"
+        }
+      ],
+      "duration_ms": 281093,
+      "explicit": false
+    },
+    {
+      "id": "4DNWIsZplL04SJqDLahbmL",
+      "title": "Shagu",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 185480,
+      "explicit": false
+    },
+    {
+      "id": "3hEjmIMc6lUHb7Mca2QiXs",
+      "title": "Kulunmanqueleshi - Stereo Master",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 131933,
+      "explicit": false
+    },
+    {
+      "id": "1YEVpaDDxCaELPzugWCfrr",
+      "title": "Addis Black Widow",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        },
+        {
+          "name": "The Heliocentrics"
+        }
+      ],
+      "duration_ms": 218986,
+      "explicit": false
+    },
+    {
+      "id": "547fHlns6D8pUibw6C1sJd",
+      "title": "Alteleyeshegnem",
+      "artists": [
+        {
+          "name": "Alemayehu Eshete"
+        }
+      ],
+      "duration_ms": 294500,
+      "explicit": false
+    },
+    {
+      "id": "5hMQwhil4L3uSsVw7j5zG6",
+      "title": "Mulatu's Mood",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 356533,
+      "explicit": false
+    },
+    {
+      "id": "6ceCZzte2u6jbrEkYrk4ll",
+      "title": "Gubèlyé (My Gubel)",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 280306,
+      "explicit": false
+    },
+    {
+      "id": "4MpyYQeDHw3wHb4VNTbWQY",
+      "title": "Mètché Dershé (When Am I Going to Reach There?)",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 240186,
+      "explicit": false
+    },
+    {
+      "id": "1Rs3d222xwyNcB4PrrAtYa",
+      "title": "Telantena zare",
+      "artists": [
+        {
+          "name": "Alemayehu Eshete"
+        }
+      ],
+      "duration_ms": 226893,
+      "explicit": false
+    },
+    {
+      "id": "329r9NIuB7zRHO7GKM1aIL",
+      "title": "Heywete",
+      "artists": [
+        {
+          "name": "Tesfa-maryam Kidane"
+        }
+      ],
+      "duration_ms": 316933,
+      "explicit": false
+    },
+    {
+      "id": "004TG0nRHejwSKisvwTcAB",
+      "title": "The Garden of Gethesemanie",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 204853,
+      "explicit": false
+    },
+    {
+      "id": "102QtjqYWeIQ0tgysjsCj1",
+      "title": "Aurora",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 118571,
+      "explicit": false
+    },
+    {
+      "id": "74EsUYIy1ypAf6y4g4UsfD",
+      "title": "The Mad Man's Laughter",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 236641,
+      "explicit": false
+    },
+    {
+      "id": "6iDSWqoyTnatdDoDmjypPN",
+      "title": "Presentiment",
+      "artists": [
+        {
+          "name": "Emahoy Tsege Mariam Gebru"
+        }
+      ],
+      "duration_ms": 222998,
+      "explicit": false
+    },
+    {
+      "id": "71lRS8dzEyowlY06JpCsuN",
+      "title": "Enqu messay",
+      "artists": [
+        {
+          "name": "Mahmoud Ahmed"
+        },
+        {
+          "name": "Imperial Bodyguard Band"
+        }
+      ],
+      "duration_ms": 244840,
+      "explicit": false
+    },
+    {
+      "id": "6EjgQTUDG3MQhU3zrb5w6g",
+      "title": "Yèkatit",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 233733,
+      "explicit": false
+    },
+    {
+      "id": "4fKRW54WF14rVpyKdFvkqi",
+      "title": "Ebo Lala with Seifu Yohannes",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 214000,
+      "explicit": false
+    },
+    {
+      "id": "6vSY1FnuOXKtdKgNjjMCKl",
+      "title": "Mascaram Setaba",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 110760,
+      "explicit": false
+    },
+    {
+      "id": "6nUD0qAsRUWiJWEPCYLaXj",
+      "title": "Nètsanèt",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 332720,
+      "explicit": false
+    },
+    {
+      "id": "5tpY7Uhgp4IFeoJWTyQWFl",
+      "title": "Feqer Endè Krar - Yebèqagnal",
+      "artists": [
+        {
+          "name": "Girma Bèyènè"
+        },
+        {
+          "name": "Akalé Wubé"
+        }
+      ],
+      "duration_ms": 232480,
+      "explicit": false
+    },
+    {
+      "id": "2TK4UhQQvixKriqZIBBeJq",
+      "title": "Sewnetuwa",
+      "artists": [
+        {
+          "name": "Hailu Mergia"
+        }
+      ],
+      "duration_ms": 368213,
+      "explicit": false
+    },
+    {
+      "id": "1hUzmeIXldvbBLJdxYPBvI",
+      "title": "Fikratchin with Menelik Wossenatchew",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 184000,
+      "explicit": false
+    },
+    {
+      "id": "3MEmqcqzlW5Y4Ii1lg2h0O",
+      "title": "Mulatu - Stereo Master",
+      "artists": [
+        {
+          "name": "Mulatu Astatke"
+        }
+      ],
+      "duration_ms": 303560,
+      "explicit": false
+    }
+  ],
+  "features": {
+    "004TG0nRHejwSKisvwTcAB": {
+      "tempo": 129.6,
+      "key": "F#",
+      "mode": "minor",
+      "danceable": 0.0442,
+      "happy": 0.0135,
+      "sad": 0.8925,
+      "relaxed": 0.9971,
+      "aggressive": 0.0002,
+      "party": 0.0008,
+      "acoustic": 0.9703,
+      "instrumental": 0.9876,
+      "valence": 0.3962,
+      "arousal": 0.3782,
+      "genres": [
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8804
+        },
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.8737
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8512
+        }
+      ]
+    },
+    "0GpWCWDtpqwEdE4Y4VW5ic": {
+      "tempo": 152,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.9789,
+      "happy": 0.5476,
+      "sad": 0.0993,
+      "relaxed": 0.4565,
+      "aggressive": 0.1836,
+      "party": 0.9646,
+      "acoustic": 0.0296,
+      "instrumental": 0.4508,
+      "valence": 0.5302,
+      "arousal": 0.5026,
+      "genres": [
+        {
+          "name": "Reggae---Dub",
+          "score": 0.1114
+        },
+        {
+          "name": "Reggae---Reggae",
+          "score": 0.0922
+        },
+        {
+          "name": "Reggae---Reggae-Pop",
+          "score": 0.0566
+        }
+      ]
+    },
+    "0fxjsll9jmmRgMFbwdp4Xg": {
+      "tempo": 126.9,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.6058,
+      "happy": 0.7937,
+      "sad": 0.3449,
+      "relaxed": 0.7841,
+      "aggressive": 0.0054,
+      "party": 0.8289,
+      "acoustic": 0.4459,
+      "instrumental": 0.4386,
+      "valence": 0.6756,
+      "arousal": 0.6588,
+      "genres": [
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.2595
+        },
+        {
+          "name": "Funk / Soul---Rhythm \u0026 Blues",
+          "score": 0.1675
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.1283
+        }
+      ]
+    },
+    "0g5B9kJUNdPzHFzEmrQiGT": {
+      "tempo": 120,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.2719,
+      "happy": 0.0549,
+      "sad": 0.338,
+      "relaxed": 0.9941,
+      "aggressive": 0.0004,
+      "party": 0.0045,
+      "acoustic": 0.7599,
+      "instrumental": 0.9994,
+      "valence": 0.3512,
+      "arousal": 0.41,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9957
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.9684
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.9435
+        }
+      ]
+    },
+    "0idHXQLOjIxCcbxoGytMs7": {
+      "tempo": 91.5,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.0429,
+      "happy": 0.541,
+      "sad": 0.6244,
+      "relaxed": 0.9186,
+      "aggressive": 0.0022,
+      "party": 0.126,
+      "acoustic": 0.8352,
+      "instrumental": 0.5895,
+      "valence": 0.5101,
+      "arousal": 0.4925,
+      "genres": [
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.1233
+        },
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.1127
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.106
+        }
+      ]
+    },
+    "0nIfIiTrlOeiFEYpVCJZtY": {
+      "tempo": 127,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.7968,
+      "happy": 0.878,
+      "sad": 0.1826,
+      "relaxed": 0.5573,
+      "aggressive": 0.0081,
+      "party": 0.8904,
+      "acoustic": 0.296,
+      "instrumental": 0.1105,
+      "valence": 0.6643,
+      "arousal": 0.6585,
+      "genres": [
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.2308
+        },
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.1855
+        },
+        {
+          "name": "Funk / Soul---Rhythm \u0026 Blues",
+          "score": 0.1492
+        }
+      ]
+    },
+    "0oFChZRso5GydtIoSCv9Kz": {
+      "tempo": 117,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.2345,
+      "happy": 0.2769,
+      "sad": 0.7091,
+      "relaxed": 0.94,
+      "aggressive": 0.0122,
+      "party": 0.126,
+      "acoustic": 0.8521,
+      "instrumental": 0.87,
+      "valence": 0.5572,
+      "arousal": 0.51,
+      "genres": [
+        {
+          "name": "Jazz---Contemporary Jazz",
+          "score": 0.1049
+        },
+        {
+          "name": "Jazz---Bossa Nova",
+          "score": 0.0894
+        },
+        {
+          "name": "Jazz---Hard Bop",
+          "score": 0.0851
+        }
+      ]
+    },
+    "0opGB7qbGoEtwrlDQpa3R7": {
+      "tempo": 112,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.0942,
+      "happy": 0.0476,
+      "sad": 0.8772,
+      "relaxed": 0.9952,
+      "aggressive": 0.0011,
+      "party": 0.0618,
+      "acoustic": 0.9291,
+      "instrumental": 0.7794,
+      "valence": 0.4931,
+      "arousal": 0.5106,
+      "genres": [
+        {
+          "name": "Jazz---Bop",
+          "score": 0.191
+        },
+        {
+          "name": "Jazz---Cool Jazz",
+          "score": 0.1785
+        },
+        {
+          "name": "Jazz---Contemporary Jazz",
+          "score": 0.1781
+        }
+      ]
+    },
+    "0pUqnKg1SUbfWciG9TW6jw": {
+      "tempo": 152,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.9789,
+      "happy": 0.5476,
+      "sad": 0.0993,
+      "relaxed": 0.4565,
+      "aggressive": 0.1836,
+      "party": 0.9646,
+      "acoustic": 0.0296,
+      "instrumental": 0.4508,
+      "valence": 0.5302,
+      "arousal": 0.5026,
+      "genres": [
+        {
+          "name": "Reggae---Dub",
+          "score": 0.1114
+        },
+        {
+          "name": "Reggae---Reggae",
+          "score": 0.0922
+        },
+        {
+          "name": "Reggae---Reggae-Pop",
+          "score": 0.0566
+        }
+      ]
+    },
+    "0q0b9pvUgnwlNFsxnIt3D5": {
+      "tempo": 90.6,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.0607,
+      "happy": 0.4862,
+      "sad": 0.6158,
+      "relaxed": 0.932,
+      "aggressive": 0.002,
+      "party": 0.166,
+      "acoustic": 0.9308,
+      "instrumental": 0.5211,
+      "valence": 0.5188,
+      "arousal": 0.5726,
+      "genres": [
+        {
+          "name": "Reggae---Calypso",
+          "score": 0.0913
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.0851
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Folk",
+          "score": 0.0815
+        }
+      ]
+    },
+    "0szihfA0S1MfsKOpDfb3lZ": {
+      "tempo": 162.5,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.0228,
+      "happy": 0.147,
+      "sad": 0.8286,
+      "relaxed": 0.9554,
+      "aggressive": 0.0057,
+      "party": 0.0345,
+      "acoustic": 0.9118,
+      "instrumental": 0.9142,
+      "valence": 0.5446,
+      "arousal": 0.5568,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Folk",
+          "score": 0.053
+        },
+        {
+          "name": "Jazz---Gypsy Jazz",
+          "score": 0.0473
+        },
+        {
+          "name": "Latin---Baião",
+          "score": 0.047
+        }
+      ]
+    },
+    "102QtjqYWeIQ0tgysjsCj1": {
+      "tempo": 83.1,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.0746,
+      "happy": 0.0393,
+      "sad": 0.856,
+      "relaxed": 0.9921,
+      "aggressive": 0.0025,
+      "party": 0.0082,
+      "acoustic": 0.8368,
+      "instrumental": 0.9969,
+      "valence": 0.3409,
+      "arousal": 0.334,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.2296
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.1765
+        },
+        {
+          "name": "Classical---Neo-Romantic",
+          "score": 0.1516
+        }
+      ]
+    },
+    "11SX5btUQnQ6LWJW3jFJTM": {
+      "tempo": 104.3,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.9919,
+      "happy": 0.7495,
+      "sad": 0.1922,
+      "relaxed": 0.7138,
+      "aggressive": 0.0107,
+      "party": 0.8228,
+      "acoustic": 0.1003,
+      "instrumental": 0.8596,
+      "valence": 0.6602,
+      "arousal": 0.645,
+      "genres": [
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.4431
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.4075
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.2929
+        }
+      ]
+    },
+    "185EiYT58r61hdnHxjKVzT": {
+      "tempo": 111,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.3493,
+      "happy": 0.0173,
+      "sad": 0.3337,
+      "relaxed": 0.9911,
+      "aggressive": 0.0013,
+      "party": 0.0024,
+      "acoustic": 0.6075,
+      "instrumental": 0.9969,
+      "valence": 0.36,
+      "arousal": 0.402,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.8659
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8542
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8223
+        }
+      ]
+    },
+    "1BwVe23uLcEpTazi6w9pdD": {
+      "tempo": 96.5,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.3795,
+      "happy": 0.0713,
+      "sad": 0.3223,
+      "relaxed": 0.9756,
+      "aggressive": 0.0096,
+      "party": 0.0084,
+      "acoustic": 0.6235,
+      "instrumental": 0.9865,
+      "valence": 0.38,
+      "arousal": 0.3157,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9347
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.9186
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8174
+        }
+      ]
+    },
+    "1KqYNkaPfv8Ialq9swkNR9": {
+      "tempo": 138.9,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.0899,
+      "happy": 0.0452,
+      "sad": 0.7393,
+      "relaxed": 0.9956,
+      "aggressive": 0.0015,
+      "party": 0.0022,
+      "acoustic": 0.8759,
+      "instrumental": 0.9977,
+      "valence": 0.3487,
+      "arousal": 0.3941,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.8039
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.6196
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.6077
+        }
+      ]
+    },
+    "1NUdV2Lc7e2sbC14T7kG4q": {
+      "tempo": 77.9,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.0349,
+      "happy": 0.0445,
+      "sad": 0.6492,
+      "relaxed": 0.998,
+      "aggressive": 0.0002,
+      "party": 0.001,
+      "acoustic": 0.9498,
+      "instrumental": 0.9971,
+      "valence": 0.3869,
+      "arousal": 0.3788,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9769
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.9463
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8937
+        }
+      ]
+    },
+    "1QyJdEGOXZByttBKlkrlTP": {
+      "tempo": 131.4,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.8931,
+      "happy": 0.9415,
+      "sad": 0.2149,
+      "relaxed": 0.6316,
+      "aggressive": 0.0079,
+      "party": 0.8812,
+      "acoustic": 0.525,
+      "instrumental": 0.6001,
+      "valence": 0.7018,
+      "arousal": 0.6716,
+      "genres": [
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1767
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1254
+        },
+        {
+          "name": "Reggae---Rocksteady",
+          "score": 0.1083
+        }
+      ]
+    },
+    "1Rs3d222xwyNcB4PrrAtYa": {
+      "tempo": 83.6,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.0452,
+      "happy": 0.5798,
+      "sad": 0.4197,
+      "relaxed": 0.7242,
+      "aggressive": 0.0422,
+      "party": 0.1289,
+      "acoustic": 0.8435,
+      "instrumental": 0.8505,
+      "valence": 0.6138,
+      "arousal": 0.5545,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.0802
+        },
+        {
+          "name": "Jazz---Avant-garde Jazz",
+          "score": 0.0644
+        },
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.0619
+        }
+      ]
+    },
+    "1SX67Tr9tUsppN6jbdtyTt": {
+      "tempo": 114.7,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.2954,
+      "happy": 0.8083,
+      "sad": 0.3252,
+      "relaxed": 0.7673,
+      "aggressive": 0.0085,
+      "party": 0.4115,
+      "acoustic": 0.5528,
+      "instrumental": 0.7545,
+      "valence": 0.6271,
+      "arousal": 0.5424,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1375
+        },
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.1218
+        },
+        {
+          "name": "Rock---Mod",
+          "score": 0.1144
+        }
+      ]
+    },
+    "1YEVpaDDxCaELPzugWCfrr": {
+      "tempo": 144.7,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.9664,
+      "happy": 0.713,
+      "sad": 0.154,
+      "relaxed": 0.6027,
+      "aggressive": 0.0605,
+      "party": 0.5558,
+      "acoustic": 0.1219,
+      "instrumental": 0.5591,
+      "valence": 0.669,
+      "arousal": 0.5511,
+      "genres": [
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.1137
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.0725
+        },
+        {
+          "name": "Rock---Yé-Yé",
+          "score": 0.0714
+        }
+      ]
+    },
+    "1hUzmeIXldvbBLJdxYPBvI": {
+      "tempo": 77.8,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.1396,
+      "happy": 0.1656,
+      "sad": 0.6618,
+      "relaxed": 0.9382,
+      "aggressive": 0.0059,
+      "party": 0.2761,
+      "acoustic": 0.8568,
+      "instrumental": 0.8539,
+      "valence": 0.5639,
+      "arousal": 0.5709,
+      "genres": [
+        {
+          "name": "Jazz---Hard Bop",
+          "score": 0.1509
+        },
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.0996
+        },
+        {
+          "name": "Jazz---Free Jazz",
+          "score": 0.0971
+        }
+      ]
+    },
+    "1lMTIawvF1WUSz7KTMLahS": {
+      "tempo": 165.7,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.0929,
+      "happy": 0.735,
+      "sad": 0.4538,
+      "relaxed": 0.9051,
+      "aggressive": 0.0108,
+      "party": 0.0847,
+      "acoustic": 0.9209,
+      "instrumental": 0.9222,
+      "valence": 0.65,
+      "arousal": 0.7037,
+      "genres": [
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.139
+        },
+        {
+          "name": "Rock---Rock \u0026 Roll",
+          "score": 0.1
+        },
+        {
+          "name": "Blues---Rhythm \u0026 Blues",
+          "score": 0.0669
+        }
+      ]
+    },
+    "24HaCwPRdVJGR8XW4kClsm": {
+      "tempo": 126.4,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.0691,
+      "happy": 0.7682,
+      "sad": 0.5555,
+      "relaxed": 0.915,
+      "aggressive": 0.008,
+      "party": 0.094,
+      "acoustic": 0.3691,
+      "instrumental": 0.7838,
+      "valence": 0.5218,
+      "arousal": 0.4081,
+      "genres": [
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.096
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.085
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.0673
+        }
+      ]
+    },
+    "24VYlFVsEZ1ARpoVr3D5kB": {
+      "tempo": 164.6,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.4565,
+      "happy": 0.5868,
+      "sad": 0.2805,
+      "relaxed": 0.8352,
+      "aggressive": 0.0035,
+      "party": 0.6969,
+      "acoustic": 0.1892,
+      "instrumental": 0.8759,
+      "valence": 0.5375,
+      "arousal": 0.4606,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.3518
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.2337
+        },
+        {
+          "name": "Reggae---Reggae",
+          "score": 0.2058
+        }
+      ]
+    },
+    "26YMZ2S61ItkKS1w3gdaDo": {
+      "tempo": 103.6,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 1,
+      "happy": 0.5932,
+      "sad": 0.0924,
+      "relaxed": 0.9332,
+      "aggressive": 0.0034,
+      "party": 0.9333,
+      "acoustic": 0.0852,
+      "instrumental": 0.9279,
+      "valence": 0.5149,
+      "arousal": 0.5246,
+      "genres": [
+        {
+          "name": "Latin---Boogaloo",
+          "score": 0.7394
+        },
+        {
+          "name": "Jazz---Latin Jazz",
+          "score": 0.4636
+        },
+        {
+          "name": "Jazz---Afro-Cuban Jazz",
+          "score": 0.4463
+        }
+      ]
+    },
+    "2GB7ikYE06DRBCPU9YhvDI": {
+      "tempo": 86.5,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.9594,
+      "happy": 0.5288,
+      "sad": 0.3686,
+      "relaxed": 0.9332,
+      "aggressive": 0.007,
+      "party": 0.454,
+      "acoustic": 0.2853,
+      "instrumental": 0.9223,
+      "valence": 0.5803,
+      "arousal": 0.5874,
+      "genres": [
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.3131
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.3039
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.2267
+        }
+      ]
+    },
+    "2QN3tq8gE5Gor4dgEjXREn": {
+      "tempo": 172.3,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.2337,
+      "happy": 0.3142,
+      "sad": 0.6024,
+      "relaxed": 0.9368,
+      "aggressive": 0.0061,
+      "party": 0.2052,
+      "acoustic": 0.8566,
+      "instrumental": 0.8706,
+      "valence": 0.5063,
+      "arousal": 0.5304,
+      "genres": [
+        {
+          "name": "Jazz---Avant-garde Jazz",
+          "score": 0.2073
+        },
+        {
+          "name": "Jazz---Hard Bop",
+          "score": 0.129
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.1246
+        }
+      ]
+    },
+    "2TK4UhQQvixKriqZIBBeJq": {
+      "tempo": 139.4,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.152,
+      "happy": 0.2244,
+      "sad": 0.5741,
+      "relaxed": 0.9377,
+      "aggressive": 0.0094,
+      "party": 0.0674,
+      "acoustic": 0.6463,
+      "instrumental": 0.7598,
+      "valence": 0.4594,
+      "arousal": 0.4366,
+      "genres": [
+        {
+          "name": "Rock---No Wave",
+          "score": 0.1331
+        },
+        {
+          "name": "Latin---Tango",
+          "score": 0.1164
+        },
+        {
+          "name": "Jazz---Gypsy Jazz",
+          "score": 0.0977
+        }
+      ]
+    },
+    "2UhfK3AeNzitpOySbMeuVW": {
+      "tempo": 91.9,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.2923,
+      "happy": 0.4738,
+      "sad": 0.3707,
+      "relaxed": 0.9245,
+      "aggressive": 0.0127,
+      "party": 0.0587,
+      "acoustic": 0.4432,
+      "instrumental": 0.8448,
+      "valence": 0.4595,
+      "arousal": 0.5003,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1355
+        },
+        {
+          "name": "Electronic---Experimental",
+          "score": 0.1024
+        },
+        {
+          "name": "Latin---Rumba",
+          "score": 0.1011
+        }
+      ]
+    },
+    "2YfRKF4sWeV1t1NqBoUgxH": {
+      "tempo": 103.8,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.123,
+      "happy": 0.726,
+      "sad": 0.5876,
+      "relaxed": 0.8358,
+      "aggressive": 0.0066,
+      "party": 0.077,
+      "acoustic": 0.5362,
+      "instrumental": 0.4593,
+      "valence": 0.4655,
+      "arousal": 0.3962,
+      "genres": [
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.1315
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.065
+        },
+        {
+          "name": "Rock---Beat",
+          "score": 0.0485
+        }
+      ]
+    },
+    "2jVYeCPY3C3w3LMizJRJbG": {
+      "tempo": 117.3,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.7295,
+      "happy": 0.5358,
+      "sad": 0.3181,
+      "relaxed": 0.7189,
+      "aggressive": 0.0215,
+      "party": 0.6942,
+      "acoustic": 0.3323,
+      "instrumental": 0.9526,
+      "valence": 0.626,
+      "arousal": 0.6622,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.245
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.1353
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1194
+        }
+      ]
+    },
+    "2jpgGj8Qfaq6v912XfsWTR": {
+      "tempo": 85.2,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.0721,
+      "happy": 0.0445,
+      "sad": 0.7008,
+      "relaxed": 0.9939,
+      "aggressive": 0.0023,
+      "party": 0.0015,
+      "acoustic": 0.9419,
+      "instrumental": 0.9911,
+      "valence": 0.3505,
+      "arousal": 0.3111,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.8663
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.7894
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.7585
+        }
+      ]
+    },
+    "2jw4fQLoFqV6K8hoKKgHBT": {
+      "tempo": 101.7,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.1224,
+      "happy": 0.8164,
+      "sad": 0.19,
+      "relaxed": 0.6177,
+      "aggressive": 0.0457,
+      "party": 0.1429,
+      "acoustic": 0.4114,
+      "instrumental": 0.4047,
+      "valence": 0.5264,
+      "arousal": 0.457,
+      "genres": [
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.2335
+        },
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.1553
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.1443
+        }
+      ]
+    },
+    "2pYlfyJ8RJBKPoTfXQ5pjw": {
+      "tempo": 84.7,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.0284,
+      "happy": 0.0179,
+      "sad": 0.9096,
+      "relaxed": 0.9848,
+      "aggressive": 0.003,
+      "party": 0.0099,
+      "acoustic": 0.9436,
+      "instrumental": 0.8969,
+      "valence": 0.3647,
+      "arousal": 0.4141,
+      "genres": [
+        {
+          "name": "Classical---Contemporary",
+          "score": 0.1647
+        },
+        {
+          "name": "Classical---Neo-Classical",
+          "score": 0.1637
+        },
+        {
+          "name": "Jazz---Contemporary Jazz",
+          "score": 0.0857
+        }
+      ]
+    },
+    "2wMmUvfrkpFJ4ovjpMNVmL": {
+      "tempo": 88.4,
+      "key": "D#",
+      "mode": "minor",
+      "danceable": 0.3285,
+      "happy": 0.6132,
+      "sad": 0.19,
+      "relaxed": 0.4999,
+      "aggressive": 0.1019,
+      "party": 0.4105,
+      "acoustic": 0.1351,
+      "instrumental": 0.6598,
+      "valence": 0.4987,
+      "arousal": 0.445,
+      "genres": [
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.1357
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.1033
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.0856
+        }
+      ]
+    },
+    "329r9NIuB7zRHO7GKM1aIL": {
+      "tempo": 91.4,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.0405,
+      "happy": 0.5128,
+      "sad": 0.6762,
+      "relaxed": 0.9301,
+      "aggressive": 0.0021,
+      "party": 0.1208,
+      "acoustic": 0.8309,
+      "instrumental": 0.6772,
+      "valence": 0.4887,
+      "arousal": 0.465,
+      "genres": [
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.1071
+        },
+        {
+          "name": "Jazz---Contemporary Jazz",
+          "score": 0.1005
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.0962
+        }
+      ]
+    },
+    "38CgHJxy5EnpF0Y0FrMCYK": {
+      "tempo": 108.6,
+      "key": "A#",
+      "mode": "major",
+      "danceable": 0.0197,
+      "happy": 0.0723,
+      "sad": 0.701,
+      "relaxed": 0.9985,
+      "aggressive": 0.0002,
+      "party": 0.0008,
+      "acoustic": 0.9753,
+      "instrumental": 0.9947,
+      "valence": 0.3791,
+      "arousal": 0.3404,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9465
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8457
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8403
+        }
+      ]
+    },
+    "3C8dYhf2xxwzyDpogixfMn": {
+      "tempo": 163.4,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.0603,
+      "happy": 0.2028,
+      "sad": 0.7731,
+      "relaxed": 0.9444,
+      "aggressive": 0.0066,
+      "party": 0.0666,
+      "acoustic": 0.8633,
+      "instrumental": 0.8916,
+      "valence": 0.522,
+      "arousal": 0.5703,
+      "genres": [
+        {
+          "name": "Jazz---Gypsy Jazz",
+          "score": 0.0547
+        },
+        {
+          "name": "Jazz---Hard Bop",
+          "score": 0.0477
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.0477
+        }
+      ]
+    },
+    "3IJOlBSUMtJ2xfedPGLcLO": {
+      "tempo": 155.9,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.6868,
+      "happy": 0.7794,
+      "sad": 0.427,
+      "relaxed": 0.83,
+      "aggressive": 0.0018,
+      "party": 0.7708,
+      "acoustic": 0.4441,
+      "instrumental": 0.2271,
+      "valence": 0.5034,
+      "arousal": 0.6158,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.3017
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1282
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1064
+        }
+      ]
+    },
+    "3MEmqcqzlW5Y4Ii1lg2h0O": {
+      "tempo": 153.3,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.4289,
+      "happy": 0.3026,
+      "sad": 0.4158,
+      "relaxed": 0.9203,
+      "aggressive": 0.0048,
+      "party": 0.4283,
+      "acoustic": 0.5716,
+      "instrumental": 0.8403,
+      "valence": 0.5594,
+      "arousal": 0.5159,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1544
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1408
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.1055
+        }
+      ]
+    },
+    "3TLUXlQmfTboGRlH5AtBmF": {
+      "tempo": 117.7,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.5711,
+      "happy": 0.7867,
+      "sad": 0.3205,
+      "relaxed": 0.69,
+      "aggressive": 0.0062,
+      "party": 0.5327,
+      "acoustic": 0.5614,
+      "instrumental": 0.2781,
+      "valence": 0.6116,
+      "arousal": 0.5464,
+      "genres": [
+        {
+          "name": "Funk / Soul---Rhythm \u0026 Blues",
+          "score": 0.29
+        },
+        {
+          "name": "Blues---Rhythm \u0026 Blues",
+          "score": 0.1978
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.1765
+        }
+      ]
+    },
+    "3UZOhC2yRQeCcM5ebQJq9K": {
+      "tempo": 166.1,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.8683,
+      "happy": 0.7833,
+      "sad": 0.1023,
+      "relaxed": 0.396,
+      "aggressive": 0.1326,
+      "party": 0.74,
+      "acoustic": 0.1748,
+      "instrumental": 0.7512,
+      "valence": 0.6574,
+      "arousal": 0.5432,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1992
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.1346
+        },
+        {
+          "name": "Latin---Batucada",
+          "score": 0.125
+        }
+      ]
+    },
+    "3XOec2MpjnMFX2qr7sUpaR": {
+      "tempo": 80.4,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.1339,
+      "happy": 0.0169,
+      "sad": 0.8468,
+      "relaxed": 0.9971,
+      "aggressive": 0.0002,
+      "party": 0.002,
+      "acoustic": 0.9287,
+      "instrumental": 0.9985,
+      "valence": 0.4052,
+      "arousal": 0.3818,
+      "genres": [
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8914
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8889
+        },
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.8612
+        }
+      ]
+    },
+    "3hEjmIMc6lUHb7Mca2QiXs": {
+      "tempo": 152.7,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.2144,
+      "happy": 0.6022,
+      "sad": 0.4373,
+      "relaxed": 0.9444,
+      "aggressive": 0.0057,
+      "party": 0.4112,
+      "acoustic": 0.7351,
+      "instrumental": 0.6812,
+      "valence": 0.4844,
+      "arousal": 0.4584,
+      "genres": [
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1862
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.117
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.1017
+        }
+      ]
+    },
+    "3uopf4jk0qrwMwYhylAgKf": {
+      "tempo": 128.8,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.9955,
+      "happy": 0.7452,
+      "sad": 0.076,
+      "relaxed": 0.304,
+      "aggressive": 0.0568,
+      "party": 0.885,
+      "acoustic": 0.113,
+      "instrumental": 0.2618,
+      "valence": 0.6592,
+      "arousal": 0.6348,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.5062
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.1722
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1571
+        }
+      ]
+    },
+    "3vgrUEcng3pYwPoEFlxfxu": {
+      "tempo": 134.6,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.0533,
+      "happy": 0.4249,
+      "sad": 0.3935,
+      "relaxed": 0.81,
+      "aggressive": 0.0049,
+      "party": 0.4507,
+      "acoustic": 0.3974,
+      "instrumental": 0.9338,
+      "valence": 0.4858,
+      "arousal": 0.4754,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8068
+        },
+        {
+          "name": "Latin---Rumba",
+          "score": 0.2591
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.1668
+        }
+      ]
+    },
+    "3wH9uWGiRgR3P4Z55P0Tmp": {
+      "tempo": 116.8,
+      "key": "F#",
+      "mode": "major",
+      "danceable": 0.0167,
+      "happy": 0.8946,
+      "sad": 0.3567,
+      "relaxed": 0.7834,
+      "aggressive": 0.0108,
+      "party": 0.0977,
+      "acoustic": 0.626,
+      "instrumental": 0.7797,
+      "valence": 0.5044,
+      "arousal": 0.4989,
+      "genres": [
+        {
+          "name": "Jazz---Modal",
+          "score": 0.2676
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.2248
+        },
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.2195
+        }
+      ]
+    },
+    "414J8tKHbtF16XOiHGBEso": {
+      "tempo": 163.3,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.1604,
+      "happy": 0.3458,
+      "sad": 0.628,
+      "relaxed": 0.9066,
+      "aggressive": 0.0112,
+      "party": 0.1141,
+      "acoustic": 0.7369,
+      "instrumental": 0.5007,
+      "valence": 0.4634,
+      "arousal": 0.4149,
+      "genres": [
+        {
+          "name": "Blues---Rhythm \u0026 Blues",
+          "score": 0.0586
+        },
+        {
+          "name": "Reggae---Ska",
+          "score": 0.0528
+        },
+        {
+          "name": "Latin---Tejano",
+          "score": 0.0519
+        }
+      ]
+    },
+    "44MktG3yECrGmoOVz755ug": {
+      "tempo": 164.5,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.1171,
+      "happy": 0.7201,
+      "sad": 0.4667,
+      "relaxed": 0.8992,
+      "aggressive": 0.0112,
+      "party": 0.1014,
+      "acoustic": 0.8972,
+      "instrumental": 0.9233,
+      "valence": 0.647,
+      "arousal": 0.6973,
+      "genres": [
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.1394
+        },
+        {
+          "name": "Rock---Rock \u0026 Roll",
+          "score": 0.0922
+        },
+        {
+          "name": "Jazz---Space-Age",
+          "score": 0.0567
+        }
+      ]
+    },
+    "47crGzdCxVt3SjluOfQrdm": {
+      "tempo": 104.2,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.0326,
+      "happy": 0.0574,
+      "sad": 0.7894,
+      "relaxed": 0.9971,
+      "aggressive": 0.0007,
+      "party": 0.0024,
+      "acoustic": 0.8745,
+      "instrumental": 0.9897,
+      "valence": 0.3606,
+      "arousal": 0.3422,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9076
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.662
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.6601
+        }
+      ]
+    },
+    "4CwAgkBoKAGT6UMas89F0v": {
+      "tempo": 117.5,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.2489,
+      "happy": 0.6693,
+      "sad": 0.395,
+      "relaxed": 0.7489,
+      "aggressive": 0.0346,
+      "party": 0.4388,
+      "acoustic": 0.5416,
+      "instrumental": 0.5908,
+      "valence": 0.6194,
+      "arousal": 0.5149,
+      "genres": [
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.2143
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1451
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1289
+        }
+      ]
+    },
+    "4DNWIsZplL04SJqDLahbmL": {
+      "tempo": 135.2,
+      "key": "A#",
+      "mode": "minor",
+      "danceable": 0.4608,
+      "happy": 0.1969,
+      "sad": 0.4619,
+      "relaxed": 0.9484,
+      "aggressive": 0.0052,
+      "party": 0.4263,
+      "acoustic": 0.7179,
+      "instrumental": 0.7945,
+      "valence": 0.5311,
+      "arousal": 0.4808,
+      "genres": [
+        {
+          "name": "Jazz---Latin Jazz",
+          "score": 0.3636
+        },
+        {
+          "name": "Jazz---Afro-Cuban Jazz",
+          "score": 0.2828
+        },
+        {
+          "name": "Latin---Mambo",
+          "score": 0.2089
+        }
+      ]
+    },
+    "4Ic3yQiH5UmyyevTsp08tY": {
+      "tempo": 119.9,
+      "key": "A#",
+      "mode": "minor",
+      "danceable": 0.9632,
+      "happy": 0.9161,
+      "sad": 0.1724,
+      "relaxed": 0.4952,
+      "aggressive": 0.0052,
+      "party": 0.7141,
+      "acoustic": 0.5944,
+      "instrumental": 0.0756,
+      "valence": 0.6187,
+      "arousal": 0.6624,
+      "genres": [
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.2544
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.199
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.1766
+        }
+      ]
+    },
+    "4MpyYQeDHw3wHb4VNTbWQY": {
+      "tempo": 125.5,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.4624,
+      "happy": 0.9345,
+      "sad": 0.4224,
+      "relaxed": 0.8502,
+      "aggressive": 0.0039,
+      "party": 0.2002,
+      "acoustic": 0.7275,
+      "instrumental": 0.2675,
+      "valence": 0.5875,
+      "arousal": 0.6831,
+      "genres": [
+        {
+          "name": "Rock---Yé-Yé",
+          "score": 0.1765
+        },
+        {
+          "name": "Latin---Samba",
+          "score": 0.1209
+        },
+        {
+          "name": "Pop---Vocal",
+          "score": 0.1051
+        }
+      ]
+    },
+    "4N5jzXI0jt9YikGROIdIOR": {
+      "tempo": 112.6,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.3602,
+      "happy": 0.2505,
+      "sad": 0.6292,
+      "relaxed": 0.9496,
+      "aggressive": 0.0051,
+      "party": 0.1282,
+      "acoustic": 0.7853,
+      "instrumental": 0.2884,
+      "valence": 0.5506,
+      "arousal": 0.5408,
+      "genres": [
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.2245
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.1382
+        },
+        {
+          "name": "Jazz---Contemporary Jazz",
+          "score": 0.1317
+        }
+      ]
+    },
+    "4XJSr0kxEDBe3sJ0CFDrNt": {
+      "tempo": 106.9,
+      "key": "F#",
+      "mode": "major",
+      "danceable": 0.2134,
+      "happy": 0.8367,
+      "sad": 0.1856,
+      "relaxed": 0.5954,
+      "aggressive": 0.0435,
+      "party": 0.0711,
+      "acoustic": 0.2974,
+      "instrumental": 0.7278,
+      "valence": 0.4999,
+      "arousal": 0.4921,
+      "genres": [
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.2683
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.2084
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1541
+        }
+      ]
+    },
+    "4eGHUzBXywhXqv6QS9kC2h": {
+      "tempo": 144.8,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.1551,
+      "happy": 0.041,
+      "sad": 0.2569,
+      "relaxed": 0.9976,
+      "aggressive": 0.0002,
+      "party": 0.0036,
+      "acoustic": 0.5087,
+      "instrumental": 0.9995,
+      "valence": 0.3675,
+      "arousal": 0.4547,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9954
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.9613
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.9018
+        }
+      ]
+    },
+    "4fKRW54WF14rVpyKdFvkqi": {
+      "tempo": 92.9,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.8704,
+      "happy": 0.8216,
+      "sad": 0.1573,
+      "relaxed": 0.4644,
+      "aggressive": 0.0562,
+      "party": 0.8546,
+      "acoustic": 0.2329,
+      "instrumental": 0.2319,
+      "valence": 0.5632,
+      "arousal": 0.5215,
+      "genres": [
+        {
+          "name": "Stage \u0026 Screen---Soundtrack",
+          "score": 0.2475
+        },
+        {
+          "name": "Pop---Bollywood",
+          "score": 0.2056
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Hindustani",
+          "score": 0.1598
+        }
+      ]
+    },
+    "4hVZKH4EVNP3iLyaDLA3Eq": {
+      "tempo": 140.8,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.2612,
+      "happy": 0.4195,
+      "sad": 0.4351,
+      "relaxed": 0.9421,
+      "aggressive": 0.0072,
+      "party": 0.2643,
+      "acoustic": 0.7051,
+      "instrumental": 0.9738,
+      "valence": 0.5247,
+      "arousal": 0.4776,
+      "genres": [
+        {
+          "name": "Jazz---Bossa Nova",
+          "score": 0.15
+        },
+        {
+          "name": "Latin---Bossanova",
+          "score": 0.1318
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.0969
+        }
+      ]
+    },
+    "547fHlns6D8pUibw6C1sJd": {
+      "tempo": 161.5,
+      "key": "A#",
+      "mode": "minor",
+      "danceable": 0.8314,
+      "happy": 0.2878,
+      "sad": 0.3914,
+      "relaxed": 0.8397,
+      "aggressive": 0.0081,
+      "party": 0.2471,
+      "acoustic": 0.3003,
+      "instrumental": 0.2155,
+      "valence": 0.5532,
+      "arousal": 0.498,
+      "genres": [
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1783
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.1573
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1551
+        }
+      ]
+    },
+    "5Je0EwDYS1h4SX9Ctrx1gL": {
+      "tempo": 89.8,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.0206,
+      "happy": 0.0139,
+      "sad": 0.9419,
+      "relaxed": 0.9889,
+      "aggressive": 0.0026,
+      "party": 0.0058,
+      "acoustic": 0.9473,
+      "instrumental": 0.9409,
+      "valence": 0.3551,
+      "arousal": 0.4226,
+      "genres": [
+        {
+          "name": "Classical---Contemporary",
+          "score": 0.2462
+        },
+        {
+          "name": "Classical---Neo-Classical",
+          "score": 0.2406
+        },
+        {
+          "name": "Jazz---Free Improvisation",
+          "score": 0.1088
+        }
+      ]
+    },
+    "5P8UnnGI08TcPqxAD2T84C": {
+      "tempo": 103.6,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.0315,
+      "happy": 0.0391,
+      "sad": 0.7357,
+      "relaxed": 0.9976,
+      "aggressive": 0.0004,
+      "party": 0.0015,
+      "acoustic": 0.9216,
+      "instrumental": 0.9978,
+      "valence": 0.3818,
+      "arousal": 0.4067,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9526
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8582
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8237
+        }
+      ]
+    },
+    "5SnYnqM27WNCTN8siQqtbv": {
+      "tempo": 93.2,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.2726,
+      "happy": 0.0709,
+      "sad": 0.5153,
+      "relaxed": 0.9956,
+      "aggressive": 0.0005,
+      "party": 0.0006,
+      "acoustic": 0.9364,
+      "instrumental": 0.9972,
+      "valence": 0.3831,
+      "arousal": 0.3754,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.9808
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.9664
+        },
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9574
+        }
+      ]
+    },
+    "5VWm9OgwSJYcfE8lj2j2TM": {
+      "tempo": 164.4,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.1126,
+      "happy": 0.047,
+      "sad": 0.6774,
+      "relaxed": 0.9973,
+      "aggressive": 0.0002,
+      "party": 0.0006,
+      "acoustic": 0.9137,
+      "instrumental": 0.9974,
+      "valence": 0.3642,
+      "arousal": 0.3175,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9759
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.9725
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.949
+        }
+      ]
+    },
+    "5YIWgJ8jw8TySbwa3Yi70q": {
+      "tempo": 137.3,
+      "key": "G#",
+      "mode": "minor",
+      "danceable": 0.0414,
+      "happy": 0.3715,
+      "sad": 0.7429,
+      "relaxed": 0.9568,
+      "aggressive": 0.0032,
+      "party": 0.0779,
+      "acoustic": 0.8656,
+      "instrumental": 0.3673,
+      "valence": 0.5029,
+      "arousal": 0.5789,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Indian Classical",
+          "score": 0.1095
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.0869
+        },
+        {
+          "name": "Latin---Samba",
+          "score": 0.0814
+        }
+      ]
+    },
+    "5dkCbFyJIZmaRst8E2eggt": {
+      "tempo": 84.1,
+      "key": "C#",
+      "mode": "major",
+      "danceable": 0.9968,
+      "happy": 0.6549,
+      "sad": 0.39,
+      "relaxed": 0.968,
+      "aggressive": 0.0011,
+      "party": 0.2521,
+      "acoustic": 0.2635,
+      "instrumental": 0.172,
+      "valence": 0.5586,
+      "arousal": 0.6361,
+      "genres": [
+        {
+          "name": "Electronic---Acid Jazz",
+          "score": 0.1433
+        },
+        {
+          "name": "Electronic---Future Jazz",
+          "score": 0.1187
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.1179
+        }
+      ]
+    },
+    "5hMQwhil4L3uSsVw7j5zG6": {
+      "tempo": 122.9,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.7407,
+      "happy": 0.2402,
+      "sad": 0.5876,
+      "relaxed": 0.9574,
+      "aggressive": 0.0027,
+      "party": 0.272,
+      "acoustic": 0.7847,
+      "instrumental": 0.8506,
+      "valence": 0.5755,
+      "arousal": 0.6236,
+      "genres": [
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.2727
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1565
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.131
+        }
+      ]
+    },
+    "5ofN2feIdOF6D7bMb9fP07": {
+      "tempo": 144.9,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.7199,
+      "happy": 0.7826,
+      "sad": 0.2211,
+      "relaxed": 0.7788,
+      "aggressive": 0.0142,
+      "party": 0.214,
+      "acoustic": 0.4387,
+      "instrumental": 0.058,
+      "valence": 0.5655,
+      "arousal": 0.5956,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.0845
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.0665
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.0609
+        }
+      ]
+    },
+    "5sm764z5YSke3IHpNHdDY9": {
+      "tempo": 116.7,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.052,
+      "happy": 0.9023,
+      "sad": 0.253,
+      "relaxed": 0.7278,
+      "aggressive": 0.0248,
+      "party": 0.2819,
+      "acoustic": 0.3707,
+      "instrumental": 0.8114,
+      "valence": 0.4401,
+      "arousal": 0.4642,
+      "genres": [
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.2999
+        },
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.2271
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.2131
+        }
+      ]
+    },
+    "5tpY7Uhgp4IFeoJWTyQWFl": {
+      "tempo": 119.1,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.6507,
+      "happy": 0.6616,
+      "sad": 0.4282,
+      "relaxed": 0.8829,
+      "aggressive": 0.0048,
+      "party": 0.1189,
+      "acoustic": 0.7506,
+      "instrumental": 0.0956,
+      "valence": 0.5026,
+      "arousal": 0.4989,
+      "genres": [
+        {
+          "name": "Jazz---Latin Jazz",
+          "score": 0.1518
+        },
+        {
+          "name": "Jazz---Bossa Nova",
+          "score": 0.1037
+        },
+        {
+          "name": "Jazz---Afro-Cuban Jazz",
+          "score": 0.0813
+        }
+      ]
+    },
+    "5vKrqEL5TM8VYxA2L4Ddog": {
+      "tempo": 144.5,
+      "key": "F#",
+      "mode": "minor",
+      "danceable": 0.7404,
+      "happy": 0.5853,
+      "sad": 0.3611,
+      "relaxed": 0.8534,
+      "aggressive": 0.013,
+      "party": 0.4382,
+      "acoustic": 0.276,
+      "instrumental": 0.8222,
+      "valence": 0.5991,
+      "arousal": 0.5975,
+      "genres": [
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.2239
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.223
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1814
+        }
+      ]
+    },
+    "5zT90TuQxAfAfwjKf8gxQX": {
+      "tempo": 96.9,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.9594,
+      "happy": 0.614,
+      "sad": 0.1374,
+      "relaxed": 0.525,
+      "aggressive": 0.0094,
+      "party": 0.7489,
+      "acoustic": 0.0957,
+      "instrumental": 0.6334,
+      "valence": 0.6555,
+      "arousal": 0.5872,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.5156
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.1718
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1528
+        }
+      ]
+    },
+    "63fe9UtiVSARFD3puLc5DI": {
+      "tempo": 77.4,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.2055,
+      "happy": 0.0194,
+      "sad": 0.458,
+      "relaxed": 0.9929,
+      "aggressive": 0.0006,
+      "party": 0.0036,
+      "acoustic": 0.7082,
+      "instrumental": 0.9981,
+      "valence": 0.3237,
+      "arousal": 0.4253,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9344
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8658
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8539
+        }
+      ]
+    },
+    "6DJ5dm6aDeobMcFq1WWj18": {
+      "tempo": 109,
+      "key": "A#",
+      "mode": "major",
+      "danceable": 0.0583,
+      "happy": 0.7567,
+      "sad": 0.5209,
+      "relaxed": 0.9111,
+      "aggressive": 0.0046,
+      "party": 0.1297,
+      "acoustic": 0.6449,
+      "instrumental": 0.6075,
+      "valence": 0.5034,
+      "arousal": 0.5119,
+      "genres": [
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.1513
+        },
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.0758
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.0683
+        }
+      ]
+    },
+    "6EjgQTUDG3MQhU3zrb5w6g": {
+      "tempo": 172.3,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.8929,
+      "happy": 0.8548,
+      "sad": 0.1615,
+      "relaxed": 0.7171,
+      "aggressive": 0.0038,
+      "party": 0.932,
+      "acoustic": 0.2925,
+      "instrumental": 0.1372,
+      "valence": 0.6379,
+      "arousal": 0.6148,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.4828
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.4115
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.3457
+        }
+      ]
+    },
+    "6KBwgwwhbfwEp3kBOwKFdw": {
+      "tempo": 138.2,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.193,
+      "happy": 0.6986,
+      "sad": 0.5112,
+      "relaxed": 0.8899,
+      "aggressive": 0.0046,
+      "party": 0.4109,
+      "acoustic": 0.7131,
+      "instrumental": 0.4968,
+      "valence": 0.5593,
+      "arousal": 0.6167,
+      "genres": [
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.1672
+        },
+        {
+          "name": "Blues---Rhythm \u0026 Blues",
+          "score": 0.1131
+        },
+        {
+          "name": "Funk / Soul---Rhythm \u0026 Blues",
+          "score": 0.0952
+        }
+      ]
+    },
+    "6Ly0sqkCDbtPOKV7YIuRYb": {
+      "tempo": 84.6,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.801,
+      "happy": 0.5582,
+      "sad": 0.1741,
+      "relaxed": 0.7635,
+      "aggressive": 0.0048,
+      "party": 0.7263,
+      "acoustic": 0.1866,
+      "instrumental": 0.7673,
+      "valence": 0.5512,
+      "arousal": 0.6,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.3113
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.2415
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1803
+        }
+      ]
+    },
+    "6MMXwZyjQhw6HaIwFGW0JI": {
+      "tempo": 128.4,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.9286,
+      "happy": 0.8612,
+      "sad": 0.1626,
+      "relaxed": 0.6917,
+      "aggressive": 0.0067,
+      "party": 0.8514,
+      "acoustic": 0.415,
+      "instrumental": 0.1765,
+      "valence": 0.6114,
+      "arousal": 0.6697,
+      "genres": [
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.57
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.5177
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.2736
+        }
+      ]
+    },
+    "6NcVa610yPKAg5DVLypHKt": {
+      "tempo": 114.6,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.2845,
+      "happy": 0.8786,
+      "sad": 0.2637,
+      "relaxed": 0.7589,
+      "aggressive": 0.0089,
+      "party": 0.3852,
+      "acoustic": 0.5034,
+      "instrumental": 0.7224,
+      "valence": 0.6734,
+      "arousal": 0.5686,
+      "genres": [
+        {
+          "name": "Rock---Mod",
+          "score": 0.1538
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1406
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.0943
+        }
+      ]
+    },
+    "6T18Yu2xPqy6NAhylfjQYO": {
+      "tempo": 150.1,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.9133,
+      "happy": 0.7358,
+      "sad": 0.2315,
+      "relaxed": 0.7667,
+      "aggressive": 0.0147,
+      "party": 0.9257,
+      "acoustic": 0.6644,
+      "instrumental": 0.9007,
+      "valence": 0.6362,
+      "arousal": 0.6895,
+      "genres": [
+        {
+          "name": "Jazz---Latin Jazz",
+          "score": 0.232
+        },
+        {
+          "name": "Latin---Cubano",
+          "score": 0.1906
+        },
+        {
+          "name": "Latin---Salsa",
+          "score": 0.1638
+        }
+      ]
+    },
+    "6TRYv8brfH12SfgV8lMraP": {
+      "tempo": 164.9,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.4105,
+      "happy": 0.2096,
+      "sad": 0.7198,
+      "relaxed": 0.9601,
+      "aggressive": 0.0091,
+      "party": 0.0322,
+      "acoustic": 0.8876,
+      "instrumental": 0.8911,
+      "valence": 0.4873,
+      "arousal": 0.633,
+      "genres": [
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.1663
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1189
+        },
+        {
+          "name": "Jazz---Fusion",
+          "score": 0.0946
+        }
+      ]
+    },
+    "6UWejXUFshPOhllwXquG9l": {
+      "tempo": 153.3,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.1992,
+      "happy": 0.2872,
+      "sad": 0.6424,
+      "relaxed": 0.9574,
+      "aggressive": 0.0114,
+      "party": 0.0366,
+      "acoustic": 0.5783,
+      "instrumental": 0.948,
+      "valence": 0.4871,
+      "arousal": 0.5094,
+      "genres": [
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.3226
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.1995
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1944
+        }
+      ]
+    },
+    "6ceCZzte2u6jbrEkYrk4ll": {
+      "tempo": 125.6,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.2459,
+      "happy": 0.3577,
+      "sad": 0.6699,
+      "relaxed": 0.955,
+      "aggressive": 0.0047,
+      "party": 0.056,
+      "acoustic": 0.7615,
+      "instrumental": 0.823,
+      "valence": 0.5044,
+      "arousal": 0.4723,
+      "genres": [
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.088
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.0849
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.0846
+        }
+      ]
+    },
+    "6eNOgE9gdpOx8Tztf4tbCF": {
+      "tempo": 117.7,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.2894,
+      "happy": 0.7189,
+      "sad": 0.411,
+      "relaxed": 0.779,
+      "aggressive": 0.0295,
+      "party": 0.4589,
+      "acoustic": 0.5698,
+      "instrumental": 0.5753,
+      "valence": 0.6213,
+      "arousal": 0.4837,
+      "genres": [
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.181
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1314
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.0969
+        }
+      ]
+    },
+    "6iDSWqoyTnatdDoDmjypPN": {
+      "tempo": 117.2,
+      "key": "A#",
+      "mode": "minor",
+      "danceable": 0.0459,
+      "happy": 0.074,
+      "sad": 0.6072,
+      "relaxed": 0.9984,
+      "aggressive": 0.0002,
+      "party": 0.0013,
+      "acoustic": 0.9593,
+      "instrumental": 0.997,
+      "valence": 0.391,
+      "arousal": 0.3572,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9954
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.9628
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.9626
+        }
+      ]
+    },
+    "6k6JSwl4Xs9goFC8VZ098l": {
+      "tempo": 118.3,
+      "key": "F#",
+      "mode": "minor",
+      "danceable": 0.8752,
+      "happy": 0.655,
+      "sad": 0.2724,
+      "relaxed": 0.5702,
+      "aggressive": 0.0287,
+      "party": 0.6127,
+      "acoustic": 0.4006,
+      "instrumental": 0.3444,
+      "valence": 0.7177,
+      "arousal": 0.663,
+      "genres": [
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.3538
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.3053
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.154
+        }
+      ]
+    },
+    "6mEmDuqv1cpkaVIt8bJIli": {
+      "tempo": 126.5,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.0602,
+      "happy": 0.1093,
+      "sad": 0.6458,
+      "relaxed": 0.9964,
+      "aggressive": 0.0005,
+      "party": 0.0011,
+      "acoustic": 0.9473,
+      "instrumental": 0.9996,
+      "valence": 0.4247,
+      "arousal": 0.3837,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9219
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8461
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.803
+        }
+      ]
+    },
+    "6nUD0qAsRUWiJWEPCYLaXj": {
+      "tempo": 172.3,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.1381,
+      "happy": 0.6352,
+      "sad": 0.4165,
+      "relaxed": 0.8089,
+      "aggressive": 0.0405,
+      "party": 0.2553,
+      "acoustic": 0.5393,
+      "instrumental": 0.8518,
+      "valence": 0.6228,
+      "arousal": 0.5279,
+      "genres": [
+        {
+          "name": "Jazz---Soul-Jazz",
+          "score": 0.2439
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1664
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1402
+        }
+      ]
+    },
+    "6vSY1FnuOXKtdKgNjjMCKl": {
+      "tempo": 76.3,
+      "key": "F#",
+      "mode": "minor",
+      "danceable": 0.5664,
+      "happy": 0.2539,
+      "sad": 0.4604,
+      "relaxed": 0.9919,
+      "aggressive": 0.0003,
+      "party": 0.2021,
+      "acoustic": 0.833,
+      "instrumental": 0.6443,
+      "valence": 0.4208,
+      "arousal": 0.4191,
+      "genres": [
+        {
+          "name": "Jazz---Afro-Cuban Jazz",
+          "score": 0.4959
+        },
+        {
+          "name": "Jazz---Latin Jazz",
+          "score": 0.2499
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.2195
+        }
+      ]
+    },
+    "71dfXu1LwSqdzSDKGn9Fzp": {
+      "tempo": 162.8,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.5424,
+      "happy": 0.535,
+      "sad": 0.3983,
+      "relaxed": 0.9155,
+      "aggressive": 0.0042,
+      "party": 0.3034,
+      "acoustic": 0.4999,
+      "instrumental": 0.4838,
+      "valence": 0.5104,
+      "arousal": 0.5326,
+      "genres": [
+        {
+          "name": "Reggae---Rocksteady",
+          "score": 0.2382
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1851
+        },
+        {
+          "name": "Reggae---Reggae",
+          "score": 0.1243
+        }
+      ]
+    },
+    "71lRS8dzEyowlY06JpCsuN": {
+      "tempo": 129.6,
+      "key": "A#",
+      "mode": "major",
+      "danceable": 0.1264,
+      "happy": 0.7177,
+      "sad": 0.4856,
+      "relaxed": 0.7637,
+      "aggressive": 0.0034,
+      "party": 0.1943,
+      "acoustic": 0.8633,
+      "instrumental": 0.0913,
+      "valence": 0.6159,
+      "arousal": 0.5801,
+      "genres": [
+        {
+          "name": "Rock---Doo Wop",
+          "score": 0.0868
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.0614
+        },
+        {
+          "name": "Pop---Vocal",
+          "score": 0.0608
+        }
+      ]
+    },
+    "74EsUYIy1ypAf6y4g4UsfD": {
+      "tempo": 123.6,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.0705,
+      "happy": 0.1002,
+      "sad": 0.6962,
+      "relaxed": 0.9967,
+      "aggressive": 0.0004,
+      "party": 0.001,
+      "acoustic": 0.9435,
+      "instrumental": 0.9993,
+      "valence": 0.4187,
+      "arousal": 0.4118,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.9041
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8461
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.8182
+        }
+      ]
+    },
+    "7GhLLvuZCxHvNNob5dxlBY": {
+      "tempo": 154.2,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.5066,
+      "happy": 0.7257,
+      "sad": 0.5443,
+      "relaxed": 0.8706,
+      "aggressive": 0.0212,
+      "party": 0.1644,
+      "acoustic": 0.7342,
+      "instrumental": 0.5501,
+      "valence": 0.5336,
+      "arousal": 0.5864,
+      "genres": [
+        {
+          "name": "Latin---Samba",
+          "score": 0.1001
+        },
+        {
+          "name": "Latin---MPB",
+          "score": 0.0926
+        },
+        {
+          "name": "Jazz---Bossa Nova",
+          "score": 0.0898
+        }
+      ]
+    },
+    "7Ihi6UcJKndJKlsm0A4hjZ": {
+      "tempo": 97,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.1289,
+      "happy": 0.8625,
+      "sad": 0.4379,
+      "relaxed": 0.8856,
+      "aggressive": 0.0051,
+      "party": 0.2511,
+      "acoustic": 0.4745,
+      "instrumental": 0.8185,
+      "valence": 0.4775,
+      "arousal": 0.5292,
+      "genres": [
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.1675
+        },
+        {
+          "name": "Funk / Soul---Psychedelic",
+          "score": 0.1342
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.1061
+        }
+      ]
+    },
+    "7JPNvoMjoIXkTDAMx9Aajj": {
+      "tempo": 163.3,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.0705,
+      "happy": 0.2612,
+      "sad": 0.6829,
+      "relaxed": 0.9261,
+      "aggressive": 0.0077,
+      "party": 0.0923,
+      "acoustic": 0.8408,
+      "instrumental": 0.5219,
+      "valence": 0.455,
+      "arousal": 0.3884,
+      "genres": [
+        {
+          "name": "Blues---Rhythm \u0026 Blues",
+          "score": 0.1411
+        },
+        {
+          "name": "Blues---Chicago Blues",
+          "score": 0.0678
+        },
+        {
+          "name": "Funk / Soul---Rhythm \u0026 Blues",
+          "score": 0.0674
+        }
+      ]
+    },
+    "7pOMusHWdqleOY44pYvw8D": {
+      "tempo": 123.8,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.6734,
+      "happy": 0.9548,
+      "sad": 0.4324,
+      "relaxed": 0.8563,
+      "aggressive": 0.0024,
+      "party": 0.2814,
+      "acoustic": 0.7515,
+      "instrumental": 0.2138,
+      "valence": 0.5784,
+      "arousal": 0.6788,
+      "genres": [
+        {
+          "name": "Reggae---Ska",
+          "score": 0.251
+        },
+        {
+          "name": "Latin---Samba",
+          "score": 0.1544
+        },
+        {
+          "name": "Reggae---Rocksteady",
+          "score": 0.1429
+        }
+      ]
+    },
+    "7qkpusIfaVu4mXz3071Fgs": {
+      "tempo": 142.5,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.0686,
+      "happy": 0.0599,
+      "sad": 0.7086,
+      "relaxed": 0.996,
+      "aggressive": 0.001,
+      "party": 0.0029,
+      "acoustic": 0.8758,
+      "instrumental": 0.9977,
+      "valence": 0.3442,
+      "arousal": 0.3614,
+      "genres": [
+        {
+          "name": "Classical---Impressionist",
+          "score": 0.8587
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.7054
+        },
+        {
+          "name": "Jazz---Modal",
+          "score": 0.6179
+        }
+      ]
+    },
+    "7zBE2TjbN6cushu1dvtYBf": {
+      "tempo": 155,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.3994,
+      "happy": 0.1989,
+      "sad": 0.4157,
+      "relaxed": 0.9245,
+      "aggressive": 0.0089,
+      "party": 0.3009,
+      "acoustic": 0.5642,
+      "instrumental": 0.7724,
+      "valence": 0.5384,
+      "arousal": 0.4858,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1073
+        },
+        {
+          "name": "Funk / Soul---Free Funk",
+          "score": 0.0897
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.083
+        }
+      ]
+    }
+  },
+  "model_version": "essentia-effnet1-deam2-v1",
+  "photos": {
+    "queries": [
+      "Blue and cream Mercedes taxis queued outside a market in Addis Ababa at dusk",
+      "Eucalyptus-covered Entoto hillside above a sprawling Addis Ababa at dawn haze",
+      "Blue Nile gorge and falls at Tis Abay in hazy late-afternoon light",
+      "Papyrus reed boats drifting on Lake Tana at evening, grey-blue water",
+      "Highland plateau of rolling green terraces under a low grey cloud ceiling",
+      "Whitewashed monastery cell with a wooden stool and a shaft of morning light",
+      "Dim church interior with painted wall panels and hanging oil lamps at dusk",
+      "Rock-hewn church courtyard at Lalibela under harsh noon sun",
+      "Art Deco cinema facade in Asmara under hard white midday sun",
+      "Stacked coffee sacks and tin-roofed kiosks in a Harar market in afternoon shade"
+    ],
+    "palette": [
+      "#3b2a20",
+      "#8a5a36",
+      "#c9a46a",
+      "#5f7f7a",
+      "#e8dcc0"
+    ],
+    "photos": [
+      {
+        "id": 45558,
+        "title": "Ice Cream! [Pentax 6x7, 105mm 2.4, Kodak Portra 400]",
+        "author": "TostedAlmond",
+        "permalink": "https://www.reddit.com/r/analog/comments/quq333/ice_cream_pentax_6x7_105mm_24_kodak_portra_400/",
+        "caption": "An ice cream bar with neon lights is visible at dusk, with cars parked in front.",
+        "score": 603,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/0b4ef9b4243e3700d426d631-low.jpeg",
+            "width": 720,
+            "height": 560
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/0b4ef9b4243e3700d426d631-medium.jpeg",
+            "width": 1080,
+            "height": 839
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/0b4ef9b4243e3700d426d631-high.jpeg",
+            "width": 1440,
+            "height": 1119
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/0b4ef9b4243e3700d426d631-raw.jpeg",
+            "width": 4756,
+            "height": 3696
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#19170e",
+            "percent": 0.28177331
+          },
+          {
+            "hex": "#8e92af",
+            "percent": 0.24873264
+          },
+          {
+            "hex": "#b1aaaf",
+            "percent": 0.11197421
+          },
+          {
+            "hex": "#332c30",
+            "percent": 0.09950149
+          },
+          {
+            "hex": "#81797a",
+            "percent": 0.09080853
+          }
+        ],
+        "keywords": [
+          "ice cream bar",
+          "building",
+          "neon",
+          "dusk",
+          "car",
+          "vehicle",
+          "parking lot",
+          "street",
+          "store"
+        ]
+      },
+      {
+        "id": 13511,
+        "title": "Impressions of Oman [Mamiya 7, 80mm, Portra 160 \u0026 400]",
+        "author": "NGHTMR",
+        "permalink": "https://www.reddit.com/r/analog/comments/1aqix2z/impressions_of_oman_mamiya_7_80mm_portra_160_400/",
+        "caption": "A vast canyon with a flat plateau on one side and layered mountains in the distance is visible under a cloudy sky.",
+        "score": 134,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/b721a49d-a8db-4762-a3b3-e9bc46d5f7de.jpeg",
+            "width": 720,
+            "height": 576
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/8b178b6f-e1d9-4623-a4d7-20caaec8201d.jpeg",
+            "width": 1080,
+            "height": 864
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/1be7492b-2fa8-4f2e-999b-64ab4ba7e6a4.jpeg",
+            "width": 1440,
+            "height": 1152
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/4c490b5e-1244-482b-b504-23501c99bb22.jpeg",
+            "width": 2499,
+            "height": 1999
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#4e514d",
+            "percent": 0.19586468
+          },
+          {
+            "hex": "#74787d",
+            "percent": 0.18180941
+          },
+          {
+            "hex": "#8a8d97",
+            "percent": 0.1420163
+          },
+          {
+            "hex": "#bdb8bb",
+            "percent": 0.13367332
+          },
+          {
+            "hex": "#d3c8c3",
+            "percent": 0.11902488
+          }
+        ],
+        "keywords": [
+          "canyon",
+          "mountain",
+          "plateau",
+          "landscape",
+          "hazy",
+          "cloud",
+          "oman"
+        ]
+      },
+      {
+        "id": 34689,
+        "title": "Hilltop Harman [Rolleiflex 2.8F | Harman Phoenix 200]",
+        "author": "pizzadog112",
+        "permalink": "https://www.reddit.com/r/analog/comments/1mdmqtw/hilltop_harman_rolleiflex_28f_harman_phoenix_200/",
+        "caption": "A city skyline is visible in the distance, framed by trees in the foreground.",
+        "score": 468,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/033b9901-4b0b-443d-bb09-5eae39a500e8.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/fdad97f2-b9cc-4886-a099-291dd7ecf14a.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/5d53d814-0111-453b-bcc4-b53b3212eed6.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/803d9903-aeeb-45ec-bca0-bbdcf794be5a.jpeg",
+            "width": 2190,
+            "height": 2190
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#e3e7ec",
+            "percent": 0.22114529
+          },
+          {
+            "hex": "#0f0706",
+            "percent": 0.16839983
+          },
+          {
+            "hex": "#25120b",
+            "percent": 0.15776532
+          },
+          {
+            "hex": "#432513",
+            "percent": 0.11462415
+          },
+          {
+            "hex": "#7c6859",
+            "percent": 0.09033495
+          }
+        ],
+        "keywords": [
+          "cityscape",
+          "skyline",
+          "tree",
+          "hilltop",
+          "urban",
+          "building",
+          "haze",
+          "dusk"
+        ]
+      },
+      {
+        "id": 36346,
+        "title": "Untitled | Leica MP",
+        "author": "flagflamber",
+        "permalink": "https://www.reddit.com/r/analog/comments/1pd7za0/untitled_leica_mp/",
+        "caption": "A green door is next to a series of arches with a street lamp and a gate in the background.",
+        "score": 133,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/d510cfec-330b-4445-a591-a0d8b563ea25.jpeg",
+            "width": 720,
+            "height": 512
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/296b2c71-10f2-4ecb-b2eb-757204d9458e.jpeg",
+            "width": 1080,
+            "height": 768
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/b16f3d74-4de9-4654-8dfd-840f5478e343.jpeg",
+            "width": 1440,
+            "height": 1024
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/fe5d9553-b39a-4adc-9e18-943138d682ed.jpeg",
+            "width": 2252,
+            "height": 1602
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#d6cfbb",
+            "percent": 0.18617637
+          },
+          {
+            "hex": "#8a9b85",
+            "percent": 0.14750517
+          },
+          {
+            "hex": "#b6b69d",
+            "percent": 0.14367378
+          },
+          {
+            "hex": "#e7e5dd",
+            "percent": 0.13862084
+          },
+          {
+            "hex": "#594333",
+            "percent": 0.12460189
+          }
+        ],
+        "keywords": [
+          "door",
+          "arch",
+          "street lamp",
+          "gate",
+          "building",
+          "shadow"
+        ]
+      },
+      {
+        "id": 7085,
+        "title": "Wasteland [Pentax 67 - 165mm f/2.8 - Gold 200]",
+        "author": "jimitav",
+        "permalink": "https://www.reddit.com/r/analog/comments/136m60z/wasteland_pentax_67_165mm_f28_gold_200/",
+        "caption": "A small boat floats on calm water with mountains in the distance under a pale sky.",
+        "score": 238,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/ff493052-3409-40a8-83d5-8de926354922.jpeg",
+            "width": 720,
+            "height": 710
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/8e7940d0-c10a-4c95-8729-bda3c72a9724.jpeg",
+            "width": 1080,
+            "height": 1065
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/42e3e7f1-dc95-4926-86e9-76c3d667c9ee.jpeg",
+            "width": 1440,
+            "height": 1420
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/b2b1bb2c-9ed3-4d02-ac51-7e86a7b33690.jpeg",
+            "width": 2048,
+            "height": 2020
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#fae0c8",
+            "percent": 0.2651715
+          },
+          {
+            "hex": "#ddc2ab",
+            "percent": 0.20007458
+          },
+          {
+            "hex": "#edccb1",
+            "percent": 0.17398208
+          },
+          {
+            "hex": "#c6b5a5",
+            "percent": 0.1372553
+          },
+          {
+            "hex": "#aea69f",
+            "percent": 0.12800042
+          }
+        ],
+        "keywords": [
+          "boat",
+          "water",
+          "mountain",
+          "landscape",
+          "golden hour",
+          "hazy",
+          "reflection",
+          "calm",
+          "wasteland"
+        ]
+      },
+      {
+        "id": 44986,
+        "title": "Promises of Solitude [Hasselblad 500c / 50mm / Cinestill 50D ]",
+        "author": "_raidboss",
+        "permalink": "https://www.reddit.com/r/analog/comments/oes314/promises_of_solitude_hasselblad_500c_50mm/",
+        "caption": "A single candle burns on a stand in a dark room with light coming through a window.",
+        "score": 159,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/6b34f4c7737318bd697ed015-low.jpeg",
+            "width": 576,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/6b34f4c7737318bd697ed015-medium.jpeg",
+            "width": 864,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/6b34f4c7737318bd697ed015-high.jpeg",
+            "width": 1152,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/6b34f4c7737318bd697ed015-raw.jpeg",
+            "width": 1600,
+            "height": 2000
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#11060e",
+            "percent": 0.27261907
+          },
+          {
+            "hex": "#190f12",
+            "percent": 0.2461377
+          },
+          {
+            "hex": "#271d15",
+            "percent": 0.11986676
+          },
+          {
+            "hex": "#5a5c3f",
+            "percent": 0.11433505
+          },
+          {
+            "hex": "#4a4124",
+            "percent": 0.11361103
+          }
+        ],
+        "keywords": [
+          "candle",
+          "stand",
+          "room",
+          "window",
+          "shadow",
+          "night"
+        ]
+      },
+      {
+        "id": 33147,
+        "title": "Some of my favs from India - Ektar 100, Nikon F3 40mm f2",
+        "author": "Trollet37",
+        "permalink": "https://www.reddit.com/r/analog/comments/1kh01ji/some_of_my_favs_from_india_ektar_100_nikon_f3/",
+        "caption": "A narrow market stall is filled with produce and sacks of goods under a corrugated roof.",
+        "score": 352,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/9cb1e244-9c92-427c-a3b0-808c23ad8ee9.jpeg",
+            "width": 477,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/0e527d82-e2cd-4794-a9ba-843e7d3a6022.jpeg",
+            "width": 716,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/7507e0fb-92d0-4627-ab88-f857579239cf.jpeg",
+            "width": 955,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/47e38dfd-227d-4e7e-b9cf-6be3b1b6d108.jpeg",
+            "width": 2075,
+            "height": 3130
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#221b09",
+            "percent": 0.28001722
+          },
+          {
+            "hex": "#302a16",
+            "percent": 0.18199188
+          },
+          {
+            "hex": "#413e26",
+            "percent": 0.12969008
+          },
+          {
+            "hex": "#55563b",
+            "percent": 0.08990497
+          },
+          {
+            "hex": "#a6b49a",
+            "percent": 0.0827989
+          }
+        ],
+        "keywords": [
+          "market",
+          "produce",
+          "fruit",
+          "vegetable",
+          "banana",
+          "corn",
+          "potato",
+          "sack",
+          "aisle",
+          "india"
+        ]
+      },
+      {
+        "id": 30341,
+        "title": "White river falls on Portra 160",
+        "author": "yourlocaltreehugger",
+        "permalink": "https://www.reddit.com/r/analog/comments/1galwqc/white_river_falls_on_portra_160/",
+        "caption": "A waterfall cascades into a river surrounded by rocky cliffs and sparse vegetation under a clear sky.",
+        "score": 301,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/30b29495-0642-4c4a-a0f5-d77a7b09482d.jpeg",
+            "width": 477,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/dbc1716b-2690-4128-95f7-e027426c0587.jpeg",
+            "width": 716,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/a1d1cd56-90e4-4268-a680-e451c3548e12.jpeg",
+            "width": 954,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/e9f1b5fc-cddf-49a6-9e80-10b4f1e02fd2.jpeg",
+            "width": 2048,
+            "height": 3091
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#bcc9d1",
+            "percent": 0.20269334
+          },
+          {
+            "hex": "#090707",
+            "percent": 0.16104997
+          },
+          {
+            "hex": "#2c2d2f",
+            "percent": 0.15230899
+          },
+          {
+            "hex": "#191a1c",
+            "percent": 0.14886734
+          },
+          {
+            "hex": "#424142",
+            "percent": 0.12487771
+          }
+        ],
+        "keywords": [
+          "waterfall",
+          "river",
+          "cliff",
+          "rock",
+          "water",
+          "tree",
+          "bush",
+          "landscape",
+          "white river fall"
+        ]
+      },
+      {
+        "id": 34284,
+        "title": "Sunrises and sunsets [Portra 400 | Rolleicord Vb]",
+        "author": "BleuMisanthrope",
+        "permalink": "https://www.reddit.com/r/analog/comments/1lolurj/sunrises_and_sunsets_portra_400_rolleicord_vb/",
+        "caption": "A hillside covered in tall grass overlooks a valley with mountains and a body of water under a pastel sky.",
+        "score": 628,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/9ba9c8bf-30ff-4330-86a7-46b4b95fd11c.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/c3dfcad3-901d-41fd-8131-ae259e0c0517.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/49f243c6-e0a2-49b0-94d4-2d9c90bb42be.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/3fe883e0-ee78-40b8-83ee-2e8f3f222b88.jpeg",
+            "width": 1920,
+            "height": 1920
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#7f8e8e",
+            "percent": 0.17111068
+          },
+          {
+            "hex": "#ece1ee",
+            "percent": 0.16574727
+          },
+          {
+            "hex": "#2e4632",
+            "percent": 0.15552193
+          },
+          {
+            "hex": "#556956",
+            "percent": 0.15365621
+          },
+          {
+            "hex": "#112713",
+            "percent": 0.12683491
+          }
+        ],
+        "keywords": [
+          "hillside",
+          "grass",
+          "mountain",
+          "valley",
+          "water",
+          "landscape",
+          "dusk",
+          "sunset",
+          "pastel"
+        ]
+      },
+      {
+        "id": 47005,
+        "title": "The BBQ Hut | Hasselblad 500cm + 80mm f2.8 | Portra 400",
+        "author": "fotorell",
+        "permalink": "https://www.reddit.com/r/analog/comments/qh17xh/the_bbq_hut_hasselblad_500cm_80mm_f28_portra_400/",
+        "caption": "Sunlight streams through a window into a smoky wooden hut, illuminating a bottle on a picnic table.",
+        "score": 101,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/0ebc920333af008e3d307c60-low.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/0ebc920333af008e3d307c60-medium.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/0ebc920333af008e3d307c60-high.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/0ebc920333af008e3d307c60-raw.jpeg",
+            "width": 3549,
+            "height": 3549
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#97968d",
+            "percent": 0.20034722
+          },
+          {
+            "hex": "#79726a",
+            "percent": 0.16714463
+          },
+          {
+            "hex": "#5f534a",
+            "percent": 0.13743356
+          },
+          {
+            "hex": "#282420",
+            "percent": 0.12729552
+          },
+          {
+            "hex": "#cacbc6",
+            "percent": 0.12326389
+          }
+        ],
+        "keywords": [
+          "hut",
+          "smoke",
+          "sunlight",
+          "window",
+          "bottle",
+          "picnic table",
+          "table",
+          "wood",
+          "hazy",
+          "bbq hut"
+        ]
+      },
+      {
+        "id": 5757,
+        "title": "Traffic jam, M6+28mm f2.8, portra 400",
+        "author": "zoonace",
+        "permalink": "https://www.reddit.com/r/analog/comments/10xbhov/traffic_jam_m628mm_f28_portra_400/",
+        "caption": "A busy street is filled with cars, buses, and people walking on the sidewalks.",
+        "score": 1687,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/14d5d107-a36e-466c-9d6f-08180b719f66.jpeg",
+            "width": 576,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/8615cad2-5073-4601-85a6-bae19e69919c.jpeg",
+            "width": 864,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/972633f5-fbc7-4ebb-949b-ddaa7d1190a3.jpeg",
+            "width": 1152,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/75da1677-500a-4c34-ad68-298b7cef3f06.jpeg",
+            "width": 4492,
+            "height": 5615
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#d6cec6",
+            "percent": 0.18979881
+          },
+          {
+            "hex": "#44554f",
+            "percent": 0.16494922
+          },
+          {
+            "hex": "#263a34",
+            "percent": 0.14907354
+          },
+          {
+            "hex": "#756c5b",
+            "percent": 0.12533602
+          },
+          {
+            "hex": "#988b7c",
+            "percent": 0.11228719
+          }
+        ],
+        "keywords": [
+          "street",
+          "traffic",
+          "car",
+          "bus",
+          "building",
+          "hazy",
+          "city",
+          "urban",
+          "crowd",
+          "vehicle",
+          "motorcycle",
+          "street photography"
+        ]
+      },
+      {
+        "id": 46747,
+        "title": "cheddar gorge | bronica sq-a | zenzanon-ps 150mm f4 | fuji nph 400 (expired)",
+        "author": "balufilm",
+        "permalink": "https://www.reddit.com/r/analog/comments/ponm9g/cheddar_gorge_bronica_sqa_zenzanonps_150mm_f4/",
+        "caption": "A hazy landscape shows a valley with a town and a lake, viewed from a rocky, grassy cliff.",
+        "score": 199,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/af835fc7a75cf42025f2fe05-low.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/af835fc7a75cf42025f2fe05-medium.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/af835fc7a75cf42025f2fe05-high.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/af835fc7a75cf42025f2fe05-raw.jpeg",
+            "width": 2000,
+            "height": 2000
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#2b2823",
+            "percent": 0.20483458
+          },
+          {
+            "hex": "#f9f7ee",
+            "percent": 0.19469624
+          },
+          {
+            "hex": "#4b443c",
+            "percent": 0.17157568
+          },
+          {
+            "hex": "#070403",
+            "percent": 0.13929522
+          },
+          {
+            "hex": "#6d6359",
+            "percent": 0.1304407
+          }
+        ],
+        "keywords": [
+          "landscape",
+          "valley",
+          "town",
+          "lake",
+          "cliff",
+          "rock",
+          "grass",
+          "hazy",
+          "golden hour",
+          "cheddar gorge"
+        ]
+      }
+    ]
+  }
+}

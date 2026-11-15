@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import type { Coverage, MixEvent, Snapshot, TrackResult } from "./api";
 import { mockMixExists, streamMock } from "./mock";
+import { replay as playBack } from "./replay";
 
 // connecting: waiting for the first snapshot (or reconnecting); live: streaming; done: the job
 // finished; error: the job failed or the stream couldn't be kept up; not_found: unknown id
@@ -91,8 +92,10 @@ function coverageOf(s: Snapshot): Coverage {
     return { total: s.mix.track_ids.length || s.tracks.length, done, failed };
 }
 
-// the live state of a mix, from GET /api/mixes/{id}/events (or the mock stream)
-export function useMixEvents(id: string | null, mock: boolean): MixState {
+// the live state of a mix, from GET /api/mixes/{id}/events (or the mock stream). With replay, the
+// songs a mix has already analysed are played back quickly (see lib/replay.ts), then it streams
+// as usual if it isn't finished; reduced motion skips the playback
+export function useMixEvents(id: string | null, mock: boolean, replay = false): MixState {
     const [state, dispatch] = useReducer(reduce, initial);
 
     useEffect(() => {
@@ -201,9 +204,34 @@ export function useMixEvents(id: string | null, mock: boolean): MixState {
             });
         };
 
-        connect();
-        return stop;
-    }, [id, mock]);
+        let cancelReplay: (() => void) | undefined;
+        const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (replay && !still) {
+            fetch(`/api/mixes/${encodeURIComponent(id)}`)
+                .then((res) => (res.ok ? (res.json() as Promise<Snapshot>) : null))
+                .catch(() => null)
+                .then((snap) => {
+                    if (stopped) {
+                        return;
+                    }
+                    if (snap?.tracks.some((t) => t.status === "done")) {
+                        cancelReplay = playBack(
+                            snap,
+                            (event) => dispatch({ type: "event", event }),
+                            connect,
+                        );
+                    } else {
+                        connect();
+                    }
+                });
+        } else {
+            connect();
+        }
+        return () => {
+            cancelReplay?.();
+            stop();
+        };
+    }, [id, mock, replay]);
 
     return state;
 }

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Alert, Badge, Button, Loader, Tooltip } from "@mantine/core";
 import { FiAlertCircle, FiArrowLeft } from "react-icons/fi";
@@ -22,7 +22,24 @@ export default function MixPage() {
     const router = useRouter();
     const id = router.isReady && typeof router.query.id === "string" ? router.query.id : null;
     const mock = router.isReady && isMockMode(router.query);
-    const { snapshot, coverage, status, error } = useMixEvents(id, mock);
+    // the front page's examples open with a quick replay of the analysis
+    const [replay] = useState(
+        () =>
+            typeof window !== "undefined" &&
+            new URLSearchParams(window.location.search).has("replay"),
+    );
+    const { snapshot, coverage, status, error } = useMixEvents(id, mock, replay);
+    // once it has played, the link is an ordinary one: a reload or a share opens straight away
+    useEffect(() => {
+        if (status !== "done" || !("replay" in router.query)) {
+            return;
+        }
+        const { replay: _, ...rest } = router.query;
+        router.replace({ pathname: router.pathname, query: rest }, undefined, {
+            shallow: true,
+            scroll: false,
+        });
+    }, [status, router]);
     // the energy arc and the song list share one order
     const [sort, setSort] = useState<Sort>(PLAYLIST_ORDER);
 

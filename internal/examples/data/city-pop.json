@@ -1,0 +1,4657 @@
+{
+  "mix": {
+    "id": "xdkwziflya7j",
+    "source": {
+      "kind": "playlist",
+      "spotify_id": "5ZEY1gtao9eGzvAD3KEh2x",
+      "name": "City Pop シティーポップ",
+      "subtitle": "aofd3",
+      "cover": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da84720d885c6c44c6473892f4ca",
+      "palette": [
+        "#26567d",
+        "#003457",
+        "#ffffff",
+        "#a0d3ff"
+      ]
+    },
+    "track_ids": [
+      "0JUWF44gfMszGNhjCF7Ufs",
+      "7rU6Iebxzlvqy5t857bKFq",
+      "2BIbdQQLiKkx5jIOlebKxO",
+      "5WTCHYg9G27e9e5HFKGdd1",
+      "1HDqBV6gWeqFStJHLmPjh4",
+      "3EgwBksC7kIeK346S1AUqs",
+      "1jXDJKlpjzKyVvla4lpC4l",
+      "055ciAnSYyOKGlo82pmNLS",
+      "5O2NChd8z4hvfHEA4fR1Ko",
+      "1YGMDpFpzaICgFrmJYUV9j",
+      "0gNwgVOL0CLgvKtuzAJTwF",
+      "02M7L7vwVmzrRNq6gx9oxE",
+      "0cmpaEz9k3FCpXrZeG6zE6",
+      "5e20l8hl7vcF96rYn9FxAM",
+      "7LUWoJeF00KOeu3jc7nb5E",
+      "5IermLpuQmZaTUf0W6Evr5",
+      "5RSpR665UGsu1FFEq1pG8R",
+      "55Osx69nX7aEAvMTVcocr1",
+      "6LPIJOGd47u874BQCdlFf8",
+      "3eHHWsljCmn0bUslDtjJim",
+      "3M1ys9zYaEbtAC9BxS4mGj",
+      "3KmJxDavdxyfGcy4HlZubc",
+      "59DbihqLQR5UXjYYyFgzYg",
+      "3piFDiUbzNvtw925JBhgru",
+      "2iDjKR2fXQyODcDKUMoWHK",
+      "1PLxCD183hiMW2ajB5givF",
+      "6GbgHcskEO8vk9Rlrw908V",
+      "36KzChdV4wKByD8Dfn2c10",
+      "7zHZipQz3S2Y8agPuk870a",
+      "37k5Fz1L65ypPdLOnO2EWr",
+      "4MmO631CdxuFOm18UVbhkp",
+      "0YSwpzZT1sUkrL3kTIoHE2",
+      "3rl3OV2sPIJcMvPTlkFd0y",
+      "5eUsZ4GVq8XU4bEvqid2NL",
+      "5DCLkzuWICNar6qn3B393f",
+      "6h3NfvlWed8jwv1xECzQE4",
+      "5LXQeJX8ZGS7Q5ZZ3vtGF7",
+      "30wNRf3NQ1PpJiZ2lzleeB",
+      "559Z3sS99djTsKWrlcnZSJ",
+      "5Zibf2Skd60yDj5FGkHwi5",
+      "22p7tgi6cFVBaH7vAbgcUY",
+      "08AVrER4Kh0Q9ORinSK3SQ",
+      "0SNdUPM8z7PlBlN3pyqVjB",
+      "7wK3vFraZXIjVxOqObajAL",
+      "1DBqmybmBZiJ0N98hbthPD",
+      "37NPLfEZQQ0rZTa9SRqWBL",
+      "0SaiG9QfChPSpMsUrv5TSV",
+      "7Kk5e6Ipnm2uJQ6IrKbghy",
+      "67FOOzqXQ2nakluuYtlCPH",
+      "4RvJ5sXFvWt8n9HHt7yBRD",
+      "2Xvn2lHfcHfWU7TpwiEBGr",
+      "10bpQIJmfF41c85SXmIMIJ",
+      "5FGtMh3b7owXE7rlJ0u9oU",
+      "38LUbz74v3nmP8x0efElw2",
+      "38LrhW3eQSt3cK88dkvl5e",
+      "0DCzMvkONMvWDiOtVzyRUX",
+      "5Dra6dW1mc7BOh833TDowz",
+      "5w6EvyvomUSWsF430iixmc",
+      "4XSdErknu5ZpqCjTGsm9lf",
+      "7N3rC3JFYx0X4lyDfPimG3",
+      "2aaOJJd2fBkd4es7vI2h2a",
+      "6WrpjvK0YXAts1Tvqxhh77",
+      "2BHj31ufdEqVK5CkYDp9mA",
+      "2CzYHourfYD0fQBaBHgCNS",
+      "7KYzARBusZhyZ6jygZDmVr",
+      "1dLeSutde2Nt4DIWaLKxXO",
+      "2fggk38cFG35W94aUrU7mg",
+      "78032GHRcUBBCFxpRBQcnH",
+      "6my8cjyP9ZwWGSl5XpQkyA",
+      "74UH2neux1IsLGhW0IOG4j",
+      "5LZja1KAke25BqjsidAcsq",
+      "2JEgJc3qlzTr96IBqfeulB",
+      "3WxATUIaUWiMkcpil3OQYS",
+      "3uYCbGo0mc5p7volIb5k2N",
+      "1xCYHtj7sgJQbgMv9AxBRM",
+      "5OUnJyo4Cb9bFPzDWb5GAK",
+      "7n7Z6GbQzGn7Q1wxm9Gdkp",
+      "5tAINIC5mrsL4yu3Pi8Krb",
+      "0uzNud88n4dRpgw0ZopzjP",
+      "1SmwJJ8YVgiXtyE6elhUx1",
+      "4wUQvovMEkByMvZNCecZ9v",
+      "0M9q4H3pQaoNUgBXZj34U1",
+      "4ZdttYzzjq5XtE4nrsFr5e",
+      "3UjlRMbk2LX5vYXGScJm3u",
+      "0haoDgX7K78fJJR5UXzh8G",
+      "1CL4smvwmnogAoPZlRyeAS",
+      "0hWopIsa5BtYfaavvxAdku",
+      "1xKvK6t2HbqYgMZClqIYzL",
+      "2JCdUwmGDO3SBkhwkfRaLr",
+      "6Su8H0Iw3qw9OdrdRfjwLT",
+      "5P539VzoDTFEpCCYlWC2Ii",
+      "3nByGKtrUugm8bfsNGazAV"
+    ],
+    "created_at": "2026-11-14T21:52:54.012439Z"
+  },
+  "tracks": [
+    {
+      "id": "0JUWF44gfMszGNhjCF7Ufs",
+      "title": "Midnight Pretenders",
+      "artists": [
+        {
+          "name": "Tomoko Aran"
+        }
+      ],
+      "duration_ms": 345266,
+      "explicit": false
+    },
+    {
+      "id": "7rU6Iebxzlvqy5t857bKFq",
+      "title": "Plastic Love",
+      "artists": [
+        {
+          "name": "Mariya Takeuchi"
+        }
+      ],
+      "duration_ms": 294493,
+      "explicit": false
+    },
+    {
+      "id": "2BIbdQQLiKkx5jIOlebKxO",
+      "title": "Cassette",
+      "artists": [
+        {
+          "name": "Efence"
+        }
+      ],
+      "duration_ms": 230400,
+      "explicit": false
+    },
+    {
+      "id": "5WTCHYg9G27e9e5HFKGdd1",
+      "title": "Sweet Love",
+      "artists": [
+        {
+          "name": "Junko Ohashi"
+        }
+      ],
+      "duration_ms": 289333,
+      "explicit": false
+    },
+    {
+      "id": "1HDqBV6gWeqFStJHLmPjh4",
+      "title": "ふたりの夏物語 NEVER ENDING SUMMER",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 241253,
+      "explicit": false
+    },
+    {
+      "id": "3EgwBksC7kIeK346S1AUqs",
+      "title": "Her",
+      "artists": [
+        {
+          "name": "Virtual Mage"
+        }
+      ],
+      "duration_ms": 169697,
+      "explicit": false
+    },
+    {
+      "id": "1jXDJKlpjzKyVvla4lpC4l",
+      "title": "外はみんな･･･････",
+      "artists": [
+        {
+          "name": "Minako Yoshida"
+        }
+      ],
+      "duration_ms": 177440,
+      "explicit": false
+    },
+    {
+      "id": "055ciAnSYyOKGlo82pmNLS",
+      "title": "君は1000%",
+      "artists": [
+        {
+          "name": "1986 OMEGA TRIBE"
+        }
+      ],
+      "duration_ms": 251266,
+      "explicit": false
+    },
+    {
+      "id": "5O2NChd8z4hvfHEA4fR1Ko",
+      "title": "Stay Tune",
+      "artists": [
+        {
+          "name": "Suchmos"
+        }
+      ],
+      "duration_ms": 298746,
+      "explicit": false
+    },
+    {
+      "id": "1YGMDpFpzaICgFrmJYUV9j",
+      "title": "MIDNIGHT DOWN TOWN",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 305733,
+      "explicit": false
+    },
+    {
+      "id": "0gNwgVOL0CLgvKtuzAJTwF",
+      "title": "まいにち。",
+      "artists": [
+        {
+          "name": "Every Little Thing"
+        }
+      ],
+      "duration_ms": 320840,
+      "explicit": false
+    },
+    {
+      "id": "02M7L7vwVmzrRNq6gx9oxE",
+      "title": "Remember Summer Days (Night Tempo Showa Groove Mix)",
+      "artists": [
+        {
+          "name": "Night Tempo"
+        },
+        {
+          "name": "Anri"
+        }
+      ],
+      "duration_ms": 226909,
+      "explicit": false
+    },
+    {
+      "id": "0cmpaEz9k3FCpXrZeG6zE6",
+      "title": "すてきなメゾン feat. 玉城ティナ",
+      "artists": [
+        {
+          "name": "tofubeats"
+        },
+        {
+          "name": "Tina Tamashiro"
+        }
+      ],
+      "duration_ms": 251386,
+      "explicit": false
+    },
+    {
+      "id": "5e20l8hl7vcF96rYn9FxAM",
+      "title": "Sleepy",
+      "artists": [
+        {
+          "name": "Virtual Mage"
+        }
+      ],
+      "duration_ms": 212500,
+      "explicit": false
+    },
+    {
+      "id": "7LUWoJeF00KOeu3jc7nb5E",
+      "title": "Doudemo Iikedo",
+      "artists": [
+        {
+          "name": "never young beach"
+        }
+      ],
+      "duration_ms": 252466,
+      "explicit": false
+    },
+    {
+      "id": "5IermLpuQmZaTUf0W6Evr5",
+      "title": "Pinkvibes",
+      "artists": [
+        {
+          "name": "Suchmos"
+        }
+      ],
+      "duration_ms": 288093,
+      "explicit": false
+    },
+    {
+      "id": "5RSpR665UGsu1FFEq1pG8R",
+      "title": "I'm in Love",
+      "artists": [
+        {
+          "name": "Tomoko Aran"
+        }
+      ],
+      "duration_ms": 353466,
+      "explicit": false
+    },
+    {
+      "id": "55Osx69nX7aEAvMTVcocr1",
+      "title": "Temptation (誘惑)",
+      "artists": [
+        {
+          "name": "Minako Honda"
+        }
+      ],
+      "duration_ms": 226346,
+      "explicit": false
+    },
+    {
+      "id": "6LPIJOGd47u874BQCdlFf8",
+      "title": "Rain in the Park",
+      "artists": [
+        {
+          "name": "Marika Takeuchi"
+        }
+      ],
+      "duration_ms": 229496,
+      "explicit": false
+    },
+    {
+      "id": "3eHHWsljCmn0bUslDtjJim",
+      "title": "POSITIVE feat. Dream Ami",
+      "artists": [
+        {
+          "name": "tofubeats"
+        },
+        {
+          "name": "Dream Ami"
+        }
+      ],
+      "duration_ms": 247253,
+      "explicit": false
+    },
+    {
+      "id": "3M1ys9zYaEbtAC9BxS4mGj",
+      "title": "男と女",
+      "artists": [
+        {
+          "name": "Junko Ohashi"
+        }
+      ],
+      "duration_ms": 287333,
+      "explicit": false
+    },
+    {
+      "id": "3KmJxDavdxyfGcy4HlZubc",
+      "title": "Breeze and You (Live Version)",
+      "artists": [
+        {
+          "name": "T-SQUARE"
+        }
+      ],
+      "duration_ms": 310517,
+      "explicit": false
+    },
+    {
+      "id": "59DbihqLQR5UXjYYyFgzYg",
+      "title": "Galactic Funk",
+      "artists": [
+        {
+          "name": "CASIOPEA"
+        }
+      ],
+      "duration_ms": 326240,
+      "explicit": false
+    },
+    {
+      "id": "3piFDiUbzNvtw925JBhgru",
+      "title": "Hohoemi no Bakudan",
+      "artists": [
+        {
+          "name": "Matsuko Mawatari"
+        }
+      ],
+      "duration_ms": 251306,
+      "explicit": false
+    },
+    {
+      "id": "2iDjKR2fXQyODcDKUMoWHK",
+      "title": "まともがわからない",
+      "artists": [
+        {
+          "name": "Shintaro Sakamoto"
+        }
+      ],
+      "duration_ms": 269653,
+      "explicit": false
+    },
+    {
+      "id": "1PLxCD183hiMW2ajB5givF",
+      "title": "Coast to Coast",
+      "artists": [
+        {
+          "name": "CASIOPEA"
+        }
+      ],
+      "duration_ms": 282666,
+      "explicit": false
+    },
+    {
+      "id": "6GbgHcskEO8vk9Rlrw908V",
+      "title": "ガラスのPALM TREE",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 274320,
+      "explicit": false
+    },
+    {
+      "id": "36KzChdV4wKByD8Dfn2c10",
+      "title": "スポーツマン (2019 Remastering)",
+      "artists": [
+        {
+          "name": "Haruomi Hosono"
+        }
+      ],
+      "duration_ms": 245960,
+      "explicit": false
+    },
+    {
+      "id": "7zHZipQz3S2Y8agPuk870a",
+      "title": "Kuchibiru Network",
+      "artists": [
+        {
+          "name": "Yukiko Okada"
+        }
+      ],
+      "duration_ms": 234000,
+      "explicit": false
+    },
+    {
+      "id": "37k5Fz1L65ypPdLOnO2EWr",
+      "title": "マシュ・ケ・ナダ",
+      "artists": [
+        {
+          "name": "Pink Martini"
+        },
+        {
+          "name": "Saori Yuki"
+        }
+      ],
+      "duration_ms": 157040,
+      "explicit": false
+    },
+    {
+      "id": "4MmO631CdxuFOm18UVbhkp",
+      "title": "Fun Tonight",
+      "artists": [
+        {
+          "name": "Macross 82-99"
+        }
+      ],
+      "duration_ms": 162461,
+      "explicit": false
+    },
+    {
+      "id": "0YSwpzZT1sUkrL3kTIoHE2",
+      "title": "Itan na star",
+      "artists": [
+        {
+          "name": "OFFICIAL HIGE DANDISM"
+        }
+      ],
+      "duration_ms": 288066,
+      "explicit": false
+    },
+    {
+      "id": "3rl3OV2sPIJcMvPTlkFd0y",
+      "title": "Sniper Rouge",
+      "artists": [
+        {
+          "name": "Mitch Murder"
+        },
+        {
+          "name": "emi"
+        }
+      ],
+      "duration_ms": 244496,
+      "explicit": false
+    },
+    {
+      "id": "5eUsZ4GVq8XU4bEvqid2NL",
+      "title": "愛を奪って　心縛って",
+      "artists": [
+        {
+          "name": "Wink"
+        }
+      ],
+      "duration_ms": 268506,
+      "explicit": false
+    },
+    {
+      "id": "5DCLkzuWICNar6qn3B393f",
+      "title": "真夜中のドア〜stay with me",
+      "artists": [
+        {
+          "name": "Miki Matsubara"
+        }
+      ],
+      "duration_ms": 311720,
+      "explicit": false
+    },
+    {
+      "id": "6h3NfvlWed8jwv1xECzQE4",
+      "title": "Crush",
+      "artists": [
+        {
+          "name": "Beckett"
+        }
+      ],
+      "duration_ms": 226647,
+      "explicit": false
+    },
+    {
+      "id": "5LXQeJX8ZGS7Q5ZZ3vtGF7",
+      "title": "Wanna Kiss",
+      "artists": [
+        {
+          "name": "Hitomi Tohyama"
+        }
+      ],
+      "duration_ms": 270560,
+      "explicit": false
+    },
+    {
+      "id": "30wNRf3NQ1PpJiZ2lzleeB",
+      "title": "夕凪通信",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 277293,
+      "explicit": false
+    },
+    {
+      "id": "559Z3sS99djTsKWrlcnZSJ",
+      "title": "Kindan no Telepathy",
+      "artists": [
+        {
+          "name": "Shizuka Kudo"
+        }
+      ],
+      "duration_ms": 227160,
+      "explicit": false
+    },
+    {
+      "id": "5Zibf2Skd60yDj5FGkHwi5",
+      "title": "哀しいくらい",
+      "artists": [
+        {
+          "name": "Off Course"
+        }
+      ],
+      "duration_ms": 310666,
+      "explicit": false
+    },
+    {
+      "id": "22p7tgi6cFVBaH7vAbgcUY",
+      "title": "RIVER'S ISLAND",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 278160,
+      "explicit": false
+    },
+    {
+      "id": "08AVrER4Kh0Q9ORinSK3SQ",
+      "title": "Night Cruise",
+      "artists": [
+        {
+          "name": "T-SQUARE"
+        }
+      ],
+      "duration_ms": 349520,
+      "explicit": false
+    },
+    {
+      "id": "0SNdUPM8z7PlBlN3pyqVjB",
+      "title": "我がままなハイヒール",
+      "artists": [
+        {
+          "name": "Kaoru Akimoto"
+        }
+      ],
+      "duration_ms": 303426,
+      "explicit": false
+    },
+    {
+      "id": "7wK3vFraZXIjVxOqObajAL",
+      "title": "スポーツマン - 2019 Remastering",
+      "artists": [
+        {
+          "name": "Haruomi Hosono"
+        }
+      ],
+      "duration_ms": 245960,
+      "explicit": false
+    },
+    {
+      "id": "1DBqmybmBZiJ0N98hbthPD",
+      "title": "Plastic Love",
+      "artists": [
+        {
+          "name": "Friday Night Plans"
+        }
+      ],
+      "duration_ms": 275891,
+      "explicit": false
+    },
+    {
+      "id": "37NPLfEZQQ0rZTa9SRqWBL",
+      "title": "midnight cruisin'",
+      "artists": [
+        {
+          "name": "Kingo Hamada"
+        }
+      ],
+      "duration_ms": 283000,
+      "explicit": false
+    },
+    {
+      "id": "0SaiG9QfChPSpMsUrv5TSV",
+      "title": "Never Let You Go",
+      "artists": [
+        {
+          "name": "Omoinotake"
+        }
+      ],
+      "duration_ms": 239069,
+      "explicit": false
+    },
+    {
+      "id": "7Kk5e6Ipnm2uJQ6IrKbghy",
+      "title": "DOWNTOWN BOY",
+      "artists": [
+        {
+          "name": "Yumi Matsutoya"
+        }
+      ],
+      "duration_ms": 243610,
+      "explicit": false
+    },
+    {
+      "id": "67FOOzqXQ2nakluuYtlCPH",
+      "title": "One Hot Love - 2018 Remaster",
+      "artists": [
+        {
+          "name": "Makoto Matsushita"
+        }
+      ],
+      "duration_ms": 260605,
+      "explicit": false
+    },
+    {
+      "id": "4RvJ5sXFvWt8n9HHt7yBRD",
+      "title": "SUMMER SUSPICION",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 274160,
+      "explicit": false
+    },
+    {
+      "id": "2Xvn2lHfcHfWU7TpwiEBGr",
+      "title": "Junjou",
+      "artists": [
+        {
+          "name": "Ami Ozaki"
+        }
+      ],
+      "duration_ms": 209906,
+      "explicit": false
+    },
+    {
+      "id": "10bpQIJmfF41c85SXmIMIJ",
+      "title": "Sweet Survivor",
+      "artists": [
+        {
+          "name": "NONA REEVES"
+        }
+      ],
+      "duration_ms": 256186,
+      "explicit": false
+    },
+    {
+      "id": "5FGtMh3b7owXE7rlJ0u9oU",
+      "title": "ダンシング・ヒーロー（Eat You Up） - Dear Pop Singer Version",
+      "artists": [
+        {
+          "name": "Yoko Oginome"
+        }
+      ],
+      "duration_ms": 228973,
+      "explicit": false
+    },
+    {
+      "id": "38LUbz74v3nmP8x0efElw2",
+      "title": "Last Summer Whisper",
+      "artists": [
+        {
+          "name": "Anri"
+        }
+      ],
+      "duration_ms": 299680,
+      "explicit": false
+    },
+    {
+      "id": "38LrhW3eQSt3cK88dkvl5e",
+      "title": "Misty Night Cruising",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 267893,
+      "explicit": false
+    },
+    {
+      "id": "0DCzMvkONMvWDiOtVzyRUX",
+      "title": "DEAR BREEZE",
+      "artists": [
+        {
+          "name": "S. Kiyotaka \u0026 Omega Tribe"
+        }
+      ],
+      "duration_ms": 241360,
+      "explicit": false
+    },
+    {
+      "id": "5Dra6dW1mc7BOh833TDowz",
+      "title": "First Light - 2018 Remaster",
+      "artists": [
+        {
+          "name": "Makoto Matsushita"
+        }
+      ],
+      "duration_ms": 273220,
+      "explicit": false
+    },
+    {
+      "id": "5w6EvyvomUSWsF430iixmc",
+      "title": "街のドルフィン",
+      "artists": [
+        {
+          "name": "Kingo Hamada"
+        }
+      ],
+      "duration_ms": 232893,
+      "explicit": false
+    },
+    {
+      "id": "4XSdErknu5ZpqCjTGsm9lf",
+      "title": "Sunset (2019 Y.Nakamura Remastering)",
+      "artists": [
+        {
+          "name": "Blu-Swing"
+        }
+      ],
+      "duration_ms": 204866,
+      "explicit": false
+    },
+    {
+      "id": "7N3rC3JFYx0X4lyDfPimG3",
+      "title": "I Don't Know ! - Single Version / Bonus Track",
+      "artists": [
+        {
+          "name": "Babe"
+        }
+      ],
+      "duration_ms": 241720,
+      "explicit": false
+    },
+    {
+      "id": "2aaOJJd2fBkd4es7vI2h2a",
+      "title": "Love Was Really Gone - 2018 Remaster",
+      "artists": [
+        {
+          "name": "Makoto Matsushita"
+        }
+      ],
+      "duration_ms": 347366,
+      "explicit": false
+    },
+    {
+      "id": "6WrpjvK0YXAts1Tvqxhh77",
+      "title": "MarunouchiSadistic",
+      "artists": [
+        {
+          "name": "UNCHAIN"
+        }
+      ],
+      "duration_ms": 243846,
+      "explicit": false
+    },
+    {
+      "id": "2BHj31ufdEqVK5CkYDp9mA",
+      "title": "Mayonaka no Door / Stay With Me",
+      "artists": [
+        {
+          "name": "Miki Matsubara"
+        }
+      ],
+      "duration_ms": 312293,
+      "explicit": false
+    },
+    {
+      "id": "2CzYHourfYD0fQBaBHgCNS",
+      "title": "Jazzy Night",
+      "artists": [
+        {
+          "name": "Miki Matsubara"
+        }
+      ],
+      "duration_ms": 231760,
+      "explicit": false
+    },
+    {
+      "id": "7KYzARBusZhyZ6jygZDmVr",
+      "title": "SHYNESS BOY",
+      "artists": [
+        {
+          "name": "Anri"
+        }
+      ],
+      "duration_ms": 196666,
+      "explicit": false
+    },
+    {
+      "id": "1dLeSutde2Nt4DIWaLKxXO",
+      "title": "Just a Joke",
+      "artists": [
+        {
+          "name": "Yurie Kokubu"
+        }
+      ],
+      "duration_ms": 189213,
+      "explicit": false
+    },
+    {
+      "id": "2fggk38cFG35W94aUrU7mg",
+      "title": "真夜中のドア",
+      "artists": [
+        {
+          "name": "Yuri Tanaka"
+        }
+      ],
+      "duration_ms": 310404,
+      "explicit": false
+    },
+    {
+      "id": "78032GHRcUBBCFxpRBQcnH",
+      "title": "RIDE ON TIME",
+      "artists": [
+        {
+          "name": "DEEN"
+        }
+      ],
+      "duration_ms": 276040,
+      "explicit": false
+    },
+    {
+      "id": "6my8cjyP9ZwWGSl5XpQkyA",
+      "title": "Summer Beach",
+      "artists": [
+        {
+          "name": "Yukiko Okada"
+        }
+      ],
+      "duration_ms": 260866,
+      "explicit": false
+    },
+    {
+      "id": "74UH2neux1IsLGhW0IOG4j",
+      "title": "You Belong to Him",
+      "artists": [
+        {
+          "name": "1986 OMEGA TRIBE"
+        }
+      ],
+      "duration_ms": 282293,
+      "explicit": false
+    },
+    {
+      "id": "5LZja1KAke25BqjsidAcsq",
+      "title": "Good Bye Boogie Dance",
+      "artists": [
+        {
+          "name": "Anri"
+        }
+      ],
+      "duration_ms": 272093,
+      "explicit": false
+    },
+    {
+      "id": "2JEgJc3qlzTr96IBqfeulB",
+      "title": "This Is All I Have For You - 2018 Remaster",
+      "artists": [
+        {
+          "name": "Makoto Matsushita"
+        }
+      ],
+      "duration_ms": 307796,
+      "explicit": false
+    },
+    {
+      "id": "3WxATUIaUWiMkcpil3OQYS",
+      "title": "STAY BY ME",
+      "artists": [
+        {
+          "name": "Anri"
+        }
+      ],
+      "duration_ms": 217360,
+      "explicit": false
+    },
+    {
+      "id": "3uYCbGo0mc5p7volIb5k2N",
+      "title": "SURPRISE OF SUMMER",
+      "artists": [
+        {
+          "name": "Anri"
+        }
+      ],
+      "duration_ms": 253786,
+      "explicit": false
+    },
+    {
+      "id": "1xCYHtj7sgJQbgMv9AxBRM",
+      "title": "1986年のマリリン",
+      "artists": [
+        {
+          "name": "Minako Honda"
+        }
+      ],
+      "duration_ms": 239026,
+      "explicit": false
+    },
+    {
+      "id": "5OUnJyo4Cb9bFPzDWb5GAK",
+      "title": "Candy",
+      "artists": [
+        {
+          "name": "Naoko Gushima"
+        }
+      ],
+      "duration_ms": 280186,
+      "explicit": false
+    },
+    {
+      "id": "7n7Z6GbQzGn7Q1wxm9Gdkp",
+      "title": "非ゼロ和ゲーム",
+      "artists": [
+        {
+          "name": "KIRINJI"
+        }
+      ],
+      "duration_ms": 245853,
+      "explicit": false
+    },
+    {
+      "id": "5tAINIC5mrsL4yu3Pi8Krb",
+      "title": "愛が止まらない ～Turn It Into Love～",
+      "artists": [
+        {
+          "name": "Wink"
+        }
+      ],
+      "duration_ms": 211426,
+      "explicit": false
+    },
+    {
+      "id": "0uzNud88n4dRpgw0ZopzjP",
+      "title": "Saturday",
+      "artists": [
+        {
+          "name": "paris match"
+        }
+      ],
+      "duration_ms": 318653,
+      "explicit": false
+    },
+    {
+      "id": "1SmwJJ8YVgiXtyE6elhUx1",
+      "title": "Tokai",
+      "artists": [
+        {
+          "name": "Taeko Onuki"
+        }
+      ],
+      "duration_ms": 310173,
+      "explicit": false
+    },
+    {
+      "id": "4wUQvovMEkByMvZNCecZ9v",
+      "title": "黄昏のBAY CITY",
+      "artists": [
+        {
+          "name": "Junko Yagami"
+        }
+      ],
+      "duration_ms": 250373,
+      "explicit": false
+    },
+    {
+      "id": "0M9q4H3pQaoNUgBXZj34U1",
+      "title": "Wash",
+      "artists": [
+        {
+          "name": "Miki Matsubara"
+        }
+      ],
+      "duration_ms": 271040,
+      "explicit": false
+    },
+    {
+      "id": "4ZdttYzzjq5XtE4nrsFr5e",
+      "title": "ミステリー・ガール",
+      "artists": [
+        {
+          "name": "アイリーン・フォーリーン"
+        }
+      ],
+      "duration_ms": 246933,
+      "explicit": false
+    },
+    {
+      "id": "3UjlRMbk2LX5vYXGScJm3u",
+      "title": "kanashiikurai diamond",
+      "artists": [
+        {
+          "name": "RYUSENKEI"
+        },
+        {
+          "name": "HITOMITOI"
+        }
+      ],
+      "duration_ms": 235200,
+      "explicit": false
+    },
+    {
+      "id": "0haoDgX7K78fJJR5UXzh8G",
+      "title": "Les Aventures de TINTIN",
+      "artists": [
+        {
+          "name": "Taeko Onuki"
+        }
+      ],
+      "duration_ms": 276053,
+      "explicit": false
+    },
+    {
+      "id": "1CL4smvwmnogAoPZlRyeAS",
+      "title": "Palms and Skyline",
+      "artists": [
+        {
+          "name": "I Can Slow Down Time"
+        }
+      ],
+      "duration_ms": 117500,
+      "explicit": false
+    },
+    {
+      "id": "0hWopIsa5BtYfaavvxAdku",
+      "title": "時のシルエット",
+      "artists": [
+        {
+          "name": "Natsu Summer"
+        }
+      ],
+      "duration_ms": 273999,
+      "explicit": false
+    },
+    {
+      "id": "1xKvK6t2HbqYgMZClqIYzL",
+      "title": "セーラー服を脱がさないで",
+      "artists": [
+        {
+          "name": "Onyanko Club"
+        }
+      ],
+      "duration_ms": 224053,
+      "explicit": false
+    },
+    {
+      "id": "2JCdUwmGDO3SBkhwkfRaLr",
+      "title": "killer tune kills me",
+      "artists": [
+        {
+          "name": "KIRINJI"
+        },
+        {
+          "name": "YonYon"
+        }
+      ],
+      "duration_ms": 250600,
+      "explicit": false
+    },
+    {
+      "id": "6Su8H0Iw3qw9OdrdRfjwLT",
+      "title": "At the Rail Way Track",
+      "artists": [
+        {
+          "name": "Sleepy Octopus"
+        }
+      ],
+      "duration_ms": 179908,
+      "explicit": false
+    },
+    {
+      "id": "5P539VzoDTFEpCCYlWC2Ii",
+      "title": "Lazy Night - 2018 Remaster",
+      "artists": [
+        {
+          "name": "Makoto Matsushita"
+        }
+      ],
+      "duration_ms": 288732,
+      "explicit": false
+    },
+    {
+      "id": "3nByGKtrUugm8bfsNGazAV",
+      "title": "Telephone Number",
+      "artists": [
+        {
+          "name": "Junko Ohashi"
+        }
+      ],
+      "duration_ms": 239013,
+      "explicit": false
+    }
+  ],
+  "features": {
+    "02M7L7vwVmzrRNq6gx9oxE": {
+      "tempo": 110,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.9968,
+      "happy": 0.37,
+      "sad": 0.1283,
+      "relaxed": 0.6115,
+      "aggressive": 0.002,
+      "party": 0.9229,
+      "acoustic": 0.1121,
+      "instrumental": 0.6432,
+      "valence": 0.6771,
+      "arousal": 0.7215,
+      "genres": [
+        {
+          "name": "Electronic---Vaporwave",
+          "score": 0.6773
+        },
+        {
+          "name": "Electronic---Nu-Disco",
+          "score": 0.4016
+        },
+        {
+          "name": "Electronic---Tropical House",
+          "score": 0.141
+        }
+      ]
+    },
+    "055ciAnSYyOKGlo82pmNLS": {
+      "tempo": 132,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.7089,
+      "happy": 0.1366,
+      "sad": 0.2404,
+      "relaxed": 0.3473,
+      "aggressive": 0.0007,
+      "party": 0.6087,
+      "acoustic": 0.0083,
+      "instrumental": 0.3634,
+      "valence": 0.6006,
+      "arousal": 0.7262,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.7408
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.5395
+        },
+        {
+          "name": "Funk / Soul---Boogie",
+          "score": 0.5069
+        }
+      ]
+    },
+    "08AVrER4Kh0Q9ORinSK3SQ": {
+      "tempo": 103.7,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.3904,
+      "happy": 0.2256,
+      "sad": 0.6439,
+      "relaxed": 0.7846,
+      "aggressive": 0.0036,
+      "party": 0.255,
+      "acoustic": 0.1861,
+      "instrumental": 0.4227,
+      "valence": 0.5224,
+      "arousal": 0.5015,
+      "genres": [
+        {
+          "name": "Jazz---Smooth Jazz",
+          "score": 0.1131
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.0766
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.0739
+        }
+      ]
+    },
+    "0DCzMvkONMvWDiOtVzyRUX": {
+      "tempo": 91.4,
+      "key": "C#",
+      "mode": "major",
+      "danceable": 0.8153,
+      "happy": 0.0172,
+      "sad": 0.6168,
+      "relaxed": 0.9115,
+      "aggressive": 0,
+      "party": 0.3298,
+      "acoustic": 0.0417,
+      "instrumental": 0.5183,
+      "valence": 0.5647,
+      "arousal": 0.5332,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9883
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.565
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.3796
+        }
+      ]
+    },
+    "0JUWF44gfMszGNhjCF7Ufs": {
+      "tempo": 92.8,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.722,
+      "happy": 0.2445,
+      "sad": 0.7373,
+      "relaxed": 0.8093,
+      "aggressive": 0.0014,
+      "party": 0.2928,
+      "acoustic": 0.1623,
+      "instrumental": 0.1076,
+      "valence": 0.53,
+      "arousal": 0.547,
+      "genres": [
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.3723
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.124
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.121
+        }
+      ]
+    },
+    "0M9q4H3pQaoNUgBXZj34U1": {
+      "tempo": 132.4,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.6353,
+      "happy": 0.6874,
+      "sad": 0.2827,
+      "relaxed": 0.4382,
+      "aggressive": 0.0007,
+      "party": 0.6767,
+      "acoustic": 0.1607,
+      "instrumental": 0.0351,
+      "valence": 0.6166,
+      "arousal": 0.6654,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.6163
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.1944
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.1578
+        }
+      ]
+    },
+    "0SNdUPM8z7PlBlN3pyqVjB": {
+      "tempo": 106.6,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.7915,
+      "happy": 0.2107,
+      "sad": 0.5128,
+      "relaxed": 0.5251,
+      "aggressive": 0.0041,
+      "party": 0.5001,
+      "acoustic": 0.1105,
+      "instrumental": 0.2868,
+      "valence": 0.6366,
+      "arousal": 0.5806,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.4716
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.2871
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2732
+        }
+      ]
+    },
+    "0SaiG9QfChPSpMsUrv5TSV": {
+      "tempo": 122.9,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.9951,
+      "happy": 0.7731,
+      "sad": 0.1522,
+      "relaxed": 0.3377,
+      "aggressive": 0.0325,
+      "party": 0.8407,
+      "acoustic": 0.0102,
+      "instrumental": 0.3522,
+      "valence": 0.6901,
+      "arousal": 0.7429,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.2593
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.2269
+        },
+        {
+          "name": "Electronic---Nu-Disco",
+          "score": 0.1292
+        }
+      ]
+    },
+    "0YSwpzZT1sUkrL3kTIoHE2": {
+      "tempo": 98.1,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.6276,
+      "happy": 0.6772,
+      "sad": 0.3547,
+      "relaxed": 0.2046,
+      "aggressive": 0.159,
+      "party": 0.6006,
+      "acoustic": 0.0487,
+      "instrumental": 0.0103,
+      "valence": 0.5785,
+      "arousal": 0.6459,
+      "genres": [
+        {
+          "name": "Pop---J-pop",
+          "score": 0.3887
+        },
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.2918
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.2631
+        }
+      ]
+    },
+    "0cmpaEz9k3FCpXrZeG6zE6": {
+      "tempo": 123,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.9008,
+      "happy": 0.937,
+      "sad": 0.1619,
+      "relaxed": 0.4402,
+      "aggressive": 0.0062,
+      "party": 0.9201,
+      "acoustic": 0.0856,
+      "instrumental": 0.0018,
+      "valence": 0.6117,
+      "arousal": 0.7108,
+      "genres": [
+        {
+          "name": "Pop---J-pop",
+          "score": 0.2607
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.1025
+        },
+        {
+          "name": "Pop---K-pop",
+          "score": 0.0999
+        }
+      ]
+    },
+    "0gNwgVOL0CLgvKtuzAJTwF": {
+      "tempo": 152,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.3034,
+      "happy": 0.4282,
+      "sad": 0.2856,
+      "relaxed": 0.214,
+      "aggressive": 0.7008,
+      "party": 0.3809,
+      "acoustic": 0.1048,
+      "instrumental": 0.2013,
+      "valence": 0.6512,
+      "arousal": 0.5829,
+      "genres": [
+        {
+          "name": "Rock---Heavy Metal",
+          "score": 0.1671
+        },
+        {
+          "name": "Rock---Gothic Metal",
+          "score": 0.1548
+        },
+        {
+          "name": "Rock---Hard Rock",
+          "score": 0.1403
+        }
+      ]
+    },
+    "0hWopIsa5BtYfaavvxAdku": {
+      "tempo": 130.7,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.9579,
+      "happy": 0.6567,
+      "sad": 0.2977,
+      "relaxed": 0.9596,
+      "aggressive": 0.0026,
+      "party": 0.3286,
+      "acoustic": 0.3785,
+      "instrumental": 0.1218,
+      "valence": 0.6588,
+      "arousal": 0.772,
+      "genres": [
+        {
+          "name": "Reggae---Reggae-Pop",
+          "score": 0.1337
+        },
+        {
+          "name": "Reggae---Roots Reggae",
+          "score": 0.0977
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.0939
+        }
+      ]
+    },
+    "0haoDgX7K78fJJR5UXzh8G": {
+      "tempo": 131.4,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.9938,
+      "happy": 0.7649,
+      "sad": 0.0421,
+      "relaxed": 0.0672,
+      "aggressive": 0.1487,
+      "party": 0.9908,
+      "acoustic": 0.0045,
+      "instrumental": 0.2706,
+      "valence": 0.6984,
+      "arousal": 0.6949,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2305
+        },
+        {
+          "name": "Electronic---Freestyle",
+          "score": 0.2099
+        },
+        {
+          "name": "Electronic---Electro",
+          "score": 0.2017
+        }
+      ]
+    },
+    "0uzNud88n4dRpgw0ZopzjP": {
+      "tempo": 115,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.9762,
+      "happy": 0.8322,
+      "sad": 0.4271,
+      "relaxed": 0.8323,
+      "aggressive": 0.0024,
+      "party": 0.2869,
+      "acoustic": 0.4038,
+      "instrumental": 0.0337,
+      "valence": 0.6477,
+      "arousal": 0.6549,
+      "genres": [
+        {
+          "name": "Pop---K-pop",
+          "score": 0.1148
+        },
+        {
+          "name": "Funk / Soul---Neo Soul",
+          "score": 0.1091
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.0974
+        }
+      ]
+    },
+    "10bpQIJmfF41c85SXmIMIJ": {
+      "tempo": 114,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.8926,
+      "happy": 0.6099,
+      "sad": 0.3983,
+      "relaxed": 0.5461,
+      "aggressive": 0.0124,
+      "party": 0.6145,
+      "acoustic": 0.0752,
+      "instrumental": 0.0905,
+      "valence": 0.7272,
+      "arousal": 0.6639,
+      "genres": [
+        {
+          "name": "Pop---K-pop",
+          "score": 0.133
+        },
+        {
+          "name": "Pop---J-pop",
+          "score": 0.1269
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.111
+        }
+      ]
+    },
+    "1CL4smvwmnogAoPZlRyeAS": {
+      "tempo": 107.9,
+      "key": "C#",
+      "mode": "major",
+      "danceable": 0.9988,
+      "happy": 0.2646,
+      "sad": 0.0617,
+      "relaxed": 0.4618,
+      "aggressive": 0.0082,
+      "party": 0.8454,
+      "acoustic": 0.007,
+      "instrumental": 0.7886,
+      "valence": 0.4727,
+      "arousal": 0.5212,
+      "genres": [
+        {
+          "name": "Electronic---Vaporwave",
+          "score": 0.7314
+        },
+        {
+          "name": "Electronic---Synthwave",
+          "score": 0.2829
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2546
+        }
+      ]
+    },
+    "1DBqmybmBZiJ0N98hbthPD": {
+      "tempo": 103.5,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.9972,
+      "happy": 0.4158,
+      "sad": 0.2843,
+      "relaxed": 0.9353,
+      "aggressive": 0.0022,
+      "party": 0.5298,
+      "acoustic": 0.0939,
+      "instrumental": 0.3361,
+      "valence": 0.5697,
+      "arousal": 0.6208,
+      "genres": [
+        {
+          "name": "Pop---K-pop",
+          "score": 0.433
+        },
+        {
+          "name": "Pop---Bubblegum",
+          "score": 0.1412
+        },
+        {
+          "name": "Electronic---Dance-pop",
+          "score": 0.1232
+        }
+      ]
+    },
+    "1HDqBV6gWeqFStJHLmPjh4": {
+      "tempo": 156.3,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.4757,
+      "happy": 0.1969,
+      "sad": 0.2708,
+      "relaxed": 0.6657,
+      "aggressive": 0.0002,
+      "party": 0.5402,
+      "acoustic": 0.0223,
+      "instrumental": 0.1866,
+      "valence": 0.6143,
+      "arousal": 0.6316,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.6803
+        },
+        {
+          "name": "Pop---City Pop",
+          "score": 0.4733
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.3958
+        }
+      ]
+    },
+    "1PLxCD183hiMW2ajB5givF": {
+      "tempo": 132.8,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.0823,
+      "happy": 0.3664,
+      "sad": 0.6354,
+      "relaxed": 0.589,
+      "aggressive": 0.0023,
+      "party": 0.1069,
+      "acoustic": 0.1893,
+      "instrumental": 0.5977,
+      "valence": 0.5563,
+      "arousal": 0.5496,
+      "genres": [
+        {
+          "name": "Pop---Ballad",
+          "score": 0.1297
+        },
+        {
+          "name": "Jazz---Smooth Jazz",
+          "score": 0.0667
+        },
+        {
+          "name": "Rock---Prog Rock",
+          "score": 0.0621
+        }
+      ]
+    },
+    "1SmwJJ8YVgiXtyE6elhUx1": {
+      "tempo": 99,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.4775,
+      "happy": 0.8509,
+      "sad": 0.5505,
+      "relaxed": 0.796,
+      "aggressive": 0.0026,
+      "party": 0.6591,
+      "acoustic": 0.5056,
+      "instrumental": 0.6577,
+      "valence": 0.6072,
+      "arousal": 0.6909,
+      "genres": [
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.3239
+        },
+        {
+          "name": "Jazz---Fusion",
+          "score": 0.3118
+        },
+        {
+          "name": "Pop---City Pop",
+          "score": 0.2306
+        }
+      ]
+    },
+    "1YGMDpFpzaICgFrmJYUV9j": {
+      "tempo": 123.3,
+      "key": "A#",
+      "mode": "major",
+      "danceable": 0.4736,
+      "happy": 0.0678,
+      "sad": 0.7377,
+      "relaxed": 0.8855,
+      "aggressive": 0,
+      "party": 0.0304,
+      "acoustic": 0.4245,
+      "instrumental": 0.5378,
+      "valence": 0.6424,
+      "arousal": 0.6997,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.7974
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.3497
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.3372
+        }
+      ]
+    },
+    "1dLeSutde2Nt4DIWaLKxXO": {
+      "tempo": 112.4,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.9895,
+      "happy": 0.3703,
+      "sad": 0.1595,
+      "relaxed": 0.5168,
+      "aggressive": 0.0004,
+      "party": 0.9174,
+      "acoustic": 0.004,
+      "instrumental": 0.1814,
+      "valence": 0.6729,
+      "arousal": 0.7753,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9959
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.8822
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.5525
+        }
+      ]
+    },
+    "1jXDJKlpjzKyVvla4lpC4l": {
+      "tempo": 110.5,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.3203,
+      "happy": 0.7395,
+      "sad": 0.5142,
+      "relaxed": 0.4818,
+      "aggressive": 0.0026,
+      "party": 0.3419,
+      "acoustic": 0.4826,
+      "instrumental": 0.2831,
+      "valence": 0.5975,
+      "arousal": 0.61,
+      "genres": [
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.175
+        },
+        {
+          "name": "Pop---City Pop",
+          "score": 0.1547
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.124
+        }
+      ]
+    },
+    "1xCYHtj7sgJQbgMv9AxBRM": {
+      "tempo": 142.8,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.3972,
+      "happy": 0.4741,
+      "sad": 0.2357,
+      "relaxed": 0.2979,
+      "aggressive": 0.0329,
+      "party": 0.7513,
+      "acoustic": 0.0224,
+      "instrumental": 0.2496,
+      "valence": 0.5862,
+      "arousal": 0.6823,
+      "genres": [
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.4277
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2784
+        },
+        {
+          "name": "Pop---City Pop",
+          "score": 0.1434
+        }
+      ]
+    },
+    "1xKvK6t2HbqYgMZClqIYzL": {
+      "tempo": 121.1,
+      "key": "B",
+      "mode": "major",
+      "danceable": 0.8718,
+      "happy": 0.9564,
+      "sad": 0.0633,
+      "relaxed": 0.1511,
+      "aggressive": 0.0207,
+      "party": 0.9523,
+      "acoustic": 0.0732,
+      "instrumental": 0.0453,
+      "valence": 0.6765,
+      "arousal": 0.7217,
+      "genres": [
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.219
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.1534
+        },
+        {
+          "name": "Electronic---Euro-Disco",
+          "score": 0.0983
+        }
+      ]
+    },
+    "22p7tgi6cFVBaH7vAbgcUY": {
+      "tempo": 108.2,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.7849,
+      "happy": 0.0447,
+      "sad": 0.2862,
+      "relaxed": 0.563,
+      "aggressive": 0,
+      "party": 0.5655,
+      "acoustic": 0.0332,
+      "instrumental": 0.5248,
+      "valence": 0.6729,
+      "arousal": 0.7144,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9942
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.8076
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.3144
+        }
+      ]
+    },
+    "2BHj31ufdEqVK5CkYDp9mA": {
+      "tempo": 108.3,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.6931,
+      "happy": 0.1821,
+      "sad": 0.5536,
+      "relaxed": 0.6745,
+      "aggressive": 0.0003,
+      "party": 0.5083,
+      "acoustic": 0.0453,
+      "instrumental": 0.5895,
+      "valence": 0.6218,
+      "arousal": 0.6564,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9334
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2691
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.1861
+        }
+      ]
+    },
+    "2BIbdQQLiKkx5jIOlebKxO": {
+      "tempo": 100,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.9983,
+      "happy": 0.5392,
+      "sad": 0.0447,
+      "relaxed": 0.6319,
+      "aggressive": 0.0056,
+      "party": 0.9493,
+      "acoustic": 0.0016,
+      "instrumental": 0.9058,
+      "valence": 0.5301,
+      "arousal": 0.4964,
+      "genres": [
+        {
+          "name": "Electronic---Synthwave",
+          "score": 0.7094
+        },
+        {
+          "name": "Electronic---Chillwave",
+          "score": 0.4086
+        },
+        {
+          "name": "Electronic---Italo-Disco",
+          "score": 0.2006
+        }
+      ]
+    },
+    "2CzYHourfYD0fQBaBHgCNS": {
+      "tempo": 135.5,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.6445,
+      "happy": 0.689,
+      "sad": 0.479,
+      "relaxed": 0.5644,
+      "aggressive": 0.0002,
+      "party": 0.645,
+      "acoustic": 0.159,
+      "instrumental": 0.1987,
+      "valence": 0.5819,
+      "arousal": 0.6697,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.6999
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2819
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.2082
+        }
+      ]
+    },
+    "2JCdUwmGDO3SBkhwkfRaLr": {
+      "tempo": 105,
+      "key": "C#",
+      "mode": "minor",
+      "danceable": 0.9977,
+      "happy": 0.6618,
+      "sad": 0.2291,
+      "relaxed": 0.8043,
+      "aggressive": 0.0021,
+      "party": 0.8389,
+      "acoustic": 0.1237,
+      "instrumental": 0.0458,
+      "valence": 0.5645,
+      "arousal": 0.6291,
+      "genres": [
+        {
+          "name": "Pop---K-pop",
+          "score": 0.1818
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.1413
+        },
+        {
+          "name": "Electronic---Nu-Disco",
+          "score": 0.116
+        }
+      ]
+    },
+    "2JEgJc3qlzTr96IBqfeulB": {
+      "tempo": 119.9,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.9825,
+      "happy": 0.7844,
+      "sad": 0.1894,
+      "relaxed": 0.5531,
+      "aggressive": 0.0011,
+      "party": 0.9362,
+      "acoustic": 0.006,
+      "instrumental": 0.7189,
+      "valence": 0.6294,
+      "arousal": 0.5992,
+      "genres": [
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.4283
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.2591
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.227
+        }
+      ]
+    },
+    "2Xvn2lHfcHfWU7TpwiEBGr": {
+      "tempo": 118.1,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.6597,
+      "happy": 0.4521,
+      "sad": 0.6626,
+      "relaxed": 0.9415,
+      "aggressive": 0.0004,
+      "party": 0.1931,
+      "acoustic": 0.3223,
+      "instrumental": 0.5605,
+      "valence": 0.6133,
+      "arousal": 0.6378,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.7621
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.3998
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.3701
+        }
+      ]
+    },
+    "2aaOJJd2fBkd4es7vI2h2a": {
+      "tempo": 87.1,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.9088,
+      "happy": 0.4564,
+      "sad": 0.436,
+      "relaxed": 0.6619,
+      "aggressive": 0.0014,
+      "party": 0.5052,
+      "acoustic": 0.0789,
+      "instrumental": 0.3173,
+      "valence": 0.5806,
+      "arousal": 0.5812,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.4
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.3654
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.3311
+        }
+      ]
+    },
+    "2fggk38cFG35W94aUrU7mg": {
+      "tempo": 108,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.9664,
+      "happy": 0.8671,
+      "sad": 0.3319,
+      "relaxed": 0.7748,
+      "aggressive": 0.0019,
+      "party": 0.7356,
+      "acoustic": 0.1927,
+      "instrumental": 0.0609,
+      "valence": 0.6485,
+      "arousal": 0.7398,
+      "genres": [
+        {
+          "name": "Pop---Bubblegum",
+          "score": 0.1308
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.1197
+        },
+        {
+          "name": "Pop---K-pop",
+          "score": 0.093
+        }
+      ]
+    },
+    "2iDjKR2fXQyODcDKUMoWHK": {
+      "tempo": 107.4,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.9623,
+      "happy": 0.9308,
+      "sad": 0.2515,
+      "relaxed": 0.6361,
+      "aggressive": 0.0208,
+      "party": 0.7616,
+      "acoustic": 0.387,
+      "instrumental": 0.371,
+      "valence": 0.6209,
+      "arousal": 0.6988,
+      "genres": [
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1929
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.1495
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1136
+        }
+      ]
+    },
+    "30wNRf3NQ1PpJiZ2lzleeB": {
+      "tempo": 149.1,
+      "key": "C#",
+      "mode": "minor",
+      "danceable": 0.6116,
+      "happy": 0.7042,
+      "sad": 0.1277,
+      "relaxed": 0.3666,
+      "aggressive": 0.0005,
+      "party": 0.7616,
+      "acoustic": 0.003,
+      "instrumental": 0.1427,
+      "valence": 0.6117,
+      "arousal": 0.6729,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.4917
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.4529
+        },
+        {
+          "name": "Stage \u0026 Screen---Theme",
+          "score": 0.1835
+        }
+      ]
+    },
+    "36KzChdV4wKByD8Dfn2c10": {
+      "tempo": 108.8,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.9785,
+      "happy": 0.8638,
+      "sad": 0.0685,
+      "relaxed": 0.0947,
+      "aggressive": 0.2719,
+      "party": 0.9868,
+      "acoustic": 0.0044,
+      "instrumental": 0.0445,
+      "valence": 0.7713,
+      "arousal": 0.688,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2967
+        },
+        {
+          "name": "Electronic---Electro",
+          "score": 0.2129
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.152
+        }
+      ]
+    },
+    "37NPLfEZQQ0rZTa9SRqWBL": {
+      "tempo": 122.3,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.4257,
+      "happy": 0.5807,
+      "sad": 0.5262,
+      "relaxed": 0.5528,
+      "aggressive": 0.0016,
+      "party": 0.51,
+      "acoustic": 0.2434,
+      "instrumental": 0.5365,
+      "valence": 0.637,
+      "arousal": 0.651,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.6323
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.3167
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.2391
+        }
+      ]
+    },
+    "37k5Fz1L65ypPdLOnO2EWr": {
+      "tempo": 88.8,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.3608,
+      "happy": 0.4915,
+      "sad": 0.7221,
+      "relaxed": 0.9799,
+      "aggressive": 0.0003,
+      "party": 0.0207,
+      "acoustic": 0.9283,
+      "instrumental": 0.0426,
+      "valence": 0.5582,
+      "arousal": 0.6589,
+      "genres": [
+        {
+          "name": "Jazz---Bossa Nova",
+          "score": 0.3221
+        },
+        {
+          "name": "Latin---Bossanova",
+          "score": 0.2163
+        },
+        {
+          "name": "Jazz---Easy Listening",
+          "score": 0.1623
+        }
+      ]
+    },
+    "38LUbz74v3nmP8x0efElw2": {
+      "tempo": 78.6,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.7846,
+      "happy": 0.3651,
+      "sad": 0.4599,
+      "relaxed": 0.7608,
+      "aggressive": 0.0033,
+      "party": 0.1838,
+      "acoustic": 0.1902,
+      "instrumental": 0.4791,
+      "valence": 0.5579,
+      "arousal": 0.6118,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.5889
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.5501
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.3479
+        }
+      ]
+    },
+    "38LrhW3eQSt3cK88dkvl5e": {
+      "tempo": 147.1,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.1997,
+      "happy": 0.5071,
+      "sad": 0.3041,
+      "relaxed": 0.2631,
+      "aggressive": 0.0406,
+      "party": 0.7746,
+      "acoustic": 0.0393,
+      "instrumental": 0.2264,
+      "valence": 0.5307,
+      "arousal": 0.5887,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2411
+        },
+        {
+          "name": "Pop---City Pop",
+          "score": 0.2402
+        },
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.1806
+        }
+      ]
+    },
+    "3EgwBksC7kIeK346S1AUqs": {
+      "tempo": 140,
+      "key": "D#",
+      "mode": "major",
+      "danceable": 0.8984,
+      "happy": 0.1581,
+      "sad": 0.1541,
+      "relaxed": 0.9533,
+      "aggressive": 0.0057,
+      "party": 0.6182,
+      "acoustic": 0.0294,
+      "instrumental": 0.9899,
+      "valence": 0.5761,
+      "arousal": 0.5189,
+      "genres": [
+        {
+          "name": "Electronic---Ambient",
+          "score": 0.5208
+        },
+        {
+          "name": "Electronic---Berlin-School",
+          "score": 0.2256
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.1972
+        }
+      ]
+    },
+    "3KmJxDavdxyfGcy4HlZubc": {
+      "tempo": 117.8,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.4058,
+      "happy": 0.4099,
+      "sad": 0.6045,
+      "relaxed": 0.7865,
+      "aggressive": 0.0015,
+      "party": 0.1072,
+      "acoustic": 0.5333,
+      "instrumental": 0.8553,
+      "valence": 0.5989,
+      "arousal": 0.6163,
+      "genres": [
+        {
+          "name": "Jazz---Smooth Jazz",
+          "score": 0.189
+        },
+        {
+          "name": "Electronic---Acid Jazz",
+          "score": 0.1428
+        },
+        {
+          "name": "Jazz---Jazz-Funk",
+          "score": 0.1199
+        }
+      ]
+    },
+    "3M1ys9zYaEbtAC9BxS4mGj": {
+      "tempo": 122.3,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.9878,
+      "happy": 0.6048,
+      "sad": 0.1539,
+      "relaxed": 0.2271,
+      "aggressive": 0.0018,
+      "party": 0.541,
+      "acoustic": 0.0187,
+      "instrumental": 0.0024,
+      "valence": 0.6449,
+      "arousal": 0.8377,
+      "genres": [
+        {
+          "name": "Pop---Ballad",
+          "score": 0.4703
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2648
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.1766
+        }
+      ]
+    },
+    "3UjlRMbk2LX5vYXGScJm3u": {
+      "tempo": 124,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.9973,
+      "happy": 0.8416,
+      "sad": 0.1507,
+      "relaxed": 0.5263,
+      "aggressive": 0.0054,
+      "party": 0.8506,
+      "acoustic": 0.0619,
+      "instrumental": 0.112,
+      "valence": 0.6829,
+      "arousal": 0.6988,
+      "genres": [
+        {
+          "name": "Pop---J-pop",
+          "score": 0.3489
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.2216
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.2204
+        }
+      ]
+    },
+    "3WxATUIaUWiMkcpil3OQYS": {
+      "tempo": 93.9,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.6138,
+      "happy": 0.191,
+      "sad": 0.4344,
+      "relaxed": 0.6519,
+      "aggressive": 0.0001,
+      "party": 0.1812,
+      "acoustic": 0.1089,
+      "instrumental": 0.6149,
+      "valence": 0.6906,
+      "arousal": 0.692,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9786
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.8461
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.8184
+        }
+      ]
+    },
+    "3eHHWsljCmn0bUslDtjJim": {
+      "tempo": 130,
+      "key": "F#",
+      "mode": "major",
+      "danceable": 0.9909,
+      "happy": 0.8215,
+      "sad": 0.0825,
+      "relaxed": 0.3479,
+      "aggressive": 0.0501,
+      "party": 0.9524,
+      "acoustic": 0.0122,
+      "instrumental": 0.1702,
+      "valence": 0.7023,
+      "arousal": 0.8166,
+      "genres": [
+        {
+          "name": "Pop---J-pop",
+          "score": 0.7756
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.1121
+        },
+        {
+          "name": "Pop---K-pop",
+          "score": 0.0915
+        }
+      ]
+    },
+    "3nByGKtrUugm8bfsNGazAV": {
+      "tempo": 93.9,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.9152,
+      "happy": 0.1843,
+      "sad": 0.3667,
+      "relaxed": 0.6136,
+      "aggressive": 0.0007,
+      "party": 0.6192,
+      "acoustic": 0.0861,
+      "instrumental": 0.1783,
+      "valence": 0.6284,
+      "arousal": 0.6351,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.8997
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.619
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.5531
+        }
+      ]
+    },
+    "3piFDiUbzNvtw925JBhgru": {
+      "tempo": 128.6,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.9858,
+      "happy": 0.5587,
+      "sad": 0.1152,
+      "relaxed": 0.2197,
+      "aggressive": 0.1272,
+      "party": 0.8284,
+      "acoustic": 0.0331,
+      "instrumental": 0.2459,
+      "valence": 0.6842,
+      "arousal": 0.7589,
+      "genres": [
+        {
+          "name": "Electronic---Freestyle",
+          "score": 0.142
+        },
+        {
+          "name": "Electronic---Dance-pop",
+          "score": 0.136
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.0892
+        }
+      ]
+    },
+    "3rl3OV2sPIJcMvPTlkFd0y": {
+      "tempo": 156,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.9019,
+      "happy": 0.9227,
+      "sad": 0.0538,
+      "relaxed": 0.2123,
+      "aggressive": 0.0094,
+      "party": 0.9588,
+      "acoustic": 0.0037,
+      "instrumental": 0.0219,
+      "valence": 0.6753,
+      "arousal": 0.7413,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.5922
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.2022
+        },
+        {
+          "name": "Electronic---Euro-Disco",
+          "score": 0.1542
+        }
+      ]
+    },
+    "3uYCbGo0mc5p7volIb5k2N": {
+      "tempo": 118,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.858,
+      "happy": 0.7738,
+      "sad": 0.5275,
+      "relaxed": 0.722,
+      "aggressive": 0.0036,
+      "party": 0.144,
+      "acoustic": 0.5248,
+      "instrumental": 0.8368,
+      "valence": 0.6193,
+      "arousal": 0.669,
+      "genres": [
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.428
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.245
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.2153
+        }
+      ]
+    },
+    "4MmO631CdxuFOm18UVbhkp": {
+      "tempo": 129.9,
+      "key": "A#",
+      "mode": "minor",
+      "danceable": 1,
+      "happy": 0.2913,
+      "sad": 0.0094,
+      "relaxed": 0.0159,
+      "aggressive": 0.0846,
+      "party": 1,
+      "acoustic": 0.0002,
+      "instrumental": 0.2233,
+      "valence": 0.673,
+      "arousal": 0.5942,
+      "genres": [
+        {
+          "name": "Electronic---Vaporwave",
+          "score": 0.8951
+        },
+        {
+          "name": "Electronic---Chillwave",
+          "score": 0.7984
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.7827
+        }
+      ]
+    },
+    "4RvJ5sXFvWt8n9HHt7yBRD": {
+      "tempo": 130.8,
+      "key": "F#",
+      "mode": "minor",
+      "danceable": 0.6815,
+      "happy": 0.1746,
+      "sad": 0.4734,
+      "relaxed": 0.6841,
+      "aggressive": 0.0002,
+      "party": 0.6033,
+      "acoustic": 0.1604,
+      "instrumental": 0.1529,
+      "valence": 0.6202,
+      "arousal": 0.6296,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.3384
+        },
+        {
+          "name": "Funk / Soul---Boogie",
+          "score": 0.305
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2345
+        }
+      ]
+    },
+    "4XSdErknu5ZpqCjTGsm9lf": {
+      "tempo": 111,
+      "key": "C#",
+      "mode": "minor",
+      "danceable": 0.9988,
+      "happy": 0.745,
+      "sad": 0.1397,
+      "relaxed": 0.702,
+      "aggressive": 0.0024,
+      "party": 0.9684,
+      "acoustic": 0.0462,
+      "instrumental": 0.0809,
+      "valence": 0.6477,
+      "arousal": 0.7831,
+      "genres": [
+        {
+          "name": "Pop---K-pop",
+          "score": 0.4058
+        },
+        {
+          "name": "Electronic---Dance-pop",
+          "score": 0.1673
+        },
+        {
+          "name": "Pop---J-pop",
+          "score": 0.1397
+        }
+      ]
+    },
+    "4ZdttYzzjq5XtE4nrsFr5e": {
+      "tempo": 102.5,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.915,
+      "happy": 0.7753,
+      "sad": 0.2069,
+      "relaxed": 0.4399,
+      "aggressive": 0.0026,
+      "party": 0.5738,
+      "acoustic": 0.0177,
+      "instrumental": 0.5671,
+      "valence": 0.6345,
+      "arousal": 0.6934,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2891
+        },
+        {
+          "name": "Electronic---Italo-Disco",
+          "score": 0.1947
+        },
+        {
+          "name": "Electronic---Vaporwave",
+          "score": 0.145
+        }
+      ]
+    },
+    "4wUQvovMEkByMvZNCecZ9v": {
+      "tempo": 114.9,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.6557,
+      "happy": 0.0619,
+      "sad": 0.5845,
+      "relaxed": 0.856,
+      "aggressive": 0.0003,
+      "party": 0.4115,
+      "acoustic": 0.0344,
+      "instrumental": 0.809,
+      "valence": 0.6591,
+      "arousal": 0.6732,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9405
+        },
+        {
+          "name": "Classical---Contemporary",
+          "score": 0.7484
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.5481
+        }
+      ]
+    },
+    "559Z3sS99djTsKWrlcnZSJ": {
+      "tempo": 133.3,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.8465,
+      "happy": 0.9117,
+      "sad": 0.1827,
+      "relaxed": 0.4566,
+      "aggressive": 0.0031,
+      "party": 0.9473,
+      "acoustic": 0.0057,
+      "instrumental": 0.099,
+      "valence": 0.6095,
+      "arousal": 0.684,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.5815
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.4621
+        },
+        {
+          "name": "Pop---Europop",
+          "score": 0.2644
+        }
+      ]
+    },
+    "55Osx69nX7aEAvMTVcocr1": {
+      "tempo": 118.4,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.9458,
+      "happy": 0.4114,
+      "sad": 0.275,
+      "relaxed": 0.5349,
+      "aggressive": 0.009,
+      "party": 0.7021,
+      "acoustic": 0.0096,
+      "instrumental": 0.5886,
+      "valence": 0.6289,
+      "arousal": 0.6611,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.4862
+        },
+        {
+          "name": "Electronic---Euro-Disco",
+          "score": 0.3165
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2238
+        }
+      ]
+    },
+    "59DbihqLQR5UXjYYyFgzYg": {
+      "tempo": 129.3,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.1239,
+      "happy": 0.5923,
+      "sad": 0.4469,
+      "relaxed": 0.3483,
+      "aggressive": 0.0541,
+      "party": 0.4431,
+      "acoustic": 0.1737,
+      "instrumental": 0.5639,
+      "valence": 0.6453,
+      "arousal": 0.6375,
+      "genres": [
+        {
+          "name": "Rock---Prog Rock",
+          "score": 0.1231
+        },
+        {
+          "name": "Jazz---Jazz-Rock",
+          "score": 0.0641
+        },
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.0438
+        }
+      ]
+    },
+    "5DCLkzuWICNar6qn3B393f": {
+      "tempo": 108.3,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.6931,
+      "happy": 0.1821,
+      "sad": 0.5536,
+      "relaxed": 0.6745,
+      "aggressive": 0.0003,
+      "party": 0.5083,
+      "acoustic": 0.0453,
+      "instrumental": 0.5895,
+      "valence": 0.6218,
+      "arousal": 0.6564,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9334
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2691
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.1861
+        }
+      ]
+    },
+    "5Dra6dW1mc7BOh833TDowz": {
+      "tempo": 129.1,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.976,
+      "happy": 0.844,
+      "sad": 0.1976,
+      "relaxed": 0.2447,
+      "aggressive": 0.0041,
+      "party": 0.8841,
+      "acoustic": 0.032,
+      "instrumental": 0.1669,
+      "valence": 0.6503,
+      "arousal": 0.6473,
+      "genres": [
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.2634
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.2447
+        },
+        {
+          "name": "Funk / Soul---Boogie",
+          "score": 0.2418
+        }
+      ]
+    },
+    "5FGtMh3b7owXE7rlJ0u9oU": {
+      "tempo": 132,
+      "key": "F#",
+      "mode": "minor",
+      "danceable": 0.999,
+      "happy": 0.9028,
+      "sad": 0.0566,
+      "relaxed": 0.4222,
+      "aggressive": 0.052,
+      "party": 0.9986,
+      "acoustic": 0.002,
+      "instrumental": 0.428,
+      "valence": 0.7904,
+      "arousal": 0.8352,
+      "genres": [
+        {
+          "name": "Pop---K-pop",
+          "score": 0.8813
+        },
+        {
+          "name": "Electronic---Dance-pop",
+          "score": 0.6116
+        },
+        {
+          "name": "Pop---J-pop",
+          "score": 0.3117
+        }
+      ]
+    },
+    "5IermLpuQmZaTUf0W6Evr5": {
+      "tempo": 115.1,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.4297,
+      "happy": 0.6061,
+      "sad": 0.3536,
+      "relaxed": 0.5161,
+      "aggressive": 0.0164,
+      "party": 0.0947,
+      "acoustic": 0.3565,
+      "instrumental": 0.1974,
+      "valence": 0.6146,
+      "arousal": 0.5475,
+      "genres": [
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.0849
+        },
+        {
+          "name": "Rock---Indie Rock",
+          "score": 0.0843
+        },
+        {
+          "name": "Electronic---Future Jazz",
+          "score": 0.0774
+        }
+      ]
+    },
+    "5LXQeJX8ZGS7Q5ZZ3vtGF7": {
+      "tempo": 107.1,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.9989,
+      "happy": 0.59,
+      "sad": 0.0909,
+      "relaxed": 0.2967,
+      "aggressive": 0.0023,
+      "party": 0.9938,
+      "acoustic": 0.0087,
+      "instrumental": 0.0556,
+      "valence": 0.6911,
+      "arousal": 0.7397,
+      "genres": [
+        {
+          "name": "Funk / Soul---Boogie",
+          "score": 0.7717
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.592
+        },
+        {
+          "name": "Pop---City Pop",
+          "score": 0.5105
+        }
+      ]
+    },
+    "5LZja1KAke25BqjsidAcsq": {
+      "tempo": 122.6,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.7941,
+      "happy": 0.4275,
+      "sad": 0.3056,
+      "relaxed": 0.5751,
+      "aggressive": 0.0001,
+      "party": 0.782,
+      "acoustic": 0.0055,
+      "instrumental": 0.6367,
+      "valence": 0.6854,
+      "arousal": 0.7981,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.9773
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.7576
+        },
+        {
+          "name": "Jazz---Fusion",
+          "score": 0.6208
+        }
+      ]
+    },
+    "5O2NChd8z4hvfHEA4fR1Ko": {
+      "tempo": 123.1,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.9792,
+      "happy": 0.7151,
+      "sad": 0.1514,
+      "relaxed": 0.3379,
+      "aggressive": 0.1008,
+      "party": 0.661,
+      "acoustic": 0.0285,
+      "instrumental": 0.199,
+      "valence": 0.671,
+      "arousal": 0.7035,
+      "genres": [
+        {
+          "name": "Rock---Indie Rock",
+          "score": 0.1363
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.1159
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.0832
+        }
+      ]
+    },
+    "5OUnJyo4Cb9bFPzDWb5GAK": {
+      "tempo": 97.1,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.8426,
+      "happy": 0.5205,
+      "sad": 0.6622,
+      "relaxed": 0.7291,
+      "aggressive": 0.001,
+      "party": 0.2508,
+      "acoustic": 0.0927,
+      "instrumental": 0.2135,
+      "valence": 0.5387,
+      "arousal": 0.5311,
+      "genres": [
+        {
+          "name": "Pop---Ballad",
+          "score": 0.4061
+        },
+        {
+          "name": "Pop---J-pop",
+          "score": 0.2626
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.1603
+        }
+      ]
+    },
+    "5P539VzoDTFEpCCYlWC2Ii": {
+      "tempo": 120.8,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.9421,
+      "happy": 0.6869,
+      "sad": 0.3922,
+      "relaxed": 0.5531,
+      "aggressive": 0.0044,
+      "party": 0.5081,
+      "acoustic": 0.0573,
+      "instrumental": 0.2998,
+      "valence": 0.5614,
+      "arousal": 0.6372,
+      "genres": [
+        {
+          "name": "Electronic---Disco",
+          "score": 0.1961
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1843
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.1512
+        }
+      ]
+    },
+    "5RSpR665UGsu1FFEq1pG8R": {
+      "tempo": 102.3,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.758,
+      "happy": 0.1373,
+      "sad": 0.3855,
+      "relaxed": 0.8425,
+      "aggressive": 0.0012,
+      "party": 0.3652,
+      "acoustic": 0.0712,
+      "instrumental": 0.0136,
+      "valence": 0.5758,
+      "arousal": 0.5422,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.8467
+        },
+        {
+          "name": "Rock---New Wave",
+          "score": 0.5713
+        },
+        {
+          "name": "Electronic---New Wave",
+          "score": 0.4734
+        }
+      ]
+    },
+    "5WTCHYg9G27e9e5HFKGdd1": {
+      "tempo": 93,
+      "key": "F#",
+      "mode": "major",
+      "danceable": 0.7775,
+      "happy": 0.0613,
+      "sad": 0.8423,
+      "relaxed": 0.949,
+      "aggressive": 0.0003,
+      "party": 0.104,
+      "acoustic": 0.1206,
+      "instrumental": 0.0113,
+      "valence": 0.5988,
+      "arousal": 0.6741,
+      "genres": [
+        {
+          "name": "Pop---J-pop",
+          "score": 0.2186
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.186
+        },
+        {
+          "name": "Pop---Vocal",
+          "score": 0.1761
+        }
+      ]
+    },
+    "5Zibf2Skd60yDj5FGkHwi5": {
+      "tempo": 112.9,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.2365,
+      "happy": 0.1915,
+      "sad": 0.9181,
+      "relaxed": 0.9365,
+      "aggressive": 0,
+      "party": 0.0607,
+      "acoustic": 0.6137,
+      "instrumental": 0.0384,
+      "valence": 0.5589,
+      "arousal": 0.5424,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.3148
+        },
+        {
+          "name": "Rock---Soft Rock",
+          "score": 0.31
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.2404
+        }
+      ]
+    },
+    "5e20l8hl7vcF96rYn9FxAM": {
+      "tempo": 90,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.998,
+      "happy": 0.1167,
+      "sad": 0.1241,
+      "relaxed": 0.8421,
+      "aggressive": 0.0138,
+      "party": 0.7626,
+      "acoustic": 0.016,
+      "instrumental": 0.9067,
+      "valence": 0.5732,
+      "arousal": 0.5937,
+      "genres": [
+        {
+          "name": "Electronic---Chillwave",
+          "score": 0.7322
+        },
+        {
+          "name": "Electronic---Synthwave",
+          "score": 0.6925
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.4045
+        }
+      ]
+    },
+    "5eUsZ4GVq8XU4bEvqid2NL": {
+      "tempo": 135.9,
+      "key": "C#",
+      "mode": "minor",
+      "danceable": 0.8168,
+      "happy": 0.8514,
+      "sad": 0.1275,
+      "relaxed": 0.3927,
+      "aggressive": 0.0156,
+      "party": 0.8829,
+      "acoustic": 0.009,
+      "instrumental": 0.0273,
+      "valence": 0.6349,
+      "arousal": 0.7863,
+      "genres": [
+        {
+          "name": "Pop---Ballad",
+          "score": 0.3543
+        },
+        {
+          "name": "Pop---J-pop",
+          "score": 0.2706
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.1987
+        }
+      ]
+    },
+    "5tAINIC5mrsL4yu3Pi8Krb": {
+      "tempo": 119.6,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.9989,
+      "happy": 0.9647,
+      "sad": 0.0127,
+      "relaxed": 0.124,
+      "aggressive": 0.0088,
+      "party": 0.9844,
+      "acoustic": 0.0006,
+      "instrumental": 0.322,
+      "valence": 0.6896,
+      "arousal": 0.7992,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.8299
+        },
+        {
+          "name": "Electronic---Euro-Disco",
+          "score": 0.4529
+        },
+        {
+          "name": "Pop---Europop",
+          "score": 0.385
+        }
+      ]
+    },
+    "5w6EvyvomUSWsF430iixmc": {
+      "tempo": 122.6,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.0733,
+      "happy": 0.355,
+      "sad": 0.6731,
+      "relaxed": 0.7683,
+      "aggressive": 0.0004,
+      "party": 0.187,
+      "acoustic": 0.4104,
+      "instrumental": 0.484,
+      "valence": 0.5722,
+      "arousal": 0.626,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.7364
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.1885
+        },
+        {
+          "name": "Jazz---Fusion",
+          "score": 0.1188
+        }
+      ]
+    },
+    "67FOOzqXQ2nakluuYtlCPH": {
+      "tempo": 125.6,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.7856,
+      "happy": 0.7165,
+      "sad": 0.3687,
+      "relaxed": 0.4202,
+      "aggressive": 0.0047,
+      "party": 0.4606,
+      "acoustic": 0.1156,
+      "instrumental": 0.1888,
+      "valence": 0.6252,
+      "arousal": 0.6839,
+      "genres": [
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.1731
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1342
+        },
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.1331
+        }
+      ]
+    },
+    "6GbgHcskEO8vk9Rlrw908V": {
+      "tempo": 133.7,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.6737,
+      "happy": 0.4127,
+      "sad": 0.4915,
+      "relaxed": 0.5274,
+      "aggressive": 0.0004,
+      "party": 0.7953,
+      "acoustic": 0.0135,
+      "instrumental": 0.2813,
+      "valence": 0.6122,
+      "arousal": 0.6763,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.3446
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.3205
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2859
+        }
+      ]
+    },
+    "6LPIJOGd47u874BQCdlFf8": {
+      "tempo": 97.9,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.0204,
+      "happy": 0.0104,
+      "sad": 0.9475,
+      "relaxed": 0.9935,
+      "aggressive": 0.0023,
+      "party": 0.0034,
+      "acoustic": 0.9167,
+      "instrumental": 0.9443,
+      "valence": 0.3791,
+      "arousal": 0.3672,
+      "genres": [
+        {
+          "name": "Classical---Neo-Classical",
+          "score": 0.2724
+        },
+        {
+          "name": "Classical---Contemporary",
+          "score": 0.2407
+        },
+        {
+          "name": "Stage \u0026 Screen---Soundtrack",
+          "score": 0.2012
+        }
+      ]
+    },
+    "6Su8H0Iw3qw9OdrdRfjwLT": {
+      "tempo": 93,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.9962,
+      "happy": 0.4381,
+      "sad": 0.3398,
+      "relaxed": 0.904,
+      "aggressive": 0.0049,
+      "party": 0.1334,
+      "acoustic": 0.1123,
+      "instrumental": 0.9826,
+      "valence": 0.4731,
+      "arousal": 0.5189,
+      "genres": [
+        {
+          "name": "Hip Hop---Instrumental",
+          "score": 0.2417
+        },
+        {
+          "name": "Hip Hop---Jazzy Hip-Hop",
+          "score": 0.2326
+        },
+        {
+          "name": "Hip Hop---Boom Bap",
+          "score": 0.2313
+        }
+      ]
+    },
+    "6WrpjvK0YXAts1Tvqxhh77": {
+      "tempo": 102,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.5829,
+      "happy": 0.8375,
+      "sad": 0.3246,
+      "relaxed": 0.1583,
+      "aggressive": 0.1657,
+      "party": 0.6721,
+      "acoustic": 0.0979,
+      "instrumental": 0.0049,
+      "valence": 0.7926,
+      "arousal": 0.6524,
+      "genres": [
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.203
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Flamenco",
+          "score": 0.1636
+        },
+        {
+          "name": "Pop---J-pop",
+          "score": 0.1055
+        }
+      ]
+    },
+    "6h3NfvlWed8jwv1xECzQE4": {
+      "tempo": 112.7,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.9396,
+      "happy": 0.5748,
+      "sad": 0.2448,
+      "relaxed": 0.6726,
+      "aggressive": 0.0032,
+      "party": 0.4669,
+      "acoustic": 0.0251,
+      "instrumental": 0.9134,
+      "valence": 0.5345,
+      "arousal": 0.5727,
+      "genres": [
+        {
+          "name": "Electronic---Disco",
+          "score": 0.2101
+        },
+        {
+          "name": "Electronic---Ambient",
+          "score": 0.1544
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.1473
+        }
+      ]
+    },
+    "6my8cjyP9ZwWGSl5XpQkyA": {
+      "tempo": 125.9,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.9278,
+      "happy": 0.0866,
+      "sad": 0.5063,
+      "relaxed": 0.8071,
+      "aggressive": 0.0002,
+      "party": 0.6932,
+      "acoustic": 0.0315,
+      "instrumental": 0.9019,
+      "valence": 0.61,
+      "arousal": 0.6492,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.8368
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2939
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2391
+        }
+      ]
+    },
+    "74UH2neux1IsLGhW0IOG4j": {
+      "tempo": 135.4,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.4704,
+      "happy": 0.1839,
+      "sad": 0.2643,
+      "relaxed": 0.5728,
+      "aggressive": 0.002,
+      "party": 0.4808,
+      "acoustic": 0.0084,
+      "instrumental": 0.0434,
+      "valence": 0.5743,
+      "arousal": 0.6197,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.5948
+        },
+        {
+          "name": "Funk / Soul---Boogie",
+          "score": 0.4679
+        },
+        {
+          "name": "Pop---City Pop",
+          "score": 0.4677
+        }
+      ]
+    },
+    "78032GHRcUBBCFxpRBQcnH": {
+      "tempo": 118.7,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.7148,
+      "happy": 0.8417,
+      "sad": 0.4072,
+      "relaxed": 0.4549,
+      "aggressive": 0.015,
+      "party": 0.4466,
+      "acoustic": 0.3444,
+      "instrumental": 0.0095,
+      "valence": 0.7764,
+      "arousal": 0.6657,
+      "genres": [
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.1114
+        },
+        {
+          "name": "Rock---Indie Rock",
+          "score": 0.074
+        },
+        {
+          "name": "Funk / Soul---Soul",
+          "score": 0.0665
+        }
+      ]
+    },
+    "7KYzARBusZhyZ6jygZDmVr": {
+      "tempo": 120,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.5358,
+      "happy": 0.3534,
+      "sad": 0.3163,
+      "relaxed": 0.7317,
+      "aggressive": 0.0002,
+      "party": 0.5156,
+      "acoustic": 0.027,
+      "instrumental": 0.7057,
+      "valence": 0.6567,
+      "arousal": 0.7312,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.7342
+        },
+        {
+          "name": "Jazz---Fusion",
+          "score": 0.5152
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.3055
+        }
+      ]
+    },
+    "7Kk5e6Ipnm2uJQ6IrKbghy": {
+      "tempo": 117.1,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.4509,
+      "happy": 0.3073,
+      "sad": 0.7213,
+      "relaxed": 0.7687,
+      "aggressive": 0.0033,
+      "party": 0.4661,
+      "acoustic": 0.3326,
+      "instrumental": 0.0724,
+      "valence": 0.5757,
+      "arousal": 0.6173,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.5093
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2124
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.2047
+        }
+      ]
+    },
+    "7LUWoJeF00KOeu3jc7nb5E": {
+      "tempo": 117.9,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.4117,
+      "happy": 0.6181,
+      "sad": 0.6905,
+      "relaxed": 0.663,
+      "aggressive": 0.0646,
+      "party": 0.0361,
+      "acoustic": 0.6433,
+      "instrumental": 0.0913,
+      "valence": 0.6882,
+      "arousal": 0.5896,
+      "genres": [
+        {
+          "name": "Rock---Alternative Rock",
+          "score": 0.3803
+        },
+        {
+          "name": "Rock---Indie Rock",
+          "score": 0.3745
+        },
+        {
+          "name": "Rock---Brit Pop",
+          "score": 0.1858
+        }
+      ]
+    },
+    "7N3rC3JFYx0X4lyDfPimG3": {
+      "tempo": 135.3,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.9157,
+      "happy": 0.9237,
+      "sad": 0.0473,
+      "relaxed": 0.2034,
+      "aggressive": 0.0177,
+      "party": 0.9622,
+      "acoustic": 0.0053,
+      "instrumental": 0.0179,
+      "valence": 0.6972,
+      "arousal": 0.7574,
+      "genres": [
+        {
+          "name": "Children's---Educational",
+          "score": 0.4384
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.3248
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.2977
+        }
+      ]
+    },
+    "7n7Z6GbQzGn7Q1wxm9Gdkp": {
+      "tempo": 123.1,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.9996,
+      "happy": 0.9101,
+      "sad": 0.1774,
+      "relaxed": 0.6598,
+      "aggressive": 0.0012,
+      "party": 0.7539,
+      "acoustic": 0.0297,
+      "instrumental": 0.1494,
+      "valence": 0.6956,
+      "arousal": 0.7909,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.3065
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.1592
+        },
+        {
+          "name": "Electronic---Nu-Disco",
+          "score": 0.1538
+        }
+      ]
+    },
+    "7rU6Iebxzlvqy5t857bKFq": {
+      "tempo": 102.2,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.7701,
+      "happy": 0.468,
+      "sad": 0.3672,
+      "relaxed": 0.529,
+      "aggressive": 0.0007,
+      "party": 0.7225,
+      "acoustic": 0.0529,
+      "instrumental": 0.0372,
+      "valence": 0.7076,
+      "arousal": 0.7827,
+      "genres": [
+        {
+          "name": "Pop---City Pop",
+          "score": 0.715
+        },
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.3042
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.228
+        }
+      ]
+    },
+    "7wK3vFraZXIjVxOqObajAL": {
+      "tempo": 108.8,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.9785,
+      "happy": 0.8638,
+      "sad": 0.0685,
+      "relaxed": 0.0947,
+      "aggressive": 0.2719,
+      "party": 0.9868,
+      "acoustic": 0.0044,
+      "instrumental": 0.0445,
+      "valence": 0.7713,
+      "arousal": 0.688,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2967
+        },
+        {
+          "name": "Electronic---Electro",
+          "score": 0.2129
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.152
+        }
+      ]
+    },
+    "7zHZipQz3S2Y8agPuk870a": {
+      "tempo": 129.3,
+      "key": "C#",
+      "mode": "major",
+      "danceable": 0.8613,
+      "happy": 0.9138,
+      "sad": 0.1831,
+      "relaxed": 0.2304,
+      "aggressive": 0.0308,
+      "party": 0.9045,
+      "acoustic": 0.0476,
+      "instrumental": 0.0692,
+      "valence": 0.5721,
+      "arousal": 0.6152,
+      "genres": [
+        {
+          "name": "Pop---Kayōkyoku",
+          "score": 0.1924
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.1762
+        },
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.1014
+        }
+      ]
+    }
+  },
+  "model_version": "essentia-effnet1-deam2-v1",
+  "photos": {
+    "queries": [
+      "Expressway overpass pillars under sodium haze, Tokyo, long exposure",
+      "Guardrail and parked white hatchback on a Shonan coast road at dawn sea mist",
+      "Yokohama Bay Bridge cables photographed from a moving car, motion blur",
+      "Cassette tapes stacked on a sun-faded car dashboard in midday heat",
+      "Pastel-tiled public pool in a Kanagawa suburb with stacked white lounge chairs",
+      "Apartment balcony with hanging laundry and a potted cactus above a low-rise grid",
+      "Konbini lit in an empty suburban car park at 2am, one scooter parked",
+      "Ginza department store facade at night with a long strip of shadow",
+      "Kissaten window with a ceiling fan and iced coffee on a Formica table",
+      "Coastal highway guardrail with a surfboard rack on a car roof in heat haze"
+    ],
+    "palette": [
+      "#1f3a48",
+      "#4f7b84",
+      "#d9a441",
+      "#e6a18f",
+      "#efe2c6"
+    ],
+    "photos": [
+      {
+        "id": 7165,
+        "title": "Portugal / Pentax67 / 105 2.4 / Portra 400",
+        "author": "bobamilktea74",
+        "permalink": "https://www.reddit.com/r/analog/comments/13c1i5r/portugal_pentax67_105_24_portra_400/",
+        "caption": "A white car is parked on a cobblestone street overlooking the ocean under a cloudy sky.",
+        "score": 53,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/06259648-8ae8-480f-804b-7af4dc9234f7.jpeg",
+            "width": 720,
+            "height": 575
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/dc252ce7-275a-4132-b3a1-e5f22840657e.jpeg",
+            "width": 1080,
+            "height": 863
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/dcfe3457-61a4-485f-91c1-2d61e6da930c.jpeg",
+            "width": 1440,
+            "height": 1151
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/5478ffbe-96d5-4c8d-a3b9-48a30299b864.jpeg",
+            "width": 2999,
+            "height": 2397
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#434341",
+            "percent": 0.15296884
+          },
+          {
+            "hex": "#8d9490",
+            "percent": 0.15100218
+          },
+          {
+            "hex": "#5c5d57",
+            "percent": 0.14576455
+          },
+          {
+            "hex": "#717e7e",
+            "percent": 0.14218279
+          },
+          {
+            "hex": "#aca99e",
+            "percent": 0.13756165
+          }
+        ],
+        "keywords": [
+          "car",
+          "vehicle",
+          "street",
+          "ocean",
+          "cobblestone",
+          "cloud",
+          "dusk",
+          "portugal"
+        ]
+      },
+      {
+        "id": 47375,
+        "title": "Canon Eos 300 - Fuji c200",
+        "author": "geldbier",
+        "permalink": "https://www.reddit.com/r/analog/comments/rcjrac/canon_eos_300_fuji_c200/",
+        "caption": "Two elevated roads curve through a hazy, dark landscape.",
+        "score": 751,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/761ac1e7d58225500b980d49-low.jpeg",
+            "width": 483,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/761ac1e7d58225500b980d49-medium.jpeg",
+            "width": 724,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/761ac1e7d58225500b980d49-high.jpeg",
+            "width": 965,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/761ac1e7d58225500b980d49-raw.jpeg",
+            "width": 3552,
+            "height": 5300
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#1b1d18",
+            "percent": 0.28299114
+          },
+          {
+            "hex": "#f5f2f0",
+            "percent": 0.24662123
+          },
+          {
+            "hex": "#11140f",
+            "percent": 0.15928226
+          },
+          {
+            "hex": "#2a2b25",
+            "percent": 0.09942489
+          },
+          {
+            "hex": "#e6e1df",
+            "percent": 0.07642052
+          }
+        ],
+        "keywords": [
+          "road",
+          "haze",
+          "fog",
+          "overpass",
+          "curve",
+          "structure",
+          "monumental",
+          "urban",
+          "landscape"
+        ]
+      },
+      {
+        "id": 41270,
+        "title": "Motion | Kodak vision3 500T | Leica M6",
+        "author": "I-am-not-so-normal",
+        "permalink": "https://www.reddit.com/r/analog/comments/1qdkrrc/motion_kodak_vision3_500t_leica_m6/",
+        "caption": "Light trails from buildings and a road are blurred by motion at night.",
+        "score": 2521,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/ddf6133539414fa940bf4ba0-low.jpeg",
+            "width": 576,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/ddf6133539414fa940bf4ba0-medium.jpeg",
+            "width": 864,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/ddf6133539414fa940bf4ba0-high.jpeg",
+            "width": 1152,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/ddf6133539414fa940bf4ba0-raw.jpeg",
+            "width": 3322,
+            "height": 4153
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#141514",
+            "percent": 0.28128376
+          },
+          {
+            "hex": "#192d2a",
+            "percent": 0.15876254
+          },
+          {
+            "hex": "#204b43",
+            "percent": 0.15282118
+          },
+          {
+            "hex": "#34695c",
+            "percent": 0.11502218
+          },
+          {
+            "hex": "#4f8774",
+            "percent": 0.09419608
+          }
+        ],
+        "keywords": [
+          "light trail",
+          "building",
+          "road",
+          "night",
+          "motion blur",
+          "city",
+          "urban"
+        ]
+      },
+      {
+        "id": 51294,
+        "title": "Wildfire smokes the coast in Big Sur | Olympus XA2 | Portra 160",
+        "author": "navazuals",
+        "permalink": "https://www.reddit.com/r/analog/comments/j7my93/wildfire_smokes_the_coast_in_big_sur_olympus_xa2/",
+        "caption": "A winding road with a concrete barrier on both sides disappears into thick fog.",
+        "score": 872,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/656b0bf6e4f3ca73c9caab56-low.jpeg",
+            "width": 720,
+            "height": 482
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/656b0bf6e4f3ca73c9caab56-medium.jpeg",
+            "width": 1080,
+            "height": 722
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/656b0bf6e4f3ca73c9caab56-high.jpeg",
+            "width": 1440,
+            "height": 963
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/656b0bf6e4f3ca73c9caab56-raw.jpeg",
+            "width": 3637,
+            "height": 2433
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#e7dad4",
+            "percent": 0.33929518
+          },
+          {
+            "hex": "#d4c5c0",
+            "percent": 0.20023052
+          },
+          {
+            "hex": "#b7aca0",
+            "percent": 0.10454991
+          },
+          {
+            "hex": "#938664",
+            "percent": 0.1031639
+          },
+          {
+            "hex": "#6e674a",
+            "percent": 0.09439834
+          }
+        ],
+        "keywords": [
+          "road",
+          "fog",
+          "hazy",
+          "big sur",
+          "curve",
+          "barrier",
+          "concrete",
+          "highway",
+          "landscape"
+        ]
+      },
+      {
+        "id": 8878,
+        "title": "Housing complex, Mamiya 7+65mm f4, portra 400",
+        "author": "zoonace",
+        "permalink": "https://www.reddit.com/r/analog/comments/16ciiiq/housing_complex_mamiya_765mm_f4_portra_400/",
+        "caption": "A grid of balconies on a housing complex is adorned with many Singaporean flags and laundry.",
+        "score": 1551,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/d470e915-ec82-4b52-8f0b-866d102a20f7.jpeg",
+            "width": 576,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/249c5f86-3fa6-45f1-9da4-277e115eaa2d.jpeg",
+            "width": 864,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/beee1e50-926f-4137-896d-bc524afeefff.jpeg",
+            "width": 1152,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/c24b2e1d-c1ab-4ab7-aa66-f4a2ec9c79ad.jpeg",
+            "width": 2506,
+            "height": 3132
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#e3d5bd",
+            "percent": 0.17932277
+          },
+          {
+            "hex": "#efebe5",
+            "percent": 0.17605723
+          },
+          {
+            "hex": "#cbb99f",
+            "percent": 0.15443365
+          },
+          {
+            "hex": "#b49b76",
+            "percent": 0.14077575
+          },
+          {
+            "hex": "#56412a",
+            "percent": 0.09475665
+          }
+        ],
+        "keywords": [
+          "housing complex",
+          "balcony",
+          "flag",
+          "singapore",
+          "laundry",
+          "bicycle",
+          "plant",
+          "building",
+          "street"
+        ]
+      },
+      {
+        "id": 40871,
+        "title": "Cars on the Japanese Coast [Nikon FM, 28mm, Fujicolor100]",
+        "author": "Mindless_Lettuce5841",
+        "permalink": "https://www.reddit.com/r/analog/comments/1uhznrz/cars_on_the_japanese_coast_nikon_fm_28mm/",
+        "caption": "A green car with a surfboard on its roof drives along a coastal road next to the ocean.",
+        "score": 371,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/3704741e5a8f72a3e6382d9e-low.jpeg",
+            "width": 720,
+            "height": 599
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/3704741e5a8f72a3e6382d9e-medium.jpeg",
+            "width": 1080,
+            "height": 898
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/3704741e5a8f72a3e6382d9e-high.jpeg",
+            "width": 1440,
+            "height": 1197
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/3704741e5a8f72a3e6382d9e-raw.jpeg",
+            "width": 6974,
+            "height": 5799
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#040303",
+            "percent": 0.27555185
+          },
+          {
+            "hex": "#b7cec9",
+            "percent": 0.23959145
+          },
+          {
+            "hex": "#9c8171",
+            "percent": 0.1649207
+          },
+          {
+            "hex": "#64adbe",
+            "percent": 0.15426173
+          },
+          {
+            "hex": "#686b56",
+            "percent": 0.05894315
+          }
+        ],
+        "keywords": [
+          "car",
+          "vehicle",
+          "surfboard",
+          "ocean",
+          "coast",
+          "road",
+          "japan",
+          "street"
+        ]
+      },
+      {
+        "id": 31019,
+        "title": "Foggy nights, developed and scanned by myself! Pentax ZX-L | 28-80mm | Cinestill 800T",
+        "author": "hlstrmmusic",
+        "permalink": "https://www.reddit.com/r/analog/comments/1hf5np2/foggy_nights_developed_and_scanned_by_myself/",
+        "caption": "A foggy highway at night shows light trails from vehicles and streetlights illuminating the mist.",
+        "score": 246,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/1248eb15-97cb-4eb9-b87a-8054108af1d6.jpeg",
+            "width": 720,
+            "height": 480
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/40665096-04e5-404a-89e4-20066ac908d4.jpeg",
+            "width": 1080,
+            "height": 720
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/a9b9d6d1-3d61-48a0-a3fd-8da7c0ba390b.jpeg",
+            "width": 1440,
+            "height": 960
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/1344e713-80f6-4272-8d46-aab83134844b.jpeg",
+            "width": 4380,
+            "height": 2920
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#4e666d",
+            "percent": 0.20832698
+          },
+          {
+            "hex": "#607b82",
+            "percent": 0.20131261
+          },
+          {
+            "hex": "#8599a1",
+            "percent": 0.17126875
+          },
+          {
+            "hex": "#41525f",
+            "percent": 0.15834287
+          },
+          {
+            "hex": "#374151",
+            "percent": 0.1250731
+          }
+        ],
+        "keywords": [
+          "highway",
+          "night",
+          "fog",
+          "light trail",
+          "streetlight",
+          "overpass",
+          "road",
+          "vehicle",
+          "long exposure",
+          "urban",
+          "transportation"
+        ]
+      },
+      {
+        "id": 32009,
+        "title": "Tables for two [Olympus 35RC | Vision3 250d]",
+        "author": "supposedlyfunthing",
+        "permalink": "https://www.reddit.com/r/analog/comments/1iu6eyv/tables_for_two_olympus_35rc_vision3_250d/",
+        "caption": "Sunlight streams into an outdoor dining area with tables and chairs set for two, overlooking a street with cars and buildings.",
+        "score": 340,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/6853681a-b6ef-4299-94d4-9f1e15b8678d.jpeg",
+            "width": 477,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/07aeb9c8-93ce-455d-af58-cc9bc8d9b616.jpeg",
+            "width": 716,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/e0bcd8e6-8eb2-41d2-b5a8-c83a6e927682.jpeg",
+            "width": 955,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/55dd5830-7407-48b4-8f42-632ec73abcf6.jpeg",
+            "width": 3782,
+            "height": 5703
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#f4f3e5",
+            "percent": 0.17937922
+          },
+          {
+            "hex": "#d2d1c2",
+            "percent": 0.1510191
+          },
+          {
+            "hex": "#5c211e",
+            "percent": 0.13388365
+          },
+          {
+            "hex": "#c5a688",
+            "percent": 0.11778185
+          },
+          {
+            "hex": "#c06e39",
+            "percent": 0.11549324
+          }
+        ],
+        "keywords": [
+          "cafe",
+          "table",
+          "chair",
+          "street",
+          "building",
+          "car",
+          "sunlight",
+          "shadow",
+          "valencia",
+          "grill"
+        ]
+      },
+      {
+        "id": 40970,
+        "title": "SHINJIKU STATION [LEICA M6, CINESTILL 800 PUSHED TO 1200]",
+        "author": "kimd0tchanyang",
+        "permalink": "https://www.reddit.com/r/analog/comments/1uesxnn/shinjiku_station_leica_m6_cinestill_800_pushed_to/",
+        "caption": "A busy street at night is framed by two large pillars, with illuminated buildings and billboards in the background.",
+        "score": 123,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/c416607a8b56e9fac8317440-low.jpeg",
+            "width": 481,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/c416607a8b56e9fac8317440-medium.jpeg",
+            "width": 721,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/c416607a8b56e9fac8317440-high.jpeg",
+            "width": 961,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/c416607a8b56e9fac8317440-raw.jpeg",
+            "width": 2228,
+            "height": 3338
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#051519",
+            "percent": 0.16914458
+          },
+          {
+            "hex": "#010305",
+            "percent": 0.15863892
+          },
+          {
+            "hex": "#1e3f4b",
+            "percent": 0.15714519
+          },
+          {
+            "hex": "#102a32",
+            "percent": 0.13919414
+          },
+          {
+            "hex": "#7d929f",
+            "percent": 0.1328261
+          }
+        ],
+        "keywords": [
+          "street",
+          "night",
+          "city",
+          "building",
+          "billboard",
+          "neon",
+          "people",
+          "shinjuku",
+          "station",
+          "urban"
+        ]
+      },
+      {
+        "id": 50034,
+        "title": "Leica M6 | Portra 160",
+        "author": "jacobjuul",
+        "permalink": "https://www.reddit.com/r/analog/comments/gtjv6f/leica_m6_portra_160/",
+        "caption": "A white building with a blue window and a door with the number 5 overlooks a swimming pool with lounge chairs and potted plants.",
+        "score": 1298,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/9a3dafcf47349ed118977368-low.jpeg",
+            "width": 576,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/9a3dafcf47349ed118977368-medium.jpeg",
+            "width": 864,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/9a3dafcf47349ed118977368-high.jpeg",
+            "width": 1152,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/9a3dafcf47349ed118977368-raw.jpeg",
+            "width": 2160,
+            "height": 2700
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#f2eae5",
+            "percent": 0.50648993
+          },
+          {
+            "hex": "#f8f5f4",
+            "percent": 0.25757549
+          },
+          {
+            "hex": "#ccd3d7",
+            "percent": 0.1081724
+          },
+          {
+            "hex": "#8cbcde",
+            "percent": 0.04368563
+          },
+          {
+            "hex": "#a58e6a",
+            "percent": 0.02884188
+          }
+        ],
+        "keywords": [
+          "building",
+          "swimming pool",
+          "lounge chair",
+          "plant",
+          "potted plant",
+          "door",
+          "window",
+          "number",
+          "blue",
+          "white",
+          "shadow"
+        ]
+      },
+      {
+        "id": 48898,
+        "title": "post dusk // Pentax 645n, Pentax SMC 645 75mm f/2.8 FA, Kodak Portra 400",
+        "author": "ZucchiniDoge",
+        "permalink": "https://www.reddit.com/r/analog/comments/fc9yng/post_dusk_pentax_645n_pentax_smc_645_75mm_f28_fa/",
+        "caption": "A gray minivan with its headlights on is parked on the side of a road next to a grassy area at dusk.",
+        "score": 99,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/ce160118297bf92806846a8e-low.jpeg",
+            "width": 720,
+            "height": 529
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/ce160118297bf92806846a8e-medium.jpeg",
+            "width": 1080,
+            "height": 793
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/ce160118297bf92806846a8e-high.jpeg",
+            "width": 1440,
+            "height": 1057
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/ce160118297bf92806846a8e-raw.jpeg",
+            "width": 7371,
+            "height": 5411
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#121717",
+            "percent": 0.23655482
+          },
+          {
+            "hex": "#222724",
+            "percent": 0.21245537
+          },
+          {
+            "hex": "#1d3e4e",
+            "percent": 0.16781138
+          },
+          {
+            "hex": "#080705",
+            "percent": 0.09961668
+          },
+          {
+            "hex": "#4d3d1b",
+            "percent": 0.09658948
+          }
+        ],
+        "keywords": [
+          "minivan",
+          "vehicle",
+          "road",
+          "grass",
+          "dusk",
+          "headlight",
+          "night"
+        ]
+      },
+      {
+        "id": 51575,
+        "title": "Mamiya RB67 | Portra 400 | 90mm 3.8",
+        "author": "thomasbocage",
+        "permalink": "https://www.reddit.com/r/analog/comments/im7gip/mamiya_rb67_portra_400_90mm_38/",
+        "caption": "A close-up view of the interior of a vintage car shows the steering wheel and dashboard.",
+        "score": 296,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/be4b2175e80380b1ec07e872-low.jpeg",
+            "width": 575,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/be4b2175e80380b1ec07e872-medium.jpeg",
+            "width": 862,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/be4b2175e80380b1ec07e872-high.jpeg",
+            "width": 1150,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/be4b2175e80380b1ec07e872-raw.jpeg",
+            "width": 4761,
+            "height": 5964
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#908671",
+            "percent": 0.13699275
+          },
+          {
+            "hex": "#4f4c3d",
+            "percent": 0.13320048
+          },
+          {
+            "hex": "#a4a697",
+            "percent": 0.1327971
+          },
+          {
+            "hex": "#373521",
+            "percent": 0.12402415
+          },
+          {
+            "hex": "#d8d8d7",
+            "percent": 0.12397585
+          }
+        ],
+        "keywords": [
+          "car",
+          "vehicle",
+          "steering wheel",
+          "dashboard",
+          "speedometer",
+          "fan",
+          "vintage",
+          "detail"
+        ]
+      }
+    ]
+  }
+}

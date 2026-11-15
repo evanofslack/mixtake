@@ -1,0 +1,18 @@
+{
+    "mix": {
+        "id": "tinyexample1",
+        "source": {"kind": "playlist", "spotify_id": "0tuoN8yx2qIQnSXJ3ClnJ0", "name": "Tiny", "subtitle": "someone"},
+        "track_ids": ["track0000000000000000a", "track0000000000000000b"],
+        "created_at": "2026-11-14T12:00:00Z"
+    },
+    "tracks": [
+        {"id": "track0000000000000000a", "title": "Harbour Lights", "artists": [{"name": "Someone"}], "duration_ms": 200000, "explicit": false},
+        {"id": "track0000000000000000b", "title": "Night Ferry", "artists": [{"name": "Someone Else"}], "duration_ms": 180000, "explicit": false}
+    ],
+    "features": {
+        "track0000000000000000a": {"tempo": 112, "key": "A", "mode": "minor", "danceable": 0.6, "happy": 0.4, "sad": 0.3, "relaxed": 0.5, "aggressive": 0.1, "party": 0.3, "acoustic": 0.2, "instrumental": 0.1, "valence": 0.5, "arousal": 0.5, "genres": [{"name": "Electronic---House", "score": 0.4}]},
+        "track0000000000000000b": {"tempo": 96, "key": "C", "mode": "major", "danceable": 0.4, "happy": 0.6, "sad": 0.2, "relaxed": 0.7, "aggressive": 0.05, "party": 0.2, "acoustic": 0.5, "instrumental": 0.3, "valence": 0.6, "arousal": 0.4, "genres": [{"name": "Pop---Indie Pop", "score": 0.5}]}
+    },
+    "model_version": "fake-1",
+    "photos": {"queries": ["ferry deck at dusk"], "palette": ["#2a4d7a"], "photos": [{"id": 99, "title": "ferry", "author": "u/someone", "permalink": "https://analogdb.com/photo/99", "caption": "", "score": 0, "grayscale": false, "images": [], "colors": [], "keywords": []}]}
+}

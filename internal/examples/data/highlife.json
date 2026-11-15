@@ -1,0 +1,2062 @@
+{
+  "mix": {
+    "id": "t27tavdclsou",
+    "source": {
+      "kind": "playlist",
+      "spotify_id": "2rruuZkdTBl9WNEy5UBuJo",
+      "name": "African Highlife and Palm Wine",
+      "subtitle": "ammon",
+      "cover": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84102ec257dbde8ad614ea6bc0",
+      "palette": [
+        "#784040",
+        "#511d1f",
+        "#ffffff",
+        "#ffbdbb"
+      ]
+    },
+    "track_ids": [
+      "7KCte9R5QEhrQWAmnsHZTb",
+      "4LTyF2je6rkYtbq8DEz7mZ",
+      "6w0HeyWioqBkjqX1fau0Zs",
+      "5qPwfRV3OJhtHapkAl1XOc",
+      "2nJRLH6atOGbpPFEOoXa3N",
+      "5YEqeITe2oirHBSCn4Smh2",
+      "4j7wLOIGI7j0Po22dgsq3B",
+      "2hqe2ztBmakRtK3d4yiksp",
+      "4waFpQ3s823eeZy70M6HB3",
+      "1IDCX0j63V9NOWJENaqTWf",
+      "3nhn6akoQ8LlAXWnwJbvtZ",
+      "4DV8w5rp5ZdaUeYvLFNyLX",
+      "4WcS1tn4jGvbaTGI4FnlZM",
+      "3Z3dGB9yDNIPcmKG0imAJK",
+      "7s997t2kpxscJ9d6ZDyXtD",
+      "45dMLz9mDnheAqd8sAMXzW",
+      "0VbMP1oje4fglCoKDk99GT",
+      "6PImXg1PaRBpFVdCAnSdUS",
+      "3ewJloy0JPMWrOmnRlcitf",
+      "3RrlqkLGZFg0NomFOSPyqp",
+      "6qGcBN4LVI27AfL8EKrBPT",
+      "2mBXevc9ST1bCgUzKMpjNw",
+      "1beofNgDnLjIsDW7F2npTk",
+      "1sYDUJ9Hd9bK3Il4KJ4TuX",
+      "0HhboUE7YVV13Mw8xmZ7I8",
+      "55HZvQkhHuAvnxoWOfnQLU",
+      "1ngDAIlOa0Z5pPDZHT6ze0",
+      "7yiwGG6z3lFhYWhQxRpkpV",
+      "1rPvklHa4J06NewCqqexA1",
+      "1Rwv8SmPzTNZo2Vm5kaEpq",
+      "7rPq2vizHNzXqQ6iPqfCqU",
+      "67KdU5uiY8kGM1MiTGmEbx"
+    ],
+    "created_at": "2026-11-14T21:59:27.90347Z"
+  },
+  "tracks": [
+    {
+      "id": "7KCte9R5QEhrQWAmnsHZTb",
+      "title": "Ijo Shina",
+      "artists": [
+        {
+          "name": "Sir Shina Peters"
+        }
+      ],
+      "duration_ms": 178920,
+      "explicit": false
+    },
+    {
+      "id": "4LTyF2je6rkYtbq8DEz7mZ",
+      "title": "Uwa Ngbede Ka Mma",
+      "artists": [
+        {
+          "name": "Gentleman Mike Ejeagha \u0026 His Trio"
+        }
+      ],
+      "duration_ms": 539786,
+      "explicit": false
+    },
+    {
+      "id": "6w0HeyWioqBkjqX1fau0Zs",
+      "title": "My Lovely Elizabeth",
+      "artists": [
+        {
+          "name": "S.E. Rogie"
+        }
+      ],
+      "duration_ms": 181520,
+      "explicit": false
+    },
+    {
+      "id": "5qPwfRV3OJhtHapkAl1XOc",
+      "title": "Isip 2",
+      "artists": [
+        {
+          "name": "Etubom Rex Williams and His Nigerian Artistes"
+        }
+      ],
+      "duration_ms": 210560,
+      "explicit": false
+    },
+    {
+      "id": "2nJRLH6atOGbpPFEOoXa3N",
+      "title": "Yabomisa No.2",
+      "artists": [
+        {
+          "name": "Victor Olaiya"
+        }
+      ],
+      "duration_ms": 345013,
+      "explicit": false
+    },
+    {
+      "id": "5YEqeITe2oirHBSCn4Smh2",
+      "title": "Taxi Driver - Version 2",
+      "artists": [
+        {
+          "name": "Bobby Benson"
+        }
+      ],
+      "duration_ms": 179826,
+      "explicit": false
+    },
+    {
+      "id": "4j7wLOIGI7j0Po22dgsq3B",
+      "title": "Waytime Ama",
+      "artists": [
+        {
+          "name": "T.O. Jazz"
+        }
+      ],
+      "duration_ms": 276426,
+      "explicit": false
+    },
+    {
+      "id": "2hqe2ztBmakRtK3d4yiksp",
+      "title": "Anoma Franoas",
+      "artists": [
+        {
+          "name": "Oyikwam Internationals"
+        }
+      ],
+      "duration_ms": 477946,
+      "explicit": false
+    },
+    {
+      "id": "4waFpQ3s823eeZy70M6HB3",
+      "title": "Joromi",
+      "artists": [
+        {
+          "name": "Sir Victor Uwaifo"
+        }
+      ],
+      "duration_ms": 194933,
+      "explicit": false
+    },
+    {
+      "id": "1IDCX0j63V9NOWJENaqTWf",
+      "title": "Okwukwe Na Nchekwube",
+      "artists": [
+        {
+          "name": "Celestine Ukwu and his Philosophers National"
+        }
+      ],
+      "duration_ms": 370920,
+      "explicit": false
+    },
+    {
+      "id": "3nhn6akoQ8LlAXWnwJbvtZ",
+      "title": "Onam Bebe Basa",
+      "artists": [
+        {
+          "name": "T.O. Jazz"
+        }
+      ],
+      "duration_ms": 260720,
+      "explicit": false
+    },
+    {
+      "id": "4DV8w5rp5ZdaUeYvLFNyLX",
+      "title": "Belema",
+      "artists": [
+        {
+          "name": "Opotopo"
+        }
+      ],
+      "duration_ms": 374840,
+      "explicit": false
+    },
+    {
+      "id": "4WcS1tn4jGvbaTGI4FnlZM",
+      "title": "Ama Di",
+      "artists": [
+        {
+          "name": "Celestine Ukwu \u0026 His Philosophers National"
+        }
+      ],
+      "duration_ms": 288373,
+      "explicit": false
+    },
+    {
+      "id": "3Z3dGB9yDNIPcmKG0imAJK",
+      "title": "Atualu Omalu",
+      "artists": [
+        {
+          "name": "Gentleman Mike Ejeagha \u0026 His Trio"
+        }
+      ],
+      "duration_ms": 560880,
+      "explicit": false
+    },
+    {
+      "id": "7s997t2kpxscJ9d6ZDyXtD",
+      "title": "Kuromu Aye Dinn",
+      "artists": [
+        {
+          "name": "T.O. Jazz"
+        }
+      ],
+      "duration_ms": 313413,
+      "explicit": false
+    },
+    {
+      "id": "45dMLz9mDnheAqd8sAMXzW",
+      "title": "Abele",
+      "artists": [
+        {
+          "name": "E.T. Mensah Of Ghana - World's King Of Highlife"
+        }
+      ],
+      "duration_ms": 174786,
+      "explicit": false
+    },
+    {
+      "id": "0VbMP1oje4fglCoKDk99GT",
+      "title": "Moonlight Highlife",
+      "artists": [
+        {
+          "name": "Victor Olaiya"
+        }
+      ],
+      "duration_ms": 193400,
+      "explicit": false
+    },
+    {
+      "id": "6PImXg1PaRBpFVdCAnSdUS",
+      "title": "Ka Esi Le Onye Isi Oche",
+      "artists": [
+        {
+          "name": "Gentleman Mike Ejeagha \u0026 His Trio"
+        }
+      ],
+      "duration_ms": 1016413,
+      "explicit": false
+    },
+    {
+      "id": "3ewJloy0JPMWrOmnRlcitf",
+      "title": "Aye Mama",
+      "artists": [
+        {
+          "name": "Chief Stephen Osita Osadebe"
+        }
+      ],
+      "duration_ms": 379306,
+      "explicit": false
+    },
+    {
+      "id": "3RrlqkLGZFg0NomFOSPyqp",
+      "title": "Olubunmi",
+      "artists": [
+        {
+          "name": "Roy Chicago"
+        }
+      ],
+      "duration_ms": 177880,
+      "explicit": false
+    },
+    {
+      "id": "6qGcBN4LVI27AfL8EKrBPT",
+      "title": "Nke Onye Adi Ayanjo",
+      "artists": [
+        {
+          "name": "Gentleman Mike Ejeagha \u0026 His Trio"
+        }
+      ],
+      "duration_ms": 543120,
+      "explicit": false
+    },
+    {
+      "id": "2mBXevc9ST1bCgUzKMpjNw",
+      "title": "Ilhe Chinyenre",
+      "artists": [
+        {
+          "name": "Dr Sir Warrior"
+        },
+        {
+          "name": "The Oriental Brothers International"
+        }
+      ],
+      "duration_ms": 253266,
+      "explicit": false
+    },
+    {
+      "id": "1beofNgDnLjIsDW7F2npTk",
+      "title": "Onye Oma Mmanu",
+      "artists": [
+        {
+          "name": "Dr Sir Warrior"
+        },
+        {
+          "name": "Oriental Brothers Int' Band"
+        }
+      ],
+      "duration_ms": 1080146,
+      "explicit": false
+    },
+    {
+      "id": "1sYDUJ9Hd9bK3Il4KJ4TuX",
+      "title": "Jide Nkegi",
+      "artists": [
+        {
+          "name": "Dr Sir Warrior"
+        },
+        {
+          "name": "Oriental Brothers Int' Band"
+        }
+      ],
+      "duration_ms": 1095000,
+      "explicit": false
+    },
+    {
+      "id": "0HhboUE7YVV13Mw8xmZ7I8",
+      "title": "Iheoma Agighi Onye Oso",
+      "artists": [
+        {
+          "name": "Oriental Brothers International Band"
+        }
+      ],
+      "duration_ms": 391575,
+      "explicit": false
+    },
+    {
+      "id": "55HZvQkhHuAvnxoWOfnQLU",
+      "title": "Yaa Amponsah",
+      "artists": [
+        {
+          "name": "Koo Nimo"
+        }
+      ],
+      "duration_ms": 314746,
+      "explicit": false
+    },
+    {
+      "id": "1ngDAIlOa0Z5pPDZHT6ze0",
+      "title": "Momma Mo Akoma Ntutu",
+      "artists": [
+        {
+          "name": "Genesis Gospel Singers"
+        }
+      ],
+      "duration_ms": 241280,
+      "explicit": false
+    },
+    {
+      "id": "7yiwGG6z3lFhYWhQxRpkpV",
+      "title": "Music Africa",
+      "artists": [
+        {
+          "name": "Chief Dr. Oliver De Coque \u0026 His Expo '76 Ogene Sound Super of Africa"
+        },
+        {
+          "name": "His Expo '76 Ogene Sound Super of Africa"
+        }
+      ],
+      "duration_ms": 417840,
+      "explicit": false
+    },
+    {
+      "id": "1rPvklHa4J06NewCqqexA1",
+      "title": "Trumpet Highlife",
+      "artists": [
+        {
+          "name": "Victor Olaiya"
+        }
+      ],
+      "duration_ms": 307252,
+      "explicit": false
+    },
+    {
+      "id": "1Rwv8SmPzTNZo2Vm5kaEpq",
+      "title": "Aiye Nyi Lo Medley",
+      "artists": [
+        {
+          "name": "Dr. Orlando Owoh \u0026 His Omimah Band"
+        }
+      ],
+      "duration_ms": 1143397,
+      "explicit": false
+    },
+    {
+      "id": "7rPq2vizHNzXqQ6iPqfCqU",
+      "title": "Orin Tuntun Medley",
+      "artists": [
+        {
+          "name": "Dr. Orlando Owoh and His African Kenneries Beats International"
+        }
+      ],
+      "duration_ms": 1124333,
+      "explicit": false
+    },
+    {
+      "id": "67KdU5uiY8kGM1MiTGmEbx",
+      "title": "Denyigban",
+      "artists": [
+        {
+          "name": "Bella Bellow"
+        }
+      ],
+      "duration_ms": 153600,
+      "explicit": false
+    }
+  ],
+  "features": {
+    "0HhboUE7YVV13Mw8xmZ7I8": {
+      "tempo": 123.2,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.5429,
+      "happy": 0.2594,
+      "sad": 0.441,
+      "relaxed": 0.8365,
+      "aggressive": 0.0054,
+      "party": 0.0925,
+      "acoustic": 0.7442,
+      "instrumental": 0.6651,
+      "valence": 0.5173,
+      "arousal": 0.6231,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.5824
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.4145
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.294
+        }
+      ]
+    },
+    "0VbMP1oje4fglCoKDk99GT": {
+      "tempo": 83.7,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.8421,
+      "happy": 0.6013,
+      "sad": 0.1589,
+      "relaxed": 0.6791,
+      "aggressive": 0.006,
+      "party": 0.6647,
+      "acoustic": 0.4734,
+      "instrumental": 0.1972,
+      "valence": 0.5434,
+      "arousal": 0.576,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.633
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.345
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1366
+        }
+      ]
+    },
+    "1IDCX0j63V9NOWJENaqTWf": {
+      "tempo": 122.9,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.7781,
+      "happy": 0.8386,
+      "sad": 0.1571,
+      "relaxed": 0.582,
+      "aggressive": 0.0025,
+      "party": 0.8144,
+      "acoustic": 0.6832,
+      "instrumental": 0.3029,
+      "valence": 0.5676,
+      "arousal": 0.5795,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.8936
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.3785
+        },
+        {
+          "name": "Latin---Pachanga",
+          "score": 0.151
+        }
+      ]
+    },
+    "1beofNgDnLjIsDW7F2npTk": {
+      "tempo": 128.3,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.9479,
+      "happy": 0.8186,
+      "sad": 0.038,
+      "relaxed": 0.1639,
+      "aggressive": 0.0097,
+      "party": 0.9436,
+      "acoustic": 0.1654,
+      "instrumental": 0.0635,
+      "valence": 0.6532,
+      "arousal": 0.7135,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.767
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.7498
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.5894
+        }
+      ]
+    },
+    "1ngDAIlOa0Z5pPDZHT6ze0": {
+      "tempo": 102.3,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.1218,
+      "happy": 0.8889,
+      "sad": 0.3794,
+      "relaxed": 0.6656,
+      "aggressive": 0.0013,
+      "party": 0.2283,
+      "acoustic": 0.9607,
+      "instrumental": 0.152,
+      "valence": 0.5908,
+      "arousal": 0.6016,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Séga",
+          "score": 0.1958
+        },
+        {
+          "name": "Blues---Louisiana Blues",
+          "score": 0.1325
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.092
+        }
+      ]
+    },
+    "1rPvklHa4J06NewCqqexA1": {
+      "tempo": 119.3,
+      "key": "A#",
+      "mode": "major",
+      "danceable": 0.8129,
+      "happy": 0.7079,
+      "sad": 0.2081,
+      "relaxed": 0.5822,
+      "aggressive": 0.0169,
+      "party": 0.6564,
+      "acoustic": 0.4952,
+      "instrumental": 0.207,
+      "valence": 0.59,
+      "arousal": 0.6015,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.2718
+        },
+        {
+          "name": "Latin---Cumbia",
+          "score": 0.1735
+        },
+        {
+          "name": "Latin---Salsa",
+          "score": 0.1048
+        }
+      ]
+    },
+    "1sYDUJ9Hd9bK3Il4KJ4TuX": {
+      "tempo": 138.8,
+      "key": "C#",
+      "mode": "minor",
+      "danceable": 0.999,
+      "happy": 0.2711,
+      "sad": 0.0019,
+      "relaxed": 0.0469,
+      "aggressive": 0.0032,
+      "party": 0.8953,
+      "acoustic": 0.0174,
+      "instrumental": 0.0098,
+      "valence": 0.7428,
+      "arousal": 0.6257,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.9999
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.7887
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.011
+        }
+      ]
+    },
+    "2hqe2ztBmakRtK3d4yiksp": {
+      "tempo": 127,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.7687,
+      "happy": 0.1145,
+      "sad": 0.2874,
+      "relaxed": 0.8662,
+      "aggressive": 0.0007,
+      "party": 0.4316,
+      "acoustic": 0.7299,
+      "instrumental": 0.2811,
+      "valence": 0.5306,
+      "arousal": 0.5344,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.8825
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1954
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.0223
+        }
+      ]
+    },
+    "2nJRLH6atOGbpPFEOoXa3N": {
+      "tempo": 93.9,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.6499,
+      "happy": 0.6743,
+      "sad": 0.4328,
+      "relaxed": 0.8774,
+      "aggressive": 0.0065,
+      "party": 0.4006,
+      "acoustic": 0.8252,
+      "instrumental": 0.4125,
+      "valence": 0.6458,
+      "arousal": 0.693,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.2515
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.1926
+        },
+        {
+          "name": "Jazz---Afro-Cuban Jazz",
+          "score": 0.1381
+        }
+      ]
+    },
+    "3RrlqkLGZFg0NomFOSPyqp": {
+      "tempo": 97.5,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.9086,
+      "happy": 0.734,
+      "sad": 0.1409,
+      "relaxed": 0.5499,
+      "aggressive": 0.0046,
+      "party": 0.8955,
+      "acoustic": 0.5253,
+      "instrumental": 0.2131,
+      "valence": 0.7144,
+      "arousal": 0.706,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.7061
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.5637
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.3433
+        }
+      ]
+    },
+    "3Z3dGB9yDNIPcmKG0imAJK": {
+      "tempo": 128.6,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.9277,
+      "happy": 0.1946,
+      "sad": 0.1261,
+      "relaxed": 0.487,
+      "aggressive": 0.0112,
+      "party": 0.3831,
+      "acoustic": 0.3133,
+      "instrumental": 0.3115,
+      "valence": 0.5934,
+      "arousal": 0.6189,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.8756
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.6248
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.0833
+        }
+      ]
+    },
+    "3ewJloy0JPMWrOmnRlcitf": {
+      "tempo": 126.6,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.8557,
+      "happy": 0.6009,
+      "sad": 0.2981,
+      "relaxed": 0.7786,
+      "aggressive": 0.0041,
+      "party": 0.5558,
+      "acoustic": 0.6836,
+      "instrumental": 0.4069,
+      "valence": 0.6096,
+      "arousal": 0.6172,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.5286
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.5068
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.3628
+        }
+      ]
+    },
+    "3nhn6akoQ8LlAXWnwJbvtZ": {
+      "tempo": 67.2,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.7137,
+      "happy": 0.4104,
+      "sad": 0.137,
+      "relaxed": 0.4464,
+      "aggressive": 0.0217,
+      "party": 0.4872,
+      "acoustic": 0.5575,
+      "instrumental": 0.0627,
+      "valence": 0.5724,
+      "arousal": 0.5735,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.542
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.5087
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.2199
+        }
+      ]
+    },
+    "45dMLz9mDnheAqd8sAMXzW": {
+      "tempo": 117.6,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.8202,
+      "happy": 0.4256,
+      "sad": 0.3839,
+      "relaxed": 0.9588,
+      "aggressive": 0.0004,
+      "party": 0.5745,
+      "acoustic": 0.8335,
+      "instrumental": 0.16,
+      "valence": 0.5937,
+      "arousal": 0.6051,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.7084
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.2643
+        },
+        {
+          "name": "Latin---Merengue",
+          "score": 0.1325
+        }
+      ]
+    },
+    "4LTyF2je6rkYtbq8DEz7mZ": {
+      "tempo": 128.2,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.9033,
+      "happy": 0.1892,
+      "sad": 0.0321,
+      "relaxed": 0.4423,
+      "aggressive": 0.0177,
+      "party": 0.5022,
+      "acoustic": 0.207,
+      "instrumental": 0.0073,
+      "valence": 0.549,
+      "arousal": 0.4929,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.9959
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.6578
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.0114
+        }
+      ]
+    },
+    "4WcS1tn4jGvbaTGI4FnlZM": {
+      "tempo": 98.9,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.9489,
+      "happy": 0.8009,
+      "sad": 0.3216,
+      "relaxed": 0.886,
+      "aggressive": 0.0034,
+      "party": 0.7594,
+      "acoustic": 0.6183,
+      "instrumental": 0.6371,
+      "valence": 0.5651,
+      "arousal": 0.6317,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.2229
+        },
+        {
+          "name": "Jazz---Latin Jazz",
+          "score": 0.1535
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.1204
+        }
+      ]
+    },
+    "4j7wLOIGI7j0Po22dgsq3B": {
+      "tempo": 121.1,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.3624,
+      "happy": 0.4189,
+      "sad": 0.4659,
+      "relaxed": 0.7898,
+      "aggressive": 0.0029,
+      "party": 0.2909,
+      "acoustic": 0.9343,
+      "instrumental": 0.713,
+      "valence": 0.5154,
+      "arousal": 0.5659,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.5285
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.2796
+        },
+        {
+          "name": "Latin---Rumba",
+          "score": 0.197
+        }
+      ]
+    },
+    "4waFpQ3s823eeZy70M6HB3": {
+      "tempo": 102.1,
+      "key": "A#",
+      "mode": "major",
+      "danceable": 0.9296,
+      "happy": 0.8697,
+      "sad": 0.1869,
+      "relaxed": 0.8824,
+      "aggressive": 0.0047,
+      "party": 0.6911,
+      "acoustic": 0.1806,
+      "instrumental": 0.455,
+      "valence": 0.5855,
+      "arousal": 0.5747,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.7785
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.5819
+        },
+        {
+          "name": "Latin---Cumbia",
+          "score": 0.1229
+        }
+      ]
+    },
+    "55HZvQkhHuAvnxoWOfnQLU": {
+      "tempo": 120,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.4866,
+      "happy": 0.4,
+      "sad": 0.2412,
+      "relaxed": 0.8169,
+      "aggressive": 0.0307,
+      "party": 0.0346,
+      "acoustic": 0.953,
+      "instrumental": 0.8782,
+      "valence": 0.6849,
+      "arousal": 0.6938,
+      "genres": [
+        {
+          "name": "Rock---Rock \u0026 Roll",
+          "score": 0.0827
+        },
+        {
+          "name": "Rock---Psychedelic Rock",
+          "score": 0.061
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Bluegrass",
+          "score": 0.0497
+        }
+      ]
+    },
+    "5YEqeITe2oirHBSCn4Smh2": {
+      "tempo": 113,
+      "key": "F#",
+      "mode": "major",
+      "danceable": 0.4487,
+      "happy": 0.6064,
+      "sad": 0.5102,
+      "relaxed": 0.9528,
+      "aggressive": 0.0008,
+      "party": 0.2874,
+      "acoustic": 0.804,
+      "instrumental": 0.3233,
+      "valence": 0.5917,
+      "arousal": 0.5769,
+      "genres": [
+        {
+          "name": "Latin---Beguine",
+          "score": 0.2835
+        },
+        {
+          "name": "Latin---Merengue",
+          "score": 0.2223
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.2109
+        }
+      ]
+    },
+    "5qPwfRV3OJhtHapkAl1XOc": {
+      "tempo": 115.3,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.734,
+      "happy": 0.4417,
+      "sad": 0.1114,
+      "relaxed": 0.7443,
+      "aggressive": 0.0005,
+      "party": 0.2939,
+      "acoustic": 0.5686,
+      "instrumental": 0.039,
+      "valence": 0.5499,
+      "arousal": 0.502,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.7517
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.3411
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.2377
+        }
+      ]
+    },
+    "67KdU5uiY8kGM1MiTGmEbx": {
+      "tempo": 99.6,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.4404,
+      "happy": 0.6377,
+      "sad": 0.5311,
+      "relaxed": 0.8808,
+      "aggressive": 0.0047,
+      "party": 0.4268,
+      "acoustic": 0.5926,
+      "instrumental": 0.7244,
+      "valence": 0.6638,
+      "arousal": 0.728,
+      "genres": [
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.2877
+        },
+        {
+          "name": "Jazz---Afrobeat",
+          "score": 0.282
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.2362
+        }
+      ]
+    },
+    "6PImXg1PaRBpFVdCAnSdUS": {
+      "tempo": 132.8,
+      "key": "F#",
+      "mode": "minor",
+      "danceable": 0.8006,
+      "happy": 0.3626,
+      "sad": 0.3236,
+      "relaxed": 0.7481,
+      "aggressive": 0.0151,
+      "party": 0.2133,
+      "acoustic": 0.8021,
+      "instrumental": 0.2353,
+      "valence": 0.5216,
+      "arousal": 0.5419,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.4466
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.3563
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Gospel",
+          "score": 0.082
+        }
+      ]
+    },
+    "6qGcBN4LVI27AfL8EKrBPT": {
+      "tempo": 119.3,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.9046,
+      "happy": 0.4823,
+      "sad": 0.0742,
+      "relaxed": 0.319,
+      "aggressive": 0.0234,
+      "party": 0.658,
+      "acoustic": 0.3982,
+      "instrumental": 0.0488,
+      "valence": 0.5867,
+      "arousal": 0.5917,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.6903
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.6202
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.024
+        }
+      ]
+    },
+    "6w0HeyWioqBkjqX1fau0Zs": {
+      "tempo": 94.3,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.037,
+      "happy": 0.377,
+      "sad": 0.7959,
+      "relaxed": 0.9598,
+      "aggressive": 0.0013,
+      "party": 0.0054,
+      "acoustic": 0.9936,
+      "instrumental": 0.3936,
+      "valence": 0.415,
+      "arousal": 0.4477,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Folk",
+          "score": 0.1789
+        },
+        {
+          "name": "Latin---MPB",
+          "score": 0.1207
+        },
+        {
+          "name": "Blues---Country Blues",
+          "score": 0.0872
+        }
+      ]
+    },
+    "7KCte9R5QEhrQWAmnsHZTb": {
+      "tempo": 113.8,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.9922,
+      "happy": 0.8357,
+      "sad": 0.1136,
+      "relaxed": 0.4592,
+      "aggressive": 0.0384,
+      "party": 0.919,
+      "acoustic": 0.1767,
+      "instrumental": 0.6874,
+      "valence": 0.6632,
+      "arousal": 0.676,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.5038
+        },
+        {
+          "name": "Funk / Soul---Afrobeat",
+          "score": 0.4792
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.4519
+        }
+      ]
+    },
+    "7s997t2kpxscJ9d6ZDyXtD": {
+      "tempo": 117.5,
+      "key": "C#",
+      "mode": "major",
+      "danceable": 0.5129,
+      "happy": 0.5181,
+      "sad": 0.5279,
+      "relaxed": 0.8279,
+      "aggressive": 0.0059,
+      "party": 0.1229,
+      "acoustic": 0.955,
+      "instrumental": 0.3316,
+      "valence": 0.5291,
+      "arousal": 0.5959,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1918
+        },
+        {
+          "name": "Latin---Rumba",
+          "score": 0.1182
+        },
+        {
+          "name": "Reggae---Calypso",
+          "score": 0.0984
+        }
+      ]
+    },
+    "7yiwGG6z3lFhYWhQxRpkpV": {
+      "tempo": 134.4,
+      "key": "D",
+      "mode": "major",
+      "danceable": 0.9833,
+      "happy": 0.2044,
+      "sad": 0.0865,
+      "relaxed": 0.4032,
+      "aggressive": 0.0073,
+      "party": 0.448,
+      "acoustic": 0.124,
+      "instrumental": 0.0793,
+      "valence": 0.6345,
+      "arousal": 0.6067,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Highlife",
+          "score": 0.843
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.6782
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Soukous",
+          "score": 0.4798
+        }
+      ]
+    }
+  },
+  "model_version": "essentia-effnet1-deam2-v1",
+  "photos": {
+    "queries": [
+      "tapper's rope looped around a palm trunk at dawn, grainy 35mm",
+      "yellow Lagos taxi cab idling at a rank in harsh noon sun",
+      "kerosene lantern on a wooden counter beside clay pots of palm wine",
+      "rusted Peugeot 404 parked under a mango tree in afternoon shade",
+      "moonlit mud-walled compound with palm fronds, long exposure",
+      "corrugated iron market stalls stacked with cloth bolts in red dust",
+      "wooden fishing canoes drawn up on a sandy Accra beach at dawn",
+      "whitewashed mission church with tin roof in late afternoon light",
+      "Lagos lagoon creek with stilt houses and beached canoes at dusk",
+      "laterite track through cocoa farm with red dust rising at dusk"
+    ],
+    "palette": [
+      "#2e2118",
+      "#7a4a2a",
+      "#b5703f",
+      "#d9b98a",
+      "#5f6b3e"
+    ],
+    "photos": [
+      {
+        "id": 46267,
+        "title": "Caution [Canon AE-1P, Canon 50mm f/1.2 L, Fujifilm Eterna 500T]",
+        "author": "MLUdrea",
+        "permalink": "https://www.reddit.com/r/analog/comments/q16si3/caution_canon_ae1p_canon_50mm_f12_l_fujifilm/",
+        "caption": "A yellow taxi cab with flowers on its bumper is parked on a city street next to scaffolding.",
+        "score": 296,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/083d8882943f02bccb6d0e7c-low.jpeg",
+            "width": 483,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/083d8882943f02bccb6d0e7c-medium.jpeg",
+            "width": 724,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/083d8882943f02bccb6d0e7c-high.jpeg",
+            "width": 965,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/083d8882943f02bccb6d0e7c-raw.jpeg",
+            "width": 3696,
+            "height": 5514
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#110a0b",
+            "percent": 0.15046009
+          },
+          {
+            "hex": "#8f7169",
+            "percent": 0.14013975
+          },
+          {
+            "hex": "#785956",
+            "percent": 0.13528008
+          },
+          {
+            "hex": "#cebb9e",
+            "percent": 0.13076835
+          },
+          {
+            "hex": "#4a2e2d",
+            "percent": 0.1196141
+          }
+        ],
+        "keywords": [
+          "taxi",
+          "vehicle",
+          "flower",
+          "scaffolding",
+          "street",
+          "city",
+          "new york"
+        ]
+      },
+      {
+        "id": 51337,
+        "title": "Morning walks in the bay. Rolleicord, Portra 400.",
+        "author": "lishsess",
+        "permalink": "https://www.reddit.com/r/analog/comments/j0tazk/morning_walks_in_the_bay_rolleicord_portra_400/",
+        "caption": "A sandy path leads between rows of colorful kayaks and canoes stored on grassy ground near houses and tall reeds.",
+        "score": 155,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/e9637f5ee73ff73a28eea6d4-low.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/e9637f5ee73ff73a28eea6d4-medium.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/e9637f5ee73ff73a28eea6d4-high.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/e9637f5ee73ff73a28eea6d4-raw.jpeg",
+            "width": 2435,
+            "height": 2435
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#595036",
+            "percent": 0.1553813
+          },
+          {
+            "hex": "#3b3924",
+            "percent": 0.15211408
+          },
+          {
+            "hex": "#948363",
+            "percent": 0.14105679
+          },
+          {
+            "hex": "#76694e",
+            "percent": 0.13983446
+          },
+          {
+            "hex": "#f2eaea",
+            "percent": 0.11403239
+          }
+        ],
+        "keywords": [
+          "kayak",
+          "canoe",
+          "boat",
+          "path",
+          "grass",
+          "reed",
+          "house",
+          "bay",
+          "morning"
+        ]
+      },
+      {
+        "id": 51635,
+        "title": "530 AM Light [Minox GT35 | Fuji Superia 400]",
+        "author": "Pgphotos1",
+        "permalink": "https://www.reddit.com/r/analog/comments/i238mf/530_am_light_minox_gt35_fuji_superia_400/",
+        "caption": "Sunlight streams across a shelf holding a potted plant, a glass jar, a radio, and a framed picture of a city skyline.",
+        "score": 651,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/eddd6a5980f61214b6af64c7-low.jpeg",
+            "width": 477,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/eddd6a5980f61214b6af64c7-medium.jpeg",
+            "width": 716,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/eddd6a5980f61214b6af64c7-high.jpeg",
+            "width": 954,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/eddd6a5980f61214b6af64c7-raw.jpeg",
+            "width": 3347,
+            "height": 5052
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#633d27",
+            "percent": 0.21334487
+          },
+          {
+            "hex": "#492414",
+            "percent": 0.19995562
+          },
+          {
+            "hex": "#010300",
+            "percent": 0.15347712
+          },
+          {
+            "hex": "#e0ded2",
+            "percent": 0.12119558
+          },
+          {
+            "hex": "#a9957a",
+            "percent": 0.09017885
+          }
+        ],
+        "keywords": [
+          "shelf",
+          "plant",
+          "potted plant",
+          "jar",
+          "radio",
+          "still life",
+          "sunlight",
+          "shadow",
+          "cityscape",
+          "book",
+          "tin"
+        ]
+      },
+      {
+        "id": 51340,
+        "title": "Lift your skinny antennas like antennas to heaven - Portra 160 35mm",
+        "author": "lifelessshetbag",
+        "permalink": "https://www.reddit.com/r/analog/comments/ipavzx/lift_your_skinny_antennas_like_antennas_to_heaven/",
+        "caption": "A snail with its antennae extended is visible among green foliage.",
+        "score": 281,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/211eb8b26fcfedb9d9cce98d-low.jpeg",
+            "width": 491,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/211eb8b26fcfedb9d9cce98d-medium.jpeg",
+            "width": 736,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/211eb8b26fcfedb9d9cce98d-high.jpeg",
+            "width": 982,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/211eb8b26fcfedb9d9cce98d-raw.jpeg",
+            "width": 2223,
+            "height": 3261
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#322d28",
+            "percent": 0.198679
+          },
+          {
+            "hex": "#241b18",
+            "percent": 0.17376386
+          },
+          {
+            "hex": "#434239",
+            "percent": 0.14900713
+          },
+          {
+            "hex": "#6d7e60",
+            "percent": 0.13529079
+          },
+          {
+            "hex": "#506341",
+            "percent": 0.13056121
+          }
+        ],
+        "keywords": [
+          "snail",
+          "animal",
+          "macro",
+          "foliage",
+          "garden"
+        ]
+      },
+      {
+        "id": 47853,
+        "title": "When you nuke your film in hot developer (mamiya rz67 + portra 400)",
+        "author": "ryleymc",
+        "permalink": "https://www.reddit.com/r/analog/comments/fqzu76/when_you_nuke_your_film_in_hot_developer_mamiya/",
+        "caption": "Tire tracks cross on a snow-covered field with a forest in the distance under a hazy, pink sky.",
+        "score": 1377,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/87281ac1b0de674dc84e90ae-low.jpeg",
+            "width": 720,
+            "height": 575
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/87281ac1b0de674dc84e90ae-medium.jpeg",
+            "width": 1080,
+            "height": 863
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/87281ac1b0de674dc84e90ae-high.jpeg",
+            "width": 1440,
+            "height": 1150
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/87281ac1b0de674dc84e90ae-raw.jpeg",
+            "width": 2048,
+            "height": 1636
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#2f2522",
+            "percent": 0.25969737
+          },
+          {
+            "hex": "#44342f",
+            "percent": 0.17957059
+          },
+          {
+            "hex": "#1c1714",
+            "percent": 0.15040703
+          },
+          {
+            "hex": "#6b4c42",
+            "percent": 0.12728996
+          },
+          {
+            "hex": "#fee7e1",
+            "percent": 0.09606326
+          }
+        ],
+        "keywords": [
+          "tire track",
+          "snow",
+          "field",
+          "forest",
+          "hazy",
+          "pink",
+          "winter",
+          "landscape",
+          "dusk"
+        ]
+      },
+      {
+        "id": 41559,
+        "title": "Xiamen Bay [Portra 400, Hasselblad 500C/M, Distagon 50mm]",
+        "author": "camu_photo",
+        "permalink": "https://www.reddit.com/r/analog/comments/1wb64p1/xiamen_bay_portra_400_hasselblad_500cm_distagon/",
+        "caption": "A city skyline is visible across the water at dusk, with several dark, angular structures emerging from the water in the foreground.",
+        "score": 157,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/d0e8ce2a6d6c4f81e656a971-low.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/d0e8ce2a6d6c4f81e656a971-medium.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/d0e8ce2a6d6c4f81e656a971-high.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/d0e8ce2a6d6c4f81e656a971-raw.jpeg",
+            "width": 4208,
+            "height": 4208
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#000000",
+            "percent": 0.22983025
+          },
+          {
+            "hex": "#5f546a",
+            "percent": 0.14602623
+          },
+          {
+            "hex": "#4b3f4e",
+            "percent": 0.12909529
+          },
+          {
+            "hex": "#30272f",
+            "percent": 0.12535301
+          },
+          {
+            "hex": "#777590",
+            "percent": 0.11989583
+          }
+        ],
+        "keywords": [
+          "cityscape",
+          "dusk",
+          "water",
+          "coast",
+          "xiamen bay",
+          "long exposure",
+          "skyline",
+          "building",
+          "sea"
+        ]
+      },
+      {
+        "id": 37194,
+        "title": "Morocco | Olympus OM4, Portra 160 / Cinestill 800t",
+        "author": "Select-Purchase-1254",
+        "permalink": "https://www.reddit.com/r/analog/comments/1r6dltv/morocco_olympus_om4_portra_160_cinestill_800t/",
+        "caption": "A pink building with white window shutters and a street vendor's cart filled with bread sits on a sunny street.",
+        "score": 495,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/71043183-d94b-4856-ac21-4413868eac45.jpeg",
+            "width": 477,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/27a09dd7-9ef9-49f6-b18f-5ef2e17470d6.jpeg",
+            "width": 716,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/802d2aa6-7d85-40f2-b834-dbcac785894c.jpeg",
+            "width": 955,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/ea30a330-06ff-440c-a9ea-cbe4d3595bd8.jpeg",
+            "width": 1975,
+            "height": 2979
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#c59d88",
+            "percent": 0.28178721
+          },
+          {
+            "hex": "#4f3323",
+            "percent": 0.21612218
+          },
+          {
+            "hex": "#8d4e33",
+            "percent": 0.15389588
+          },
+          {
+            "hex": "#20180d",
+            "percent": 0.11910377
+          },
+          {
+            "hex": "#ab765b",
+            "percent": 0.10849639
+          }
+        ],
+        "keywords": [
+          "building",
+          "street",
+          "vendor",
+          "cart",
+          "bread",
+          "pink",
+          "window",
+          "shutter",
+          "shadow",
+          "morocco"
+        ]
+      },
+      {
+        "id": 9527,
+        "title": "Summer of '95 - Canon FTb 50mm, Kodak 400",
+        "author": "coin_jar",
+        "permalink": "https://www.reddit.com/r/analog/comments/17c7a3f/summer_of_95_canon_ftb_50mm_kodak_400/",
+        "caption": "A yellow car with a surfboard on its roof is parked next to a lush green hedge.",
+        "score": 103,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/44b9451b-4610-4cd5-80ac-5470c870fac6.jpeg",
+            "width": 720,
+            "height": 541
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/b6138435-424e-4d9f-922c-7ad7bea7d493.jpeg",
+            "width": 1080,
+            "height": 811
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/333a5700-e46b-4f26-806c-58ddbbaba5c1.jpeg",
+            "width": 1440,
+            "height": 1082
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/31721fc4-7395-4c2a-bea8-0a6aae1eda65.jpeg",
+            "width": 2348,
+            "height": 1764
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#f1ec9c",
+            "percent": 0.26039741
+          },
+          {
+            "hex": "#4e6753",
+            "percent": 0.13956921
+          },
+          {
+            "hex": "#7f867a",
+            "percent": 0.12534915
+          },
+          {
+            "hex": "#2c4534",
+            "percent": 0.11436127
+          },
+          {
+            "hex": "#132415",
+            "percent": 0.11211748
+          }
+        ],
+        "keywords": [
+          "car",
+          "vehicle",
+          "surfboard",
+          "hedge",
+          "plant",
+          "street",
+          "summer"
+        ]
+      },
+      {
+        "id": 41921,
+        "title": "Minolta M Rokkor 40mm | Kodak Colourplus 200, scanned with Silverfast.",
+        "author": "NikkorNeko",
+        "permalink": "https://www.reddit.com/r/analog/comments/kztb37/minolta_m_rokkor_40mm_kodak_colourplus_200/",
+        "caption": "A herd of cattle rests in the shade of a large tree in a grassy field.",
+        "score": 336,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/702a0ee15acf8dcdee5be29e-low.jpeg",
+            "width": 549,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/702a0ee15acf8dcdee5be29e-medium.jpeg",
+            "width": 823,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/702a0ee15acf8dcdee5be29e-high.jpeg",
+            "width": 1097,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/702a0ee15acf8dcdee5be29e-raw.jpeg",
+            "width": 2341,
+            "height": 3072
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#2d2317",
+            "percent": 0.16956891
+          },
+          {
+            "hex": "#3f331e",
+            "percent": 0.15761556
+          },
+          {
+            "hex": "#b7ab79",
+            "percent": 0.13986244
+          },
+          {
+            "hex": "#1b1411",
+            "percent": 0.12760339
+          },
+          {
+            "hex": "#564b28",
+            "percent": 0.12097427
+          }
+        ],
+        "keywords": [
+          "cattle",
+          "animal",
+          "tree",
+          "field",
+          "grass",
+          "shade",
+          "countryside",
+          "farm",
+          "pasture",
+          "rural"
+        ]
+      },
+      {
+        "id": 32578,
+        "title": "Underglow [Nikon Action Touch, Superia 200]",
+        "author": "whalestail89",
+        "permalink": "https://www.reddit.com/r/analog/comments/1jp0io8/underglow_nikon_action_touch_superia_200/",
+        "caption": "A low-angle view shows the trunk and fronds of a palm tree against a clear sky.",
+        "score": 94,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/500e3ace-1836-44fc-8b52-2771c8b1312d.jpeg",
+            "width": 720,
+            "height": 529
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/7edfe68c-6303-4be8-a625-1700cbee0c5b.jpeg",
+            "width": 1080,
+            "height": 794
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/baf2c374-712f-4b1f-9b04-8a57f125316a.jpeg",
+            "width": 1440,
+            "height": 1059
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/24db1ebc-30f3-42b6-a054-ca9cae3b3b3c.jpeg",
+            "width": 2048,
+            "height": 1506
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#d0dcd7",
+            "percent": 0.27077425
+          },
+          {
+            "hex": "#251719",
+            "percent": 0.18206827
+          },
+          {
+            "hex": "#eeede4",
+            "percent": 0.17888899
+          },
+          {
+            "hex": "#3f2824",
+            "percent": 0.15833629
+          },
+          {
+            "hex": "#5e3d35",
+            "percent": 0.08994299
+          }
+        ],
+        "keywords": [
+          "palm tree",
+          "tree",
+          "frond",
+          "trunk",
+          "sky",
+          "low angle",
+          "golden hour"
+        ]
+      },
+      {
+        "id": 17416,
+        "title": "Winter on Bass Lake. Homemade pinhole camera loaded with 5x7 black and white paper. 9 months exposure.",
+        "author": "Ok_Mastodon_9093",
+        "permalink": "https://www.reddit.com/r/analog/comments/1c8t3bu/winter_on_bass_lake_homemade_pinhole_camera/",
+        "caption": "A long exposure photograph shows light trails over a body of water.",
+        "score": 2825,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/56c49075-8c59-4ff0-80f2-f9fb85a2a2be.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/6d04e83a-d525-4b2e-8291-dea5b3a2ea5e.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/10134f86-0ce1-4c63-b6f5-95f7ab49a870.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/333af296-c93a-42b5-96df-c3512e12b014.jpeg",
+            "width": 2500,
+            "height": 2500
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#7c8a66",
+            "percent": 0.1889335
+          },
+          {
+            "hex": "#979b68",
+            "percent": 0.1636618
+          },
+          {
+            "hex": "#6e7143",
+            "percent": 0.14498175
+          },
+          {
+            "hex": "#afb281",
+            "percent": 0.14416058
+          },
+          {
+            "hex": "#c5cda6",
+            "percent": 0.1112794
+          }
+        ],
+        "keywords": [
+          "light trail",
+          "water",
+          "long exposure",
+          "abstract",
+          "bass lake"
+        ]
+      },
+      {
+        "id": 5809,
+        "title": "Is there ever a time to scan full borders? Cool, or kitschy?",
+        "author": "citizenxcc",
+        "permalink": "https://www.reddit.com/r/analog/comments/1106lq5/is_there_ever_a_time_to_scan_full_borders_cool_or/",
+        "caption": "A white church with a steeple and cross stands next to a large, square-trimmed bush under a clear blue sky.",
+        "score": 545,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/f38f1d05-c7d9-4f47-836a-5c24e74f23db.jpeg",
+            "width": 638,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/55db7188-2385-42e1-8688-37fadc0d0a66.jpeg",
+            "width": 957,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/a8959b9b-7a29-48e5-be4c-a2e31963ea2b.jpeg",
+            "width": 1277,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/8a1aa741-4e13-4907-a3e5-7d17aa4a4b4a.jpeg",
+            "width": 5109,
+            "height": 5763
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#7b7371",
+            "percent": 0.19614246
+          },
+          {
+            "hex": "#040202",
+            "percent": 0.16740683
+          },
+          {
+            "hex": "#18619c",
+            "percent": 0.14392633
+          },
+          {
+            "hex": "#000000",
+            "percent": 0.13092781
+          },
+          {
+            "hex": "#544c49",
+            "percent": 0.11797065
+          }
+        ],
+        "keywords": [
+          "church",
+          "steeple",
+          "cross",
+          "bush",
+          "gravel",
+          "building",
+          "architecture",
+          "clear sky"
+        ]
+      }
+    ]
+  }
+}

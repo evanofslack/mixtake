@@ -1,0 +1,2324 @@
+{
+  "mix": {
+    "id": "x7pzewkz6wfo",
+    "source": {
+      "kind": "playlist",
+      "spotify_id": "0tuoN8yx2qIQnSXJ3ClnJ0",
+      "name": "duty free",
+      "subtitle": "evan_slack",
+      "cover": "https://mosaic.scdn.co/640/ab67616d00001e020005597105ba1e2d38f62cfcab67616d00001e021ffd66985f8e92a6225ffccfab67616d00001e026cf3b757ee6d986fdca8162aab67616d00001e0282038ca31d73893c215c5be6",
+      "palette": [
+        "#6d4a4a",
+        "#492a2a",
+        "#ffffff",
+        "#edc3c3"
+      ]
+    },
+    "track_ids": [
+      "5Ea38RCmV570c6Sj4EUqIq",
+      "1PssPMY2c6vBIdfipUMR3X",
+      "5x5jtuR4qWJzC6cDTgysez",
+      "2I9t0e3gLAKOi5syoHxP46",
+      "41EVzZNXWACIguYgegrrFX",
+      "5j97tfPa0kGi0ieKQRiLRf",
+      "5iX1y9Ek0AHoItECiWYpvx",
+      "260V7huyJrXnyYe0dFv2Fa",
+      "4Zw1FnXHjeLdK67gERdKXr",
+      "1jecO8NeYLsVWVptITz4c1",
+      "2P5EEkPSnpv8n6ftMzncma",
+      "4rHIGjDTXXL9Eudf3YF036",
+      "0iLicFNAMT18xb36wBrRNl",
+      "7bmlAMEfTkO6g9VBM1QHG2",
+      "7fbdTbr12vcmJhWgp58dvO",
+      "5yYAHiusmvByCUJhRIGkyp",
+      "3S6VRZQYwuPIllMmYdAj66",
+      "33zcmmElV1YbRZe57biUjg",
+      "6r3gqBvtrUVhOmASkv9gv5",
+      "3oUEzTAoOxqZHN4xiqTGqJ",
+      "3B4Tg5s5rFto30sakmNZPt",
+      "5vz2Pi3uiXIcK8NzadW8U0",
+      "0eXIlXgGQTD6hezaxdl3wO",
+      "5G1Xj9wn0TZRf7TSbiIY8M",
+      "2NIIJ5WfrK4ANNPHcOhSeb",
+      "4B6eD1nzrz6PNOLMgtT7VX",
+      "4KdJEb8VlqNfbdLz7m1Ztw",
+      "3qNtGvCC1tgeZFK9ClBz4k",
+      "6rqUOLt9dpfMANLMKTzoWj",
+      "4lTnwXQ9qzQca9Qd8io6g1",
+      "26O2AWb9Q6LnWpz3SpdgDa",
+      "4hi3K3dCnPosAUnMT7EDug",
+      "7037bX3jdaUWUAXL12CHGy",
+      "1HFFfvXM13DA5hYt6SjhZj",
+      "3lWzVNe1yFZlkeBBzUuZYu"
+    ],
+    "created_at": "2026-11-14T17:45:38.819216Z"
+  },
+  "tracks": [
+    {
+      "id": "5Ea38RCmV570c6Sj4EUqIq",
+      "title": "S'en aller",
+      "artists": [
+        {
+          "name": "Swing"
+        },
+        {
+          "name": "Angèle"
+        }
+      ],
+      "duration_ms": 264080,
+      "explicit": false
+    },
+    {
+      "id": "1PssPMY2c6vBIdfipUMR3X",
+      "title": "Si Nos Vamos",
+      "artists": [
+        {
+          "name": "Marc Seguí"
+        }
+      ],
+      "duration_ms": 166750,
+      "explicit": false
+    },
+    {
+      "id": "5x5jtuR4qWJzC6cDTgysez",
+      "title": "Clandestina (feat. Emma Peters) - Cocaina Remix",
+      "artists": [
+        {
+          "name": "FILV"
+        },
+        {
+          "name": "Edmofo"
+        },
+        {
+          "name": "Emma Peters"
+        }
+      ],
+      "duration_ms": 150106,
+      "explicit": true
+    },
+    {
+      "id": "2I9t0e3gLAKOi5syoHxP46",
+      "title": "fue mejor",
+      "artists": [
+        {
+          "name": "Kali Uchis"
+        },
+        {
+          "name": "PARTYNEXTDOOR"
+        }
+      ],
+      "duration_ms": 228602,
+      "explicit": false
+    },
+    {
+      "id": "41EVzZNXWACIguYgegrrFX",
+      "title": "Enfance 80",
+      "artists": [
+        {
+          "name": "Videoclub"
+        }
+      ],
+      "duration_ms": 222654,
+      "explicit": false
+    },
+    {
+      "id": "5j97tfPa0kGi0ieKQRiLRf",
+      "title": "Trop beau",
+      "artists": [
+        {
+          "name": "Crisologo"
+        },
+        {
+          "name": "Emma Peters"
+        }
+      ],
+      "duration_ms": 284000,
+      "explicit": false
+    },
+    {
+      "id": "5iX1y9Ek0AHoItECiWYpvx",
+      "title": "Je Chante",
+      "artists": [
+        {
+          "name": "MIKA"
+        }
+      ],
+      "duration_ms": 168346,
+      "explicit": false
+    },
+    {
+      "id": "260V7huyJrXnyYe0dFv2Fa",
+      "title": "Canopée",
+      "artists": [
+        {
+          "name": "Polo \u0026 Pan"
+        }
+      ],
+      "duration_ms": 276293,
+      "explicit": false
+    },
+    {
+      "id": "4Zw1FnXHjeLdK67gERdKXr",
+      "title": "Un Monde Nouveau",
+      "artists": [
+        {
+          "name": "Feu! Chatterton"
+        }
+      ],
+      "duration_ms": 301000,
+      "explicit": false
+    },
+    {
+      "id": "1jecO8NeYLsVWVptITz4c1",
+      "title": "Tú",
+      "artists": [
+        {
+          "name": "maye"
+        }
+      ],
+      "duration_ms": 206611,
+      "explicit": false
+    },
+    {
+      "id": "2P5EEkPSnpv8n6ftMzncma",
+      "title": "Tarhanine Tegla",
+      "artists": [
+        {
+          "name": "Afous d'Afous"
+        }
+      ],
+      "duration_ms": 246613,
+      "explicit": false
+    },
+    {
+      "id": "4rHIGjDTXXL9Eudf3YF036",
+      "title": "Drank \u0026 Drugs",
+      "artists": [
+        {
+          "name": "Lil Kleine"
+        },
+        {
+          "name": "Ronnie Flex"
+        }
+      ],
+      "duration_ms": 145978,
+      "explicit": true
+    },
+    {
+      "id": "0iLicFNAMT18xb36wBrRNl",
+      "title": "Paradis bleu",
+      "artists": [
+        {
+          "name": "Revers Gagnant"
+        },
+        {
+          "name": "Matild"
+        }
+      ],
+      "duration_ms": 237913,
+      "explicit": false
+    },
+    {
+      "id": "7bmlAMEfTkO6g9VBM1QHG2",
+      "title": "Contigo Jamás",
+      "artists": [
+        {
+          "name": "Ocote Soul Sounds"
+        }
+      ],
+      "duration_ms": 272733,
+      "explicit": false
+    },
+    {
+      "id": "7fbdTbr12vcmJhWgp58dvO",
+      "title": "Profite - Kazy Lambist Remix",
+      "artists": [
+        {
+          "name": "Moi Je"
+        },
+        {
+          "name": "Antoine Lartigue"
+        },
+        {
+          "name": "Simon Berard"
+        },
+        {
+          "name": "Loïc Lassablière"
+        },
+        {
+          "name": "Babil Lachheb"
+        },
+        {
+          "name": "Kazy Lambist"
+        }
+      ],
+      "duration_ms": 198688,
+      "explicit": false
+    },
+    {
+      "id": "5yYAHiusmvByCUJhRIGkyp",
+      "title": "Kenopsia",
+      "artists": [
+        {
+          "name": "Sinego"
+        },
+        {
+          "name": "Velveta"
+        }
+      ],
+      "duration_ms": 203922,
+      "explicit": false
+    },
+    {
+      "id": "3S6VRZQYwuPIllMmYdAj66",
+      "title": "ESTILAZO",
+      "artists": [
+        {
+          "name": "Marshmello"
+        },
+        {
+          "name": "Tokischa"
+        }
+      ],
+      "duration_ms": 158826,
+      "explicit": true
+    },
+    {
+      "id": "33zcmmElV1YbRZe57biUjg",
+      "title": "Celoso",
+      "artists": [
+        {
+          "name": "Lele Pons"
+        }
+      ],
+      "duration_ms": 179693,
+      "explicit": false
+    },
+    {
+      "id": "6r3gqBvtrUVhOmASkv9gv5",
+      "title": "Planer",
+      "artists": [
+        {
+          "name": "Swing"
+        }
+      ],
+      "duration_ms": 210697,
+      "explicit": false
+    },
+    {
+      "id": "3oUEzTAoOxqZHN4xiqTGqJ",
+      "title": "Bécane - A COLORS SHOW",
+      "artists": [
+        {
+          "name": "Yamê"
+        },
+        {
+          "name": "COLORS"
+        }
+      ],
+      "duration_ms": 182440,
+      "explicit": true
+    },
+    {
+      "id": "3B4Tg5s5rFto30sakmNZPt",
+      "title": "Chaleur épique sous les tropiques",
+      "artists": [
+        {
+          "name": "AGAV"
+        }
+      ],
+      "duration_ms": 170683,
+      "explicit": false
+    },
+    {
+      "id": "5vz2Pi3uiXIcK8NzadW8U0",
+      "title": "Cette fille",
+      "artists": [
+        {
+          "name": "Miel De Montagne"
+        }
+      ],
+      "duration_ms": 168983,
+      "explicit": false
+    },
+    {
+      "id": "0eXIlXgGQTD6hezaxdl3wO",
+      "title": "J'y peux rien",
+      "artists": [
+        {
+          "name": "Miel De Montagne"
+        }
+      ],
+      "duration_ms": 181803,
+      "explicit": false
+    },
+    {
+      "id": "5G1Xj9wn0TZRf7TSbiIY8M",
+      "title": "$payforhaiti (feat. Mach-Hommy)",
+      "artists": [
+        {
+          "name": "KAYTRANADA"
+        },
+        {
+          "name": "Mach-Hommy"
+        }
+      ],
+      "duration_ms": 183766,
+      "explicit": true
+    },
+    {
+      "id": "2NIIJ5WfrK4ANNPHcOhSeb",
+      "title": "Come On Home",
+      "artists": [
+        {
+          "name": "The Lijadu Sisters"
+        }
+      ],
+      "duration_ms": 314520,
+      "explicit": false
+    },
+    {
+      "id": "4B6eD1nzrz6PNOLMgtT7VX",
+      "title": "dopamine - Version Française",
+      "artists": [
+        {
+          "name": "Madelline"
+        }
+      ],
+      "duration_ms": 165461,
+      "explicit": false
+    },
+    {
+      "id": "4KdJEb8VlqNfbdLz7m1Ztw",
+      "title": "Voilà",
+      "artists": [
+        {
+          "name": "Jeanne Cherhal"
+        }
+      ],
+      "duration_ms": 210091,
+      "explicit": false
+    },
+    {
+      "id": "3qNtGvCC1tgeZFK9ClBz4k",
+      "title": "Napule Canta E More",
+      "artists": [
+        {
+          "name": "Donatella Viggiano"
+        }
+      ],
+      "duration_ms": 174349,
+      "explicit": false
+    },
+    {
+      "id": "6rqUOLt9dpfMANLMKTzoWj",
+      "title": "Le temps de l'amour - Stereo Mix",
+      "artists": [
+        {
+          "name": "Françoise Hardy"
+        }
+      ],
+      "duration_ms": 144826,
+      "explicit": false
+    },
+    {
+      "id": "4lTnwXQ9qzQca9Qd8io6g1",
+      "title": "Oye mi guaguanco",
+      "artists": [
+        {
+          "name": "Tito Puente \u0026 His Orchestra"
+        }
+      ],
+      "duration_ms": 214960,
+      "explicit": false
+    },
+    {
+      "id": "26O2AWb9Q6LnWpz3SpdgDa",
+      "title": "Aie",
+      "artists": [
+        {
+          "name": "Roberta Kelly"
+        }
+      ],
+      "duration_ms": 261584,
+      "explicit": false
+    },
+    {
+      "id": "4hi3K3dCnPosAUnMT7EDug",
+      "title": "Alegría - Yuksek Remix",
+      "artists": [
+        {
+          "name": "Elia y Elizabeth"
+        },
+        {
+          "name": "Yuksek"
+        }
+      ],
+      "duration_ms": 258234,
+      "explicit": false
+    },
+    {
+      "id": "7037bX3jdaUWUAXL12CHGy",
+      "title": "Sarà perché ti amo",
+      "artists": [
+        {
+          "name": "Ricchi E Poveri"
+        }
+      ],
+      "duration_ms": 190693,
+      "explicit": false
+    },
+    {
+      "id": "1HFFfvXM13DA5hYt6SjhZj",
+      "title": "Stemgeluid",
+      "artists": [
+        {
+          "name": "Vlins"
+        },
+        {
+          "name": "Laura Yasmin"
+        }
+      ],
+      "duration_ms": 175263,
+      "explicit": false
+    },
+    {
+      "id": "3lWzVNe1yFZlkeBBzUuZYu",
+      "title": "Bella Ciao - Música Original de la Serie la Casa de Papel/ Money Heist",
+      "artists": [
+        {
+          "name": "Manu Pilas"
+        }
+      ],
+      "duration_ms": 139844,
+      "explicit": false
+    }
+  ],
+  "features": {
+    "0eXIlXgGQTD6hezaxdl3wO": {
+      "tempo": 113.9,
+      "key": "G#",
+      "mode": "minor",
+      "danceable": 0.9371,
+      "happy": 0.6051,
+      "sad": 0.2267,
+      "relaxed": 0.644,
+      "aggressive": 0.0176,
+      "party": 0.6271,
+      "acoustic": 0.0978,
+      "instrumental": 0.4435,
+      "valence": 0.5493,
+      "arousal": 0.6241,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.2562
+        },
+        {
+          "name": "Electronic---Nu-Disco",
+          "score": 0.1875
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.1561
+        }
+      ]
+    },
+    "0iLicFNAMT18xb36wBrRNl": {
+      "tempo": 116.9,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.999,
+      "happy": 0.0753,
+      "sad": 0.2188,
+      "relaxed": 0.8362,
+      "aggressive": 0.0027,
+      "party": 0.3112,
+      "acoustic": 0.2603,
+      "instrumental": 0.4731,
+      "valence": 0.6164,
+      "arousal": 0.5489,
+      "genres": [
+        {
+          "name": "Electronic---Tropical House",
+          "score": 0.8335
+        },
+        {
+          "name": "Electronic---Deep House",
+          "score": 0.5203
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.2211
+        }
+      ]
+    },
+    "1HFFfvXM13DA5hYt6SjhZj": {
+      "tempo": 94.8,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.9569,
+      "happy": 0.2573,
+      "sad": 0.3829,
+      "relaxed": 0.8731,
+      "aggressive": 0.0029,
+      "party": 0.2775,
+      "acoustic": 0.6037,
+      "instrumental": 0.0043,
+      "valence": 0.562,
+      "arousal": 0.5749,
+      "genres": [
+        {
+          "name": "Folk, World, \u0026 Country---Zouk",
+          "score": 0.2041
+        },
+        {
+          "name": "Folk, World, \u0026 Country---African",
+          "score": 0.1404
+        },
+        {
+          "name": "Electronic---Dance-pop",
+          "score": 0.0905
+        }
+      ]
+    },
+    "1PssPMY2c6vBIdfipUMR3X": {
+      "tempo": 89.6,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.968,
+      "happy": 0.3936,
+      "sad": 0.2401,
+      "relaxed": 0.7823,
+      "aggressive": 0.0148,
+      "party": 0.7996,
+      "acoustic": 0.3396,
+      "instrumental": 0.0193,
+      "valence": 0.5407,
+      "arousal": 0.5799,
+      "genres": [
+        {
+          "name": "Hip Hop---Trap",
+          "score": 0.163
+        },
+        {
+          "name": "Latin---Reggaeton",
+          "score": 0.1423
+        },
+        {
+          "name": "Hip Hop---Grime",
+          "score": 0.1023
+        }
+      ]
+    },
+    "1jecO8NeYLsVWVptITz4c1": {
+      "tempo": 116.2,
+      "key": "D",
+      "mode": "minor",
+      "danceable": 0.9551,
+      "happy": 0.5424,
+      "sad": 0.4135,
+      "relaxed": 0.9482,
+      "aggressive": 0.006,
+      "party": 0.3772,
+      "acoustic": 0.7393,
+      "instrumental": 0.38,
+      "valence": 0.552,
+      "arousal": 0.605,
+      "genres": [
+        {
+          "name": "Pop---K-pop",
+          "score": 0.2297
+        },
+        {
+          "name": "Electronic---Dance-pop",
+          "score": 0.0922
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.0875
+        }
+      ]
+    },
+    "260V7huyJrXnyYe0dFv2Fa": {
+      "tempo": 96,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.9996,
+      "happy": 0.1214,
+      "sad": 0.111,
+      "relaxed": 0.8393,
+      "aggressive": 0.0003,
+      "party": 0.6621,
+      "acoustic": 0.4276,
+      "instrumental": 0.3094,
+      "valence": 0.5806,
+      "arousal": 0.6614,
+      "genres": [
+        {
+          "name": "Electronic---Tropical House",
+          "score": 0.7346
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.497
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.3342
+        }
+      ]
+    },
+    "2I9t0e3gLAKOi5syoHxP46": {
+      "tempo": 104.3,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.9671,
+      "happy": 0.0756,
+      "sad": 0.5159,
+      "relaxed": 0.9206,
+      "aggressive": 0.0045,
+      "party": 0.1725,
+      "acoustic": 0.1624,
+      "instrumental": 0.0044,
+      "valence": 0.5657,
+      "arousal": 0.5019,
+      "genres": [
+        {
+          "name": "Hip Hop---Cloud Rap",
+          "score": 0.2596
+        },
+        {
+          "name": "Funk / Soul---Contemporary R\u0026B",
+          "score": 0.1644
+        },
+        {
+          "name": "Hip Hop---RnB/Swing",
+          "score": 0.1121
+        }
+      ]
+    },
+    "2NIIJ5WfrK4ANNPHcOhSeb": {
+      "tempo": 92.7,
+      "key": "G",
+      "mode": "major",
+      "danceable": 0.9104,
+      "happy": 0.9187,
+      "sad": 0.2335,
+      "relaxed": 0.3653,
+      "aggressive": 0.0069,
+      "party": 0.8371,
+      "acoustic": 0.2066,
+      "instrumental": 0.0683,
+      "valence": 0.5874,
+      "arousal": 0.6112,
+      "genres": [
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.2685
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.1666
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.1453
+        }
+      ]
+    },
+    "2P5EEkPSnpv8n6ftMzncma": {
+      "tempo": 153.4,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.2014,
+      "happy": 0.6335,
+      "sad": 0.5379,
+      "relaxed": 0.7246,
+      "aggressive": 0.0121,
+      "party": 0.1047,
+      "acoustic": 0.8795,
+      "instrumental": 0.0194,
+      "valence": 0.5777,
+      "arousal": 0.5936,
+      "genres": [
+        {
+          "name": "Pop---Ballad",
+          "score": 0.156
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Folk",
+          "score": 0.1386
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Séga",
+          "score": 0.0585
+        }
+      ]
+    },
+    "33zcmmElV1YbRZe57biUjg": {
+      "tempo": 83,
+      "key": "E",
+      "mode": "minor",
+      "danceable": 0.9975,
+      "happy": 0.5656,
+      "sad": 0.1049,
+      "relaxed": 0.6771,
+      "aggressive": 0.0066,
+      "party": 0.9641,
+      "acoustic": 0.1295,
+      "instrumental": 0.0036,
+      "valence": 0.6145,
+      "arousal": 0.6044,
+      "genres": [
+        {
+          "name": "Latin---Reggaeton",
+          "score": 0.7357
+        },
+        {
+          "name": "Hip Hop---Trap",
+          "score": 0.3158
+        },
+        {
+          "name": "Electronic---Dance-pop",
+          "score": 0.0709
+        }
+      ]
+    },
+    "3B4Tg5s5rFto30sakmNZPt": {
+      "tempo": 110.5,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.9793,
+      "happy": 0.4379,
+      "sad": 0.27,
+      "relaxed": 0.7836,
+      "aggressive": 0.0078,
+      "party": 0.5377,
+      "acoustic": 0.1258,
+      "instrumental": 0.474,
+      "valence": 0.6029,
+      "arousal": 0.5443,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.1188
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.1187
+        },
+        {
+          "name": "Electronic---Tropical House",
+          "score": 0.1044
+        }
+      ]
+    },
+    "3S6VRZQYwuPIllMmYdAj66": {
+      "tempo": 115.8,
+      "key": "F#",
+      "mode": "major",
+      "danceable": 0.9998,
+      "happy": 0.8098,
+      "sad": 0.0557,
+      "relaxed": 0.1187,
+      "aggressive": 0.0517,
+      "party": 0.9852,
+      "acoustic": 0.0112,
+      "instrumental": 0.0152,
+      "valence": 0.6691,
+      "arousal": 0.6882,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.4158
+        },
+        {
+          "name": "Electronic---Deep House",
+          "score": 0.0984
+        },
+        {
+          "name": "Hip Hop---Trap",
+          "score": 0.0959
+        }
+      ]
+    },
+    "3lWzVNe1yFZlkeBBzUuZYu": {
+      "tempo": 162.1,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.0266,
+      "happy": 0.8073,
+      "sad": 0.4911,
+      "relaxed": 0.474,
+      "aggressive": 0.0099,
+      "party": 0.3268,
+      "acoustic": 0.6352,
+      "instrumental": 0.0464,
+      "valence": 0.684,
+      "arousal": 0.7598,
+      "genres": [
+        {
+          "name": "Rock---Parody",
+          "score": 0.1777
+        },
+        {
+          "name": "Pop---Parody",
+          "score": 0.1507
+        },
+        {
+          "name": "Pop---Vocal",
+          "score": 0.0832
+        }
+      ]
+    },
+    "3oUEzTAoOxqZHN4xiqTGqJ": {
+      "tempo": 121.7,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.9962,
+      "happy": 0.1413,
+      "sad": 0.2073,
+      "relaxed": 0.759,
+      "aggressive": 0.0423,
+      "party": 0.3813,
+      "acoustic": 0.0288,
+      "instrumental": 0.0047,
+      "valence": 0.5258,
+      "arousal": 0.5215,
+      "genres": [
+        {
+          "name": "Hip Hop---Cloud Rap",
+          "score": 0.6936
+        },
+        {
+          "name": "Hip Hop---Trap",
+          "score": 0.4957
+        },
+        {
+          "name": "Hip Hop---Pop Rap",
+          "score": 0.0495
+        }
+      ]
+    },
+    "3qNtGvCC1tgeZFK9ClBz4k": {
+      "tempo": 106.1,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.6187,
+      "happy": 0.6932,
+      "sad": 0.4803,
+      "relaxed": 0.6816,
+      "aggressive": 0.0048,
+      "party": 0.5084,
+      "acoustic": 0.2249,
+      "instrumental": 0.3158,
+      "valence": 0.6167,
+      "arousal": 0.6311,
+      "genres": [
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.2819
+        },
+        {
+          "name": "Funk / Soul---Funk",
+          "score": 0.2706
+        },
+        {
+          "name": "Folk, World, \u0026 Country---Canzone Napoletana",
+          "score": 0.2093
+        }
+      ]
+    },
+    "41EVzZNXWACIguYgegrrFX": {
+      "tempo": 100,
+      "key": "B",
+      "mode": "major",
+      "danceable": 0.9185,
+      "happy": 0.5566,
+      "sad": 0.2268,
+      "relaxed": 0.6637,
+      "aggressive": 0.0112,
+      "party": 0.7581,
+      "acoustic": 0.0795,
+      "instrumental": 0.0307,
+      "valence": 0.6199,
+      "arousal": 0.6025,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.3087
+        },
+        {
+          "name": "Rock---Dream Pop",
+          "score": 0.27
+        },
+        {
+          "name": "Pop---Indie Pop",
+          "score": 0.2561
+        }
+      ]
+    },
+    "4B6eD1nzrz6PNOLMgtT7VX": {
+      "tempo": 136.1,
+      "key": "G#",
+      "mode": "minor",
+      "danceable": 0.9879,
+      "happy": 0.363,
+      "sad": 0.1384,
+      "relaxed": 0.2844,
+      "aggressive": 0.0774,
+      "party": 0.7684,
+      "acoustic": 0.0416,
+      "instrumental": 0.0147,
+      "valence": 0.6137,
+      "arousal": 0.6332,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.1578
+        },
+        {
+          "name": "Electronic---UK Garage",
+          "score": 0.1438
+        },
+        {
+          "name": "Hip Hop---RnB/Swing",
+          "score": 0.0821
+        }
+      ]
+    },
+    "4KdJEb8VlqNfbdLz7m1Ztw": {
+      "tempo": 86,
+      "key": "B",
+      "mode": "minor",
+      "danceable": 0.5718,
+      "happy": 0.7506,
+      "sad": 0.8157,
+      "relaxed": 0.974,
+      "aggressive": 0.0006,
+      "party": 0.0038,
+      "acoustic": 0.9329,
+      "instrumental": 0.0787,
+      "valence": 0.485,
+      "arousal": 0.6471,
+      "genres": [
+        {
+          "name": "Pop---Ballad",
+          "score": 0.0774
+        },
+        {
+          "name": "Pop---J-pop",
+          "score": 0.066
+        },
+        {
+          "name": "Rock---Indie Rock",
+          "score": 0.0658
+        }
+      ]
+    },
+    "4Zw1FnXHjeLdK67gERdKXr": {
+      "tempo": 107,
+      "key": "F",
+      "mode": "major",
+      "danceable": 0.9634,
+      "happy": 0.2545,
+      "sad": 0.2304,
+      "relaxed": 0.6119,
+      "aggressive": 0.1078,
+      "party": 0.2823,
+      "acoustic": 0.0439,
+      "instrumental": 0.1916,
+      "valence": 0.6142,
+      "arousal": 0.5592,
+      "genres": [
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.1401
+        },
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.1204
+        },
+        {
+          "name": "Rock---Alternative Rock",
+          "score": 0.0859
+        }
+      ]
+    },
+    "4hi3K3dCnPosAUnMT7EDug": {
+      "tempo": 111,
+      "key": "A",
+      "mode": "minor",
+      "danceable": 0.9998,
+      "happy": 0.7813,
+      "sad": 0.0227,
+      "relaxed": 0.0699,
+      "aggressive": 0.0148,
+      "party": 0.9968,
+      "acoustic": 0.0041,
+      "instrumental": 0.4314,
+      "valence": 0.6838,
+      "arousal": 0.7305,
+      "genres": [
+        {
+          "name": "Electronic---Disco",
+          "score": 0.6378
+        },
+        {
+          "name": "Electronic---Nu-Disco",
+          "score": 0.5055
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.4125
+        }
+      ]
+    },
+    "4lTnwXQ9qzQca9Qd8io6g1": {
+      "tempo": 153.7,
+      "key": "C",
+      "mode": "minor",
+      "danceable": 0.9687,
+      "happy": 0.3708,
+      "sad": 0.0542,
+      "relaxed": 0.5486,
+      "aggressive": 0.0549,
+      "party": 0.9075,
+      "acoustic": 0.198,
+      "instrumental": 0.645,
+      "valence": 0.6117,
+      "arousal": 0.6093,
+      "genres": [
+        {
+          "name": "Latin---Cha-Cha",
+          "score": 0.6709
+        },
+        {
+          "name": "Latin---Mambo",
+          "score": 0.3419
+        },
+        {
+          "name": "Latin---Salsa",
+          "score": 0.2292
+        }
+      ]
+    },
+    "4rHIGjDTXXL9Eudf3YF036": {
+      "tempo": 120,
+      "key": "A#",
+      "mode": "minor",
+      "danceable": 0.9997,
+      "happy": 0.582,
+      "sad": 0.0729,
+      "relaxed": 0.1606,
+      "aggressive": 0.0306,
+      "party": 0.9679,
+      "acoustic": 0.0388,
+      "instrumental": 0.0021,
+      "valence": 0.7076,
+      "arousal": 0.6416,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.5479
+        },
+        {
+          "name": "Electronic---Tropical House",
+          "score": 0.2266
+        },
+        {
+          "name": "Electronic---Deep House",
+          "score": 0.144
+        }
+      ]
+    },
+    "5Ea38RCmV570c6Sj4EUqIq": {
+      "tempo": 125,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.9977,
+      "happy": 0.152,
+      "sad": 0.3358,
+      "relaxed": 0.9278,
+      "aggressive": 0.0103,
+      "party": 0.4909,
+      "acoustic": 0.0623,
+      "instrumental": 0.0167,
+      "valence": 0.5546,
+      "arousal": 0.5551,
+      "genres": [
+        {
+          "name": "Funk / Soul---Contemporary R\u0026B",
+          "score": 0.2877
+        },
+        {
+          "name": "Funk / Soul---Neo Soul",
+          "score": 0.1466
+        },
+        {
+          "name": "Hip Hop---Trap",
+          "score": 0.1051
+        }
+      ]
+    },
+    "5G1Xj9wn0TZRf7TSbiIY8M": {
+      "tempo": 109.7,
+      "key": "A#",
+      "mode": "minor",
+      "danceable": 0.9997,
+      "happy": 0.6832,
+      "sad": 0.1089,
+      "relaxed": 0.6656,
+      "aggressive": 0.0087,
+      "party": 0.7636,
+      "acoustic": 0.0241,
+      "instrumental": 0.0102,
+      "valence": 0.5187,
+      "arousal": 0.5427,
+      "genres": [
+        {
+          "name": "Hip Hop---Gangsta",
+          "score": 0.1807
+        },
+        {
+          "name": "Hip Hop---Bounce",
+          "score": 0.1348
+        },
+        {
+          "name": "Hip Hop---Conscious",
+          "score": 0.1126
+        }
+      ]
+    },
+    "5iX1y9Ek0AHoItECiWYpvx": {
+      "tempo": 138,
+      "key": "C",
+      "mode": "major",
+      "danceable": 0.895,
+      "happy": 0.7027,
+      "sad": 0.2277,
+      "relaxed": 0.4237,
+      "aggressive": 0.0414,
+      "party": 0.6773,
+      "acoustic": 0.155,
+      "instrumental": 0.0187,
+      "valence": 0.7953,
+      "arousal": 0.6529,
+      "genres": [
+        {
+          "name": "Electronic---Electro",
+          "score": 0.1755
+        },
+        {
+          "name": "Rock---Pop Rock",
+          "score": 0.1001
+        },
+        {
+          "name": "Rock---Indie Rock",
+          "score": 0.0773
+        }
+      ]
+    },
+    "5j97tfPa0kGi0ieKQRiLRf": {
+      "tempo": 120,
+      "key": "G#",
+      "mode": "minor",
+      "danceable": 0.9338,
+      "happy": 0.2724,
+      "sad": 0.2551,
+      "relaxed": 0.5175,
+      "aggressive": 0.0334,
+      "party": 0.7511,
+      "acoustic": 0.2849,
+      "instrumental": 0.2417,
+      "valence": 0.5459,
+      "arousal": 0.573,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.3783
+        },
+        {
+          "name": "Electronic---Deep House",
+          "score": 0.2087
+        },
+        {
+          "name": "Electronic---Tropical House",
+          "score": 0.2005
+        }
+      ]
+    },
+    "5vz2Pi3uiXIcK8NzadW8U0": {
+      "tempo": 117.2,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.9785,
+      "happy": 0.5039,
+      "sad": 0.1927,
+      "relaxed": 0.8215,
+      "aggressive": 0.0038,
+      "party": 0.5716,
+      "acoustic": 0.017,
+      "instrumental": 0.2956,
+      "valence": 0.5223,
+      "arousal": 0.5768,
+      "genres": [
+        {
+          "name": "Electronic---Synth-pop",
+          "score": 0.4791
+        },
+        {
+          "name": "Pop---Indie Pop",
+          "score": 0.1894
+        },
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.1582
+        }
+      ]
+    },
+    "5x5jtuR4qWJzC6cDTgysez": {
+      "tempo": 105,
+      "key": "C#",
+      "mode": "major",
+      "danceable": 0.9826,
+      "happy": 0.0811,
+      "sad": 0.2247,
+      "relaxed": 0.6535,
+      "aggressive": 0.0051,
+      "party": 0.6987,
+      "acoustic": 0.2816,
+      "instrumental": 0.4402,
+      "valence": 0.5363,
+      "arousal": 0.4971,
+      "genres": [
+        {
+          "name": "Electronic---Tropical House",
+          "score": 0.3646
+        },
+        {
+          "name": "Electronic---Deep House",
+          "score": 0.335
+        },
+        {
+          "name": "Electronic---Electro House",
+          "score": 0.2475
+        }
+      ]
+    },
+    "5yYAHiusmvByCUJhRIGkyp": {
+      "tempo": 115.9,
+      "key": "G#",
+      "mode": "major",
+      "danceable": 0.9977,
+      "happy": 0.0361,
+      "sad": 0.108,
+      "relaxed": 0.7986,
+      "aggressive": 0.0088,
+      "party": 0.5461,
+      "acoustic": 0.0385,
+      "instrumental": 0.9694,
+      "valence": 0.5861,
+      "arousal": 0.5544,
+      "genres": [
+        {
+          "name": "Electronic---Deep House",
+          "score": 0.6167
+        },
+        {
+          "name": "Electronic---Deep Techno",
+          "score": 0.2358
+        },
+        {
+          "name": "Electronic---House",
+          "score": 0.1993
+        }
+      ]
+    },
+    "6r3gqBvtrUVhOmASkv9gv5": {
+      "tempo": 81,
+      "key": "A",
+      "mode": "major",
+      "danceable": 0.9955,
+      "happy": 0.571,
+      "sad": 0.2085,
+      "relaxed": 0.8034,
+      "aggressive": 0.0132,
+      "party": 0.495,
+      "acoustic": 0.028,
+      "instrumental": 0.0325,
+      "valence": 0.4374,
+      "arousal": 0.5302,
+      "genres": [
+        {
+          "name": "Hip Hop---Gangsta",
+          "score": 0.3943
+        },
+        {
+          "name": "Hip Hop---Screw",
+          "score": 0.2323
+        },
+        {
+          "name": "Hip Hop---G-Funk",
+          "score": 0.1755
+        }
+      ]
+    },
+    "6rqUOLt9dpfMANLMKTzoWj": {
+      "tempo": 132.8,
+      "key": "G#",
+      "mode": "minor",
+      "danceable": 0.2064,
+      "happy": 0.7971,
+      "sad": 0.2623,
+      "relaxed": 0.9241,
+      "aggressive": 0.0002,
+      "party": 0.0007,
+      "acoustic": 0.4759,
+      "instrumental": 0.0207,
+      "valence": 0.5048,
+      "arousal": 0.5191,
+      "genres": [
+        {
+          "name": "Pop---Chanson",
+          "score": 0.9988
+        },
+        {
+          "name": "Rock---Yé-Yé",
+          "score": 0.99
+        },
+        {
+          "name": "Pop---Ballad",
+          "score": 0.9616
+        }
+      ]
+    },
+    "7037bX3jdaUWUAXL12CHGy": {
+      "tempo": 121.8,
+      "key": "E",
+      "mode": "major",
+      "danceable": 0.9533,
+      "happy": 0.8935,
+      "sad": 0.2138,
+      "relaxed": 0.2386,
+      "aggressive": 0.0068,
+      "party": 0.8907,
+      "acoustic": 0.0314,
+      "instrumental": 0.2498,
+      "valence": 0.6365,
+      "arousal": 0.7423,
+      "genres": [
+        {
+          "name": "Electronic---Disco",
+          "score": 0.7129
+        },
+        {
+          "name": "Pop---Europop",
+          "score": 0.3719
+        },
+        {
+          "name": "Funk / Soul---Disco",
+          "score": 0.3383
+        }
+      ]
+    },
+    "7bmlAMEfTkO6g9VBM1QHG2": {
+      "tempo": 94,
+      "key": "G",
+      "mode": "minor",
+      "danceable": 0.9145,
+      "happy": 0.8734,
+      "sad": 0.1377,
+      "relaxed": 0.3532,
+      "aggressive": 0.0849,
+      "party": 0.759,
+      "acoustic": 0.2104,
+      "instrumental": 0.3202,
+      "valence": 0.6307,
+      "arousal": 0.5736,
+      "genres": [
+        {
+          "name": "Electronic---Downtempo",
+          "score": 0.0921
+        },
+        {
+          "name": "Rock---Alternative Rock",
+          "score": 0.0892
+        },
+        {
+          "name": "Reggae---Dub",
+          "score": 0.0788
+        }
+      ]
+    },
+    "7fbdTbr12vcmJhWgp58dvO": {
+      "tempo": 122,
+      "key": "F",
+      "mode": "minor",
+      "danceable": 0.8898,
+      "happy": 0.5082,
+      "sad": 0.1764,
+      "relaxed": 0.5294,
+      "aggressive": 0.0142,
+      "party": 0.6647,
+      "acoustic": 0.1871,
+      "instrumental": 0.9094,
+      "valence": 0.5501,
+      "arousal": 0.5999,
+      "genres": [
+        {
+          "name": "Electronic---House",
+          "score": 0.3343
+        },
+        {
+          "name": "Electronic---Nu-Disco",
+          "score": 0.2634
+        },
+        {
+          "name": "Electronic---Disco",
+          "score": 0.1931
+        }
+      ]
+    }
+  },
+  "model_version": "essentia-effnet1-deam2-v1",
+  "photos": {
+    "queries": [
+      "rust-red canal barge moored in grey drizzle beside a Dutch brick quay",
+      "scooter parked against whitewashed wall in a Tangier medina at noon",
+      "Lagos market stalls of yellow plastic crates in late afternoon haze",
+      "white ferry wake crossing turquoise water toward a Mediterranean headland",
+      "palm fronds over a concrete bus shelter in harsh midday sun",
+      "conveyor belt of suitcases under flickering fluorescent tubes at arrivals",
+      "duty free perfume bottles lined on a shelf under halogen glare",
+      "airport apron of parked jet tails in heat shimmer at sunrise",
+      "sunbleached beach hut shutters on a Canary Islands seafront at siesta",
+      "terraced hillside village of stone houses in morning haze over the Bay of Naples"
+    ],
+    "palette": [
+      "#2f3a46",
+      "#7d9ba3",
+      "#d9c7a4",
+      "#b8643e",
+      "#e7e0d0"
+    ],
+    "photos": [
+      {
+        "id": 42924,
+        "title": "Misty Morning [Pentax PC35AF, Kodak Gold 200]",
+        "author": "grain-storm",
+        "permalink": "https://www.reddit.com/r/analog/comments/lzrrtg/misty_morning_pentax_pc35af_kodak_gold_200/",
+        "caption": "A boat is docked on a canal with a large brick house in the background on a misty morning.",
+        "score": 191,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/7b4d79972d97a75acde7e6b9-low.jpeg",
+            "width": 491,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/7b4d79972d97a75acde7e6b9-medium.jpeg",
+            "width": 737,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/7b4d79972d97a75acde7e6b9-high.jpeg",
+            "width": 983,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/7b4d79972d97a75acde7e6b9-raw.jpeg",
+            "width": 1433,
+            "height": 2100
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#e6e5e1",
+            "percent": 0.24529987
+          },
+          {
+            "hex": "#b9b4af",
+            "percent": 0.15674222
+          },
+          {
+            "hex": "#989b96",
+            "percent": 0.13091464
+          },
+          {
+            "hex": "#d2d2cd",
+            "percent": 0.12208854
+          },
+          {
+            "hex": "#6d7e7b",
+            "percent": 0.10683823
+          }
+        ],
+        "keywords": [
+          "boat",
+          "canal",
+          "house",
+          "mist",
+          "morning",
+          "reflection",
+          "water",
+          "dock",
+          "building",
+          "hazy"
+        ]
+      },
+      {
+        "id": 46555,
+        "title": "ferry shot | Mamiya C330 | 105mm f3.5 | Cinestill 50D",
+        "author": "Jaekohead",
+        "permalink": "https://www.reddit.com/r/analog/comments/rjua2v/ferry_shot_mamiya_c330_105mm_f35_cinestill_50d/",
+        "caption": "A ferry leaves a white wake on blue water, with a distant town on a hill under a pale sky.",
+        "score": 1570,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/f7c6d1e7a2f6a055e7c0e2d9-low.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/f7c6d1e7a2f6a055e7c0e2d9-medium.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/f7c6d1e7a2f6a055e7c0e2d9-high.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/f7c6d1e7a2f6a055e7c0e2d9-raw.jpeg",
+            "width": 3197,
+            "height": 3197
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#c9cdc9",
+            "percent": 0.21738456
+          },
+          {
+            "hex": "#e7d2c4",
+            "percent": 0.19197598
+          },
+          {
+            "hex": "#7b999b",
+            "percent": 0.14443603
+          },
+          {
+            "hex": "#f7dcc8",
+            "percent": 0.13582264
+          },
+          {
+            "hex": "#537174",
+            "percent": 0.11433189
+          }
+        ],
+        "keywords": [
+          "ferry",
+          "boat",
+          "wake",
+          "water",
+          "sea",
+          "town",
+          "hill",
+          "landscape"
+        ]
+      },
+      {
+        "id": 50173,
+        "title": "Pastel yellow. [Mamiya 645 Super, 80mm, Kodak Portra 400]",
+        "author": "gestaltes",
+        "permalink": "https://www.reddit.com/r/analog/comments/givj0s/pastel_yellow_mamiya_645_super_80mm_kodak_portra/",
+        "caption": "A potted plant stands on a cobblestone street next to a building with pastel yellow and blue walls and white-framed windows.",
+        "score": 3784,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/9302beffd8eddc8dbb065d20-low.jpeg",
+            "width": 576,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/9302beffd8eddc8dbb065d20-medium.jpeg",
+            "width": 864,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/9302beffd8eddc8dbb065d20-high.jpeg",
+            "width": 1152,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/9302beffd8eddc8dbb065d20-raw.jpeg",
+            "width": 2132,
+            "height": 2664
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#f2e9ca",
+            "percent": 0.21734423
+          },
+          {
+            "hex": "#e3ca97",
+            "percent": 0.15611015
+          },
+          {
+            "hex": "#b0c1c1",
+            "percent": 0.15184462
+          },
+          {
+            "hex": "#c1d6da",
+            "percent": 0.1403477
+          },
+          {
+            "hex": "#9aa59e",
+            "percent": 0.13708285
+          }
+        ],
+        "keywords": [
+          "plant",
+          "cobblestone",
+          "street",
+          "building",
+          "pastel",
+          "yellow",
+          "blue",
+          "window",
+          "shadow",
+          "balcony",
+          "architecture"
+        ]
+      },
+      {
+        "id": 35197,
+        "title": "Tokyo and Seoul w/Canon 7 on 250D",
+        "author": "popwarandrun1",
+        "permalink": "https://www.reddit.com/r/analog/comments/1nbtxvy/tokyo_and_seoul_wcanon_7_on_250d/",
+        "caption": "A truck bed is filled with stacks of blue crates, red and yellow beer crates, and other containers, covered by a tan tarp.",
+        "score": 136,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/52347c4a-5dcd-45f1-81bb-0c63bda24267.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/ae2db90e-bbb1-44a9-be65-43c649163e94.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/e6733e6f-8921-4cc7-b606-3e58d5aa1d42.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/b01e4f05-bda1-4cad-a779-fdd0acb6cee3.jpeg",
+            "width": 2148,
+            "height": 2148
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#15171c",
+            "percent": 0.20841963
+          },
+          {
+            "hex": "#3b3533",
+            "percent": 0.17636803
+          },
+          {
+            "hex": "#7b7766",
+            "percent": 0.14483731
+          },
+          {
+            "hex": "#2b5d6a",
+            "percent": 0.1323922
+          },
+          {
+            "hex": "#bca179",
+            "percent": 0.12738921
+          }
+        ],
+        "keywords": [
+          "crate",
+          "truck",
+          "beer",
+          "tarp",
+          "container",
+          "tokyo",
+          "street"
+        ]
+      },
+      {
+        "id": 12929,
+        "title": "Fog [Hasselblad 501c | Fuji Provia 100f]",
+        "author": "HogarthFerguson",
+        "permalink": "https://www.reddit.com/r/analog/comments/1ahs69v/fog_hasselblad_501c_fuji_provia_100f/",
+        "caption": "An airplane wing and tail are visible through a thick fog on an airport tarmac with a truck and trailer.",
+        "score": 356,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/157c4bae-8e6b-42d3-a2b3-e6901291f3db.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/6c58ca60-c305-4c21-abf6-57f818e2b2da.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/1eeacb89-1ff0-4195-af5d-c0e25c1f4a21.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/fd569d04-d9a1-4c48-aa83-457a5ed3f50d.jpeg",
+            "width": 2990,
+            "height": 2990
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#88878d",
+            "percent": 0.27528164
+          },
+          {
+            "hex": "#a399a3",
+            "percent": 0.17940586
+          },
+          {
+            "hex": "#777981",
+            "percent": 0.17624228
+          },
+          {
+            "hex": "#636a75",
+            "percent": 0.0977064
+          },
+          {
+            "hex": "#0a2135",
+            "percent": 0.09089699
+          }
+        ],
+        "keywords": [
+          "airplane",
+          "fog",
+          "tarmac",
+          "truck",
+          "trailer",
+          "vehicle",
+          "airport"
+        ]
+      },
+      {
+        "id": 20870,
+        "title": "Amalfi Coast | Kodak Ektar 100 | Canon L2 + 35mm f2",
+        "author": "Soupaseb",
+        "permalink": "https://www.reddit.com/r/analog/comments/1dkkey1/amalfi_coast_kodak_ektar_100_canon_l2_35mm_f2/",
+        "caption": "A white scooter is parked on a concrete surface next to a building with a balcony and a street lamp.",
+        "score": 440,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/d4f5bf90-c917-495a-b1ce-b28edd231067.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/ca8fb675-e627-4765-b4cd-5cac23fa60b2.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/81c5aa2e-8b2d-40e0-8986-16917924d9b3.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/4a558088-40ad-4189-9ed4-c2e4c91ac8bb.jpeg",
+            "width": 4096,
+            "height": 4096
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#b9b49c",
+            "percent": 0.23559562
+          },
+          {
+            "hex": "#a39475",
+            "percent": 0.21534547
+          },
+          {
+            "hex": "#cfd0c2",
+            "percent": 0.17183824
+          },
+          {
+            "hex": "#317c9b",
+            "percent": 0.16723784
+          },
+          {
+            "hex": "#8b744e",
+            "percent": 0.08637826
+          }
+        ],
+        "keywords": [
+          "scooter",
+          "vehicle",
+          "building",
+          "balcony",
+          "street lamp",
+          "concrete",
+          "street",
+          "amalfi coast"
+        ]
+      },
+      {
+        "id": 53029,
+        "title": "Water Castle | Hasselblad 500 C/M | 80mm 2.8 | Lomography 800",
+        "author": "BananaJoe111",
+        "permalink": "https://www.reddit.com/r/analog/comments/kmi2lt/water_castle_hasselblad_500_cm_80mm_28_lomography/",
+        "caption": "A canal flows between tall brick buildings with bridges connecting the two sides.",
+        "score": 205,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/c4625d8168d100ee02d49d94-low.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/c4625d8168d100ee02d49d94-medium.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/c4625d8168d100ee02d49d94-high.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/c4625d8168d100ee02d49d94-raw.jpeg",
+            "width": 6733,
+            "height": 6733
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#f0f2f4",
+            "percent": 0.30733025
+          },
+          {
+            "hex": "#211815",
+            "percent": 0.14749421
+          },
+          {
+            "hex": "#312a25",
+            "percent": 0.12888696
+          },
+          {
+            "hex": "#afb4af",
+            "percent": 0.11633295
+          },
+          {
+            "hex": "#493f39",
+            "percent": 0.11167052
+          }
+        ],
+        "keywords": [
+          "canal",
+          "building",
+          "brick",
+          "bridge",
+          "water",
+          "cityscape",
+          "hamburg"
+        ]
+      },
+      {
+        "id": 53951,
+        "title": "Home Invasion | Abama, Spain | Contax T2, Portra 400",
+        "author": "pierrebo2010",
+        "permalink": "https://www.reddit.com/r/analog/comments/apeouv/home_invasion_abama_spain_contax_t2_portra_400/",
+        "caption": "A bright green palm frond rests on a window ledge, looking out into a dark blue night with silhouetted palm trees.",
+        "score": 2388,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/f56af578d439f04a487708e9-low.jpeg",
+            "width": 512,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/f56af578d439f04a487708e9-medium.jpeg",
+            "width": 768,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/f56af578d439f04a487708e9-high.jpeg",
+            "width": 1024,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/f56af578d439f04a487708e9-raw.jpeg",
+            "width": 3373,
+            "height": 4743
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#d9d9dc",
+            "percent": 0.23697692
+          },
+          {
+            "hex": "#040507",
+            "percent": 0.20965769
+          },
+          {
+            "hex": "#c9b8bc",
+            "percent": 0.19510385
+          },
+          {
+            "hex": "#bb99a1",
+            "percent": 0.16855
+          },
+          {
+            "hex": "#a67278",
+            "percent": 0.09076923
+          }
+        ],
+        "keywords": [
+          "palm",
+          "frond",
+          "window",
+          "night",
+          "plant",
+          "foliage",
+          "dark",
+          "blue",
+          "spain",
+          "abama"
+        ]
+      },
+      {
+        "id": 39107,
+        "title": "Drove to the airport after flight hours chasing liminal spaces, shot on Cinestill 800T pushed 1 stop [Mamiya 645, Mamiya Sekor C 80mm 2.8, Cinestill 800T @1600]",
+        "author": "TheUberritter",
+        "permalink": "https://www.reddit.com/r/analog/comments/1uk2hac/drove_to_the_airport_after_flight_hours_chasing/",
+        "caption": "Two moving walkways are illuminated by colorful lights in an airport terminal at night.",
+        "score": 390,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/d9792378-e183-4f73-95a3-19a8c30d325d.jpeg",
+            "width": 720,
+            "height": 527
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/9dc6e49f-59c4-474f-91a1-bb395c4e392c.jpeg",
+            "width": 1080,
+            "height": 791
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/cba9791c-ad11-4ed9-8385-ef653883a1b4.jpeg",
+            "width": 1440,
+            "height": 1055
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/dd9dd083-24fa-4716-8975-a8a8225b7f4c.jpeg",
+            "width": 4824,
+            "height": 3533
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#436870",
+            "percent": 0.17409604
+          },
+          {
+            "hex": "#85b0b0",
+            "percent": 0.16335653
+          },
+          {
+            "hex": "#30483e",
+            "percent": 0.14695077
+          },
+          {
+            "hex": "#618484",
+            "percent": 0.13635621
+          },
+          {
+            "hex": "#0e191f",
+            "percent": 0.11816624
+          }
+        ],
+        "keywords": [
+          "moving walkway",
+          "airport",
+          "terminal",
+          "night",
+          "blue",
+          "red",
+          "neon",
+          "architecture",
+          "interior",
+          "urban",
+          "travel"
+        ]
+      },
+      {
+        "id": 45896,
+        "title": "A Gatorade Isle at Gelson’s Market [Fujifilm Tiara | CineStill 50D]",
+        "author": "Gogofrog0",
+        "permalink": "https://www.reddit.com/r/analog/comments/qrq12f/a_gatorade_isle_at_gelsons_market_fujifilm_tiara/",
+        "caption": "A shopping cart is visible in an aisle filled with bottles of sports drink.",
+        "score": 473,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/44649a5f6e2d4cd1c57b1b8a-low.jpeg",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/44649a5f6e2d4cd1c57b1b8a-medium.jpeg",
+            "width": 1080,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/44649a5f6e2d4cd1c57b1b8a-high.jpeg",
+            "width": 1440,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/44649a5f6e2d4cd1c57b1b8a-raw.jpeg",
+            "width": 4096,
+            "height": 4096
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#190d0f",
+            "percent": 0.18624772
+          },
+          {
+            "hex": "#a8925b",
+            "percent": 0.16475663
+          },
+          {
+            "hex": "#c5b799",
+            "percent": 0.13639066
+          },
+          {
+            "hex": "#e3e0d8",
+            "percent": 0.13581512
+          },
+          {
+            "hex": "#411f12",
+            "percent": 0.12617006
+          }
+        ],
+        "keywords": [
+          "shopping cart",
+          "sports drink",
+          "bottle",
+          "supermarket",
+          "aisle",
+          "gelson market",
+          "still life"
+        ]
+      },
+      {
+        "id": 29935,
+        "title": "Brazil. Canon AE-1 50mm 1.2 various films",
+        "author": "vsfh",
+        "permalink": "https://www.reddit.com/r/analog/comments/1fns3t5/brazil_canon_ae1_50mm_12_various_films/",
+        "caption": "A hillside favela with colorful houses overlooks a bay with boats and ships.",
+        "score": 594,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/93c08035-7ae5-4c2a-b132-d314745a7be7.jpeg",
+            "width": 720,
+            "height": 483
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/52d21e50-655e-40b6-9f8c-25a13fdca0e3.jpeg",
+            "width": 1080,
+            "height": 724
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/04ed5bde-dadb-4fd1-add4-0cb3d25331de.jpeg",
+            "width": 1440,
+            "height": 965
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/c5bfcb35-150d-4b7e-95b3-cfac6ce18773.jpeg",
+            "width": 3629,
+            "height": 2433
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#e4e1e1",
+            "percent": 0.2302795
+          },
+          {
+            "hex": "#a8a7a4",
+            "percent": 0.11980964
+          },
+          {
+            "hex": "#474338",
+            "percent": 0.11876006
+          },
+          {
+            "hex": "#2b2318",
+            "percent": 0.11800667
+          },
+          {
+            "hex": "#8d8377",
+            "percent": 0.10996664
+          }
+        ],
+        "keywords": [
+          "favela",
+          "house",
+          "hillside",
+          "bay",
+          "boat",
+          "ship",
+          "water",
+          "coast",
+          "palm tree",
+          "building",
+          "brazil"
+        ]
+      },
+      {
+        "id": 8023,
+        "title": "Minolta Capios 25 | Kodak Colorplus 200",
+        "author": "theadelantadow",
+        "permalink": "https://www.reddit.com/r/analog/comments/152udj8/minolta_capios_25_kodak_colorplus_200/",
+        "caption": "A narrow street market is bustling with people, vendors, and colorful stalls under a bright sky.",
+        "score": 57,
+        "grayscale": false,
+        "images": [
+          {
+            "resolution": "low",
+            "url": "/api/img/5ca9e4c4-3f6b-4e26-a86a-3edcdedc218f.jpeg",
+            "width": 482,
+            "height": 720
+          },
+          {
+            "resolution": "medium",
+            "url": "/api/img/5c9eae80-a3b7-4ac7-8ce3-a1fe6c923408.jpeg",
+            "width": 722,
+            "height": 1080
+          },
+          {
+            "resolution": "high",
+            "url": "/api/img/78481bf0-d19f-41ed-9a4c-d39bbe4baae4.jpeg",
+            "width": 963,
+            "height": 1440
+          },
+          {
+            "resolution": "raw",
+            "url": "/api/img/c04ef2f4-9489-4d7a-8f5a-362c49258d0b.jpeg",
+            "width": 2341,
+            "height": 3500
+          }
+        ],
+        "colors": [
+          {
+            "hex": "#d1a977",
+            "percent": 0.15121312
+          },
+          {
+            "hex": "#806443",
+            "percent": 0.14430325
+          },
+          {
+            "hex": "#5f472f",
+            "percent": 0.14397476
+          },
+          {
+            "hex": "#a5865e",
+            "percent": 0.13562125
+          },
+          {
+            "hex": "#1e190f",
+            "percent": 0.13425542
+          }
+        ],
+        "keywords": [
+          "street",
+          "market",
+          "people",
+          "vendor",
+          "stall",
+          "umbrella",
+          "food",
+          "produce",
+          "shadow",
+          "urban"
+        ]
+      }
+    ]
+  }
+}
